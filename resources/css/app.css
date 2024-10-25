@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .fi-modal-content {
+    background-color: #e5e7eb;
+    padding: 6px;
+} */
+.padding-0 .fi-modal-content {
+    padding: 0;
+}
+
+/* .fi-modal {
+    height: minvh;
+} */
+
+/* .fi-fo-component-ctn {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding-top: 1rem;
+    border-top: rgb(225, 225, 225) 1px solid;
+} */
+
+.fi-btn {
+    border-radius: 1rem;
+}
+
+.parent:focus * {
+    text-decoration: none;
+}
+
+.fi-fieldset {
+    border-radius: 1rem;
+}
+
+.fi-section-content {
+    padding: 22px 16px;
+    border-radius: 1rem;
+}
+
+.fi-section-header {
+    padding: 16px;
+}
+
+.fi-ta-content-grid {
+    padding: 16px 4px;
+    background: #f5f4f4;
+}
+
+.fi-ta-record .block {
+    padding: 8px;
+}
+
+.announcement-card img{/* Здесь высота устанавливается как 100% от ширины, создавая квадрат */
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.grecaptcha-badge { 
+    visibility: hidden;
+}
+
+.hide-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.html ul{
+    display: block;
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.html ol{
+    display: block;
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.bg-green-50 {
+    background-color: #f0fdf4;
+}
+
+.bg-red-50 {
+    background-color: #fef2f2;
+}
+
+.bg-blue-50 {
+    background-color: #f0f9ff;
+}
+
+.bg-orange-50 {
+    background-color: #fff7ed;
+}

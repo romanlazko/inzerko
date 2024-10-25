@@ -1,0 +1,37 @@
+Options +SymLinksIfOwnerMatch
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^inzerko.cz$
+RewriteRule ^(.*)$ https://inzerko.cz/$1 [R=301,L]
+
+# Rewrite "public" to the URL if it's not a file or directory
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]
+
+# Allow Installatron requests
+RewriteCond %{REQUEST_FILENAME} deleteme\.\w+\.php
+RewriteRule (.*) - [L] 
+
+RewriteRule ^ index.php [L]
+
+-------------------------------------------------------
+TEST
+-------------------------------------------------------
+
+Options +SymLinksIfOwnerMatch
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^navajowhite-newt-316433.hostingersite.com$
+RewriteRule ^(.*)$ https://navajowhite-newt-316433.hostingersite.com/$1 [R=301,L]
+
+# Rewrite "public" to the URL if it's not a file or directory
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]
+
+# Allow Installatron requests
+RewriteCond %{REQUEST_FILENAME} deleteme\.\w+\.php
+RewriteRule (.*) - [L] 
+
+RewriteRule ^ index.php [L]

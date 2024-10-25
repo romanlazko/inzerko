@@ -1,0 +1,184 @@
+/* purgecss start ignore */
+.address-js *,
+.address-js *:after,
+.address-js *:before {
+  box-sizing: border-box;
+}
+
+.address-js {
+  position: relative;
+}
+
+.address-js .address-js--input {
+  width: 100%;
+}
+
+.address-js .address-js--input::-webkit-search-decoration,
+.address-js .address-js--input::-webkit-search-cancel-button,
+.address-js .address-js--input::-webkit-search-results-button,
+.address-js .address-js--input::-webkit-search-results-decoration {
+  display: none;
+}
+
+.address-js .address-js--pin-right > * {
+  z-index: 2;
+  position: absolute;
+  right: 8px;
+  top: 7px;
+  display: none;
+}
+
+.address-js .suggestions {
+  box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+}
+
+/* Suggestions */
+.address-js .suggestions {
+  background-color: #fff;
+  border-radius: 4px;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  top: 110%; /* fallback */
+  top: calc(100% + 6px);
+  z-index: 1000;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.address-js-ctrl-bottom-left .suggestions,
+.address-js-ctrl-bottom-right .suggestions {
+  top: auto;
+  bottom: 100%;
+}
+
+.address-js .suggestions > li > a {
+  cursor: default;
+  display: block;
+  padding: 6px 12px;
+  color: #404040;
+}
+
+.address-js .suggestions > .active > a,
+.address-js .suggestions > li > a:hover {
+  color: #404040;
+  background-color: #f3f3f3;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.address-js--suggestion-title {
+  font-weight: bold;
+}
+
+.address-js--suggestion-title,
+.address-js--suggestion-address{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Icons */
+.address-js--icon {
+  display: inline-block;
+  vertical-align: middle;
+  speak: none;
+  fill: #757575;
+  top: 15px;
+}
+
+.address-js--icon-search {
+  position: absolute;
+  top: 13px;
+  left: 12px;
+  width: 23px;
+  height: 23px;
+}
+
+.address-js--button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  line-height: 1;
+}
+
+.address-js--button:active {
+  outline: none;
+}
+
+.address-js--icon-close {
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  margin-right: 3px;
+}
+
+.address-js--button:hover .address-js--icon-close {
+  fill: #909090;
+}
+
+.address-js--icon-loading {
+  width: 26px;
+  height: 26px;
+  margin-top: 1px;
+  margin-right: 0;
+  animation: rotate 0.8s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+/* Animation */
+@-webkit-keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Media queries*/
+@media screen and (min-width: 640px) {
+  .address-js .suggestions {
+    font-size: 13px;
+  }
+
+  .address-js--icon {
+    top: 8px;
+  }
+
+  .address-js--icon-close {
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+    margin-right: 0;
+  }
+
+  .address-js--icon-loading {
+    width: 26px;
+    height: 26px;
+    margin-top: -2px;
+    margin-right: -5px;
+  }
+
+  .address-js--error{
+    color:#909090;
+    padding: 6px 12px;
+    font-size: 16px;
+    text-align: center
+  }
+
+}
+/* purgecss end ignore */
