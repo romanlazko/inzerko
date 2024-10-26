@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileService 
 {
-    public static function create(string $name, string $email, string $password = null, string $phone, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
+    public static function create(string $name, string $email, string $password = null, string $phone = null, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
     {
         return User::create([
             'name' => $name,

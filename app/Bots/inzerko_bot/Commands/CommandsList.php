@@ -16,7 +16,6 @@ class CommandsList extends DefaultCommandsList
             UserCommands\CreateAnnouncement::class,
 
             UserCommands\Profile::class,
-            UserCommands\SaveProfile::class,
             UserCommands\StoreProfile::class,
             UserCommands\UpdateProfile::class,
 

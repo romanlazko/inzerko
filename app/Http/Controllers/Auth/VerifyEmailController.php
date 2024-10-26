@@ -58,7 +58,7 @@ class VerifyEmailController extends Controller
             event(new Verified($user));
         }
 
-        return redirect('tg://resolve?domain=pozorbottestbot');
+        return redirect('t.me/'.$user->chat?->bot?->username);
     }
 
     public function store(Request $request): RedirectResponse
