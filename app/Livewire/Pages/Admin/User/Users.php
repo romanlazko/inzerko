@@ -24,7 +24,8 @@ class Users extends AdminLayout implements HasForms, HasTable
                 'announcements as await_moderation_count' => fn ($query) => $query->status(Status::await_moderation),
             ]))
             ->columns([
-                TextColumn::make('id'),
+                TextColumn::make('id')
+                    ->description(fn (User $record) => $record?->telegram_chat->chat_id),
                 SpatieMediaLibraryImageColumn::make('image')
                     ->collection('avatar')
                     ->conversion('thumb')
