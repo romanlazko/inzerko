@@ -38,6 +38,6 @@ class AwaitEmail extends Command
             'email' => $validated['email'],
         ]);
         
-        return $this->bot->executeCommand(EditProfile::$command);
+        return $this->bot->executeCommand(Profile::$command);
     }
 }
