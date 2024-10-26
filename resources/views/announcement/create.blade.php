@@ -1,6 +1,6 @@
-<x-body-layout class="w-full max-w-xl m-auto">
+<x-body-layout class="w-full max-w-7xl m-auto">
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight selection@aware(['propName'])">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('announcement.create') }}
         </h2>
     </x-slot>
