@@ -25,7 +25,7 @@ class Users extends AdminLayout implements HasForms, HasTable
             ]))
             ->columns([
                 TextColumn::make('id')
-                    ->description(fn (User $record) => $record?->telegram_chat->chat_id),
+                    ->description(fn (User $record) => $record?->chat->chat_id),
                 SpatieMediaLibraryImageColumn::make('image')
                     ->collection('avatar')
                     ->conversion('thumb')

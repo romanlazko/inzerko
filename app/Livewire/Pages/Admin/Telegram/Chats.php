@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Geo;
 use App\Models\TelegramBot;
 use App\Models\TelegramChat;
+use Faker\Provider\ar_EG\Text;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Contracts\HasForms;
@@ -46,6 +47,8 @@ class Chats extends AdminLayout implements HasForms, HasTable
                     ->getQuery()
                 )
             ->columns([
+                TextColumn::make('id')
+                    ->description(fn (TelegramChat $record) => $record?->chat_id),
                 TextColumn::make('name')
                     ->label('Чат')
                     ->searchable(['first_name', 'last_name', 'username', 'title'])
