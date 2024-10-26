@@ -53,7 +53,7 @@ class CreateAnnouncement extends Command
         );
 
         return BotApi::returnInline([
-            'text'          => "Правила публикации: тут будет ссылка на правила публикации : $url",
+            'text'          => "Правила публикации: тут будет ссылка на правила публикации : " . "*$url*",
             'chat_id'       => $updates->getChat()->getId(),
             'parse_mode'    => "Markdown",
             'reply_markup'  => $buttons,
