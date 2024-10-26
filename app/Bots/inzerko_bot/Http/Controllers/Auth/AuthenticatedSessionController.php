@@ -13,7 +13,8 @@ class AuthenticatedSessionController extends Controller
 {
     public function auth(Request $request)
     {
-        if (! $request->hasValidSignature()) {
+        dd($request->signature);
+        if (! $request->hasValidSignature(false)) {
             abort(Response::HTTP_UNAUTHORIZED);
         }
 
