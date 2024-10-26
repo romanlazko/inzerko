@@ -13,9 +13,9 @@ class AuthenticatedSessionController extends Controller
 {
     public function auth(Request $request)
     {
-        // if (! $request->hasValidSignature()) {
-        //     abort(Response::HTTP_UNAUTHORIZED);
-        // }
+        if (! $request->hasValidSignature()) {
+            abort(Response::HTTP_UNAUTHORIZED);
+        }
 
         $user = User::where([
             'email' => $request->email,
