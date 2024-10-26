@@ -39,11 +39,11 @@ class CreateAnnouncement extends Command
 
         app()->setLocale($updates->getFrom()->getLanguageCode());
 
-        $url = env('APP_URL').URL::temporarySignedRoute('inzerko_bot.auth', 600, [
+        $url = URL::temporarySignedRoute('inzerko_bot.auth', 600, [
             'email' => $user->email, 
             'telegram_chat_id' => $telegram_chat->id, 
             'to_route' => 'inzerko_bot.announcement.create'
-        ], false);
+        ]);
 
         $buttons = BotApi::inlineKeyboardWithLink(
             array('text' => "Опубликовать объявление", 'web_app' => ['url' => $url]),
