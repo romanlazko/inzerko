@@ -30,11 +30,11 @@ class CreateAnnouncement extends Command
         $user = User::firstWhere('telegram_chat_id', $telegram_chat->id);
 
         if (! $user) {
-            return $this->bot->executeCommand(EditProfile::$command);
+            return $this->bot->executeCommand(Profile::$command);
         }
 
         if (! $user->hasVerifiedEmail()) {
-            return $this->bot->executeCommand(EmailNotVerified::$command);
+            return $this->bot->executeCommand(SendTelegramEmailVerificationNotification::$command);
         }
 
         app()->setLocale($updates->getFrom()->getLanguageCode());

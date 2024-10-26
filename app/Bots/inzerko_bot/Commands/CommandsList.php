@@ -15,7 +15,10 @@ class CommandsList extends DefaultCommandsList
 
             UserCommands\CreateAnnouncement::class,
 
-            UserCommands\EditProfile::class,
+            UserCommands\Profile::class,
+            UserCommands\SaveProfile::class,
+            UserCommands\StoreProfile::class,
+            UserCommands\UpdateProfile::class,
 
             UserCommands\Email::class,
             UserCommands\AwaitEmail::class,
@@ -23,9 +26,7 @@ class CommandsList extends DefaultCommandsList
             UserCommands\Phone::class,
             UserCommands\AwaitPhone::class,
 
-            UserCommands\SaveProfile::class,
 
-            UserCommands\CreateProfile::class,
             UserCommands\SendTelegramEmailVerificationNotification::class,
 
             UserCommands\StartCommand::class,

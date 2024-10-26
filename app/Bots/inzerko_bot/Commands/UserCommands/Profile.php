@@ -9,13 +9,13 @@ use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 
-class EditProfile extends Command
+class Profile extends Command
 {
     public static $command = 'edit-profile';
 
     public static $title = [
-        'en' => 'Edit profile',
-        'ru' => 'Редактировать профиль'
+        'en' => 'Profile',
+        'ru' => 'Профиль'
     ];
 
     public static $usage = ['edit-profile'];
@@ -28,12 +28,14 @@ class EditProfile extends Command
 
         $notes = $this->getConversation()->notes;
 
-        $profile = User::firstWhere('telegram_chat_id', $telegram_chat->id);
+        $user = User::firstWhere('telegram_chat_id', $telegram_chat->id);
+
+        $saveProfileCommand = $user ? UpdateProfile::class : StoreProfile::class;
 
         $buttons = BotApi::inlineKeyboard([
-            [array($notes['email'] ?? $profile->email ?? 'Email:', Email::$command, '')],
-            [array($notes['phone'] ?? $profile->phone ?? 'Phone:', Phone::$command, '')],
-            [array(SaveProfile::getTitle('ru'), SaveProfile::$command, '')],
+            [array($notes['email'] ?? $user?->email ?? 'Email:', Email::$command, '')],
+            [array($notes['phone'] ?? $user?->phone ?? 'Phone:', Phone::$command, '')],
+            [array($saveProfileCommand::getTitle('ru'), $saveProfileCommand::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ]);
 

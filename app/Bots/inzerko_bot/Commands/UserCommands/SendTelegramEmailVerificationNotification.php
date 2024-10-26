@@ -31,10 +31,20 @@ class SendTelegramEmailVerificationNotification extends Command
 
         $user->notify(new TelegramEmailVerification);
 
+        $buttons = BotApi::inlineKeyboard([
+            [array(Profile::getTitle('ru'), Profile::$command, '')],
+            [array(SendTelegramEmailVerificationNotification::getTitle('ru'), SendTelegramEmailVerificationNotification::$command, '')],
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
+        ]);
+
         return BotApi::returnInline([
             'chat_id' => $updates->getChat()->getId(),
-            'text' => "На e-mail: {$user->email} было отправлено письмо для подтверждения. Пожалуйста, подтвердите свой e-mail, нажав на кнопку в письме.",
+            'text' => implode("\n", [
+                "*Прежде чем продолжить, пожалуйста, подтвердите свой e-mail*"."\n",
+                "На e-mail: *{$user->email}* было отправлено письмо для подтверждения. Пожалуйста, подтвердите свой e-mail, нажав на кнопку в письме."
+            ]),
             'parse_mode'    =>  'Markdown',
+            'reply_markup'  => $buttons,
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
     }
