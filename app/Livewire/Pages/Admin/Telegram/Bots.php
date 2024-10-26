@@ -77,6 +77,11 @@ class Bots extends AdminLayout implements HasForms, HasTable
                     ->icon('heroicon-o-chat-bubble-bottom-center')
                     ->url(fn ($record) => route('admin.telegram.chats', $record))
                     ->color('success'),
+                Action::make('Channels')
+                    ->button()
+                    ->icon('heroicon-o-chat-bubble-bottom-center')
+                    ->url(fn ($record) => route('admin.telegram.channels', $record))
+                    ->color('info'),
 
                 Action::make('Logs')
                     ->button()

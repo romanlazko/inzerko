@@ -24,17 +24,17 @@ class Users extends AdminLayout implements HasForms, HasTable
                 'announcements as await_moderation_count' => fn ($query) => $query->status(Status::await_moderation),
             ]))
             ->columns([
-                TextColumn::make('id')
-                    ->description(fn (User $record) => $record?->chat->chat_id),
+                TextColumn::make('id'),
                 SpatieMediaLibraryImageColumn::make('image')
                     ->collection('avatar')
                     ->conversion('thumb')
                     ->rounded(),
                 TextColumn::make('name')
-                    ->description(fn (User $record) => $record?->email),
+                    ->description(fn (User $record) => $record?->email)
+                    ->searchable(['name', 'email']),
                 TextColumn::make('chat')
-                    ->state(fn (User $user) => $user?->chat?->first_name . ' ' . $user?->chat?->last_name)
-                    ->description(fn (User $record) => $record?->chat?->username),
+                    ->state(fn (User $user) => "{$user?->chat?->first_name} {$user?->chat?->last_name}")
+                    ->description(fn (User $record) => "{$record?->chat?->username} ({$record?->chat?->chat_id})"),
                 TextColumn::make('lang')
                     ->badge()
                     ->wrap(true),

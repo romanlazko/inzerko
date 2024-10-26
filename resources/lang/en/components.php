@@ -32,6 +32,8 @@ return [
         'logs' => 'Logs',
         'back_to_home' => 'Back to home',
         'all' => 'All',
+        'chats' => 'Chats',
+        'channels' => 'Channels',
     ],
 
     'user' => [

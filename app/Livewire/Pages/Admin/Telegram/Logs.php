@@ -27,7 +27,7 @@ class Logs extends AdminLayout implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->heading("Logs")
+            ->heading("{$this->telegram_bot->first_name} logs")
             ->defaultSort('created_at', 'desc')
             ->query(
                 TelegramLog::where('telegram_bot_id', $this->telegram_bot->id))
@@ -43,11 +43,6 @@ class Logs extends AdminLayout implements HasForms, HasTable
                     ->badge()
                     ->color('danger'),
                 TextColumn::make('line')
-            ])
-            ->headerActions([
-                Action::make('back')
-                    ->icon('heroicon-o-arrow-left-circle')
-                    ->url(route('admin.telegram.bots')),
             ])
             ->actions([
                 ViewAction::make()

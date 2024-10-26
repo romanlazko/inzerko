@@ -4,7 +4,7 @@
     @endpush
     
     <div class="p-2">
-        <livewire:pages.user.announcement.telegram-create/>
+        <livewire:components.announcement.telegram-create/>
     </div>
     
     <script>

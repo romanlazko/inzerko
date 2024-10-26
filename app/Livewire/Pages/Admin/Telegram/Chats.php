@@ -33,12 +33,7 @@ class Chats extends AdminLayout implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->heading("All Chats")
-            ->headerActions([
-                Action::make('back')
-                    ->icon('heroicon-o-arrow-left-circle')
-                    ->url(route('admin.telegram.bots')),
-            ])
+            ->heading("{$this->telegram_bot->first_name} chats")
             ->query(
                 $this->telegram_bot
                     ->chats()
@@ -47,15 +42,14 @@ class Chats extends AdminLayout implements HasForms, HasTable
                     ->getQuery()
                 )
             ->columns([
-                TextColumn::make('id')
-                    ->description(fn (TelegramChat $record) => $record?->chat_id),
+                TextColumn::make('id'),
                 TextColumn::make('name')
                     ->label('Чат')
-                    ->searchable(['first_name', 'last_name', 'username', 'title'])
+                    ->searchable(['first_name', 'last_name', 'username', 'title', 'chat_id'])
                     ->state(function (TelegramChat $telegram_chat) {
                         return "$telegram_chat->first_name $telegram_chat->last_name $telegram_chat->title";
                     })
-                    ->description(fn (TelegramChat $telegram_chat) => $telegram_chat->username),
+                    ->description(fn (TelegramChat $telegram_chat) => "{$telegram_chat?->username} ({$telegram_chat?->chat_id})"),
                 TextColumn::make('type')
                     ->sortable()
                     ->badge(),
