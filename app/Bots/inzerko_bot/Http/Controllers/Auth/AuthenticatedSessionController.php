@@ -27,6 +27,8 @@ class AuthenticatedSessionController extends Controller
         }
 
         Auth::login($user);
+
+        dd($request->to_route);
         
         return redirect()->route('inzerko_bot.announcement.create');
     }
