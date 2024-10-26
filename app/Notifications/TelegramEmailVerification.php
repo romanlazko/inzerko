@@ -24,6 +24,8 @@ class TelegramEmailVerification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
+        $this->locale($notifiable->locale);
+
         return ['mail'];
     }
 
