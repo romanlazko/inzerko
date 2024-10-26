@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\URL;
 
 class AnnouncementController extends Controller
 {
-    
     public function create()
     {
         return view('inzerko_bot::announcement.create');
