@@ -42,7 +42,7 @@ class CreateAnnouncement extends Command
         $url = env('APP_URL').URL::signedRoute('inzerko_bot.auth', [
             'email' => $user->email, 
             'telegram_chat_id' => $telegram_chat->id, 
-            'route' => 'inzerko_bot.announcements.create'
+            'to_route' => 'inzerko_bot.announcement.create'
         ], null, false);
 
         $buttons = BotApi::inlineKeyboardWithLink(

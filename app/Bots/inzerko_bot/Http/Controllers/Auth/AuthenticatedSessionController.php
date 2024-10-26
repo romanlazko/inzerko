@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         Auth::login($user);
         
-        return redirect()->route($request->input('route'));
+        return redirect()->route($request->input('to_route'));
     }
 
     /**
