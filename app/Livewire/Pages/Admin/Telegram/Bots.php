@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Telegram;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Category;
 use App\Models\TelegramBot;
 use Faker\Provider\ar_EG\Text;
@@ -20,7 +20,7 @@ use Novadaemon\FilamentPrettyJson\PrettyJson;
 use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\Generators\BotDirectoryGenerator;
 
-class Bots extends AdminLayout implements HasForms, HasTable
+class Bots extends AdminTableLayout implements HasForms, HasTable
 {
     public function table(Table $table): Table
     {

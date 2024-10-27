@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Telegram;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Category;
 use App\Models\Geo;
 use App\Models\TelegramBot;
@@ -19,7 +19,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Channels extends AdminLayout implements HasForms, HasTable
+class Channels extends AdminTableLayout implements HasForms, HasTable
 {
     public TelegramBot $telegram_bot;
 

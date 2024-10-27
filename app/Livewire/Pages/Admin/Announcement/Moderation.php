@@ -26,12 +26,13 @@ use Illuminate\Support\HtmlString;
 use Spatie\LaravelMarkdown\MarkdownRenderer;
 use Filament\Forms\Components\Livewire;
 use App\Livewire\Components\Tables\Columns\StatusSwitcher;
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\EditAction;
 use Illuminate\Support\Facades\DB;
 use Filament\Tables\Filters\Filter;
 
-class Moderation extends AdminLayout implements HasForms, HasTable
+class Moderation extends AdminTableLayout implements HasForms, HasTable
 {
     public function table(Table $table): Table
     {
@@ -228,26 +229,27 @@ class Moderation extends AdminLayout implements HasForms, HasTable
                     ->dropdown(false),
 
                     // ActionGroup::make([
-                        Action::make('history')
-                            ->label(__("View history"))
-                            ->form(fn (Announcement $announcement) => [
-                                Livewire::make(Audits::class, ['announcement_id' => $announcement->id])
-                            ])
-                            ->hiddenLabel()
-                            ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
-                            ->modalSubmitAction(false)
-                            ->slideover()
-                            ->button()
-                            ->icon('heroicon-o-clock'),
+                        // Action::make('history')
+                        //     ->label(__("View history"))
+                        //     ->form(fn (Announcement $announcement) => [
+                        //         Livewire::make(Audits::class, ['announcement_id' => $announcement->id])
+                        //     ])
+                        //     ->hiddenLabel()
+                        //     ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
+                        //     ->modalSubmitAction(false)
+                        //     ->slideover()
+                        //     ->button()
+                        //     ->icon('heroicon-o-clock'),
 
-                        DeleteAction::make()
-                            ->hiddenLabel()
-                            ->button(),
+                        // DeleteAction::make()
+                        //     ->hiddenLabel()
+                        //     ->button(),
                     // ])
                     // ->size(ActionSize::ExtraSmall)
                     // ->dropdownPlacement('right-start')
                     // ->button()
                     // ->hiddenLabel()
+                    
             ])
             ->filters([
                 Filter::make('current_status')
@@ -271,10 +273,8 @@ class Moderation extends AdminLayout implements HasForms, HasTable
                     ->form([
                         Select::make('category')
                             ->options(fn () => 
-                                Category::select('id', 'alternames', 'slug', 'parent_id')
-                                    ->with('parent')
-                                    ->withCount('announcements')
-                                    ->get()
+                                Category::all()
+                                    ->loadCount('announcements')
                                     ->groupBy('parent.name')
                                     ->map
                                     ->mapWithKeys(fn ($category) => [$category->id => $category->name . ' (' . $category->announcements_count . ')'])

@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Admin\User;
 
 use App\Enums\Status;
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\User;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\EditAction;
@@ -13,7 +13,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Users extends AdminLayout implements HasForms, HasTable
+class Users extends AdminTableLayout implements HasForms, HasTable
 {
 
     public function table(Table $table): Table

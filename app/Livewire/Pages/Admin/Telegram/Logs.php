@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Telegram;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\TelegramBot;
 use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Textarea;
@@ -15,7 +15,7 @@ use Filament\Tables\Table;
 use Romanlazko\Telegram\Models\TelegramLog;
 use Novadaemon\FilamentPrettyJson\PrettyJson;
 
-class Logs extends AdminLayout implements HasForms, HasTable
+class Logs extends AdminTableLayout implements HasForms, HasTable
 {
     public TelegramBot $telegram_bot;
 
@@ -44,6 +44,7 @@ class Logs extends AdminLayout implements HasForms, HasTable
                     ->color('danger'),
                 TextColumn::make('line')
             ])
+            ->recordAction('view')
             ->actions([
                 ViewAction::make()
                     ->form([

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Announcement;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Announcement;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
@@ -12,7 +12,7 @@ use OwenIt\Auditing\Models\Audit;
 use PepperFM\FilamentJson\Columns\JsonColumn;
 use App\Models\Status;
 
-class Statuses extends AdminLayout implements HasForms, HasTable
+class Statuses extends AdminTableLayout implements HasForms, HasTable
 {
     public Announcement $announcement;
 

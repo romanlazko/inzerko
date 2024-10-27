@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Admin\Announcement;
 
 use App\Enums\Status;
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Announcement;
 use App\Models\AnnouncementChannel;
 use Filament\Forms\Contracts\HasForms;
@@ -23,7 +23,7 @@ use Filament\Forms\Form;
 
 use Filament\Forms\Components\Select;
 
-class Channels extends AdminLayout implements HasForms, HasTable
+class Channels extends AdminTableLayout implements HasForms, HasTable
 {
     public Announcement $announcement;
 

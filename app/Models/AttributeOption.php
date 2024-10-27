@@ -21,4 +21,9 @@ class AttributeOption extends Model
     {
         return $this->alternames[app()->getLocale()] ?? $this->alternames['en'] ?? null;
     }
+
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
+    }
 }

@@ -2,26 +2,16 @@
 
 namespace App\Livewire\Pages\Admin\Telegram;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
-use App\Models\Category;
-use App\Models\Geo;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\TelegramBot;
 use App\Models\TelegramChat;
-use Faker\Provider\ar_EG\Text;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Chats extends AdminLayout implements HasForms, HasTable
+class Chats extends AdminTableLayout implements HasForms, HasTable
 {
     public TelegramBot $telegram_bot;
 
