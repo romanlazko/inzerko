@@ -28,7 +28,7 @@ class ConnectTelegramController extends Controller
     public function verifyTelegramConnection(TelegramVerificationRequest $request): RedirectResponse
     {
         $request->user()->update([
-            'telegram_chat_id' => $request->telegram_chat_id,
+            'telegram_chat_id' => $request->validated()['telegram_chat_id'],
         ]);
 
         return redirect()->intended(RouteServiceProvider::HOME)->with([
