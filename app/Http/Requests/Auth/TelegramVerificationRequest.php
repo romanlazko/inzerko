@@ -28,7 +28,6 @@ class TelegramVerificationRequest extends FormRequest
         if (! hash_equals(sha1($this->user()->telegram_token), $this->route('telegram_token'))) {
             return false;
         }
-        
 
         if (! TelegramChat::find((int) $this->route('telegram_chat_id'))) {
             return false;

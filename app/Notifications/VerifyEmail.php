@@ -34,6 +34,7 @@ class VerifyEmail extends Notification
     public function via($notifiable)
     {
         $this->locale($notifiable->locale);
+        
         return ['mail'];
     }
 
