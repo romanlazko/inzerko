@@ -38,6 +38,8 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('lang')
                     ->badge()
                     ->wrap(true),
+                TextColumn::make('locale')
+                    ->badge(),
                 ToggleColumn::make('verified')
                     ->state(fn (User $user) => $user->hasVerifiedEmail())
                     ->updateStateUsing(function (User $user, $state) {
