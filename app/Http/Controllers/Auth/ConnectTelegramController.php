@@ -22,7 +22,7 @@ class ConnectTelegramController extends Controller
             'telegram_token' => $telegram_token,
         ]);
 
-        return redirect("https://t.me/pozorbottestbot?start=connect-{$telegram_token}");
+        return redirect("https://t.me/inzerko_bot?start=connect-{$telegram_token}");
     }
 
     public function verifyTelegramConnection(TelegramVerificationRequest $request): RedirectResponse
