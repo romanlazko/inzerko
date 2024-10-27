@@ -30,10 +30,7 @@ class UpdateProfile extends Command
 
         $notes = $this->getConversation()->notes;
 
-        $validator = $this->validator([
-            'email' => $notes['email'],
-            'phone' => $notes['phone'],
-        ]);
+        $validator = $this->validator($notes);
 
         if ($validator->stopOnFirstFailure()->fails()) {
             $this->handleError($validator->errors()->first());

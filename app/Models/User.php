@@ -131,4 +131,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function remove()
+    {
+        
+    }
+    
 }
