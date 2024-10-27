@@ -45,7 +45,6 @@ class TelegramVerificationRequest extends FormRequest
     {
         return [
             'telegram_chat_id' => ['required', 'exists:telegram_chats,id', 'unique:users,telegram_chat_id'],
-            'telegram_token' => 'required',
         ];
     }
 }
