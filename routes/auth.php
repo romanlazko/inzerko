@@ -14,6 +14,10 @@ use App\Http\Controllers\Auth\VerifyTelegramController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
+Route::get('verify-email-telegram', [VerifyEmailController::class, 'veryfyEmailTelegram'])
+                ->middleware(['signed', 'throttle:6,1'])
+                ->name('verification.verify-telegram');
+
 Route::middleware(['guest'])->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
@@ -44,10 +48,7 @@ Route::middleware(['guest'])->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
-
-    Route::get('verify-email-telegram', [VerifyEmailController::class, 'veryfyEmailTelegram'])
-                ->middleware(['signed', 'throttle:6,1'])
-                ->name('verification.verify-telegram');
+    
 });
 
 Route::middleware('auth')->group(function () {
