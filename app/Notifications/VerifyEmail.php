@@ -33,6 +33,7 @@ class VerifyEmail extends Notification
      */
     public function via($notifiable)
     {
+        $this->locale($notifiable->locale);
         return ['mail'];
     }
 
@@ -46,10 +47,6 @@ class VerifyEmail extends Notification
     {
         $verificationUrl = $this->verificationUrl($notifiable);
 
-        if (static::$toMailCallback) {
-            return call_user_func(static::$toMailCallback, $notifiable, $verificationUrl);
-        }
-
         return $this->buildMailMessage($verificationUrl);
     }
 
@@ -62,10 +59,10 @@ class VerifyEmail extends Notification
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject(__('notification.verification_success.subject'))
-            ->line(__('notification.verification_success.line_1'))
-            ->action(__('notification.verification_success.action'), $url)
-            ->line(__('notification.verification_success.line_2'));
+            ->subject(__('notification.verify_email.subject'))
+            ->line(__('notification.verify_email.line_1'))
+            ->action(__('notification.verify_email.action'), $url)
+            ->line(__('notification.verify_email.line_2'));
     }
 
     /**
@@ -76,10 +73,6 @@ class VerifyEmail extends Notification
      */
     protected function verificationUrl($notifiable)
     {
-        if (static::$createUrlCallback) {
-            return call_user_func(static::$createUrlCallback, $notifiable);
-        }
-
         return URL::temporarySignedRoute(
             'verification.verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
@@ -88,27 +81,5 @@ class VerifyEmail extends Notification
                 'hash' => sha1($notifiable->getEmailForVerification()),
             ]
         );
-    }
-
-    /**
-     * Set a callback that should be used when creating the email verification URL.
-     *
-     * @param  \Closure  $callback
-     * @return void
-     */
-    public static function createUrlUsing($callback)
-    {
-        static::$createUrlCallback = $callback;
-    }
-
-    /**
-     * Set a callback that should be used when building the notification mail message.
-     *
-     * @param  \Closure  $callback
-     * @return void
-     */
-    public static function toMailUsing($callback)
-    {
-        static::$toMailCallback = $callback;
     }
 }

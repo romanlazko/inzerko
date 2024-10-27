@@ -29,10 +29,21 @@ class TelegramEmailVerification extends Notification implements ShouldQueue
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail(object $notifiable): MailMessage
     {
-        $url = $this->prepareUrl($notifiable);
+        $verificationUrl = $this->verificationUrl($notifiable);
+        
+        return $this->buildMailMessage($verificationUrl);
+    }
 
+    /**
+     * Get the verify email notification mail message for the given URL.
+     *
+     * @param  string  $url
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    protected function buildMailMessage($url)
+    {
         return (new MailMessage)
             ->subject(__('notification.telegram_email_verification.subject'))
             ->line(__('notification.telegram_email_verification.line_1'))
@@ -40,7 +51,13 @@ class TelegramEmailVerification extends Notification implements ShouldQueue
             ->line(__('notification.telegram_email_verification.line_2'));
     }
 
-    protected function prepareUrl($notifiable)
+    /**
+     * Get the verification URL for the given notifiable.
+     *
+     * @param  mixed  $notifiable
+     * @return string
+     */
+    protected function verificationUrl($notifiable)
     {
         return URL::temporarySignedRoute(
             'verification.verify-telegram', 
