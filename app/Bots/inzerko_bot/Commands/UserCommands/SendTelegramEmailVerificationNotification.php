@@ -37,6 +37,12 @@ class SendTelegramEmailVerificationNotification extends Command
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ]);
 
+        BotApi::answerCallbackQuery([
+            'callback_query_id' => $updates->getCallbackQuery()->getId(),
+            'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке на письме.',
+            'show_alert' => true
+        ]);
+
         return BotApi::returnInline([
             'chat_id' => $updates->getChat()->getId(),
             'text' => implode("\n", [

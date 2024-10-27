@@ -32,14 +32,16 @@ class ProfileService
 
     public static function update(User $user, string $name, string $email, string $phone, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
     {
-        $user->fill(filter_var_array([
+        $user->fill(array_filter([
             'name' => $name,
             'email' => $email,
             'phone' => $phone,
             'locale' => $locale,
             'telegram_chat_id' => $telegram_chat_id,
             'telegram_token' => $telegram_token,
-        ]));
+        ], function ($value) {
+            return !is_null($value) && $value !== '';
+        }));
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
