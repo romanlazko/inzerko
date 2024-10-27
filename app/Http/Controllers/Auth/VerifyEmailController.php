@@ -39,6 +39,7 @@ class VerifyEmailController extends Controller
 
     public function veryfyEmailTelegram(TelegramEmailVerificationRequest $request): RedirectResponse
     {
+        dd('test');
         if (is_null($user = Password::getUser($request->only('email', 'telegram_token')))) {
             abort(403, 'Invalid credentials. User not found.');
         }
