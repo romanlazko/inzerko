@@ -14,7 +14,7 @@ class InzerkoBotProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('inzerko', function () {
-            return new Bot(TelegramBot::firstWhere('name', 'inzerko_bot')->token);
+            return new Bot(TelegramBot::firstWhere('username', 'inzerko_bot')->token);
         });
     }
 
