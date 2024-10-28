@@ -36,9 +36,7 @@
         </div>
     </main>
 
-    @auth
-        @livewire('actions.open-chat')
-    @endauth
+    @livewire('actions.open-chat')
 
     <div class="w-full lg:hidden block sticky bottom-0 h-12 z-20 border-t ">
         <x-nav.footer/>

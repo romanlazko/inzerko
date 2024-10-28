@@ -82,7 +82,7 @@ class Chats extends Component implements HasForms, HasTable
 
                         cookie()->queue(cookie()->forget('unreadMessagesCount'));
 
-                        return view('components.livewire.chat.show', ['messages' => $record->messages]);
+                        return view('components.livewire.chat.show', ['messages' => $record->messages, 'user_id' => auth()->id()]);
                     })
                     ->modalAutofocus(true)
                     ->form([
