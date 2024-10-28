@@ -54,7 +54,7 @@ class TelegramChat extends Model implements HasMedia
         return $this->belongsToMany(Category::class, 'category_channel', 'telegram_chat_id', 'category_id');
     }
 
-    public function getPhotoAttribute()
+    public function getAvatarAttribute()
     {
         if ($this->getMedia('avatar')->isEmpty()) {
             if ($this->photo) {

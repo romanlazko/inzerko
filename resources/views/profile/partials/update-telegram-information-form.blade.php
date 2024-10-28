@@ -17,7 +17,7 @@
     @else
         <div class="flex items-center">
             <div class="flex-col items-center my-auto">
-                <img src="{{ auth()->user()->chat->photo->url ?? null }}" alt="Avatar" class="mr-4 w-12 h-12 min-w-[48px] rounded-full">
+                <img src="{{ auth()->user()->chat->avatar->url ?? null }}" alt="Avatar" class="mr-4 w-12 h-12 min-w-[48px] rounded-full">
             </div>
             <div class="flex-col justify-center">
                 <div class="">
