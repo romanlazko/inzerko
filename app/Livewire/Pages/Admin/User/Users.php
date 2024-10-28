@@ -4,14 +4,22 @@ namespace App\Livewire\Pages\Admin\User;
 
 use App\Enums\Status;
 use App\Livewire\Layouts\AdminTableLayout;
+use App\Models\TelegramChat;
 use App\Models\User;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class Users extends AdminTableLayout implements HasForms, HasTable
 {
@@ -56,11 +64,36 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
-                EditAction::make(),
-            ]);
+                EditAction::make('edit')
+                    ->form([
+                        TextInput::make('name'),
+                        TextInput::make('email')
+                            ->email(),
+                        TextInput::make('phone')
+                            ->tel(),
+                        Select::make('locale')
+                            ->options(config('translate.languages')),
+                        Select::make('telegram_chat_id')
+                            ->options(TelegramChat::all()->pluck('username', 'id'))
+                            ->searchable()
+                            ->unique(ignoreRecord: true),
+                        TextInput::make('telegram_token')
+                            ->hidden(fn (Get $get) => is_null($get('telegram_chat_id')))
+                            ->suffixAction(
+                                Action::make('generate')
+                                    ->action(fn (Set $set) => $set('telegram_token', Str::random(8)))
+                                    ->icon('heroicon-o-arrow-path')
+                            )
+                            ->required(),
+                    ])
+                    ->button()
+                    ->hiddenLabel(),
+                DeleteAction::make()
+                    ->action(fn (User $record) => $record->remove())
+                    ->button()
+                    ->hiddenLabel(),
+            ])
+            ->recordAction('edit');
     }
 }

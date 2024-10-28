@@ -134,7 +134,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function remove()
     {
-        
+        $this->announcements->each->remove();
+        $this->threads()->delete();
+        $this->wishlist()->delete();
+        $this->delete();
     }
     
 }

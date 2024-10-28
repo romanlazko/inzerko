@@ -178,4 +178,13 @@ class Announcement extends Model implements HasMedia, Auditable
             tags: $this->categories->pluck('name')->toArray(),
         );
     }
+
+    public function remove()
+    {
+        $this->votes()->delete();
+        $this->features()->delete();
+        $this->channels()->delete();
+        $this->categories()->detach();
+        $this->delete();
+    }
 }
