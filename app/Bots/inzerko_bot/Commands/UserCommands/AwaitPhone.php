@@ -38,6 +38,6 @@ class AwaitPhone extends Command
             'phone' => $validated['phone']
         ]);
         
-        return $this->bot->executeCommand(EditProfile::$command);
+        return $this->bot->executeCommand(Profile::$command);
     }
 }

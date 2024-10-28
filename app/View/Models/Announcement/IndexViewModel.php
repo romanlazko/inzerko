@@ -33,7 +33,7 @@ class IndexViewModel
                 'media',
                 'features' => fn ($query) => $query->forAnnouncementCard(),
                 'geo',
-                'userVotes',
+                'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
             ])
             ->category($this->category)
             ->sort($this->request->sort)
@@ -43,12 +43,6 @@ class IndexViewModel
             ->isPublished()
             ->paginate(30)
             ->withQueryString();
-
-
-        return $this->features
-            ->map(function ($feature) {
-                return $feature->announcement;
-            });
     }
 
     private function category(): ?Category

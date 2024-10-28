@@ -20,7 +20,6 @@ class VerificationSuccessNotification extends Notification implements ShouldQueu
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -30,6 +29,8 @@ class VerificationSuccessNotification extends Notification implements ShouldQueu
      */
     public function via(object $notifiable): array
     {
+        $this->locale($notifiable->locale);
+
         return ['mail', TelegramChannel::class];
     }
 

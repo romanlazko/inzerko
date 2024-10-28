@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Admin\Settings;
 
 use App\Livewire\Actions\Concerns\CategorySection;
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Sorting;
@@ -23,7 +23,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Sortings extends AdminLayout implements HasForms, HasTable
+class Sortings extends AdminTableLayout implements HasForms, HasTable
 {
     use CategorySection;
 
@@ -117,6 +117,8 @@ class Sortings extends AdminLayout implements HasForms, HasTable
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
+            ->recordAction('edit')
+            ->paginated(false)
             ->actions([
                 EditAction::make()
                     ->form([

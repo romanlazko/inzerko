@@ -2,22 +2,25 @@
 
 namespace App\Livewire\Pages\Admin\Telegram;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Category;
 use App\Models\TelegramBot;
+use Faker\Provider\ar_EG\Text;
 use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Novadaemon\FilamentPrettyJson\PrettyJson;
 use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\Generators\BotDirectoryGenerator;
 
-class Bots extends AdminLayout implements HasForms, HasTable
+class Bots extends AdminTableLayout implements HasForms, HasTable
 {
     public function table(Table $table): Table
     {
@@ -71,18 +74,46 @@ class Bots extends AdminLayout implements HasForms, HasTable
                     ->slideOver()
                     ->closeModalByClickingAway(false),
             ])
+            ->recordAction('view')
             ->actions([
                 Action::make('Chats')
+                    ->hiddenLabel()
                     ->button()
                     ->icon('heroicon-o-chat-bubble-bottom-center')
                     ->url(fn ($record) => route('admin.telegram.chats', $record))
                     ->color('success'),
+                Action::make('Channels')
+                    ->hiddenLabel()
+                    ->button()
+                    ->icon('heroicon-o-megaphone')
+                    ->url(fn ($record) => route('admin.telegram.channels', $record))
+                    ->color('info'),
 
                 Action::make('Logs')
+                    ->hiddenLabel()
                     ->button()
                     ->icon('heroicon-o-clipboard-document-list')
                     ->url(fn ($record) => route('admin.telegram.logs', $record))
+                    ->color('danger'),
+
+                ViewAction::make()
+                    ->icon('heroicon-o-eye')
+                    ->hiddenLabel()
+                    ->button()
                     ->color('warning')
+                    ->form([
+                        TextInput::make('token'),
+                        PrettyJson::make('webhook')
+                            ->formatStateUsing(function ($record) {
+                                $bot = new Bot($record->token);
+                                return json_encode($bot::getWebhookInfo()->getResult());
+                            }),
+                        PrettyJson::make('commands_list')
+                            ->formatStateUsing(function ($record) {
+                                $bot = new Bot($record->token);
+                                return json_encode($bot->getAllCommandsList());
+                            }),
+                    ]),
             ]);
     }
 }

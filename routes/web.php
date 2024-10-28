@@ -16,6 +16,7 @@ use App\Http\Controllers\Profile\MessageController;
 use App\Http\Controllers\Profile\Wishlist;
 use App\Http\Requests\SearchRequest;
 use App\Livewire\Pages\Admin\Announcement\Announcements;
+use App\Livewire\Pages\Admin\Announcement\EditAnnouncement;
 use App\Livewire\Pages\Admin\Announcement\Moderation;
 use App\Livewire\Pages\Admin\Settings\Attributes;
 use App\Livewire\Pages\Admin\Settings\Categories;
@@ -29,6 +30,7 @@ use App\Livewire\Pages\Admin\User\Users;
 use App\Livewire\Pages\User\Profile\Messages;
 use App\View\Models\HomeViewModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +82,7 @@ Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('a
     Route::name('announcement.')->prefix('announcement')->group(function () {
         Route::get('announcements', Announcements::class)->name('announcements');
         Route::get('moderation', Moderation::class)->name('moderation');
+        Route::get('edit/{announcement}', EditAnnouncement::class)->name('edit');
     });
 
     Route::name('setting.')->prefix('setting')->group(function () {
@@ -115,8 +118,15 @@ Route::get('/location', function () {
     dd(Location::get(), request()->ip());
 });
 
+Route::get('cron', function () {
+    Artisan::call('queue:work --stop-when-empty --tries=2 --max-time=60');
+    return true;
+});
+
 
 
 
 
 require __DIR__.'/auth.php';
+
+

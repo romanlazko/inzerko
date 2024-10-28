@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Announcement;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Announcement;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
@@ -10,7 +10,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use OwenIt\Auditing\Models\Audit;
 
-class Audits extends AdminLayout implements HasForms, HasTable
+class Audits extends AdminTableLayout implements HasForms, HasTable
 {
     public Announcement $announcement;
 

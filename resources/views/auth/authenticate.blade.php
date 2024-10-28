@@ -1,9 +1,8 @@
-<x-body-layout>
+<x-app-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <form class="bg-white p-4 sm:p-6 max-w-md m-auto my-2 rounded-lg space-y-4 shadow-xl h-full" method="POST" action="{{ route('auth.store') }}">
         @csrf
-        <x-honey/>
         <x-honey-recaptcha/> 
         <!-- Email Address -->
         <div>
@@ -57,4 +56,4 @@
         </div>
         
     </form>
-</x-body-layout>
+</x-app-layout>

@@ -15,6 +15,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\HtmlString;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -79,7 +80,9 @@ class Chats extends Component implements HasForms, HasTable
                     ->modalContent(function ($record) {
                         $record->messages()->where('user_id', '!=', auth()->id())->update(['read_at' => now()]);
 
-                        return view('components.livewire.chat.show', ['messages' => $record->messages]);
+                        cookie()->queue(cookie()->forget('unreadMessagesCount'));
+
+                        return view('components.livewire.chat.show', ['messages' => $record->messages, 'user_id' => auth()->id()]);
                     })
                     ->modalAutofocus(true)
                     ->form([
@@ -101,7 +104,7 @@ class Chats extends Component implements HasForms, HasTable
                             'message' => $data['message'],
                         ]);
 
-                        $record->recipient->notify((new NewMessage($record))->delay(now()->addMinutes(3)));
+                        $record->recipient->notify(new NewMessage($record));
 
                         $this->dispatch('scroll-to-bottom');
 

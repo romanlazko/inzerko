@@ -1,4 +1,4 @@
-<x-body-layout>
+<x-app-layout>
     <form class="bg-white p-4 sm:p-6 max-w-md m-auto my-2 rounded-lg space-y-4 shadow-xl h-full" method="POST" action="{{ route('password.store') }}">
         @csrf
         <x-honey-recaptcha/> 
@@ -45,4 +45,4 @@
             </small>
         </div>
     </form>
-</x-body-layout>
+</x-app-layout>

@@ -5,7 +5,7 @@ namespace App\Livewire\Pages\Admin\Settings;
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\CreateAttributeAction;
 use App\Livewire\Actions\EditAttributeAction;
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute;
 use App\Models\Category;
 use Filament\Forms\Components\Select;
@@ -18,7 +18,7 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\SelectFilter;
 
-class Attributes extends AdminLayout implements HasForms, HasTable
+class Attributes extends AdminTableLayout implements HasForms, HasTable
 {   
     public function table(Table $table): Table
     {
@@ -128,6 +128,7 @@ class Attributes extends AdminLayout implements HasForms, HasTable
                     ->hiddenLabel()
                     ->button()
             ])
+            ->recordAction('edit')
             ->paginated(false)
             ->filters([
                 SelectFilter::make('category')

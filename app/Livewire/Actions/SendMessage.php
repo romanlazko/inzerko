@@ -80,7 +80,8 @@ class SendMessage extends Component implements HasForms, HasActions
             ->form([
                 Textarea::make('message')
                     ->required()
-                    ->placeholder(__('write_a_message'))
+                    ->hiddenLabel()
+                    ->placeholder(__('livewire.write_a_message'))
                     ->rows(6),
             ])
             ->action(function (array $data) use ($announcement){
@@ -99,7 +100,7 @@ class SendMessage extends Component implements HasForms, HasActions
                     'message' => $data['message'],
                 ]);
         
-                $thread->recipient->notify((new NewMessage($thread))->delay(now()->addMinutes(3)));
+                $thread->recipient->notify((new NewMessage($thread))->delay(now()->addMinutes(10)));
             });
     }
 

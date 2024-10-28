@@ -31,6 +31,8 @@ return [
         'logs' => 'Логи',
         'back_to_home' => 'Назад на главную',
         'all' => 'Все',
+        'chats' => 'Чаты',
+        'channels' => 'Каналы',
     ],
 
     'livewire' => [

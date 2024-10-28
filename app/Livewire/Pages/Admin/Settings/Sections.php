@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Settings;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\AttributeSection;
 use Closure;
 use Filament\Forms\Components\KeyValue;
@@ -17,7 +17,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Sections extends AdminLayout implements HasForms, HasTable
+class Sections extends AdminTableLayout implements HasForms, HasTable
 {
     public function table(Table $table): Table
     {
@@ -69,9 +69,8 @@ class Sections extends AdminLayout implements HasForms, HasTable
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
-            ->filters([
-                //
-            ])
+            ->recordAction('edit')
+            ->paginated(false)
             ->actions([
                 EditAction::make()
                     ->form([

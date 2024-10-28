@@ -1,4 +1,4 @@
-<x-body-layout>
+<x-app-layout>
     <x-slot name="meta">
         {!! seo($announcement->getDynamicSEOData()) !!}
     </x-slot>
@@ -93,5 +93,5 @@
             </x-announcement.list>
         @endif
     </div>
-</x-body-layout>
+</x-app-layout>
 

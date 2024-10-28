@@ -28,7 +28,7 @@ class HomeViewModel
                 'media',
                 'features' => fn ($query) => $query->forAnnouncementCard(),
                 'geo',
-                'userVotes',
+                'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
             ])
             ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at')
             ->isPublished()

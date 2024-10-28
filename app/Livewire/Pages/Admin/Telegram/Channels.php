@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Telegram;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Category;
 use App\Models\Geo;
 use App\Models\TelegramBot;
@@ -19,7 +19,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Channels extends AdminLayout implements HasForms, HasTable
+class Channels extends AdminTableLayout implements HasForms, HasTable
 {
     public TelegramBot $telegram_bot;
 
@@ -31,12 +31,7 @@ class Channels extends AdminLayout implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->heading("Channels")
-            ->headerActions([
-                Action::make('back')
-                    ->icon('heroicon-o-arrow-left-circle')
-                    ->url(route('admin.telegram.bots')),
-            ])
+            ->heading("{$this->telegram_bot->first_name} channels")
             ->query(
                 $this->telegram_bot
                     ->chats()
@@ -46,7 +41,7 @@ class Channels extends AdminLayout implements HasForms, HasTable
             ->columns([
                 TextColumn::make('name')
                     ->label('Чат')
-                    ->searchable(['first_name', 'last_name', 'username', 'title'])
+                    ->searchable(['first_name', 'last_name', 'username', 'title', 'chat_id'])
                     ->state(function (TelegramChat $telegram_chat) {
                         return "$telegram_chat->first_name $telegram_chat->last_name $telegram_chat->title";
                     })

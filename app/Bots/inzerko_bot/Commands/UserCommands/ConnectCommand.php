@@ -26,6 +26,15 @@ class ConnectCommand extends Command
 
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
+        if (User::where('telegram_chat_id', $telegram_chat->id)->first()) {
+            return BotApi::returnInline([
+                'chat_id' => $updates->getChat()->getId(),
+                'text' => "Этот телеграм аккаунт уже подключен к аккаунту на сайте.",
+                'parse_mode'    =>  'Markdown',
+                'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
+            ]);
+        }
+
         User::firstWhere('telegram_token', $matches[3])?->notify(new VerifyTelegramConnection($telegram_chat->id));
 
         return BotApi::returnInline([

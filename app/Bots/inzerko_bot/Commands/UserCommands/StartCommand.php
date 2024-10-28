@@ -16,6 +16,8 @@ class StartCommand extends Command
 
     public function execute(Update $updates): Response
     {
+        $this->getConversation()->clear();
+        
         return $this->bot->executeCommand(MenuCommand::$command);
     }
 }

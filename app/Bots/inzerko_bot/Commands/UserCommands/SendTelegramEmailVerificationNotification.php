@@ -29,12 +29,35 @@ class SendTelegramEmailVerificationNotification extends Command
         
         $user = User::firstWhere('telegram_chat_id', $telegram_chat_id);
 
+        BotApi::returnInline([
+            'chat_id' => $updates->getChat()->getId(),
+            'text' => 'Отправление письма...',
+            'parse_mode'    =>  'Markdown',
+            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
+        ]);
+
         $user->notify(new TelegramEmailVerification);
+
+        $buttons = BotApi::inlineKeyboard([
+            [array(Profile::getTitle('ru'), Profile::$command, '')],
+            [array(SendTelegramEmailVerificationNotification::getTitle('ru'), SendTelegramEmailVerificationNotification::$command, '')],
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
+        ]);
+
+        BotApi::answerCallbackQuery([
+            'callback_query_id' => $updates->getCallbackQuery()->getId(),
+            'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке на письме.',
+            'show_alert' => true
+        ]);
 
         return BotApi::returnInline([
             'chat_id' => $updates->getChat()->getId(),
-            'text' => "На e-mail: {$user->email} было отправлено письмо для подтверждения. Пожалуйста, подтвердите свой e-mail, нажав на кнопку в письме.",
+            'text' => implode("\n", [
+                "*Прежде чем продолжить, пожалуйста, подтвердите свой e-mail*"."\n",
+                "На e-mail: *{$user->email}* было отправлено письмо для подтверждения. Пожалуйста, подтвердите свой e-mail, нажав на кнопку в письме."
+            ]),
             'parse_mode'    =>  'Markdown',
+            'reply_markup'  => $buttons,
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
     }

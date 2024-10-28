@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Akuechler\Geoly;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Enums\Status;
+use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\Models\TelegramChat as Model;
 use Romanlazko\Telegram\Models\TelegramMessage;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Laravolt\Avatar\Facade as Avatar;
 
 class TelegramChat extends Model implements HasMedia
 {
@@ -49,5 +52,23 @@ class TelegramChat extends Model implements HasMedia
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_channel', 'telegram_chat_id', 'category_id');
+    }
+
+    public function getAvatarAttribute()
+    {
+        if ($this->getMedia('avatar')->isEmpty()) {
+            if ($this->photo) {
+                $photo_url = Inzerko::getPhoto(['file_id' => $this->photo]);
+
+                $this->addMediaFromUrl($photo_url)->toMediaCollection('avatar');
+            }
+            else {
+                $this->addMediaFromBase64(Avatar::create("$this->first_name $this->last_name"))->toMediaCollection('avatar');
+            }
+
+            $this->load('media');
+        }
+
+        return $this->getFirstMediaUrl('avatar', 'thumb');
     }
 }

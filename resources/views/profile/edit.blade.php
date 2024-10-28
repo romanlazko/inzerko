@@ -1,4 +1,4 @@
-<x-body-layout :title="__('components.navigation.profile')" class="w-full max-w-7xl m-auto">
+<x-app-layout :title="__('components.navigation.profile')" class="w-full max-w-7xl m-auto">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('components.navigation.profile') }}
@@ -39,4 +39,4 @@
             </x-ux.white-block>
         </div>
     </div>
-</x-body-layout>
+</x-app-layout>

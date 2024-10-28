@@ -33,6 +33,8 @@ class NewMessage extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
+        $this->locale($notifiable->locale);
+        
         return ['mail', TelegramChannel::class];
     }
 
@@ -46,7 +48,7 @@ class NewMessage extends Notification implements ShouldQueue
                     ->line(__('notification.new_message.line_1'))
                     ->line("**{$this->announcement->title}**")
                     ->line($this->message)
-                    ->action(__('notification.new_message.action'), route('profile.message.show', $this->thread->id))
+                    ->action(__('notification.new_message.action'), route('home'))
                     ->line(__('notification.new_message.line_2'));
     }
 
@@ -56,7 +58,7 @@ class NewMessage extends Notification implements ShouldQueue
             __('notification.new_message.line_1') ."\n",
             "*{$this->announcement->title}*"."\n",
             "{$this->message}"."\n",
-            "[" . __('notification.new_message.action') . "](" . route('profile.message.show', $this->thread->id) . ")"
+            "[" . __('notification.new_message.action') . "](" . route('home') . ")"
         ]);
 
         return [

@@ -30,7 +30,6 @@ class ShowViewModel
 
         return $announcement->load([
             'user.media',
-            'userVotes',
             'media',
             'geo',
             'features:announcement_id,attribute_id,attribute_option_id,translated_value', 

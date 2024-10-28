@@ -20,15 +20,25 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Forms\Components\Livewire;
 use App\Livewire\Components\Tables\Columns\StatusSwitcher;
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Feature;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\DB;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Filters\Filter;
 use App\Models\AnnouncementChannel;
+use Filament\Tables\Actions\EditAction;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Repeater;
+use App\Models\Attribute;
+use App\Models\AttributeOption;
+use Novadaemon\FilamentPrettyJson\PrettyJson;
+use Filament\Forms\Get;
+use App\Services\Actions\CategoryAttributeService;
+use Filament\Forms\Components\KeyValue;
+use Illuminate\Support\Facades\Cache;
 
-class Announcements extends AdminLayout implements HasForms, HasTable
+class Announcements extends AdminTableLayout implements HasForms, HasTable
 {
     public function table(Table $table): Table
     {
@@ -50,7 +60,7 @@ class Announcements extends AdminLayout implements HasForms, HasTable
                             ->label('Count of announcements')
                             ->default(100),
                         Select::make('category')
-                            ->options(Category::doesntHave('children')->get()->pluck('name', 'id'))
+                            ->options(Category::all()->filter(fn ($category) => $category->children->isEmpty())->pluck('name', 'id'))
                             ->label('Category without children')
                             ->required()
                     ])
@@ -273,7 +283,7 @@ class Announcements extends AdminLayout implements HasForms, HasTable
                             ])
                             ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
                             ->icon('heroicon-m-square-3-stack-3d')
-                            // ->slideover()
+                            ->slideover()
                             ->modalWidth('7xl')
                             ->hiddenLabel()
                             ->color('info')
@@ -285,8 +295,8 @@ class Announcements extends AdminLayout implements HasForms, HasTable
                                 Livewire::make(Channels::class, ['announcement_id' => $announcement->id]),
                             ])
                             ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
-                            ->icon('heroicon-o-chat-bubble-bottom-center-text')
-                            // ->slideover()
+                            ->icon('heroicon-o-megaphone')
+                            ->slideover()
                             ->modalWidth('7xl')
                             ->hiddenLabel()
                             ->color('info')
@@ -295,12 +305,17 @@ class Announcements extends AdminLayout implements HasForms, HasTable
                         DeleteAction::make('delete_announcement')
                             ->hiddenLabel()
                             ->button(),
-                    // ])
+                    
                     // ->size(ActionSize::ExtraSmall)
                     // ->dropdownPlacement('right-start')
                     // ->button()
                     // ->hiddenLabel()
             ])
+            ->recordUrl(
+                fn (Announcement $announcement) => route('admin.announcement.edit', [
+                    'announcement' => $announcement
+                ])
+            )
             ->filters([
                 Filter::make('current_status')
                     ->form([
@@ -322,10 +337,8 @@ class Announcements extends AdminLayout implements HasForms, HasTable
                     ->form([
                         Select::make('category')
                             ->options(fn () => 
-                                Category::select('id', 'alternames', 'slug', 'parent_id')
-                                    ->with('parent')
-                                    ->withCount('announcements')
-                                    ->get()
+                                Category::all()
+                                    ->loadCount('announcements')
                                     ->groupBy('parent.name')
                                     ->map
                                     ->mapWithKeys(fn ($category) => [$category->id => $category->name . ' (' . $category->announcements_count . ')'])

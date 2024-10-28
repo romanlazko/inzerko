@@ -22,13 +22,13 @@ class ConnectTelegramController extends Controller
             'telegram_token' => $telegram_token,
         ]);
 
-        return redirect("https://t.me/pozorbottestbot?start=connect-{$telegram_token}");
+        return redirect("https://t.me/inzerko_bot?start=connect-{$telegram_token}");
     }
 
     public function verifyTelegramConnection(TelegramVerificationRequest $request): RedirectResponse
     {
         $request->user()->update([
-            'telegram_chat_id' => $request->telegram_chat_id,
+            'telegram_chat_id' => $request->validated()['telegram_chat_id'],
         ]);
 
         return redirect()->intended(RouteServiceProvider::HOME)->with([

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Telegram;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\TelegramBot;
 use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Textarea;
@@ -15,7 +15,7 @@ use Filament\Tables\Table;
 use Romanlazko\Telegram\Models\TelegramLog;
 use Novadaemon\FilamentPrettyJson\PrettyJson;
 
-class Logs extends AdminLayout implements HasForms, HasTable
+class Logs extends AdminTableLayout implements HasForms, HasTable
 {
     public TelegramBot $telegram_bot;
 
@@ -27,7 +27,7 @@ class Logs extends AdminLayout implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->heading("Logs")
+            ->heading("{$this->telegram_bot->first_name} logs")
             ->defaultSort('created_at', 'desc')
             ->query(
                 TelegramLog::where('telegram_bot_id', $this->telegram_bot->id))
@@ -44,11 +44,7 @@ class Logs extends AdminLayout implements HasForms, HasTable
                     ->color('danger'),
                 TextColumn::make('line')
             ])
-            ->headerActions([
-                Action::make('back')
-                    ->icon('heroicon-o-arrow-left-circle')
-                    ->url(route('admin.telegram.bots')),
-            ])
+            ->recordAction('view')
             ->actions([
                 ViewAction::make()
                     ->form([

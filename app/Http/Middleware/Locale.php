@@ -3,6 +3,7 @@
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 class Locale {
@@ -19,7 +20,7 @@ class Locale {
      */
     public function handle(Request $request, Closure $next)
     {
-        $locale = auth()?->user()?->locale ?? session('locale', config('app.locale'));
+        $locale = Auth::user()?->locale ?? session('locale', config('app.locale'));
 
         $this->app->setLocale($locale);
 

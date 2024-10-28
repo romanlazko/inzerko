@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Settings;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\TelegramChat;
@@ -24,7 +24,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Categories extends AdminLayout implements HasForms, HasTable
+class Categories extends AdminTableLayout implements HasForms, HasTable
 {
     public $category;
 
@@ -134,74 +134,73 @@ class Categories extends AdminLayout implements HasForms, HasTable
                     ->closeModalByClickingAway(false),
             ])
             ->actions([
-                // ActionGroup::make([
-                    EditAction::make()
-                        ->modalHeading(fn ($record) => $record->name)
-                        ->form([
-                            Section::make()
-                                ->schema([
-                                    Grid::make(4)
-                                        ->schema([
-                                            Grid::make(1)
-                                                ->schema([
-                                                    SpatieMediaLibraryFileUpload::make('Image')
-                                                        ->collection('categories')
-                                                        ->imageEditor(),
-                                                ])
-                                                ->columnSpan(2),
-                                            Grid::make(1)
-                                                ->schema([
-                                                    Select::make('attributes')
-                                                        ->relationship('attributes')
-                                                        ->multiple()
-                                                        ->options($this->category_attributes),
-                                                ])
-                                                ->columnSpan(2)
-                                    ]),
-                            ])
-                            ->columnSpan(1),
-                        
-                            Section::make()
-                                ->schema([
-                                    KeyValue::make('alternames')
-                                        ->keyLabel('Lang')
-                                        ->default([
-                                            'en' => '',
-                                            'cs' => '',
-                                            'ru' => '',
-                                        ])
-                                        ->live()
-                                        ->afterStateUpdated(fn ($state, Set $set) => $set('slug', str()->slug($state['en']. '-'))),
-
-                                    TextInput::make('slug'),
-
-                                    TextInput::make('parent_id')
-                                        ->hiddenLabel()
-                                        ->default($this->category?->id ?? null)
-                                        ->extraAttributes([
-                                            'class' => 'hidden'
-                                        ])
-                                ])
-                                ->columns(1),
-                            Section::make()
-                                ->schema([
-                                    Select::make('channels')
-                                        ->relationship('channels')
-                                        ->multiple()
-                                        ->options(TelegramChat::where('type', 'channel')->pluck('title', 'id'))
-                                ])
+                EditAction::make()
+                    ->modalHeading(fn ($record) => $record->name)
+                    ->form([
+                        Section::make()
+                            ->schema([
+                                Grid::make(4)
+                                    ->schema([
+                                        Grid::make(1)
+                                            ->schema([
+                                                SpatieMediaLibraryFileUpload::make('Image')
+                                                    ->collection('categories')
+                                                    ->imageEditor(),
+                                            ])
+                                            ->columnSpan(2),
+                                        Grid::make(1)
+                                            ->schema([
+                                                Select::make('attributes')
+                                                    ->relationship('attributes')
+                                                    ->multiple()
+                                                    ->options($this->category_attributes),
+                                            ])
+                                            ->columnSpan(2)
+                                ]),
                         ])
-                        ->slideOver()
-                        ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
-                        ->hiddenLabel()
-                        ->button()
-                        ->closeModalByClickingAway(false),
-                    DeleteAction::make()
-                        ->record($this->category)
-                        ->hiddenLabel()
-                        ->button()
-                        // ->button()
-                // ])
-            ]);
+                        ->columnSpan(1),
+                    
+                        Section::make()
+                            ->schema([
+                                KeyValue::make('alternames')
+                                    ->keyLabel('Lang')
+                                    ->default([
+                                        'en' => '',
+                                        'cs' => '',
+                                        'ru' => '',
+                                    ])
+                                    ->live()
+                                    ->afterStateUpdated(fn ($state, Set $set) => $set('slug', str()->slug($state['en']. '-'))),
+
+                                TextInput::make('slug'),
+
+                                TextInput::make('parent_id')
+                                    ->hiddenLabel()
+                                    ->default($this->category?->id ?? null)
+                                    ->extraAttributes([
+                                        'class' => 'hidden'
+                                    ])
+                            ])
+                            ->columns(1),
+                        Section::make()
+                            ->schema([
+                                Select::make('channels')
+                                    ->relationship('channels')
+                                    ->multiple()
+                                    ->options(TelegramChat::where('type', 'channel')->pluck('title', 'id'))
+                            ])
+                    ])
+                    ->slideOver()
+                    ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
+                    ->hiddenLabel()
+                    ->button()
+                    ->closeModalByClickingAway(false),
+                DeleteAction::make()
+                    ->record($this->category)
+                    ->hiddenLabel()
+                    ->button()
+            ])
+            ->paginated(false)
+            ->recordAction('edit');
     }
 }

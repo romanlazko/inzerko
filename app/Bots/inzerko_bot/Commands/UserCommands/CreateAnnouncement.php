@@ -30,16 +30,20 @@ class CreateAnnouncement extends Command
         $user = User::firstWhere('telegram_chat_id', $telegram_chat->id);
 
         if (! $user) {
-            return $this->bot->executeCommand(EditProfile::$command);
+            return $this->bot->executeCommand(Profile::$command);
         }
 
         if (! $user->hasVerifiedEmail()) {
-            return $this->bot->executeCommand(EmailNotVerified::$command);
+            return $this->bot->executeCommand(SendTelegramEmailVerificationNotification::$command);
         }
 
         app()->setLocale($updates->getFrom()->getLanguageCode());
 
-        $url = env('APP_URL').URL::signedRoute('inzerko_bot.announcement.create', ['email' => $user->email, 'telegram_chat_id' => $telegram_chat->id], null, false);
+        $url = URL::temporarySignedRoute('inzerko_bot.auth', 600, [
+            'email' => $user->email, 
+            'telegram_chat_id' => $telegram_chat->id, 
+            'to_route' => 'inzerko_bot.announcement.create'
+        ]);
 
         $buttons = BotApi::inlineKeyboardWithLink(
             array('text' => "Опубликовать объявление", 'web_app' => ['url' => $url]),
@@ -49,7 +53,7 @@ class CreateAnnouncement extends Command
         );
 
         return BotApi::returnInline([
-            'text'          => "Правила публикации: тут будет ссылка на правила публикации",
+            'text'          => "Правила публикации: тут будет ссылка на правила публикации : " . "*$url*",
             'chat_id'       => $updates->getChat()->getId(),
             'parse_mode'    => "Markdown",
             'reply_markup'  => $buttons,

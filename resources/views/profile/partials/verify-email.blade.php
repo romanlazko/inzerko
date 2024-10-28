@@ -16,7 +16,7 @@
     
                 <div>
                     <x-buttons.primary>
-                        {{ __('profile.verify_email.resendl') }}
+                        {{ __('profile.verify_email.resend') }}
                     </x-buttons.primary>
                 </div>
             </form>

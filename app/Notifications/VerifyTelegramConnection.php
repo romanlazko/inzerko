@@ -30,6 +30,8 @@ class VerifyTelegramConnection extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
+        $this->locale($notifiable->locale);
+        
         return ['mail'];
     }
 
@@ -38,7 +40,23 @@ class VerifyTelegramConnection extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $url = URL::temporarySignedRoute(
+        $verificationUrl = $this->verificationUrl($notifiable);
+        
+        return $this->buildMailMessage($verificationUrl);
+    }
+
+    protected function buildMailMessage($url)
+    {
+        return (new MailMessage)
+            ->subject(__('notification.verify_telegram_connection.subject'))
+            ->line(__('notification.verify_telegram_connection.line_1'))
+            ->action(__('notification.verify_telegram_connection.action'), $url)
+            ->line(__('notification.verify_telegram_connection.line_2'));
+    }
+
+    protected function verificationUrl($notifiable)
+    {
+        return URL::temporarySignedRoute(
             'verify.telegram.connection',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
@@ -46,11 +64,5 @@ class VerifyTelegramConnection extends Notification implements ShouldQueue
                 'telegram_token' => sha1($notifiable->telegram_token),
             ]
         );
-        
-        return (new MailMessage)
-            ->subject(__('notification.verify_telegram_connection.subject'))
-            ->line(__('notification.verify_telegram_connection.line_1'))
-            ->action(__('notification.verify_telegram_connection.action'), $url)
-            ->line(__('notification.verify_telegram_connection.line_2'));
     }
 }

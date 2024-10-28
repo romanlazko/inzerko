@@ -17,8 +17,8 @@ class LikeDislike extends Component
     public function mount(Announcement $announcement): void
     {
         $this->announcement = $announcement;
-        $this->userVote = $announcement->userVotes;
-        $this->lastUserVote = $this->userVote->vote ?? 0;
+        $this->userVote = $announcement->votes->where('user_id', auth()->id())->first();
+        $this->lastUserVote = $this->userVote?->vote ?? 0;
     }
 
     /**
@@ -27,12 +27,10 @@ class LikeDislike extends Component
     public function like(): void
     {
         if ($this->validateAccess()) {
-            if ($this->hasVoted(1)) {
-                $this->updateVote(0);
-                return;
-            }
-    
-            $this->updateVote(1);
+            $this->userVote = $this->announcement->votes()->updateOrCreate(
+                ['user_id' => auth()->id()],
+                ['vote' => $this->hasVoted() ? false : true]
+            );
         }
     }
 
@@ -45,18 +43,14 @@ class LikeDislike extends Component
         return view('livewire.actions.like-dislike');
     }
 
-    private function hasVoted(int $val): bool
+    private function hasVoted(): bool
     {
-        return $this->userVote && $this->userVote->vote === $val;
+        return $this->userVote?->vote == true;
     }
 
     private function updateVote(int $val): void
     {
-        if ($this->userVote) {
-            $this->announcement->votes()->update(['user_id' => auth()->id(), 'vote' => $val]);
-        } else {
-            $this->userVote = $this->announcement->votes()->create(['user_id' => auth()->id(), 'vote' => $val]);
-        }
+        $this->userVote = $this->announcement->votes()->updateOrCreate(['user_id' => auth()->id(), 'vote' => $val]);
 
         $this->lastUserVote = $val;
     }

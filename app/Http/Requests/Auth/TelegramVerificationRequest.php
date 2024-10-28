@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Romanlazko\Telegram\Models\TelegramChat;
 
@@ -27,9 +28,12 @@ class TelegramVerificationRequest extends FormRequest
         if (! hash_equals(sha1($this->user()->telegram_token), $this->route('telegram_token'))) {
             return false;
         }
-        
 
         if (! TelegramChat::find((int) $this->route('telegram_chat_id'))) {
+            return false;
+        }
+
+        if (User::where('telegram_chat_id', $this->route('telegram_chat_id'))->first()) {
             return false;
         }
 
@@ -44,7 +48,7 @@ class TelegramVerificationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            // 'telegram_chat_id' => ['required', 'exists:telegram_chats,id', 'unique:users,telegram_chat_id'],
         ];
     }
 }

@@ -2,25 +2,16 @@
 
 namespace App\Livewire\Pages\Admin\Telegram;
 
-use App\Livewire\Pages\Layouts\AdminLayout;
-use App\Models\Category;
-use App\Models\Geo;
+use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\TelegramBot;
 use App\Models\TelegramChat;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Chats extends AdminLayout implements HasForms, HasTable
+class Chats extends AdminTableLayout implements HasForms, HasTable
 {
     public TelegramBot $telegram_bot;
 
@@ -32,12 +23,7 @@ class Chats extends AdminLayout implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->heading("All Chats")
-            ->headerActions([
-                Action::make('back')
-                    ->icon('heroicon-o-arrow-left-circle')
-                    ->url(route('admin.telegram.bots')),
-            ])
+            ->heading("{$this->telegram_bot->first_name} chats")
             ->query(
                 $this->telegram_bot
                     ->chats()
@@ -46,13 +32,14 @@ class Chats extends AdminLayout implements HasForms, HasTable
                     ->getQuery()
                 )
             ->columns([
+                TextColumn::make('id'),
                 TextColumn::make('name')
                     ->label('Чат')
-                    ->searchable(['first_name', 'last_name', 'username', 'title'])
+                    ->searchable(['first_name', 'last_name', 'username', 'title', 'chat_id'])
                     ->state(function (TelegramChat $telegram_chat) {
                         return "$telegram_chat->first_name $telegram_chat->last_name $telegram_chat->title";
                     })
-                    ->description(fn (TelegramChat $telegram_chat) => $telegram_chat->username),
+                    ->description(fn (TelegramChat $telegram_chat) => "{$telegram_chat?->username} ({$telegram_chat?->chat_id})"),
                 TextColumn::make('type')
                     ->sortable()
                     ->badge(),
