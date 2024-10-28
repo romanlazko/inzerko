@@ -15,6 +15,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\HtmlString;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -78,6 +79,8 @@ class Chats extends Component implements HasForms, HasTable
                     ->modalHeading(fn ($record) => new HtmlString(view('components.user.card', ['user' => $record->recipient])))
                     ->modalContent(function ($record) {
                         $record->messages()->where('user_id', '!=', auth()->id())->update(['read_at' => now()]);
+
+                        Cookie::forget('unreadMessagesCount');
 
                         return view('components.livewire.chat.show', ['messages' => $record->messages]);
                     })

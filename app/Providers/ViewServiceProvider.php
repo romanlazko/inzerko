@@ -26,7 +26,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
-            $view->with('unreadMessagesCount', $this->getUnreadMessagesCount());
+            $view->with('unreadMessagesCount', auth()->user()?->unreadMessagesCount);
         });
 
         // View::composer('*', function ($view) {

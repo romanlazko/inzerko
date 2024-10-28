@@ -10,6 +10,7 @@ use App\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cookie;
 use Laravel\Sanctum\HasApiTokens;
 use Romanlazko\Telegram\Models\TelegramChat;
 use Romanlazko\Telegram\Traits\HasBots;
@@ -102,9 +103,17 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function getUnreadMessagesCountAttribute()
     {
-        return $this->threads
-            ->pluck('messages_count')
-            ->sum();
+        $unreadMessagesCount = Cookie::get('unreadMessagesCount');
+
+        if (!$unreadMessagesCount) {
+            $unreadMessagesCount = $this->threads
+                ->pluck('messages_count')
+                ->sum();
+
+            Cookie::queue('unreadMessagesCount', $unreadMessagesCount ?? 0, 2);
+        }
+
+        return $unreadMessagesCount;
     }
 
     public function wishlist()
