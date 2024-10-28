@@ -56,7 +56,7 @@ class TelegramChat extends Model implements HasMedia
 
     public function getAvatarAttribute()
     {
-        if ($this->getMedia('avatar')->isEmpty()) {
+        if ($this->getMedia('avatar', 'thumb')->isEmpty()) {
             if ($this->photo) {
                 $photo_url = Inzerko::getPhoto(['file_id' => $this->photo]);
 
@@ -67,6 +67,6 @@ class TelegramChat extends Model implements HasMedia
             }
         }
 
-        return $this->getFirstMedia('avatar');
+        return $this->getFirstMedia('avatar', 'thumb');
     }
 }
