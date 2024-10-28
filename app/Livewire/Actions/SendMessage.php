@@ -80,7 +80,7 @@ class SendMessage extends Component implements HasForms, HasActions
             ->form([
                 Textarea::make('message')
                     ->required()
-                    ->placeholder(__('write_a_message'))
+                    ->placeholder(__('livewire.write_a_message'))
                     ->rows(6),
             ])
             ->action(function (array $data) use ($announcement){

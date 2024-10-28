@@ -110,7 +110,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
                 ->pluck('messages_count')
                 ->sum();
 
-            Cookie::queue('unreadMessagesCount', $unreadMessagesCount ?? 0, 2);
+            cookie()->queue(cookie('unreadMessagesCount', $unreadMessagesCount ?? 0, 2));
+            // Cookie::queue('unreadMessagesCount', $unreadMessagesCount ?? 0, 2);
         }
 
         return $unreadMessagesCount;

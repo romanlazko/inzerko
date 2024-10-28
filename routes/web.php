@@ -30,6 +30,7 @@ use App\Livewire\Pages\Admin\User\Users;
 use App\Livewire\Pages\User\Profile\Messages;
 use App\View\Models\HomeViewModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,8 +118,15 @@ Route::get('/location', function () {
     dd(Location::get(), request()->ip());
 });
 
+Route::get('cron', function () {
+    Artisan::call('queue:work --stop-when-empty --tries=1 --timeout=60');
+    return true;
+});
+
 
 
 
 
 require __DIR__.'/auth.php';
+
+
