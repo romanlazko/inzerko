@@ -33,8 +33,11 @@ class UpdateProfile extends Command
         $validator = $this->validator($notes);
 
         if ($validator->stopOnFirstFailure()->fails()) {
-            $this->handleError($validator->errors()->first());
-            return $this->bot->executeCommand(Profile::$command);
+            return BotApi::answerCallbackQuery([
+                'callback_query_id' => $updates->getCallbackQuery()->getId(),
+                'text' => $validator->errors()->first(),
+                'show_alert' => true
+            ]);
         }
 
         $validated = $validator->validated();

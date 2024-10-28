@@ -32,14 +32,14 @@ class StoreProfile extends Command
 
         $notes = $this->getConversation()->notes;
 
-        $validator = $this->validator([
-            'email' => $notes['email'],
-            'phone' => $notes['phone'],
-        ]);
+        $validator = $this->validator($notes);
 
         if ($validator->stopOnFirstFailure()->fails()) {
-            $this->handleError($validator->errors()->first());
-            return $this->bot->executeCommand(Profile::$command);
+            return BotApi::answerCallbackQuery([
+                'callback_query_id' => $updates->getCallbackQuery()->getId(),
+                'text' => $validator->errors()->first(),
+                'show_alert' => true
+            ]);
         }
 
         $validated = $validator->validated();
