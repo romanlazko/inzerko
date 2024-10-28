@@ -67,6 +67,6 @@ class TelegramChat extends Model implements HasMedia
             }
         }
 
-        return $this->getFirstMedia('avatar', 'thumb');
+        return $this->getFirstMediaUrl('avatar', 'thumb');
     }
 }
