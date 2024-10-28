@@ -27,9 +27,6 @@ trait AnnouncementSearch
             => $query->where('category_id', $category->id)
                 ->select('categories.id')
         );
-
-        // return $query->leftJoin('announcement_category', 'announcement_category.announcement_id', '=', 'announcements.id')
-        //     ->where('announcement_category.category_id', $category->id);
     }
 
     public function scopeGeo($query, $location = null)

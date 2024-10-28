@@ -104,7 +104,7 @@ class Chats extends Component implements HasForms, HasTable
                             'message' => $data['message'],
                         ]);
 
-                        $record->recipient->notify((new NewMessage($record))->delay(now()->addMinutes(3)));
+                        $record->recipient->notify(new NewMessage($record));
 
                         $this->dispatch('scroll-to-bottom');
 

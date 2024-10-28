@@ -119,7 +119,7 @@ Route::get('/location', function () {
 });
 
 Route::get('cron', function () {
-    Artisan::call('queue:work --stop-when-empty --tries=1 --max-time=60');
+    Artisan::call('queue:work --stop-when-empty --tries=2 --max-time=60');
     return true;
 });
 
