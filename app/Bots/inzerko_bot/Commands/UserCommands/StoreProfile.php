@@ -11,6 +11,7 @@ use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
+use Laravolt\Avatar\Facade as Avatar;
 
 class StoreProfile extends Command
 {
@@ -53,9 +54,14 @@ class StoreProfile extends Command
             telegram_token: Str::random(8)
         );
 
-        $photo_url = BotApi::getPhoto(['file_id' => $telegram_chat->photo]);
+        if ($telegram_chat->photo) {
+            $photo_url = BotApi::getPhoto(['file_id' => $telegram_chat->photo]);
 
-        $user->addMediaFromUrl($photo_url)->toMediaCollection('avatar');
+            $user->addMediaFromUrl($photo_url)->toMediaCollection('avatar');
+        }
+        else {
+            $user->addMediaFromBase64(Avatar::create("$telegram_chat->first_name $telegram_chat->last_name"))->toMediaCollection('avatar');
+        }
 
         return $this->bot->executeCommand(CreateAnnouncement::$command);
     }
@@ -73,5 +79,10 @@ class StoreProfile extends Command
                 'phone.required' => 'Поле телефона обязательно к заполнению',
             ]
         );
+    }
+
+    private function addAvatar()
+    {
+
     }
 }

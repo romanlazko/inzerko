@@ -2,7 +2,9 @@
 
 namespace App\Bots\inzerko_bot\Providers;
 
+use App\Models\TelegramBot;
 use Illuminate\Support\ServiceProvider;
+use Romanlazko\Telegram\App\Bot;
 
 class InzerkoBotProvider extends ServiceProvider
 {
@@ -11,6 +13,9 @@ class InzerkoBotProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind('inzerko', function () {
+            return new Bot(TelegramBot::firstWhere('name', 'inzerko_bot')->token);
+        });
     }
 
     /**

@@ -7,17 +7,19 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileService 
 {
-    public static function create(string $name, string $email, string $password = null, string $phone = null, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
+    public static function create(string $name = null, string $email = null, string $password = null, string $phone = null, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
     {
-        return User::create([
+        return User::create(array_filter([
             'name' => $name,
             'email' => $email,
-            'password' => Hash::make($password),
+            'password' => $password ? Hash::make($password) : null,
             'phone' => $phone,
             'locale' => $locale,
             'telegram_chat_id' => $telegram_chat_id,
             'telegram_token' => $telegram_token,
-        ]);
+        ], function ($value) {
+            return !is_null($value) && $value !== '';
+        }));
     }
 
     public static function addMediaFromBase64(User $user, string $base64)
