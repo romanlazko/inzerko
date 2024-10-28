@@ -23,7 +23,7 @@ class TelegramChat extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('avatar')
+        $this->addMediaCollection('telegram_avatar')
             ->singleFile()
             ->registerMediaConversions(function (Media $media) {
                 $this
@@ -56,17 +56,18 @@ class TelegramChat extends Model implements HasMedia
 
     public function getAvatarAttribute()
     {
-        if ($this->getMedia('avatar', 'thumb')->isEmpty()) {
+        if ($this->getMedia('telegram_avatar', 'thumb')->isEmpty()) {
             if ($this->photo) {
+                dd('no avatar');
                 $photo_url = Inzerko::getPhoto(['file_id' => $this->photo]);
 
-                $this->addMediaFromUrl($photo_url)->toMediaCollection('avatar');
+                $this->addMediaFromUrl($photo_url)->toMediaCollection('telegram_avatar');
             }
             else {
-                $this->addMediaFromBase64(Avatar::create("$this->first_name $this->last_name"))->toMediaCollection('avatar');
+                $this->addMediaFromBase64(Avatar::create("$this->first_name $this->last_name"))->toMediaCollection('telegram_avatar');
             }
         }
 
-        return $this->getFirstMediaUrl('avatar', 'thumb');
+        return $this->getFirstMediaUrl('telegram_avatar', 'thumb');
     }
 }
