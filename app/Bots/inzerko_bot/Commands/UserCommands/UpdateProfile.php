@@ -28,15 +28,15 @@ class UpdateProfile extends Command
     {
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        $notes = $this->getConversation()->notes();
+        $notes = $this->getConversation()->notes;
 
         $user = User::firstWhere('telegram_chat_id', $telegram_chat->id);
 
         ProfileService::update(
             user: $user,
             name: $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
-            email: $notes->email,
-            phone: $notes->phone,
+            email: $notes['email'] ?? null,
+            phone: $notes['phone'] ?? null,
         );
 
         $photo_url = BotApi::getPhoto(['file_id' => $telegram_chat->photo]);
