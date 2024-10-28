@@ -37,11 +37,11 @@ class Profile extends Command
         ];
 
         if (!empty($notes)) {
-            $buttons[] = [
+            $buttons[] = 
                 $user 
                     ? [array(UpdateProfile::getTitle('ru'), UpdateProfile::$command, '')]
                     : [array(StoreProfile::getTitle('ru'), StoreProfile::$command, '')]
-            ];
+            ;
         }
 
         $buttons = BotApi::inlineKeyboard($buttons);
