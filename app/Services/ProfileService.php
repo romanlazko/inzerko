@@ -30,7 +30,7 @@ class ProfileService
         return $user->addMediaFromUrl($url)->toMediaCollection('avatar');
     }
 
-    public static function update(User $user, string $name, string $email, string $phone, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
+    public static function update(User $user, string $name = null, string $email = null, string $phone = null, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
     {
         $user->fill(array_filter([
             'name' => $name,
