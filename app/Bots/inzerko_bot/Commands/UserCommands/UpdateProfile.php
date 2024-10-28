@@ -28,27 +28,15 @@ class UpdateProfile extends Command
     {
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        $notes = $this->getConversation()->notes;
-
-        $validator = $this->validator($notes);
-
-        if ($validator->stopOnFirstFailure()->fails()) {
-            return BotApi::answerCallbackQuery([
-                'callback_query_id' => $updates->getCallbackQuery()->getId(),
-                'text' => $validator->errors()->first(),
-                'show_alert' => true
-            ]);
-        }
-
-        $validated = $validator->validated();
+        $notes = $this->getConversation()->notes();
 
         $user = User::firstWhere('telegram_chat_id', $telegram_chat->id);
 
         ProfileService::update(
             user: $user,
             name: $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
-            email: $validated['email'],
-            phone: $validated['phone'],
+            email: $notes->email,
+            phone: $notes->phone,
         );
 
         $photo_url = BotApi::getPhoto(['file_id' => $telegram_chat->photo]);
@@ -56,20 +44,5 @@ class UpdateProfile extends Command
         $user->addMediaFromUrl($photo_url)->toMediaCollection('avatar');
         
         return $this->bot->executeCommand(CreateAnnouncement::$command);
-    }
-
-    private function validator(array $data)
-    {
-        return Validator::make(
-            $data, 
-            [
-                'email' => 'required|email|unique:users,email',
-                'phone' => 'required|max:16|regex:/^(\+?\d{3}\s*)?\d{3}[\s-]?\d{3}[\s-]?\d{3}$/',
-            ],
-            [
-                'email.required' => 'Поле e-mail обязательно к заполнению',
-                'phone.required' => 'Поле телефона обязательно к заполнению',
-            ]
-        );
     }
 }

@@ -30,21 +30,14 @@ class Profile extends Command
 
         $user = User::firstWhere('telegram_chat_id', $telegram_chat->id);
 
-        $buttons = [
+        $saveProfileCommand = $user ? UpdateProfile::class : StoreProfile::class;
+
+        $buttons = BotApi::inlineKeyboard([
             [array($notes['email'] ?? $user?->email ?? 'Email:', Email::$command, '')],
             [array($notes['phone'] ?? $user?->phone ?? 'Phone:', Phone::$command, '')],
+            [array($saveProfileCommand::getTitle('ru'), $saveProfileCommand::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
-        ];
-
-        if (!empty($notes)) {
-            $buttons[] = 
-                $user 
-                    ? [array(UpdateProfile::getTitle('ru'), UpdateProfile::$command, '')]
-                    : [array(StoreProfile::getTitle('ru'), StoreProfile::$command, '')]
-            ;
-        }
-
-        $buttons = BotApi::inlineKeyboard($buttons);
+        ]);
 
         $text = implode("\n", [
             "*Ваш профиль:*"."\n",
