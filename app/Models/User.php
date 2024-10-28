@@ -12,7 +12,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cookie;
 use Laravel\Sanctum\HasApiTokens;
-use Romanlazko\Telegram\Models\TelegramChat;
 use Romanlazko\Telegram\Traits\HasBots;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
