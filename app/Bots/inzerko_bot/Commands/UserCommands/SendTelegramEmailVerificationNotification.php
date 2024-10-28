@@ -29,6 +29,13 @@ class SendTelegramEmailVerificationNotification extends Command
         
         $user = User::firstWhere('telegram_chat_id', $telegram_chat_id);
 
+        BotApi::returnInline([
+            'chat_id' => $updates->getChat()->getId(),
+            'text' => 'Отправление письма...',
+            'parse_mode'    =>  'Markdown',
+            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
+        ]);
+
         $user->notify(new TelegramEmailVerification);
 
         $buttons = BotApi::inlineKeyboard([
