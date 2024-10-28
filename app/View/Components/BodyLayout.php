@@ -16,6 +16,6 @@ class BodyLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.body-layout');
+        return view('layouts.body');
     }
 }

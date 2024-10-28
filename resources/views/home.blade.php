@@ -1,4 +1,4 @@
-<x-body-layout :title="__('home.title')">
+<x-app-layout :title="__('home.title')">
     <x-slot name="header">
         <div class="w-full space-y-24 py-12">
             <div class="max-w-2xl m-auto space-y-12">
@@ -26,4 +26,4 @@
             </h2>
         </x-slot>
     </x-announcement.list>
-</x-body-layout>
+</x-app-layout>

@@ -2,7 +2,7 @@
     $title = $category?->translated_name ?? __('announcement.all');
 @endphp
 
-<x-body-layout :title="$title" class="w-full max-w-7xl m-auto">
+<x-app-layout :title="$title" class="w-full max-w-7xl m-auto">
     @if ($category)
         <x-slot name="meta">
             {!! seo()->for($category) !!}
@@ -50,4 +50,4 @@
             </div>
         </x-slot>
     </x-announcement.list>
-</x-body-layout>
+</x-app-layout>
