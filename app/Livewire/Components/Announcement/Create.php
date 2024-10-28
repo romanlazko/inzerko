@@ -89,7 +89,8 @@ class Create extends Component implements HasForms
                         ])
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('features')
-                        ->schema($this->getFormSchema()),
+                        ->schema($this->getFormSchema())
+                        ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('photos')
                         ->schema([
                             Section::make(__('livewire.photos'))
@@ -101,7 +102,8 @@ class Create extends Component implements HasForms
                                         ->imagePreviewHeight('120')
                                         ->required(),
                                 ]),
-                        ]),
+                        ])
+                        ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     
                 ])
                 ->submitAction(new HtmlString(Blade::render(<<<BLADE
