@@ -25,7 +25,7 @@ return [
 
     'placeholders' => [
         'from' => 'От',
-        'to' => 'К',
+        'to' => 'До',
         'currency' => 'Валюта',
         'country' => 'Страна',
         'city' => 'Город',

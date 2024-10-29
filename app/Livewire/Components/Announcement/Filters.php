@@ -75,7 +75,9 @@ class Filters extends Component implements HasForms
                 
                 if ($fields->isNotEmpty()) {
                     return Fieldset::make($section_name)
-                        ->extraAttributes(['class' => 'bg-white'])
+                        ->extraAttributes([
+                            'class' => 'bg-white',
+                        ])
                         ->schema([
                             Grid::make([
                                 'default' => 2,

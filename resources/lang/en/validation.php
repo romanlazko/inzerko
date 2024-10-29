@@ -170,8 +170,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'data.categories.*' => [
+            'required' => 'You must select at least one category.',
         ],
     ],
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->json('alterlabels')->nullable();
+            $table->json('alterprefixes')->nullable();
             $table->json('altersuffixes')->nullable();
             $table->json('visible')->nullable();
             $table->json('hidden')->nullable();

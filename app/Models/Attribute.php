@@ -21,6 +21,7 @@ class Attribute extends Model
         'hidden' => 'array',
         'rules' => 'array',
         'altersuffixes' => 'array',
+        'alterprefixes' => 'array',
         'filter_layout' => 'array',
         'create_layout' => 'array',
         'show_layout' => 'array',
@@ -45,6 +46,11 @@ class Attribute extends Model
     public function getLabelAttribute()
     {
         return $this->alterlabels[app()->getLocale()] ?? $this->alterlabels['en'] ?? null;
+    }
+
+    public function getPrefixAttribute()
+    {
+        return $this->alterprefixes[app()->getLocale()] ?? $this->alterprefixes['en'] ?? null;
     }
 
     public function getSuffixAttribute()

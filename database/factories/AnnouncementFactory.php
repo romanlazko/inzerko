@@ -2,18 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Enums\Status;
 use App\Livewire\Actions\Concerns\HasTypeOptions;
 use App\Models\Announcement;
-use App\Models\Attribute;
-use App\Models\Category;
 use App\Models\Geo;
 use App\Models\TelegramChat;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use App\Services\Actions\CategoryAttributeService;
 
 /**
@@ -110,15 +105,6 @@ class AnnouncementFactory extends Factory
                         ],
                     ];
                 }
-
-                // if (in_array($attribute->create_layout['type'], array_keys(self::$type_options['date_time_picker']))) {
-                //     return [
-                //         'attribute_id' => $attribute->id,
-                //         'translated_value' => [
-                //             'original' => fake()->dateTime(),
-                //         ],
-                //     ];
-                // }
             })
             ->filter()
             ->all();
