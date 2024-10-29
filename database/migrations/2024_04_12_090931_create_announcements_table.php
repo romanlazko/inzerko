@@ -17,11 +17,8 @@ return new class extends Migration
             $table->id();
 
             $table->bigInteger('user_id')->nullable();
-            
             $table->string('slug')->nullable();
-
             $table->foreignIdFor(Geo::class)->nullable();
-
             $table->integer('current_status')->nullable()->default(Status::created);
 
             $table->timestamps();

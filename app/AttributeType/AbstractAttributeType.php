@@ -36,7 +36,7 @@ abstract class AbstractAttributeType
 
     public function getValueByFeature(Feature $feature = null) : ?string
     {
-        return $feature->attribute_option?->name ?? ($this->getTranslatedValue($feature->translated_value) . ' ' . $this->attribute->suffix);
+        return $this->attribute->prefix . ' ' . ($feature->attribute_option?->name ?? $this->getTranslatedValue($feature->translated_value)) . ' ' . $this->attribute->suffix;
     }
 
     private function getTranslatedValue($translated_value)

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Models\Announcement;
 use App\Models\TelegramChat;
 use Illuminate\Bus\Queueable;
@@ -78,14 +79,12 @@ class PublishAnnouncementOnAllTelegramChannelsJob implements ShouldQueue
     public function publishOnChannel(Announcement $announcement, TelegramChat $chat): Response
     {
         app()->setLocale('ru');
-        
-        $bot = new Bot($chat->bot->token);
 
-        $buttons = BotApi::inlineKeyboardWithLink(
+        $buttons = Inzerko::inlineKeyboardWithLink(
             array('text' => "Посмотреть объявление", 'url' => route('announcement.show', $announcement)),
         );
 
-        return $bot::sendPhoto([
+        return Inzerko::sendPhoto([
             'caption'                   => view('telegram.announcement.show', ['announcement' => $announcement])->render(),
             'chat_id'                   => $chat->chat_id,
             'photo'                     => $announcement->getFirstMediaUrl('announcements'),
