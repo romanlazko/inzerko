@@ -16,27 +16,8 @@
                 <div class="w-full m-auto py-6 px-3 max-w-7xl">
                     {{ $header }}
                 </div>
-                
             </div>
-            
         @endif
-
-        <div class="w-full bg-gray-100">
-            <div class="max-w-7xl m-auto px-3 ">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6305828784588130"
-                    crossorigin="anonymous"></script>
-                <!-- Inzerko Media -->
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-6305828784588130"
-                    data-ad-slot="7055301503"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-        </div>
 
         <div {{ $attributes->merge(['class' => 'flex h-full m-auto w-full relative']) }}>
             @if (isset($sidebar))

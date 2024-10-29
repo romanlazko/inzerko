@@ -44,6 +44,7 @@ class Category extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('categories')
+            ->useDisk('aws_categories')
             ->singleFile();
     }
 

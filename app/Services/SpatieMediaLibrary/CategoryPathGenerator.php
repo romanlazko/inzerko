@@ -12,7 +12,7 @@ class CategoryPathGenerator implements PathGenerator
      */
     public function getPath(Media $media): string
     {
-        return $this->getCollectionDirectory($media).'/originals/'.$this->getFileDirectory($media).'/';
+        return $this->getCollectionDirectory($media).'/originals/'.$this->getModelDirectory($media).'/';
     }
 
     /*
