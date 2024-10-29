@@ -591,6 +591,105 @@ class CategoriesTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 15:45:38',
                 'deleted_at' => NULL,
             ),
+            52 => 
+            array (
+                'id' => 53,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "Одежда", "en": "Clothes", "ru": "Одежда"}',
+                'slug' => 'clothes',
+                'is_active' => 0,
+                'created_at' => '2024-10-29 11:36:26',
+                'updated_at' => '2024-10-29 11:46:16',
+                'deleted_at' => '2024-10-29 11:46:16',
+            ),
+            53 => 
+            array (
+                'id' => 54,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "123", "en": "123", "ru": "123"}',
+                'slug' => '123',
+                'is_active' => 0,
+                'created_at' => '2024-10-29 11:46:30',
+                'updated_at' => '2024-10-29 11:48:08',
+                'deleted_at' => '2024-10-29 11:48:08',
+            ),
+            54 => 
+            array (
+                'id' => 55,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "123", "en": "123", "ru": "123"}',
+                'slug' => '123-1',
+                'is_active' => 1,
+                'created_at' => '2024-10-29 11:48:20',
+                'updated_at' => '2024-10-29 12:00:29',
+                'deleted_at' => '2024-10-29 12:00:29',
+            ),
+            55 => 
+            array (
+                'id' => 56,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "123", "en": "123", "ru": "123"}',
+                'slug' => '123-2',
+                'is_active' => 0,
+                'created_at' => '2024-10-29 12:00:39',
+                'updated_at' => '2024-10-29 12:02:24',
+                'deleted_at' => '2024-10-29 12:02:24',
+            ),
+            56 => 
+            array (
+                'id' => 57,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "234", "en": "234", "ru": "234"}',
+                'slug' => '234',
+                'is_active' => 0,
+                'created_at' => '2024-10-29 12:02:39',
+                'updated_at' => '2024-10-29 13:00:24',
+                'deleted_at' => '2024-10-29 13:00:24',
+            ),
+            57 => 
+            array (
+                'id' => 58,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "+ěš", "en": "+ěš", "ru": "+ěš"}',
+                'slug' => 'es',
+                'is_active' => 0,
+                'created_at' => '2024-10-29 13:00:37',
+                'updated_at' => '2024-10-29 13:31:06',
+                'deleted_at' => '2024-10-29 13:31:06',
+            ),
+            58 => 
+            array (
+                'id' => 59,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "+ěš", "en": "+ěš", "ru": "+ěš"}',
+                'slug' => 'es-1',
+                'is_active' => 0,
+                'created_at' => '2024-10-29 13:02:27',
+                'updated_at' => '2024-10-29 13:31:08',
+                'deleted_at' => '2024-10-29 13:31:08',
+            ),
+            59 => 
+            array (
+                'id' => 60,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "+ěš", "en": "+ěš", "ru": "+ěš"}',
+                'slug' => 'es-2',
+                'is_active' => 0,
+                'created_at' => '2024-10-29 13:03:48',
+                'updated_at' => '2024-10-29 13:36:08',
+                'deleted_at' => '2024-10-29 13:36:08',
+            ),
+            60 => 
+            array (
+                'id' => 61,
+                'parent_id' => 11,
+                'alternames' => '{"cs": "+ěš", "en": "+ěš", "ru": "+ěš"}',
+                'slug' => 'es-3',
+                'is_active' => 0,
+                'created_at' => '2024-10-29 13:04:37',
+                'updated_at' => '2024-10-29 13:36:11',
+                'deleted_at' => '2024-10-29 13:36:11',
+            ),
         ));
         
         
