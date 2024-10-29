@@ -50,6 +50,7 @@ class Announcement extends Model implements HasMedia, Auditable
             ->generateSlugsFrom(function ($model) {
                 return $model?->title ?? $model->uuid;
             })
+            ->preventOverwrite()
             ->skipGenerateWhen(function () {
                 return $this->features->isEmpty();
             })
