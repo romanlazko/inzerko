@@ -27,21 +27,21 @@ abstract class AbstractAttributeType
 
     public function sort(Builder $query, $direction = 'asc') : Builder
     {
-        // if ($this->attribute->is_sortable) {
         return $this->getSortQuery($query, $direction);
-        // }
-
-        // return $query;
     }
 
     public function getValueByFeature(Feature $feature = null) : ?string
     {
-        return $this->attribute->prefix . ' ' . ($feature->attribute_option?->name ?? $this->getTranslatedValue($feature->translated_value)) . ' ' . $this->attribute->suffix;
+        return implode(' ', array_filter([
+            $this->attribute->prefix,
+            $feature->attribute_option?->name ?? $this->getTranslatedValue($feature->translated_value),
+            $this->attribute->suffix
+        ]));
     }
 
     private function getTranslatedValue($translated_value)
     {
-        return $this->getFeatureValue($translated_value[app()->getLocale()] ?? $translated_value['original'] ?? 1);
+        return $this->getFeatureValue($translated_value[app()->getLocale()] ?? $translated_value['original'] ?? null);
     }
 
     public function getCreateSchema(): array
@@ -135,6 +135,8 @@ abstract class AbstractAttributeType
 
         return false;
     }
+
+    protected abstract function getFilterQuery(Builder $query) : Builder;
 
     protected abstract function getSortQuery(Builder $query, $direction = 'asc') : Builder;
 

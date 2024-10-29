@@ -23,7 +23,7 @@ class Audits extends AdminTableLayout implements HasForms, HasTable
     {
         return $table
             ->heading("Audits")
-            ->query($this->announcement->audits()->with('user')->latest()->getQuery())
+            ->query($this->announcement->audits()->with('user')->orderByDesc('id')->getQuery())
             ->columns([
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('user.name')
