@@ -19,18 +19,6 @@
         ])
     >
         @foreach ($announcements as $index => $announcement)
-            @if ($index % $cols == 0)
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6305828784588130"
-                crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-format="autorelaxed"
-                data-ad-client="ca-pub-6305828784588130"
-                data-ad-slot="4620709858"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-            @endif
             <x-announcement.card :announcement="$announcement" :layout="$layout" />
         @endforeach
     </div>
