@@ -24,6 +24,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 2,
                 'name' => 'description',
                 'alterlabels' => '{"cz": "Popis", "en": "Description", "ru": "Описание"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -47,6 +48,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 4,
                 'name' => 'current_price',
                 'alterlabels' => '{"cz": "Cena", "en": "Price", "ru": "Стоимость"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -70,6 +72,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 5,
                 'name' => 'note_on_price',
                 'alterlabels' => '{"cz": "Poznámka k ceně", "en": "Note on price", "ru": "Пометка к цене"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -93,6 +96,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 6,
                 'name' => 'real_estate_deposit',
                 'alterlabels' => '{"cz": "Kauce", "en": "Deposit", "ru": "Залог"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[{"value": "5", "attribute_name": "real_estate_type"}, {"value": "78", "attribute_name": "real_estate_type"}]',
                 'hidden' => '[{"value": "4", "attribute_name": "real_estate_type"}]',
@@ -116,6 +120,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 7,
                 'name' => 'real_estate_type',
                 'alterlabels' => '{"cz": "Typ", "en": "Type", "ru": "Тип"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -139,6 +144,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 8,
                 'name' => 'real_estate_configuration',
                 'alterlabels' => '{"cz": "Konfigurace", "en": "Configuration", "ru": "Конфигурация"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -162,6 +168,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 9,
                 'name' => 'building',
                 'alterlabels' => '{"cs": "Budova", "en": "Building", "ru": "Здание"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cs": null, "en": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -185,6 +192,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 10,
                 'name' => 'condition',
                 'alterlabels' => '{"cs": "Stav", "en": "Condition", "ru": "Состояние"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -208,6 +216,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 11,
                 'name' => 'number_of_floors',
                 'alterlabels' => '{"cs": "Počet podlaží", "en": "Number of floors", "ru": "Количество этажей"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cs": "podlaží", "en": "flors", "ru": "этажей"}',
                 'visible' => '[]',
                 'hidden' => '[]',
@@ -231,6 +240,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 12,
                 'name' => 'number_of_underground_floors',
                 'alterlabels' => '{"cz": "Počet podzemních podlaží", "en": "Number of underground floors", "ru": "Количество подземных этажей"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cz": "podlaží", "en": "floors", "ru": "этажей"}',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -254,6 +264,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 13,
                 'name' => 'elevator',
                 'alterlabels' => '{"cz": "Výtah", "en": "Elevator", "ru": "Лифт"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -277,6 +288,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 14,
                 'name' => 'balcony',
                 'alterlabels' => '{"cz": "Balkon", "en": "Balcony", "ru": "Балкон"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -300,6 +312,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 15,
                 'name' => 'parking',
                 'alterlabels' => '{"cz": "Parkoviště", "en": "Parking", "ru": "Паркинг"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -323,6 +336,7 @@ class AttributesTableSeeder extends Seeder
                 'id' => 16,
                 'name' => 'square',
                 'alterlabels' => '{"cz": "Plocha", "en": "Square", "ru": "Площадь"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"en": "m²"}',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -343,39 +357,17 @@ class AttributesTableSeeder extends Seeder
             ),
             14 => 
             array (
-                'id' => 17,
-                'name' => 's_i_m_card_count',
-                'alterlabels' => '{"cz": "SIM card množství", "en": "SIM card count", "ru": "Количество сим карт"}',
-                'altersuffixes' => NULL,
-                'visible' => '[]',
-                'hidden' => NULL,
-                'create_layout' => NULL,
-                'filter_layout' => NULL,
-                'show_layout' => NULL,
-                'group_layout' => NULL,
-                'default' => NULL,
-                'is_translatable' => 0,
-                'is_feature' => 1,
-                'is_required' => 1,
-                'is_always_required' => 0,
-                'is_readonly' => 0,
-                'is_sortable' => 0,
-                'created_at' => '2024-05-23 18:48:58',
-                'updated_at' => '2024-08-09 20:25:09',
-                'deleted_at' => '2024-08-09 20:25:09',
-            ),
-            15 => 
-            array (
-                'id' => 18,
-                'name' => 'salary_to',
-                'alterlabels' => '{"cz": "Mzda do", "en": "Salary to", "ru": "Зарплата до"}',
+                'id' => 21,
+                'name' => 'salary_type',
+                'alterlabels' => '{"cz": "Typ platby", "en": "Salary type", "ru": "Тип оплаты"}',
+                'alterprefixes' => '{"cs": "/", "en": "/", "ru": "/"}',
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
-                'create_layout' => NULL,
-                'filter_layout' => NULL,
-                'show_layout' => NULL,
-                'group_layout' => NULL,
+                'create_layout' => '{"type": "select", "section_id": "7", "column_span": "1", "column_start": "1", "order_number": "4"}',
+                'filter_layout' => '{"type": "checkbox_list", "section_id": "7", "column_span": "4", "column_start": "1", "order_number": "4"}',
+                'show_layout' => '{"type": "select", "section_id": "7", "order_number": "4"}',
+                'group_layout' => '{"group_id": "1", "order_number": "3"}',
                 'default' => NULL,
                 'is_translatable' => 0,
                 'is_feature' => 0,
@@ -383,38 +375,16 @@ class AttributesTableSeeder extends Seeder
                 'is_always_required' => 0,
                 'is_readonly' => 0,
                 'is_sortable' => 0,
-                'created_at' => '2024-05-23 19:48:55',
-                'updated_at' => '2024-06-06 15:02:42',
-                'deleted_at' => '2024-06-06 15:02:42',
-            ),
-            16 => 
-            array (
-                'id' => 21,
-                'name' => 'salary_type',
-                'alterlabels' => '{"cz": "Typ platby", "en": "Salary type", "ru": "Тип оплаты"}',
-                'altersuffixes' => '[]',
-                'visible' => '[]',
-                'hidden' => NULL,
-                'create_layout' => '{"type": "select", "section_id": "7", "column_span": "1", "column_start": "1", "order_number": "4"}',
-                'filter_layout' => '{"type": "checkbox_list", "section_id": "7", "column_span": "1", "column_start": "1", "order_number": "4"}',
-                'show_layout' => '{"type": "select", "section_id": "7", "order_number": "4"}',
-                'group_layout' => NULL,
-                'default' => NULL,
-                'is_translatable' => 0,
-                'is_feature' => 1,
-                'is_required' => 1,
-                'is_always_required' => 0,
-                'is_readonly' => 0,
-                'is_sortable' => 0,
                 'created_at' => '2024-05-24 16:48:19',
-                'updated_at' => '2024-08-14 09:45:19',
+                'updated_at' => '2024-10-29 15:27:09',
                 'deleted_at' => NULL,
             ),
-            17 => 
+            15 => 
             array (
                 'id' => 22,
                 'name' => 'phone_ram',
             'alterlabels' => '{"cz": "RAM (operační paměť)", "en": "RAM (operating memory)", "ru": "RAM (оперативная память)"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -433,11 +403,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 09:44:50',
                 'deleted_at' => NULL,
             ),
-            18 => 
+            16 => 
             array (
                 'id' => 23,
                 'name' => 'phone_rom',
             'alterlabels' => '{"cz": "ROM (zabudovaná paměť)", "en": "ROM (integrated memory)", "ru": "ROM (встроенная память)"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -456,11 +427,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 09:44:56',
                 'deleted_at' => NULL,
             ),
-            19 => 
+            17 => 
             array (
                 'id' => 24,
                 'name' => 'display_diagonal',
                 'alterlabels' => '{"cz": "Úhlopříčka displeje", "en": "Display diagonal", "ru": "Диагональ дисплея"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cz": null, "en": "\\"", "ru": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -479,11 +451,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:33:50',
                 'deleted_at' => NULL,
             ),
-            20 => 
+            18 => 
             array (
                 'id' => 25,
                 'name' => 'display_type',
                 'alterlabels' => '{"cz": "Typ displeje ", "en": "Display type", "ru": "Тип дисплея"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cz": null, "en": null, "ru": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -502,34 +475,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:34:16',
                 'deleted_at' => NULL,
             ),
-            21 => 
-            array (
-                'id' => 26,
-                'name' => 'salary_from',
-                'alterlabels' => '{"cz": "Mzda od", "en": "Salary from", "ru": "Зарплата от"}',
-                'altersuffixes' => '{"cz": null, "en": null, "ru": null}',
-                'visible' => '[]',
-                'hidden' => NULL,
-                'create_layout' => NULL,
-                'filter_layout' => NULL,
-                'show_layout' => NULL,
-                'group_layout' => NULL,
-                'default' => NULL,
-                'is_translatable' => 0,
-                'is_feature' => 0,
-                'is_required' => 1,
-                'is_always_required' => 0,
-                'is_readonly' => 0,
-                'is_sortable' => 0,
-                'created_at' => '2024-05-26 14:27:52',
-                'updated_at' => '2024-06-06 15:02:32',
-                'deleted_at' => '2024-06-06 15:02:32',
-            ),
-            22 => 
+            19 => 
             array (
                 'id' => 27,
                 'name' => 'geo_id',
                 'alterlabels' => '{"cz": "Lokace", "en": "Location", "ru": "Расположение"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cz": null, "en": null, "ru": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
@@ -548,16 +499,17 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-09-17 16:05:46',
                 'deleted_at' => NULL,
             ),
-            23 => 
+            20 => 
             array (
                 'id' => 28,
                 'name' => 'salary',
                 'alterlabels' => '{"cz": "Mzda", "en": "Salary", "ru": "Зарплата"}',
+                'alterprefixes' => '[]',
                 'altersuffixes' => '{"cz": null, "en": null, "ru": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
                 'create_layout' => '{"type": "from_to", "rules": ["numeric"], "section_id": "7", "column_span": "3", "column_start": "1", "order_number": "1"}',
-                'filter_layout' => '{"type": "from_to", "section_id": "7", "column_span": "2", "column_start": "1", "order_number": "1"}',
+                'filter_layout' => '{"type": "from_to", "section_id": "7", "column_span": "4", "column_start": "1", "order_number": "1"}',
                 'show_layout' => '{"type": "from_to", "section_id": "2", "order_number": "1"}',
                 'group_layout' => '{"group_id": "1", "order_number": "1"}',
                 'default' => NULL,
@@ -568,14 +520,15 @@ class AttributesTableSeeder extends Seeder
                 'is_readonly' => 0,
                 'is_sortable' => 0,
                 'created_at' => '2024-06-03 13:54:15',
-                'updated_at' => '2024-10-07 21:52:34',
+                'updated_at' => '2024-10-29 15:27:39',
                 'deleted_at' => NULL,
             ),
-            24 => 
+            21 => 
             array (
                 'id' => 29,
                 'name' => 'address',
                 'alterlabels' => '{"cs": "Adresa", "en": "Address", "ru": "Адрес"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -594,18 +547,19 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 15:12:01',
                 'deleted_at' => NULL,
             ),
-            25 => 
+            22 => 
             array (
                 'id' => 30,
                 'name' => 'type_of_object',
                 'alterlabels' => '{"cs": "Typ objektu", "en": "Type of object", "ru": "Вид объекта"}',
+                'alterprefixes' => '[]',
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
                 'create_layout' => '{"type": "select", "section_id": "5", "column_span": "2", "column_start": "1", "order_number": "1"}',
-                'filter_layout' => '{"type": "checkbox_list", "section_id": "5", "column_span": "2", "column_start": "1", "order_number": "1"}',
+                'filter_layout' => '{"type": "checkbox_list", "section_id": "5", "column_span": "4", "column_start": "1", "order_number": "1"}',
                 'show_layout' => '{"type": "select", "section_id": "5", "order_number": "1"}',
-                'group_layout' => NULL,
+                'group_layout' => '{"group_id": null, "order_number": null}',
                 'default' => NULL,
                 'is_translatable' => 0,
                 'is_feature' => 1,
@@ -614,14 +568,15 @@ class AttributesTableSeeder extends Seeder
                 'is_readonly' => 0,
                 'is_sortable' => 0,
                 'created_at' => '2024-07-15 12:31:43',
-                'updated_at' => '2024-08-11 13:37:58',
+                'updated_at' => '2024-10-29 15:30:24',
                 'deleted_at' => NULL,
             ),
-            26 => 
+            23 => 
             array (
                 'id' => 31,
                 'name' => 'number_of_rooms',
                 'alterlabels' => '{"cs": "Počet pokojů", "en": "Number of rooms", "ru": "Количество комнат"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cs": null, "en": null, "ru": null}',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -640,11 +595,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:40:54',
                 'deleted_at' => NULL,
             ),
-            27 => 
+            24 => 
             array (
                 'id' => 32,
                 'name' => 'title',
                 'alterlabels' => '{"cs": "Název", "en": "Title", "ru": "Заголовок"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -663,18 +619,19 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-10-07 22:13:34',
                 'deleted_at' => NULL,
             ),
-            28 => 
+            25 => 
             array (
                 'id' => 33,
                 'name' => 'type_of_housing',
                 'alterlabels' => '{"cs": "Typ ubytování", "en": "Type of housing", "ru": "Тип жилья"}',
+                'alterprefixes' => '[]',
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
                 'create_layout' => '{"type": "select", "section_id": "5", "column_span": "2", "column_start": "1", "order_number": "1"}',
-                'filter_layout' => '{"type": "toggle_buttons", "section_id": "5", "column_span": "2", "column_start": "1", "order_number": "1"}',
+                'filter_layout' => '{"type": "toggle_buttons", "section_id": "5", "column_span": "4", "column_start": "1", "order_number": "1"}',
                 'show_layout' => '{"type": "select", "section_id": "5", "order_number": "1"}',
-                'group_layout' => NULL,
+                'group_layout' => '{"group_id": null, "order_number": null}',
                 'default' => NULL,
                 'is_translatable' => 0,
                 'is_feature' => 1,
@@ -683,21 +640,22 @@ class AttributesTableSeeder extends Seeder
                 'is_readonly' => 0,
                 'is_sortable' => 0,
                 'created_at' => '2024-07-17 11:32:19',
-                'updated_at' => '2024-08-11 13:48:20',
+                'updated_at' => '2024-10-29 15:31:12',
                 'deleted_at' => NULL,
             ),
-            29 => 
+            26 => 
             array (
                 'id' => 34,
                 'name' => 'type_of_object_garage',
                 'alterlabels' => '{"cs": "Typ objektu", "en": "Type of object", "ru": "Тип объекта"}',
+                'alterprefixes' => '[]',
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
                 'create_layout' => '{"type": "select", "section_id": "5", "column_span": "2", "column_start": "1", "order_number": "1"}',
-                'filter_layout' => '{"type": "toggle_buttons", "section_id": "5", "column_span": "2", "column_start": "1", "order_number": "1"}',
+                'filter_layout' => '{"type": "toggle_buttons", "section_id": "5", "column_span": "4", "column_start": "1", "order_number": "1"}',
                 'show_layout' => '{"type": "select", "section_id": "5", "order_number": "1"}',
-                'group_layout' => NULL,
+                'group_layout' => '{"group_id": null, "order_number": null}',
                 'default' => NULL,
                 'is_translatable' => 0,
                 'is_feature' => 1,
@@ -706,14 +664,15 @@ class AttributesTableSeeder extends Seeder
                 'is_readonly' => 0,
                 'is_sortable' => 0,
                 'created_at' => '2024-07-17 11:43:59',
-                'updated_at' => '2024-08-11 13:45:06',
+                'updated_at' => '2024-10-29 15:30:14',
                 'deleted_at' => NULL,
             ),
-            30 => 
+            27 => 
             array (
                 'id' => 35,
                 'name' => 'type_of_object_commercial',
                 'alterlabels' => '{"cs": "Typ objektu", "en": "Type of object", "ru": "Тип объекта"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -732,18 +691,19 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:38:59',
                 'deleted_at' => NULL,
             ),
-            31 => 
+            28 => 
             array (
                 'id' => 36,
                 'name' => 'land_category',
                 'alterlabels' => '{"cs": "Kategorie pozemků", "en": "Land category", "ru": "Категория земли"}',
+                'alterprefixes' => '[]',
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
                 'create_layout' => '{"type": "select", "section_id": "5", "column_span": "2", "column_start": "1", "order_number": "1"}',
-                'filter_layout' => '{"type": "checkbox_list", "section_id": "5", "column_span": "2", "column_start": "1", "order_number": "1"}',
+                'filter_layout' => '{"type": "checkbox_list", "section_id": "5", "column_span": "4", "column_start": "1", "order_number": "1"}',
                 'show_layout' => '{"type": "select", "section_id": "5", "order_number": "1"}',
-                'group_layout' => NULL,
+                'group_layout' => '{"group_id": null, "order_number": null}',
                 'default' => NULL,
                 'is_translatable' => 0,
                 'is_feature' => 1,
@@ -752,14 +712,15 @@ class AttributesTableSeeder extends Seeder
                 'is_readonly' => 0,
                 'is_sortable' => 0,
                 'created_at' => '2024-07-17 13:00:03',
-                'updated_at' => '2024-08-11 13:39:18',
+                'updated_at' => '2024-10-29 15:30:45',
                 'deleted_at' => NULL,
             ),
-            32 => 
+            29 => 
             array (
                 'id' => 37,
                 'name' => 'lessor',
                 'alterlabels' => '{"cs": "Pronajímatel", "en": "Lessor", "ru": "Арендодатель"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[{"value": "5", "attribute_name": "real_estate_type"}, {"value": "78", "attribute_name": "real_estate_type"}]',
                 'hidden' => NULL,
@@ -778,11 +739,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:35:41',
                 'deleted_at' => NULL,
             ),
-            33 => 
+            30 => 
             array (
                 'id' => 38,
                 'name' => 'agency_fee',
                 'alterlabels' => '{"cs": "Poplatek realitní kanceláři", "en": "Agency fee", "ru": "Гонорар агентству"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[{"value": "98", "attribute_name": "lessor"}]',
                 'hidden' => '[{"value": "97", "attribute_name": "lessor"}]',
@@ -801,57 +763,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 10:11:47',
                 'deleted_at' => NULL,
             ),
-            34 => 
-            array (
-                'id' => 39,
-                'name' => 'ads',
-                'alterlabels' => '{"cs": null, "en": null, "ru": null}',
-                'altersuffixes' => '{"cs": null, "en": null, "ru": null}',
-                'visible' => NULL,
-                'hidden' => NULL,
-                'create_layout' => NULL,
-                'filter_layout' => NULL,
-                'show_layout' => NULL,
-                'group_layout' => NULL,
-                'default' => NULL,
-                'is_translatable' => 0,
-                'is_feature' => 0,
-                'is_required' => 0,
-                'is_always_required' => 0,
-                'is_readonly' => 0,
-                'is_sortable' => 0,
-                'created_at' => '2024-07-23 10:14:42',
-                'updated_at' => '2024-07-23 10:16:44',
-                'deleted_at' => '2024-07-23 10:16:44',
-            ),
-            35 => 
-            array (
-                'id' => 40,
-                'name' => 'number_of_doors',
-                'alterlabels' => '{"cs": "Počet dveří", "en": "Number of doors", "ru": "Количество дверей"}',
-                'altersuffixes' => '[]',
-                'visible' => NULL,
-                'hidden' => NULL,
-                'create_layout' => NULL,
-                'filter_layout' => NULL,
-                'show_layout' => NULL,
-                'group_layout' => NULL,
-                'default' => NULL,
-                'is_translatable' => 0,
-                'is_feature' => 1,
-                'is_required' => 1,
-                'is_always_required' => 0,
-                'is_readonly' => 0,
-                'is_sortable' => 0,
-                'created_at' => '2024-07-26 12:53:24',
-                'updated_at' => '2024-07-28 11:48:48',
-                'deleted_at' => '2024-07-28 11:48:48',
-            ),
-            36 => 
+            31 => 
             array (
                 'id' => 41,
                 'name' => 'currency',
                 'alterlabels' => '{"cs": "Měna", "en": "Currency", "ru": "Валюта"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -870,18 +787,19 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:41:22',
                 'deleted_at' => NULL,
             ),
-            37 => 
+            32 => 
             array (
                 'id' => 42,
                 'name' => 'job_currency',
                 'alterlabels' => '{"cs": "Měna", "en": "Currency", "ru": "Валюта"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
                 'create_layout' => '{"type": "select", "section_id": "7", "column_span": "1", "column_start": "4", "order_number": "2"}',
                 'filter_layout' => '{"type": "hidden"}',
                 'show_layout' => '{"type": "select", "section_id": "12", "order_number": "2"}',
-                'group_layout' => '{"group_id": null, "order_number": null}',
+                'group_layout' => '{"group_id": "1", "order_number": "2"}',
                 'default' => NULL,
                 'is_translatable' => 0,
                 'is_feature' => 0,
@@ -890,14 +808,15 @@ class AttributesTableSeeder extends Seeder
                 'is_readonly' => 0,
                 'is_sortable' => 0,
                 'created_at' => '2024-08-10 18:07:00',
-                'updated_at' => '2024-10-29 12:42:02',
+                'updated_at' => '2024-10-29 14:29:56',
                 'deleted_at' => NULL,
             ),
-            38 => 
+            33 => 
             array (
                 'id' => 43,
                 'name' => 'mileage',
                 'alterlabels' => '{"cs": "Počet ujetých kilometrů", "en": "Mileage", "ru": "Пробег"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cs": "km", "en": "km", "ru": "km"}',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -916,11 +835,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-10-07 22:07:44',
                 'deleted_at' => NULL,
             ),
-            39 => 
+            34 => 
             array (
                 'id' => 44,
                 'name' => 'manufacturer',
                 'alterlabels' => '{"cs": "Výrobce", "en": "Manufacturer", "ru": "Производитель"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -939,11 +859,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-10-07 21:54:27',
                 'deleted_at' => NULL,
             ),
-            40 => 
+            35 => 
             array (
                 'id' => 45,
                 'name' => 'bmv_model',
                 'alterlabels' => '{"cs": "Model", "en": "Model", "ru": "Модель"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[{"value": "118", "attribute_name": "manufacturer"}]',
                 'hidden' => NULL,
@@ -962,11 +883,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-10-07 21:54:22',
                 'deleted_at' => NULL,
             ),
-            41 => 
+            36 => 
             array (
                 'id' => 46,
                 'name' => 'honda_model',
                 'alterlabels' => '{"cs": "Model", "en": "Model", "ru": "Модель"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[{"value": "119", "attribute_name": "manufacturer"}]',
                 'hidden' => NULL,
@@ -985,11 +907,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-10-07 22:19:11',
                 'deleted_at' => NULL,
             ),
-            42 => 
+            37 => 
             array (
                 'id' => 47,
                 'name' => 'the_year_of_issue',
                 'alterlabels' => '{"cs": "Rok výroby", "en": "The year of issue", "ru": "Год выпуска"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1008,11 +931,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-10-07 22:03:20',
                 'deleted_at' => NULL,
             ),
-            43 => 
+            38 => 
             array (
                 'id' => 48,
                 'name' => 'body_type',
                 'alterlabels' => '{"cs": "Typ karosérie", "en": "Body type", "ru": "Тип кузова"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1031,11 +955,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:02:13',
                 'deleted_at' => NULL,
             ),
-            44 => 
+            39 => 
             array (
                 'id' => 49,
                 'name' => 'count_of_doors',
                 'alterlabels' => '{"cs": "Počet dveří", "en": "Count of doors", "ru": "Количество дверей"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1054,11 +979,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:07:34',
                 'deleted_at' => NULL,
             ),
-            45 => 
+            40 => 
             array (
                 'id' => 50,
                 'name' => 'number_of_seats',
                 'alterlabels' => '{"cs": "Počet míst", "en": "Number of seats", "ru": "Количество мест"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1077,11 +1003,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            46 => 
+            41 => 
             array (
                 'id' => 51,
                 'name' => 'fuel_type',
                 'alterlabels' => '{"cs": "Typ paliva", "en": "Fuel type", "ru": "Тип топлива"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1100,11 +1027,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            47 => 
+            42 => 
             array (
                 'id' => 52,
                 'name' => 'engine_displacement',
                 'alterlabels' => '{"cs": "Objem motoru", "en": "Engine displacement", "ru": "Объем двигателя"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1123,11 +1051,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:25:46',
                 'deleted_at' => NULL,
             ),
-            48 => 
+            43 => 
             array (
                 'id' => 53,
                 'name' => 'motor_power',
                 'alterlabels' => '{"cs": "Výkon motoru", "en": "Motor power", "ru": "Мощность двигателя"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1146,11 +1075,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:40:42',
                 'deleted_at' => NULL,
             ),
-            49 => 
+            44 => 
             array (
                 'id' => 54,
                 'name' => 'approximate_fuel_consumption',
                 'alterlabels' => '{"cs": "Přibližná spotřeba", "en": "Approximate fuel consumption", "ru": "Приблизительный расход топлива"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '{"cs": null, "en": "l/100km", "ru": null}',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1169,11 +1099,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:46:08',
                 'deleted_at' => NULL,
             ),
-            50 => 
+            45 => 
             array (
                 'id' => 55,
                 'name' => 'transmission_type',
                 'alterlabels' => '{"cs": "Typ převodovky", "en": "Transmission type", "ru": "Тип коробки передач"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1192,11 +1123,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:40:52',
                 'deleted_at' => NULL,
             ),
-            51 => 
+            46 => 
             array (
                 'id' => 56,
                 'name' => 'number_of_transmissions',
                 'alterlabels' => '{"cs": "Počet rychlostí", "en": "Number of transmissions", "ru": "Количество передач"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1215,11 +1147,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:53:52',
                 'deleted_at' => NULL,
             ),
-            52 => 
+            47 => 
             array (
                 'id' => 57,
                 'name' => 'drive',
                 'alterlabels' => '{"cs": "Pohon", "en": "Drive", "ru": "Привод"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,
@@ -1238,11 +1171,12 @@ class AttributesTableSeeder extends Seeder
                 'updated_at' => '2024-10-07 12:18:51',
                 'deleted_at' => NULL,
             ),
-            53 => 
+            48 => 
             array (
                 'id' => 58,
                 'name' => 'created_at',
                 'alterlabels' => '{"cs": "CreatedAt", "en": "CreatedAt", "ru": "CreatedAt"}',
+                'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => NULL,
                 'hidden' => NULL,

@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AttributeOptionsTableSeeder::class);
         $this->call(AttributeGroupsTableSeeder::class);
         $this->call(SortingsTableSeeder::class);
+        $this->call(MediaTableSeeder::class);
     }
 }

@@ -230,71 +230,49 @@ class AttributeOptionsTableSeeder extends Seeder
             ),
             19 => 
             array (
-                'id' => 23,
-                'attribute_id' => 17,
-                'alternames' => '{"cz": "1 SIM karta", "en": "1 SIM card", "ru": "1 сим карта"}',
-                'is_default' => 0,
+                'id' => 28,
+                'attribute_id' => 21,
+                'alternames' => '{"cz": "za měsíc", "en": "per month", "ru": "в месяц"}',
+                'is_default' => 1,
                 'is_null' => 0,
-                'created_at' => '2024-05-23 18:48:58',
-                'updated_at' => '2024-05-23 18:48:58',
+                'created_at' => '2024-05-24 16:48:19',
+                'updated_at' => '2024-10-29 15:27:09',
                 'deleted_at' => NULL,
             ),
             20 => 
             array (
-                'id' => 24,
-                'attribute_id' => 17,
-                'alternames' => '{"cz": "2 SIM karty", "en": "2 SIM card", "ru": "2 сим карты"}',
+                'id' => 29,
+                'attribute_id' => 21,
+                'alternames' => '{"cz": "za den", "en": "per day", "ru": "в день"}',
                 'is_default' => 0,
                 'is_null' => 0,
-                'created_at' => '2024-05-23 18:48:58',
-                'updated_at' => '2024-05-23 18:48:58',
+                'created_at' => '2024-05-24 16:48:19',
+                'updated_at' => '2024-10-29 15:27:09',
                 'deleted_at' => NULL,
             ),
             21 => 
             array (
-                'id' => 28,
+                'id' => 30,
                 'attribute_id' => 21,
-                'alternames' => '{"cz": "Za měsíc", "en": "Per month", "ru": "За месяц"}',
-                'is_default' => 1,
+                'alternames' => '{"cz": "za hodinu", "en": "per hour", "ru": "в час"}',
+                'is_default' => 0,
                 'is_null' => 0,
                 'created_at' => '2024-05-24 16:48:19',
-                'updated_at' => '2024-05-26 14:42:43',
+                'updated_at' => '2024-10-29 15:27:09',
                 'deleted_at' => NULL,
             ),
             22 => 
             array (
-                'id' => 29,
+                'id' => 31,
                 'attribute_id' => 21,
-                'alternames' => '{"cz": "Za den", "en": "Per day", "ru": "За день"}',
+                'alternames' => '{"cz": "za provedenou práci", "en": "for work performed", "ru": "за выполненную работу"}',
                 'is_default' => 0,
                 'is_null' => 0,
                 'created_at' => '2024-05-24 16:48:19',
-                'updated_at' => '2024-05-26 14:42:43',
+                'updated_at' => '2024-10-29 15:27:09',
                 'deleted_at' => NULL,
             ),
             23 => 
-            array (
-                'id' => 30,
-                'attribute_id' => 21,
-                'alternames' => '{"cz": "Za hodinu", "en": "Per hour", "ru": "За час"}',
-                'is_default' => 0,
-                'is_null' => 0,
-                'created_at' => '2024-05-24 16:48:19',
-                'updated_at' => '2024-05-26 14:42:43',
-                'deleted_at' => NULL,
-            ),
-            24 => 
-            array (
-                'id' => 31,
-                'attribute_id' => 21,
-                'alternames' => '{"cz": "Za provedenou práci", "en": "For work performed", "ru": "За выполненную работу"}',
-                'is_default' => 0,
-                'is_null' => 0,
-                'created_at' => '2024-05-24 16:48:19',
-                'updated_at' => '2024-05-26 14:42:43',
-                'deleted_at' => NULL,
-            ),
-            25 => 
             array (
                 'id' => 32,
                 'attribute_id' => 22,
@@ -305,7 +283,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            26 => 
+            24 => 
             array (
                 'id' => 33,
                 'attribute_id' => 22,
@@ -316,7 +294,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            27 => 
+            25 => 
             array (
                 'id' => 34,
                 'attribute_id' => 22,
@@ -327,7 +305,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            28 => 
+            26 => 
             array (
                 'id' => 35,
                 'attribute_id' => 22,
@@ -338,7 +316,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            29 => 
+            27 => 
             array (
                 'id' => 36,
                 'attribute_id' => 22,
@@ -349,7 +327,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            30 => 
+            28 => 
             array (
                 'id' => 37,
                 'attribute_id' => 22,
@@ -360,7 +338,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            31 => 
+            29 => 
             array (
                 'id' => 38,
                 'attribute_id' => 22,
@@ -371,7 +349,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            32 => 
+            30 => 
             array (
                 'id' => 39,
                 'attribute_id' => 22,
@@ -382,7 +360,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            33 => 
+            31 => 
             array (
                 'id' => 40,
                 'attribute_id' => 22,
@@ -393,7 +371,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 14:58:39',
                 'deleted_at' => NULL,
             ),
-            34 => 
+            32 => 
             array (
                 'id' => 41,
                 'attribute_id' => 23,
@@ -404,7 +382,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:08:54',
                 'deleted_at' => NULL,
             ),
-            35 => 
+            33 => 
             array (
                 'id' => 42,
                 'attribute_id' => 23,
@@ -415,7 +393,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:08:54',
                 'deleted_at' => NULL,
             ),
-            36 => 
+            34 => 
             array (
                 'id' => 43,
                 'attribute_id' => 23,
@@ -426,7 +404,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:08:54',
                 'deleted_at' => NULL,
             ),
-            37 => 
+            35 => 
             array (
                 'id' => 44,
                 'attribute_id' => 23,
@@ -437,7 +415,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:08:54',
                 'deleted_at' => NULL,
             ),
-            38 => 
+            36 => 
             array (
                 'id' => 45,
                 'attribute_id' => 23,
@@ -448,7 +426,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:08:54',
                 'deleted_at' => NULL,
             ),
-            39 => 
+            37 => 
             array (
                 'id' => 46,
                 'attribute_id' => 23,
@@ -459,7 +437,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:08:54',
                 'deleted_at' => NULL,
             ),
-            40 => 
+            38 => 
             array (
                 'id' => 47,
                 'attribute_id' => 23,
@@ -470,7 +448,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:08:54',
                 'deleted_at' => NULL,
             ),
-            41 => 
+            39 => 
             array (
                 'id' => 48,
                 'attribute_id' => 24,
@@ -481,7 +459,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:15:31',
                 'deleted_at' => NULL,
             ),
-            42 => 
+            40 => 
             array (
                 'id' => 49,
                 'attribute_id' => 24,
@@ -492,7 +470,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:15:31',
                 'deleted_at' => NULL,
             ),
-            43 => 
+            41 => 
             array (
                 'id' => 50,
                 'attribute_id' => 24,
@@ -503,7 +481,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:15:31',
                 'deleted_at' => NULL,
             ),
-            44 => 
+            42 => 
             array (
                 'id' => 51,
                 'attribute_id' => 24,
@@ -514,7 +492,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:15:31',
                 'deleted_at' => NULL,
             ),
-            45 => 
+            43 => 
             array (
                 'id' => 52,
                 'attribute_id' => 24,
@@ -525,7 +503,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:15:31',
                 'deleted_at' => NULL,
             ),
-            46 => 
+            44 => 
             array (
                 'id' => 53,
                 'attribute_id' => 25,
@@ -536,7 +514,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:17:15',
                 'deleted_at' => NULL,
             ),
-            47 => 
+            45 => 
             array (
                 'id' => 54,
                 'attribute_id' => 25,
@@ -547,7 +525,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:17:15',
                 'deleted_at' => NULL,
             ),
-            48 => 
+            46 => 
             array (
                 'id' => 55,
                 'attribute_id' => 25,
@@ -558,7 +536,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:17:15',
                 'deleted_at' => NULL,
             ),
-            49 => 
+            47 => 
             array (
                 'id' => 56,
                 'attribute_id' => 25,
@@ -569,7 +547,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:17:15',
                 'deleted_at' => NULL,
             ),
-            50 => 
+            48 => 
             array (
                 'id' => 57,
                 'attribute_id' => 25,
@@ -580,7 +558,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-25 15:17:15',
                 'deleted_at' => NULL,
             ),
-            51 => 
+            49 => 
             array (
                 'id' => 58,
                 'attribute_id' => 14,
@@ -591,7 +569,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:41:13',
                 'deleted_at' => NULL,
             ),
-            52 => 
+            50 => 
             array (
                 'id' => 59,
                 'attribute_id' => 14,
@@ -602,7 +580,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-05-26 12:00:21',
                 'deleted_at' => '2024-05-26 12:00:21',
             ),
-            53 => 
+            51 => 
             array (
                 'id' => 60,
                 'attribute_id' => 14,
@@ -613,7 +591,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:41:13',
                 'deleted_at' => NULL,
             ),
-            54 => 
+            52 => 
             array (
                 'id' => 61,
                 'attribute_id' => 14,
@@ -624,7 +602,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:41:13',
                 'deleted_at' => NULL,
             ),
-            55 => 
+            53 => 
             array (
                 'id' => 62,
                 'attribute_id' => 15,
@@ -635,7 +613,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-09 20:38:15',
                 'deleted_at' => NULL,
             ),
-            56 => 
+            54 => 
             array (
                 'id' => 63,
                 'attribute_id' => 15,
@@ -646,7 +624,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-09 20:38:15',
                 'deleted_at' => NULL,
             ),
-            57 => 
+            55 => 
             array (
                 'id' => 64,
                 'attribute_id' => 15,
@@ -657,7 +635,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-09 20:38:15',
                 'deleted_at' => NULL,
             ),
-            58 => 
+            56 => 
             array (
                 'id' => 65,
                 'attribute_id' => 13,
@@ -668,7 +646,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-10 16:59:51',
                 'deleted_at' => NULL,
             ),
-            59 => 
+            57 => 
             array (
                 'id' => 66,
                 'attribute_id' => 13,
@@ -679,7 +657,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-10 16:59:51',
                 'deleted_at' => NULL,
             ),
-            60 => 
+            58 => 
             array (
                 'id' => 67,
                 'attribute_id' => 13,
@@ -690,7 +668,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-10 16:59:51',
                 'deleted_at' => NULL,
             ),
-            61 => 
+            59 => 
             array (
                 'id' => 68,
                 'attribute_id' => 30,
@@ -701,7 +679,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-15 12:57:20',
                 'deleted_at' => NULL,
             ),
-            62 => 
+            60 => 
             array (
                 'id' => 69,
                 'attribute_id' => 30,
@@ -712,7 +690,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-15 12:57:20',
                 'deleted_at' => NULL,
             ),
-            63 => 
+            61 => 
             array (
                 'id' => 70,
                 'attribute_id' => 30,
@@ -723,7 +701,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-15 12:57:20',
                 'deleted_at' => NULL,
             ),
-            64 => 
+            62 => 
             array (
                 'id' => 71,
                 'attribute_id' => 30,
@@ -734,7 +712,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-15 12:57:20',
                 'deleted_at' => NULL,
             ),
-            65 => 
+            63 => 
             array (
                 'id' => 72,
                 'attribute_id' => 31,
@@ -745,7 +723,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 10:28:47',
                 'deleted_at' => NULL,
             ),
-            66 => 
+            64 => 
             array (
                 'id' => 73,
                 'attribute_id' => 31,
@@ -756,7 +734,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 10:28:47',
                 'deleted_at' => NULL,
             ),
-            67 => 
+            65 => 
             array (
                 'id' => 74,
                 'attribute_id' => 31,
@@ -767,7 +745,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 10:28:47',
                 'deleted_at' => NULL,
             ),
-            68 => 
+            66 => 
             array (
                 'id' => 75,
                 'attribute_id' => 31,
@@ -778,7 +756,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 10:28:47',
                 'deleted_at' => NULL,
             ),
-            69 => 
+            67 => 
             array (
                 'id' => 76,
                 'attribute_id' => 31,
@@ -789,7 +767,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 10:28:47',
                 'deleted_at' => NULL,
             ),
-            70 => 
+            68 => 
             array (
                 'id' => 77,
                 'attribute_id' => 31,
@@ -800,7 +778,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 10:28:47',
                 'deleted_at' => NULL,
             ),
-            71 => 
+            69 => 
             array (
                 'id' => 78,
                 'attribute_id' => 7,
@@ -811,7 +789,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:42:37',
                 'deleted_at' => NULL,
             ),
-            72 => 
+            70 => 
             array (
                 'id' => 79,
                 'attribute_id' => 7,
@@ -822,7 +800,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:42:37',
                 'deleted_at' => NULL,
             ),
-            73 => 
+            71 => 
             array (
                 'id' => 80,
                 'attribute_id' => 33,
@@ -833,7 +811,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:48:20',
                 'deleted_at' => NULL,
             ),
-            74 => 
+            72 => 
             array (
                 'id' => 81,
                 'attribute_id' => 33,
@@ -844,7 +822,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:48:20',
                 'deleted_at' => NULL,
             ),
-            75 => 
+            73 => 
             array (
                 'id' => 82,
                 'attribute_id' => 33,
@@ -855,7 +833,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:48:20',
                 'deleted_at' => NULL,
             ),
-            76 => 
+            74 => 
             array (
                 'id' => 83,
                 'attribute_id' => 34,
@@ -866,7 +844,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:45:06',
                 'deleted_at' => NULL,
             ),
-            77 => 
+            75 => 
             array (
                 'id' => 84,
                 'attribute_id' => 34,
@@ -877,7 +855,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:45:06',
                 'deleted_at' => NULL,
             ),
-            78 => 
+            76 => 
             array (
                 'id' => 85,
                 'attribute_id' => 34,
@@ -888,7 +866,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:45:06',
                 'deleted_at' => NULL,
             ),
-            79 => 
+            77 => 
             array (
                 'id' => 86,
                 'attribute_id' => 35,
@@ -899,7 +877,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:15:14',
                 'deleted_at' => NULL,
             ),
-            80 => 
+            78 => 
             array (
                 'id' => 87,
                 'attribute_id' => 35,
@@ -910,7 +888,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:15:14',
                 'deleted_at' => NULL,
             ),
-            81 => 
+            79 => 
             array (
                 'id' => 88,
                 'attribute_id' => 35,
@@ -921,7 +899,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:15:14',
                 'deleted_at' => NULL,
             ),
-            82 => 
+            80 => 
             array (
                 'id' => 89,
                 'attribute_id' => 35,
@@ -932,7 +910,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:15:14',
                 'deleted_at' => NULL,
             ),
-            83 => 
+            81 => 
             array (
                 'id' => 90,
                 'attribute_id' => 35,
@@ -943,7 +921,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:15:14',
                 'deleted_at' => NULL,
             ),
-            84 => 
+            82 => 
             array (
                 'id' => 91,
                 'attribute_id' => 35,
@@ -954,7 +932,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:15:14',
                 'deleted_at' => NULL,
             ),
-            85 => 
+            83 => 
             array (
                 'id' => 92,
                 'attribute_id' => 35,
@@ -965,7 +943,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:15:14',
                 'deleted_at' => NULL,
             ),
-            86 => 
+            84 => 
             array (
                 'id' => 93,
                 'attribute_id' => 35,
@@ -976,7 +954,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:15:14',
                 'deleted_at' => NULL,
             ),
-            87 => 
+            85 => 
             array (
                 'id' => 94,
                 'attribute_id' => 36,
@@ -987,7 +965,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:12:29',
                 'deleted_at' => NULL,
             ),
-            88 => 
+            86 => 
             array (
                 'id' => 95,
                 'attribute_id' => 36,
@@ -998,7 +976,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:12:29',
                 'deleted_at' => NULL,
             ),
-            89 => 
+            87 => 
             array (
                 'id' => 96,
                 'attribute_id' => 36,
@@ -1009,7 +987,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-07-17 13:12:29',
                 'deleted_at' => NULL,
             ),
-            90 => 
+            88 => 
             array (
                 'id' => 97,
                 'attribute_id' => 37,
@@ -1020,7 +998,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:35:41',
                 'deleted_at' => NULL,
             ),
-            91 => 
+            89 => 
             array (
                 'id' => 98,
                 'attribute_id' => 37,
@@ -1031,7 +1009,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:35:41',
                 'deleted_at' => NULL,
             ),
-            92 => 
+            90 => 
             array (
                 'id' => 99,
                 'attribute_id' => 37,
@@ -1042,40 +1020,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-11 13:35:41',
                 'deleted_at' => NULL,
             ),
-            93 => 
-            array (
-                'id' => 100,
-                'attribute_id' => 40,
-                'alternames' => '{"cs": "1", "en": "1", "ru": "1"}',
-                'is_default' => 0,
-                'is_null' => 0,
-                'created_at' => '2024-07-26 12:53:24',
-                'updated_at' => '2024-07-28 10:37:46',
-                'deleted_at' => '2024-07-28 10:37:46',
-            ),
-            94 => 
-            array (
-                'id' => 101,
-                'attribute_id' => 40,
-                'alternames' => '{"cs": "2", "en": "2", "ru": "2"}',
-                'is_default' => 0,
-                'is_null' => 0,
-                'created_at' => '2024-07-26 12:53:24',
-                'updated_at' => '2024-07-28 10:37:46',
-                'deleted_at' => '2024-07-28 10:37:46',
-            ),
-            95 => 
-            array (
-                'id' => 102,
-                'attribute_id' => 40,
-                'alternames' => '{"cs": "3", "en": "3", "ru": "3"}',
-                'is_default' => 1,
-                'is_null' => 1,
-                'created_at' => '2024-07-26 12:53:24',
-                'updated_at' => '2024-07-28 10:37:46',
-                'deleted_at' => '2024-07-28 10:37:46',
-            ),
-            96 => 
+            91 => 
             array (
                 'id' => 103,
                 'attribute_id' => 41,
@@ -1086,7 +1031,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:41:22',
                 'deleted_at' => NULL,
             ),
-            97 => 
+            92 => 
             array (
                 'id' => 104,
                 'attribute_id' => 41,
@@ -1097,7 +1042,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:41:22',
                 'deleted_at' => NULL,
             ),
-            98 => 
+            93 => 
             array (
                 'id' => 105,
                 'attribute_id' => 41,
@@ -1108,7 +1053,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:41:22',
                 'deleted_at' => NULL,
             ),
-            99 => 
+            94 => 
             array (
                 'id' => 106,
                 'attribute_id' => 42,
@@ -1119,7 +1064,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:42:02',
                 'deleted_at' => NULL,
             ),
-            100 => 
+            95 => 
             array (
                 'id' => 107,
                 'attribute_id' => 42,
@@ -1130,7 +1075,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:42:02',
                 'deleted_at' => NULL,
             ),
-            101 => 
+            96 => 
             array (
                 'id' => 108,
                 'attribute_id' => 42,
@@ -1141,7 +1086,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:42:02',
                 'deleted_at' => NULL,
             ),
-            102 => 
+            97 => 
             array (
                 'id' => 109,
                 'attribute_id' => 4,
@@ -1152,7 +1097,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:40:44',
                 'deleted_at' => NULL,
             ),
-            103 => 
+            98 => 
             array (
                 'id' => 110,
                 'attribute_id' => 4,
@@ -1163,7 +1108,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:40:44',
                 'deleted_at' => NULL,
             ),
-            104 => 
+            99 => 
             array (
                 'id' => 111,
                 'attribute_id' => 4,
@@ -1174,7 +1119,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-10-29 12:40:44',
                 'deleted_at' => NULL,
             ),
-            105 => 
+            100 => 
             array (
                 'id' => 112,
                 'attribute_id' => 6,
@@ -1185,7 +1130,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 10:08:37',
                 'deleted_at' => NULL,
             ),
-            106 => 
+            101 => 
             array (
                 'id' => 113,
                 'attribute_id' => 6,
@@ -1196,7 +1141,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 10:08:37',
                 'deleted_at' => NULL,
             ),
-            107 => 
+            102 => 
             array (
                 'id' => 114,
                 'attribute_id' => 6,
@@ -1207,7 +1152,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 10:08:37',
                 'deleted_at' => NULL,
             ),
-            108 => 
+            103 => 
             array (
                 'id' => 115,
                 'attribute_id' => 38,
@@ -1218,7 +1163,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 10:11:47',
                 'deleted_at' => NULL,
             ),
-            109 => 
+            104 => 
             array (
                 'id' => 116,
                 'attribute_id' => 38,
@@ -1229,7 +1174,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 10:11:47',
                 'deleted_at' => NULL,
             ),
-            110 => 
+            105 => 
             array (
                 'id' => 117,
                 'attribute_id' => 38,
@@ -1240,7 +1185,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-14 10:11:47',
                 'deleted_at' => NULL,
             ),
-            111 => 
+            106 => 
             array (
                 'id' => 118,
                 'attribute_id' => 44,
@@ -1251,7 +1196,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:24:10',
                 'deleted_at' => NULL,
             ),
-            112 => 
+            107 => 
             array (
                 'id' => 119,
                 'attribute_id' => 44,
@@ -1262,7 +1207,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:12:07',
                 'deleted_at' => NULL,
             ),
-            113 => 
+            108 => 
             array (
                 'id' => 120,
                 'attribute_id' => 44,
@@ -1273,7 +1218,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:12:07',
                 'deleted_at' => NULL,
             ),
-            114 => 
+            109 => 
             array (
                 'id' => 121,
                 'attribute_id' => 45,
@@ -1284,7 +1229,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:20:14',
                 'deleted_at' => NULL,
             ),
-            115 => 
+            110 => 
             array (
                 'id' => 122,
                 'attribute_id' => 45,
@@ -1295,7 +1240,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:20:14',
                 'deleted_at' => NULL,
             ),
-            116 => 
+            111 => 
             array (
                 'id' => 123,
                 'attribute_id' => 45,
@@ -1306,7 +1251,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:20:14',
                 'deleted_at' => NULL,
             ),
-            117 => 
+            112 => 
             array (
                 'id' => 124,
                 'attribute_id' => 45,
@@ -1317,7 +1262,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:20:14',
                 'deleted_at' => NULL,
             ),
-            118 => 
+            113 => 
             array (
                 'id' => 125,
                 'attribute_id' => 46,
@@ -1328,7 +1273,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:43:28',
                 'deleted_at' => NULL,
             ),
-            119 => 
+            114 => 
             array (
                 'id' => 126,
                 'attribute_id' => 46,
@@ -1339,7 +1284,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:43:28',
                 'deleted_at' => NULL,
             ),
-            120 => 
+            115 => 
             array (
                 'id' => 127,
                 'attribute_id' => 46,
@@ -1350,7 +1295,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-17 16:43:28',
                 'deleted_at' => NULL,
             ),
-            121 => 
+            116 => 
             array (
                 'id' => 128,
                 'attribute_id' => 48,
@@ -1361,7 +1306,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:01:28',
                 'deleted_at' => NULL,
             ),
-            122 => 
+            117 => 
             array (
                 'id' => 129,
                 'attribute_id' => 48,
@@ -1372,7 +1317,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:01:28',
                 'deleted_at' => NULL,
             ),
-            123 => 
+            118 => 
             array (
                 'id' => 130,
                 'attribute_id' => 48,
@@ -1383,7 +1328,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:02:13',
                 'deleted_at' => NULL,
             ),
-            124 => 
+            119 => 
             array (
                 'id' => 131,
                 'attribute_id' => 49,
@@ -1394,7 +1339,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:07:34',
                 'deleted_at' => NULL,
             ),
-            125 => 
+            120 => 
             array (
                 'id' => 132,
                 'attribute_id' => 49,
@@ -1405,7 +1350,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:07:34',
                 'deleted_at' => NULL,
             ),
-            126 => 
+            121 => 
             array (
                 'id' => 133,
                 'attribute_id' => 49,
@@ -1416,7 +1361,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:07:34',
                 'deleted_at' => NULL,
             ),
-            127 => 
+            122 => 
             array (
                 'id' => 134,
                 'attribute_id' => 49,
@@ -1427,7 +1372,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:07:34',
                 'deleted_at' => NULL,
             ),
-            128 => 
+            123 => 
             array (
                 'id' => 135,
                 'attribute_id' => 49,
@@ -1438,7 +1383,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:07:34',
                 'deleted_at' => NULL,
             ),
-            129 => 
+            124 => 
             array (
                 'id' => 136,
                 'attribute_id' => 49,
@@ -1449,7 +1394,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:07:34',
                 'deleted_at' => NULL,
             ),
-            130 => 
+            125 => 
             array (
                 'id' => 137,
                 'attribute_id' => 50,
@@ -1460,7 +1405,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            131 => 
+            126 => 
             array (
                 'id' => 138,
                 'attribute_id' => 50,
@@ -1471,7 +1416,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            132 => 
+            127 => 
             array (
                 'id' => 139,
                 'attribute_id' => 50,
@@ -1482,7 +1427,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            133 => 
+            128 => 
             array (
                 'id' => 140,
                 'attribute_id' => 50,
@@ -1493,7 +1438,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            134 => 
+            129 => 
             array (
                 'id' => 141,
                 'attribute_id' => 50,
@@ -1504,7 +1449,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            135 => 
+            130 => 
             array (
                 'id' => 142,
                 'attribute_id' => 50,
@@ -1515,7 +1460,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            136 => 
+            131 => 
             array (
                 'id' => 143,
                 'attribute_id' => 50,
@@ -1526,7 +1471,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            137 => 
+            132 => 
             array (
                 'id' => 144,
                 'attribute_id' => 50,
@@ -1537,7 +1482,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            138 => 
+            133 => 
             array (
                 'id' => 145,
                 'attribute_id' => 50,
@@ -1548,7 +1493,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:10:01',
                 'deleted_at' => NULL,
             ),
-            139 => 
+            134 => 
             array (
                 'id' => 146,
                 'attribute_id' => 51,
@@ -1559,7 +1504,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            140 => 
+            135 => 
             array (
                 'id' => 147,
                 'attribute_id' => 51,
@@ -1570,7 +1515,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            141 => 
+            136 => 
             array (
                 'id' => 148,
                 'attribute_id' => 51,
@@ -1581,7 +1526,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            142 => 
+            137 => 
             array (
                 'id' => 149,
                 'attribute_id' => 51,
@@ -1592,7 +1537,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            143 => 
+            138 => 
             array (
                 'id' => 150,
                 'attribute_id' => 51,
@@ -1603,7 +1548,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            144 => 
+            139 => 
             array (
                 'id' => 151,
                 'attribute_id' => 51,
@@ -1614,7 +1559,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            145 => 
+            140 => 
             array (
                 'id' => 152,
                 'attribute_id' => 51,
@@ -1625,7 +1570,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            146 => 
+            141 => 
             array (
                 'id' => 153,
                 'attribute_id' => 51,
@@ -1636,7 +1581,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-18 11:23:34',
                 'deleted_at' => NULL,
             ),
-            147 => 
+            142 => 
             array (
                 'id' => 154,
                 'attribute_id' => 55,
@@ -1647,7 +1592,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:34:21',
                 'deleted_at' => NULL,
             ),
-            148 => 
+            143 => 
             array (
                 'id' => 155,
                 'attribute_id' => 55,
@@ -1658,7 +1603,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:34:21',
                 'deleted_at' => NULL,
             ),
-            149 => 
+            144 => 
             array (
                 'id' => 156,
                 'attribute_id' => 55,
@@ -1669,7 +1614,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:34:21',
                 'deleted_at' => NULL,
             ),
-            150 => 
+            145 => 
             array (
                 'id' => 157,
                 'attribute_id' => 56,
@@ -1680,7 +1625,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:32:31',
                 'deleted_at' => NULL,
             ),
-            151 => 
+            146 => 
             array (
                 'id' => 158,
                 'attribute_id' => 56,
@@ -1691,7 +1636,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:32:31',
                 'deleted_at' => NULL,
             ),
-            152 => 
+            147 => 
             array (
                 'id' => 159,
                 'attribute_id' => 56,
@@ -1702,7 +1647,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:32:31',
                 'deleted_at' => NULL,
             ),
-            153 => 
+            148 => 
             array (
                 'id' => 160,
                 'attribute_id' => 56,
@@ -1713,7 +1658,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:32:31',
                 'deleted_at' => NULL,
             ),
-            154 => 
+            149 => 
             array (
                 'id' => 161,
                 'attribute_id' => 56,
@@ -1724,7 +1669,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:32:31',
                 'deleted_at' => NULL,
             ),
-            155 => 
+            150 => 
             array (
                 'id' => 162,
                 'attribute_id' => 56,
@@ -1735,7 +1680,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:32:31',
                 'deleted_at' => NULL,
             ),
-            156 => 
+            151 => 
             array (
                 'id' => 163,
                 'attribute_id' => 57,
@@ -1746,7 +1691,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:49:47',
                 'deleted_at' => NULL,
             ),
-            157 => 
+            152 => 
             array (
                 'id' => 164,
                 'attribute_id' => 57,
@@ -1757,7 +1702,7 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-08-19 09:49:47',
                 'deleted_at' => NULL,
             ),
-            158 => 
+            153 => 
             array (
                 'id' => 165,
                 'attribute_id' => 57,
