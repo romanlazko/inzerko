@@ -119,7 +119,7 @@
                                 alt="Slide {{ $index }}"
                                 sizes="11px"
                                 onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
-                                loading="lazy"
+                                :loading="activeIndex === {{ $index }} ? 'eager' : 'lazy'"
                             >
                         </div>
                     </div>

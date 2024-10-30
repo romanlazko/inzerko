@@ -62,6 +62,7 @@ class Announcement extends Model implements HasMedia, Auditable
     {
         $this
             ->addMediaConversion('responsive-images')
+            ->format('webp')
             ->withResponsiveImages();
 
         $this
@@ -168,7 +169,7 @@ class Announcement extends Model implements HasMedia, Auditable
             title: $this->title,
             description: $this->description,
             author: $this->user?->name,
-            image: $this->getFirstMediaUrl('announcements'),
+            image: url($this->getFirstMediaUrl('announcements')),
             url: url()->current(),
             enableTitleSuffix: true,
             site_name: config('app.name'),
@@ -177,7 +178,7 @@ class Announcement extends Model implements HasMedia, Auditable
             locale: app()->getLocale(),
             section: $this->categories->pluck('name')->implode(', '),
             tags: $this->categories->pluck('name')->toArray(),
-            // openGraphTitle: $this->title,
+            openGraphTitle: $this->title,
         );
     }
 

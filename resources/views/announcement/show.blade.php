@@ -1,8 +1,4 @@
-<x-app-layout>
-    <x-slot name="meta">
-        {!! seo($announcement->getDynamicSEOData()) !!}
-    </x-slot>
-
+<x-app-layout :meta="$announcement->getDynamicSEOData()">
     <x-slot name="header">
         <div class="w-full space-y-6">
             <x-nav.breadcrumbs :category="$announcement->categories->filter(function ($category) {
