@@ -10,7 +10,6 @@
         "anhskohbo/no-captcha": "^3.5",
         "blade-ui-kit/blade-heroicons": "^2.4",
         "deeplcom/deepl-php": "^1.7",
-        "dotswan/filament-map-picker": "^1.3",
         "ezyang/htmlpurifier": "^4.17",
         "filament/forms": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",

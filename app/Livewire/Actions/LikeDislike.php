@@ -48,13 +48,6 @@ class LikeDislike extends Component
         return $this->userVote?->vote == true;
     }
 
-    private function updateVote(int $val): void
-    {
-        $this->userVote = $this->announcement->votes()->updateOrCreate(['user_id' => auth()->id(), 'vote' => $val]);
-
-        $this->lastUserVote = $val;
-    }
-
     /**
      * @throws Throwable
      */

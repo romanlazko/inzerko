@@ -4,8 +4,12 @@ namespace App\Providers;
 
 use App\Services\Translators\NlpTranslation;
 use DeepL\Translator;
+use Filament\Support\Assets\AlpineComponent;
+use Filament\Support\Assets\Css;
 use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentColor;
+use Filament\Support\Assets\Js;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Support\Facades\URL;
@@ -54,6 +58,11 @@ class AppServiceProvider extends ServiceProvider
             'warning' => Color::Amber,
             'neutral' => Color::Neutral,
             'white' => Color::hex('#ffffff'),
+        ]);
+
+        FilamentAsset::register([
+            Js::make('ops-map', __DIR__ . '../../../resources/js/ops-map.js'),
+            Css::make('ops-map', __DIR__.'../../../resources/css/ops-map.css'),
         ]);
 
         LogViewer::auth(function ($request) {

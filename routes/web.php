@@ -15,6 +15,7 @@ use Stevebauman\Location\Facades\Location;
 use App\Http\Controllers\Profile\MessageController;
 use App\Http\Controllers\Profile\Wishlist;
 use App\Http\Requests\SearchRequest;
+use App\Livewire\Components\OpsMap;
 use App\Livewire\Pages\Admin\Announcement\Announcements;
 use App\Livewire\Pages\Admin\Announcement\EditAnnouncement;
 use App\Livewire\Pages\Admin\Announcement\Moderation;
@@ -42,6 +43,8 @@ use Illuminate\Support\Facades\Artisan;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Route::get('/map', OpsMap::class)->name('map');
 
 Route::post('/locale', function (Request $request){
     if ($user = auth()->user()) {
