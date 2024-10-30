@@ -26,13 +26,6 @@ class Category extends Model implements HasMedia
         'is_active' => 'boolean',
     ];
 
-    public static function all($columns = ['*'])
-    {
-        return Cache::remember('categories', config('cache.ttl'), function () {
-            return parent::all();
-        });
-    }
-
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
@@ -45,6 +38,7 @@ class Category extends Model implements HasMedia
         $this
             ->addMediaCollection('categories')
             ->useDisk('aws_categories')
+            ->useFallbackUrl('/images/no-photo.jpg')
             ->singleFile();
     }
 

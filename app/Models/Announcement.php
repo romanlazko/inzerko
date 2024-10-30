@@ -177,6 +177,7 @@ class Announcement extends Model implements HasMedia, Auditable
             locale: app()->getLocale(),
             section: $this->categories->pluck('name')->implode(', '),
             tags: $this->categories->pluck('name')->toArray(),
+            // openGraphTitle: $this->title,
         );
     }
 

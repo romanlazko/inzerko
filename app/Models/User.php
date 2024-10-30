@@ -72,6 +72,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
+            ->useFallbackUrl('/images/no-photo.jpg')
             ->singleFile()
             ->registerMediaConversions(function (Media $media) {
                 $this
@@ -108,7 +109,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
             $unreadMessagesCount = $this->threads
                 ->pluck('messages_count')
                 ->sum();
-                
+
             Cookie::queue('unreadMessagesCount', $unreadMessagesCount, 2);
         }
 

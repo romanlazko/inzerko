@@ -5,11 +5,12 @@
     'withFullscreen' => false,
     'withButtons' => false,
     'withDots' => false,
+    'fallbackMedia' => '/images/no-photo.jpg',
 ])
 
 <div 
     x-data="{
-        photos_length: {{ $medias->count() }},
+        photos_length: {{ count($medias) }},
         activeIndex: 0,
         touchStartX: 0,
         touchStartY: 0,
@@ -104,7 +105,7 @@
     >
         <div class="w-full m-auto items-center z-30 h-full overflow-hidden">
             <div class="flex transition-transform duration-500 h-full items-center" :style="'transform: translateX(-' + activeIndex * 100 + '%)'">
-                @foreach ($medias as $index => $media)
+                @forelse ($medias as $index => $media)
                     <div class="w-full h-full flex-shrink-0" >
                         <div class="h-full">
                             <img 
@@ -113,8 +114,8 @@
                                     'object-contain h-full': fullscreen === true,
                                     'object-cover w-full h-full':fullscreen === false, 
                                 }"
-                                src="{{ $media->responsiveImages('responsive-images')->getPlaceholderSvg() ?? $media->getUrl() }}"
-                                srcset="{{ $media->getSrcset('responsive-images') ?? $media->getUrl() }}"
+                                src="{{ $media->responsiveImages('responsive-images')?->getPlaceholderSvg() }}"
+                                srcset="{{ $media->getSrcset('responsive-images') }}"
                                 alt="Slide {{ $index }}"
                                 sizes="11px"
                                 onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
@@ -122,7 +123,21 @@
                             >
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="w-full h-full flex-shrink-0" >
+                        <div class="h-full">
+                            <img 
+                                class="m-auto"
+                                :class="{
+                                    'object-contain h-full': fullscreen === true,
+                                    'object-cover w-full h-full':fullscreen === false, 
+                                }"
+                                src="{{ $fallbackMedia }}"
+                                alt="Fallback Slide "
+                            >
+                        </div>
+                    </div>
+                @endforelse
             </div>
 
             @if ($withButtons)
