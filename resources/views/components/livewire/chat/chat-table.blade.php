@@ -1258,6 +1258,7 @@
             @endphp
 
             <x-livewire.chat.chat-modal
+                
                 :alignment="$action?->getModalAlignment()"
                 :autofocus="$action?->isModalAutofocused()"
                 :close-button="$action?->hasModalCloseButton()"

@@ -29,7 +29,7 @@
                         <label for="sort" class="text-gray-500 text-sm whitespace-nowrap">
                             {{ __('announcement.sort_by') }}
                         </label>
-                        <select name="sort" class="border-none py-0 pl-0 shadow-none focus:ring-0 font-bold bg-transparent text-sm text-gray-900 text-ellipsis w-full" onchange="this.form.submit()">
+                        <select id="sort" name="sort" class="border-none py-0 pl-0 shadow-none focus:ring-0 font-bold bg-transparent text-sm text-gray-900 text-ellipsis w-full" onchange="this.form.submit()">
                             @foreach ($sortings as $sorting)
                                 <option value="{{ $sorting->id }}" @selected($request->sort == $sorting->id)>
                                     {{ $sorting->name }}

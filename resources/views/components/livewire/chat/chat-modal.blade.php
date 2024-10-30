@@ -5,7 +5,7 @@
 
 @props([
     'alignment' => Alignment::Start,
-    'ariaLabelledby' => null,
+    'ariaLabelledby' => "Chat-modal-heading-{$id}",
     'autofocus' => \Filament\Support\View\Components\Modal::$isAutofocused,
     'closeButton' => \Filament\Support\View\Components\Modal::$hasCloseButton,
     'closeByClickingAway' => \Filament\Support\View\Components\Modal::$isClosedByClickingAway,

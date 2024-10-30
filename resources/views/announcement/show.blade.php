@@ -1,3 +1,5 @@
+{{ header("Cache-Control: private, max-age=0, must-revalidate"); }}
+
 <x-app-layout :meta="$announcement->getDynamicSEOData()">
     <x-slot name="header">
         <div class="w-full space-y-6">

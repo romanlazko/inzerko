@@ -183,7 +183,6 @@
                                     'bg-gray-300 hover:bg-gray-100': activeIndex !== {{ $index }}
                                 }" 
                                 class="w-2 h-2 min-h-2 min-w-2 transition duration-200 ease-in-out cursor-pointer rounded-full"
-                                style="font-size: 8px"
                                 title="{{ $medias[$index]->name }}"
                             >
                             </button>
