@@ -12,7 +12,6 @@
             :width="$action?->getModalWidth()"
             :wire:key="$action ? $this->getId() . '.actions.' . $action->getName() . '.modal' : null"
             class="padding-0"
-            :ariaLabelledby="Chats"
         >
             @if ($action)
                 {{ $this->getMountedActionForm(mountedAction: $action) }}
