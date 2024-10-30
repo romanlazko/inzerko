@@ -29,6 +29,7 @@ use App\Livewire\Pages\Admin\Telegram\Chats;
 use App\Livewire\Pages\Admin\Telegram\Logs;
 use App\Livewire\Pages\Admin\User\Users;
 use App\Livewire\Pages\User\Profile\Messages;
+use App\Livewire\Pages\User\Profile\MyAnnouncements;
 use App\View\Models\HomeViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -115,6 +116,7 @@ Route::middleware(['auth'])->name('profile.')->prefix('profile')->group(function
     Route::delete('/destroy', [ProfileController::class, 'destroy'])->name('destroy');
     Route::patch('/updateAvatar', [ProfileController::class, 'updateAvatar'])->name('updateAvatar');
     Route::get('/wishlist', [Wishlist::class, 'index'])->name('wishlist');
+    Route::get('/my-announcements', MyAnnouncements::class)->name('my-announcements');
 });
 
 Route::get('/location', function () {

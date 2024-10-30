@@ -87,7 +87,7 @@ class AttributeFactory
      * @param array|null $data
      * @return array
      */
-    public static function getCreateSchema(Attribute $attribute, ?array  $data = []) : array
+    public static function getCreateSchema(Attribute $attribute, ?array  $data = []) : ?array
     {
         return self::getCreateClass($attribute, $data)?->getCreateSchema();
     }

@@ -13,9 +13,7 @@
 
     <x-nav.footer-link @click="$dispatch('open-chat')" :text="__('components.navigation.messages')">
         <div class="relative leading-3 size-5 m-auto">
-            @if ($unreadMessagesCount > 0)
-                <p class="absolute text-[8px] text-white w-3 h-3 rounded-full bg-red-500 top-3 text-center content-center items-center">{{ $unreadMessagesCount }}</p>
-            @endif
+            <x-unread-messages/>
             <x-heroicon-s-chat-bubble-left-right class="size-5"/>
         </div>
     </x-nav.footer-link>

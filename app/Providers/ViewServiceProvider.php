@@ -25,10 +25,6 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('*', function ($view) {
-            $view->with('unreadMessagesCount', auth()->user()?->unreadMessagesCount);
-        });
-
         // View::composer('*', function ($view) {
         //     $locale = session('locale', config('app.locale'));
         //     URL::defaults(['locale' => $locale]);
@@ -63,20 +59,5 @@ class ViewServiceProvider extends ServiceProvider
         //         'date' => $announcement?->create_at,
         //     ]);
         // });
-    }
-
-    private function getUnreadMessagesCount(): int
-    {
-        if (auth()->check()) {
-            $unreadMessagesCount = Cookie::get('unreadMessagesCount');
-
-            if (!$unreadMessagesCount) {
-                $unreadMessagesCount = auth()->user()?->unreadMessagesCount;
-
-                Cookie::queue('unreadMessagesCount', $unreadMessagesCount, 2);
-            }
-        }
-
-        return $unreadMessagesCount ?? 0;
     }
 }
