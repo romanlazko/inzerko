@@ -16,7 +16,7 @@
             {{ $announcement?->geo?->name }}
         </p>
 
-        <p class="text-xs text-gray-400">
+        <p class="text-xs text-blue-600">
             {{ $announcement?->created_at?->diffForHumans() }}
         </p>
         <div class="flex items-center space-x-2 z-30">

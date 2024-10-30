@@ -1,4 +1,4 @@
-@props(['active', 'text' => null])
+@props(['active', 'text' => null, 'tag' => 'a'])
 
 @php
     $activeClasses = ($active ?? false)
@@ -6,7 +6,7 @@
         : ' focus:outline-none focus:text-gray-800 focus:border-gray-300 hover:text-indigo-200';
 @endphp
 
-<a {{ 
+<{{ $tag }} {{ 
     $attributes->merge([
         'class' => 'text-center transition duration-150 ease-in-out cursor-pointer' . $activeClasses
     ])
@@ -16,4 +16,4 @@
 
         <small class="text-[9px]">{{ $text }}</small>
     </div>
-</a>
+</{{ $tag }}>

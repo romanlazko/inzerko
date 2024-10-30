@@ -1,13 +1,4 @@
-@php
-    $title = $category?->translated_name ?? __('announcement.all');
-@endphp
-
-<x-app-layout :title="$title" class="w-full max-w-7xl m-auto">
-    @if ($category)
-        <x-slot name="meta">
-            {!! seo()->for($category) !!}
-        </x-slot>
-    @endif
+<x-app-layout :meta="$category?->getDynamicSEOData()" class="w-full max-w-7xl m-auto">
 
     <x-slot name="sidebar">
         <livewire:components.announcement.filters :filters="$request->filters ?? null" :category="$category"/>

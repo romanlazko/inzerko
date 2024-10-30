@@ -9,11 +9,12 @@
     
         <button @click="sidebarOpen = true" type="button"
             @class(['text-gray-900 hover:text-indigo-700 text-xl lg:hidden p-1 md:p-2 relative', 'hidden' => !$filterButton])
+            title="Filters"
         >
             <x-heroicon-o-adjustments-horizontal class="size-6"/>
         </button>
         
-        <button class="p-2 rounded-full aspect-square min-w-10 min-h-10 max-w-10 max-h-10 hover:bg-indigo-500 text-xl bg-indigo-600 text-center items-center">
+        <button class="p-2 rounded-full aspect-square min-w-10 min-h-10 max-w-10 max-h-10 hover:bg-indigo-500 text-xl bg-indigo-600 text-center items-center" title="Search">
             <x-heroicon-o-magnifying-glass class="text-white"/>
         </button>
     </form>

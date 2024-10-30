@@ -4,13 +4,13 @@
     <nav class="text-sm">
         <ol class="flex flex-wrap items-center gap-1">
             <x-nav.breadcrumb-link :icon="false">
-                <a href="{{ route('home') }}" aira-label="home" class="cursor-pointer text-blue-500">
+                <a href="{{ route('home') }}" aira-label="home" class="cursor-pointer text-blue-600" aria-label="Go to home page">
                     <x-heroicon-c-home class="size-5"/>	
                 </a>
             </x-nav.breadcrumb-link>
             @forelse ($category?->getParentsAndSelf()->reverse() ?? [] as $parent)
                 <x-nav.breadcrumb-link>
-                    <a href="{{ route('announcement.search', ['category' => $parent->slug]) }}" @class(['text-gray-500 cursor-pointer', 'text-gray-800 font-medium' => $loop->last, 'hover:underline ' => !$loop->last])>
+                    <a href="{{ route('announcement.search', ['category' => $parent->slug]) }}" @class(['text-blue-600 cursor-pointer', 'text-gray-800 font-medium' => $loop->last, 'hover:underline ' => !$loop->last])>
                         {{ $parent->name }}
                     </a>
                 </x-nav.breadcrumb-link>

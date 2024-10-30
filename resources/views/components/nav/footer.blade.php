@@ -11,7 +11,7 @@
         <x-heroicon-c-plus-circle class="size-5 m-auto"/>
     </x-nav.footer-link>
 
-    <x-nav.footer-link @click="$dispatch('open-chat')" :text="__('components.navigation.messages')">
+    <x-nav.footer-link @click="$dispatch('open-chat')" :text="__('components.navigation.messages')" tag="button">
         <div class="relative leading-3 size-5 m-auto">
             <x-unread-messages/>
             <x-heroicon-s-chat-bubble-left-right class="size-5"/>

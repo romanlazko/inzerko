@@ -14,7 +14,7 @@
         <span>{{ __("components.navigation.wishlist") }}</span>
     </x-nav.responsive-link>
 
-    <x-nav.responsive-link @click="$dispatch('open-chat')">
+    <x-nav.responsive-link @click="$dispatch('open-chat')" tag="button">
         <div class="relative leading-3 size-5">
             <x-unread-messages/>
             <x-heroicon-s-chat-bubble-left-right class="size-5"/>
