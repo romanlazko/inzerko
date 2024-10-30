@@ -6,6 +6,7 @@
     'withButtons' => false,
     'withDots' => false,
     'fallbackMedia' => '/images/no-photo.jpg',
+    'conversion' => 'responsive-images',
 ])
 
 <div 
@@ -114,8 +115,8 @@
                                     'object-contain h-full': fullscreen === true,
                                     'object-cover w-full h-full':fullscreen === false, 
                                 }"
-                                src="{{ $media->responsiveImages('responsive-images')?->getPlaceholderSvg() }}"
-                                srcset="{{ $media->getSrcset('responsive-images') }}"
+                                src="{{ $media->responsiveImages($conversion)?->getPlaceholderSvg() }}"
+                                srcset="{{ $media->getSrcset($conversion) }}"
                                 alt="Slide {{ $index }}"
                                 sizes="11px"
                                 onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"

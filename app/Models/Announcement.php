@@ -64,6 +64,13 @@ class Announcement extends Model implements HasMedia, Auditable
             ->addMediaConversion('responsive-images')
             ->format('webp')
             ->withResponsiveImages();
+        
+        $this
+            ->addMediaConversion('medium')
+            ->format('webp')
+            ->withResponsiveImages()
+            ->width(250)
+            ->height(250);
 
         $this
             ->addMediaConversion('thumb')

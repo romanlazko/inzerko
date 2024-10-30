@@ -24,6 +24,7 @@ class Select extends BaseAttributeType
     {
         return ComponentsSelect::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)
+            ->extraInputAttributes(['title' => 'Select '.$this->attribute->label])
             ->options($this->attribute->attribute_options?->pluck('name', 'id'))
             ->live();
     }

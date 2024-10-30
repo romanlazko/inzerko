@@ -10,8 +10,8 @@
             ])
         >
             <div class="flex items-center space-x-2 m-auto h-full">
-                <div class="w-12 h-12 min-h-12 min-w-12">
-                    <img src="{{ $child->getFirstMediaUrl('categories', 'thumb') }}" alt="" class="float-right">
+                <div class="w-12 h-12 min-h-12 min-w-12 items-center justify-center flex">
+                    <img src="{{ $child->getFirstMediaUrl('categories', 'thumb') }}" alt="" class="float-right w-12 min-w-12">
                 </div>
 
                 <div class="grid">

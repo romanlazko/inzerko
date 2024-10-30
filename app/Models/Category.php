@@ -47,8 +47,8 @@ class Category extends Model implements HasMedia
         $this
             ->addMediaConversion('thumb')
             ->format('webp')
-            ->width(100)
-            ->height(100);
+            ->width(70)
+            ->height(70);
     }
 
     public function announcements()
