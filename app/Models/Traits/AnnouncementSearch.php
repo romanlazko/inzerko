@@ -36,7 +36,7 @@ trait AnnouncementSearch
         }
 
         return $query->whereHas('geo', function ($query) use ($location) {
-            $query->radius($location['coordinates']['lat'], $location['coordinates']['lng'], (integer) $location['radius'] == 0 ? 30 : (integer) $location['radius']);
+            $query->radius($location['coordinates']['lat'] ?? null, $location['coordinates']['lng'] ?? null, (integer) $location['radius'] == 0 ? 30 : (integer) $location['radius']);
         });
     }
 

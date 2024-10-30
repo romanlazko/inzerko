@@ -130,7 +130,7 @@ class Create extends Component implements HasForms
 
     public function afterCreating()
     {
-        $this->redirectRoute('announcement.index');
+        $this->redirectRoute('profile.my-announcements');
     }
 
     public function render(): View

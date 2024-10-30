@@ -14,7 +14,7 @@ abstract class AbstractAttributeType
     {
     }
 
-    public function filter(Builder $query)
+    public function filter(Builder $query) : Builder
     {
         if ($this->isVisible() AND isset($this->data[$this->attribute->name]) AND !empty($this->data[$this->attribute->name]) AND $this->data[$this->attribute->name] != null) {
             $query->whereHas('features', function ($query) {
@@ -44,7 +44,7 @@ abstract class AbstractAttributeType
         return $this->getFeatureValue($translated_value[app()->getLocale()] ?? $translated_value['original'] ?? null);
     }
 
-    public function getCreateSchema(): array
+    public function getCreateSchema(): ?array
     {
         if ($this->isVisible()) {
             return $this->schema();

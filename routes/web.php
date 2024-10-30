@@ -15,6 +15,7 @@ use Stevebauman\Location\Facades\Location;
 use App\Http\Controllers\Profile\MessageController;
 use App\Http\Controllers\Profile\Wishlist;
 use App\Http\Requests\SearchRequest;
+use App\Livewire\Components\OpsMap;
 use App\Livewire\Pages\Admin\Announcement\Announcements;
 use App\Livewire\Pages\Admin\Announcement\EditAnnouncement;
 use App\Livewire\Pages\Admin\Announcement\Moderation;
@@ -28,6 +29,7 @@ use App\Livewire\Pages\Admin\Telegram\Chats;
 use App\Livewire\Pages\Admin\Telegram\Logs;
 use App\Livewire\Pages\Admin\User\Users;
 use App\Livewire\Pages\User\Profile\Messages;
+use App\Livewire\Pages\User\Profile\MyAnnouncements;
 use App\View\Models\HomeViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -42,6 +44,8 @@ use Illuminate\Support\Facades\Artisan;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Route::get('/map', OpsMap::class)->name('map');
 
 Route::post('/locale', function (Request $request){
     if ($user = auth()->user()) {
@@ -112,6 +116,7 @@ Route::middleware(['auth'])->name('profile.')->prefix('profile')->group(function
     Route::delete('/destroy', [ProfileController::class, 'destroy'])->name('destroy');
     Route::patch('/updateAvatar', [ProfileController::class, 'updateAvatar'])->name('updateAvatar');
     Route::get('/wishlist', [Wishlist::class, 'index'])->name('wishlist');
+    Route::get('/my-announcements', MyAnnouncements::class)->name('my-announcements');
 });
 
 Route::get('/location', function () {
