@@ -1,7 +1,4 @@
-<x-app-layout>
-    <x-slot name="meta">
-        {!! seo($announcement->getDynamicSEOData()) !!}
-    </x-slot>
+<x-app-layout :meta="$announcement->getDynamicSEOData()">
     <x-slot name="header">
         <div class="w-full space-y-6">
             <x-nav.breadcrumbs :category="$announcement->categories->filter(function ($category) {
@@ -9,11 +6,13 @@
             })->first()"/>
         </div>
     </x-slot>
+    
     <div class="space-y-6 lg:py-12">
         <div class="grid w-full grid-cols-1 lg:grid-cols-5 xl:grid-cols-3 lg:gap-6 max-w-7xl m-auto px-0 lg:px-3">
             <div class="order-1 col-span-2 lg:col-span-3 xl:col-span-2 lg:rounded-2xl overflow-hidden">
                 <x-ux.slider
-                    :medias="$announcement->getMedia('announcements')" 
+                    :medias="$announcement->getMedia('announcements')"
+                    :fallbackMedia="$announcement->getFirstMediaUrl('announcements', 'thumb')"
                     height="500px"
                     :withFullscreen="true"
                     :withButtons="true"

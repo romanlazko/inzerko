@@ -10,12 +10,6 @@
         <meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}">
         <meta data-rh="true" property="og:locale" content="{{ app()->getLocale() }}">
 
-        @if (isset($meta))
-            {{ $meta }}
-        @else
-            {!! seo() !!}
-        @endif
-
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />

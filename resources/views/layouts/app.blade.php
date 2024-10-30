@@ -1,4 +1,6 @@
-<x-body-layout>
+@props(['meta' => null])
+
+<x-body-layout :meta="$meta">
     <header class="w-full bg-gray-900 block h-12 px-3">
         <x-nav.header/>
     </header>
