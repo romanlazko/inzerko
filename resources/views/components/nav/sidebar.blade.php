@@ -3,7 +3,7 @@
 		<a href="{{ route('announcement.index') }}">
 			
 		</a>
-		<button @click="sidebarOpen = false" class="text-gray-200 focus:outline-none lg:hidden">
+		<button @click="sidebarOpen = false" class="text-gray-200 focus:outline-none lg:hidden" title="Close sidebar">
 			<x-heroicon-s-x-mark class="size-5"/>
 		</button>
 	</div>

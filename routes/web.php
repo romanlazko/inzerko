@@ -66,11 +66,12 @@ Route::get('/', function (SearchRequest $request) {
 
     $viewModel = new HomeViewModel();
 
-    return view('home', [
+    return response()->view('home', [
         'announcements' => $viewModel->getAnnouncements(),
         'categories' => $viewModel->getCategories(),
         'request' => $request,
-    ]);
+    ])
+    ->header('Cache-Control', 'private, max-age=0, must-revalidate');
 })->name('home');
 
 

@@ -21,7 +21,7 @@ class AnnouncementController extends Controller
             'paginator' => $viewModel->getPaginator(),
             'request' => $request,
         ])
-        ->header('Cache-Control', 'no-cache');
+        ->header('Cache-Control', 'private, max-age=0, must-revalidate');
     }
 
     public function search(SearchRequest $request)
@@ -30,7 +30,7 @@ class AnnouncementController extends Controller
             'category' => $request->route('category'),
             'data'   => $request->serializedData(),
         ])
-        ->header('Cache-Control', 'no-cache');
+        ->header('Cache-Control', 'private, max-age=0, must-revalidate');
     }
 
     public function show(Announcement $announcement)
@@ -42,11 +42,13 @@ class AnnouncementController extends Controller
             'similar_announcements' => $viewModel->getSimilarAnnouncements(),
             'user_announcements' => $viewModel->getUserAnnouncements(),
         ])
-        ->header('Cache-Control', 'no-cache');
+        ->header('Cache-Control', 'private, max-age=0, must-revalidate');
     }
 
     public function create()
     {
-        return view('announcement.create');
+        return response()
+            ->view('announcement.create')
+            ->header('Cache-Control', 'private, max-age=0, must-revalidate');
     }
 }

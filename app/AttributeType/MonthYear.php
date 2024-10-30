@@ -49,6 +49,7 @@ class MonthYear extends BaseAttributeType
 
                     return $years;
                 })
+                ->extraInputAttributes(['aria-label' => 'Select '.$this->attribute->label])
                 ->placeholder(__('livewire.placeholders.from')),
 
             ComponentsSelect::make("attributes.{$this->attribute->name}.to")
@@ -64,6 +65,7 @@ class MonthYear extends BaseAttributeType
 
                     return $years;
                 })
+                ->extraInputAttributes(['aria-label' => 'Select '.$this->attribute->label])
                 ->placeholder(__('livewire.placeholders.to'))
         ])
         ->label($this->attribute->label)
