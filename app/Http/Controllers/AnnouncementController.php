@@ -13,14 +13,15 @@ class AnnouncementController extends Controller
     {
         $viewModel = new IndexViewModel($request);
 
-        return view('announcement.index', [
+        return response()->view('announcement.index', [
             'announcements' => $viewModel->getAnnouncements(),
             'categories' => $viewModel->getCategories(),
             'category' => $viewModel->getCategory(),
             'sortings' => $viewModel->getSortings(),
             'paginator' => $viewModel->getPaginator(),
             'request' => $request,
-        ]);
+        ])
+        ->header('Cache-Control', 'no-cache');
     }
 
     public function search(SearchRequest $request)
@@ -28,18 +29,20 @@ class AnnouncementController extends Controller
         return redirect()->route('announcement.index', [
             'category' => $request->route('category'),
             'data'   => $request->serializedData(),
-        ]);
+        ])
+        ->header('Cache-Control', 'no-cache');
     }
 
     public function show(Announcement $announcement)
     {
         $viewModel = new ShowViewModel($announcement);
 
-        return view('announcement.show', [
+        return response()->view('announcement.show', [
             'announcement' => $viewModel->getAnnouncement(),
             'similar_announcements' => $viewModel->getSimilarAnnouncements(),
             'user_announcements' => $viewModel->getUserAnnouncements(),
-        ]);
+        ])
+        ->header('Cache-Control', 'no-cache');
     }
 
     public function create()

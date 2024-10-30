@@ -24,7 +24,7 @@
 					<x-heroicon-s-heart class="size-5"/>
 				</x-nav.link>
 
-				<x-nav.link @click="$dispatch('open-chat')">
+				<x-nav.link @click="$dispatch('open-chat')" tag="button">
 					<div class="relative leading-3 size-5 m-auto">
 						<x-unread-messages/>
 						<x-heroicon-s-chat-bubble-left-right class="size-5"/>
@@ -57,7 +57,7 @@
 
 		<div class="flex items-center md:hidden relative">
 			<div x-data="{ dropdownOpen: false }" class="relative">
-				<button @click="dropdownOpen = ! dropdownOpen" class="flex text-white hover:text-indigo-700">
+				<button @click="dropdownOpen = ! dropdownOpen" class="flex text-white hover:text-indigo-700" title="Menu">
 					<x-heroicon-c-bars-3-bottom-right class="size-5"/>
 				</button>
 	

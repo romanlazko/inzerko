@@ -1,13 +1,4 @@
-@php
-    $title = $category?->translated_name ?? __('announcement.all');
-@endphp
-
-<x-app-layout :title="$title" class="w-full max-w-7xl m-auto">
-    @if ($category)
-        <x-slot name="meta">
-            {!! seo()->for($category) !!}
-        </x-slot>
-    @endif
+<x-app-layout :meta="$category?->getDynamicSEOData()" class="w-full max-w-7xl m-auto">
 
     <x-slot name="sidebar">
         <livewire:components.announcement.filters :filters="$request->filters ?? null" :category="$category"/>
@@ -38,7 +29,7 @@
                         <label for="sort" class="text-gray-500 text-sm whitespace-nowrap">
                             {{ __('announcement.sort_by') }}
                         </label>
-                        <select name="sort" class="border-none py-0 pl-0 shadow-none focus:ring-0 font-bold bg-transparent text-sm text-gray-900 text-ellipsis w-full" onchange="this.form.submit()">
+                        <select id="sort" name="sort" class="border-none py-0 pl-0 shadow-none focus:ring-0 font-bold bg-transparent text-sm text-gray-900 text-ellipsis w-full" onchange="this.form.submit()">
                             @foreach ($sortings as $sorting)
                                 <option value="{{ $sorting->id }}" @selected($request->sort == $sorting->id)>
                                     {{ $sorting->name }}

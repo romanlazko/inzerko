@@ -142,14 +142,14 @@
 
             @if ($withButtons)
                 <div class="absolute inset-0 flex justify-between items-center z-10">
-                    <button @click.prevent="prevSlide()" @dblclick.prevent class="h-full p-1 lg:px-3">
+                    <button @click.prevent="prevSlide()" @dblclick.prevent class="h-full p-1 lg:px-3" title="Previous Slide">
                         <div class="bg-gray-800 bg-opacity-50 lg:hover:bg-opacity-90 text-white p-2 rounded-full opacity-30 hover:opacity-100 lg:opacity-100 ">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                             </svg>
                         </div>
                     </button>
-                    <button @click.prevent="nextSlide()" @dblclick.prevent class="h-full p-1 lg:px-3">
+                    <button @click.prevent="nextSlide()" @dblclick.prevent class="h-full p-1 lg:px-3" title="Next Slide">
                         <div class="bg-gray-800 bg-opacity-50 lg:hover:bg-opacity-90 text-white p-2 rounded-full opacity-30 hover:opacity-100 lg:opacity-100 ">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -164,6 +164,7 @@
                     <button 
                         class="flex text-gray-100 text-2xl hover:text-white opacity-70 hover:opacity-100 p-1 w-10 h-10 min-h-10 min-w-10 rounded-full bg-gray-800 items-center justify-center bg-opacity-50 hover:bg-opacity-100" 
                         @click="fullscreen = ! fullscreen"
+                        :title="fullscreen ? 'Exit Fullscreen' : 'Fullscreen'"
                     >
                         <x-heroicon-o-arrows-pointing-in x-show="fullscreen" class="size-6"/>
                         <x-heroicon-o-arrows-pointing-out x-show="! fullscreen" class="size-6"/>
@@ -182,6 +183,7 @@
                                     'bg-gray-300 hover:bg-gray-100': activeIndex !== {{ $index }}
                                 }" 
                                 class="w-2 h-2 min-h-2 min-w-2 transition duration-200 ease-in-out cursor-pointer rounded-full"
+                                title="{{ $medias[$index]->name }}"
                             >
                             </button>
                         @endfor

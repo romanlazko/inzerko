@@ -1,3 +1,5 @@
+{{ header("Cache-Control: private, max-age=0, must-revalidate"); }}
+
 <x-app-layout class="w-full max-w-7xl m-auto">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">

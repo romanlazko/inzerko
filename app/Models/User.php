@@ -77,6 +77,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('thumb')
+                    ->format('webp')
                     ->keepOriginalImageFormat()
                     ->width(100)
                     ->height(100);
