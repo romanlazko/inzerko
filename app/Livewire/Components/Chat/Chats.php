@@ -46,6 +46,7 @@ class Chats extends Component implements HasForms, HasTable
                     )
                     ->getQuery()
             )
+            ->emptyStateHeading(__('pagination.nothing'))
             ->paginated(false)
             ->columns([
                 Split::make([

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pages\User\Profile;
+namespace App\Livewire\Components\Announcement;
 
 use App\Enums\Status;
 use App\Models\Announcement;
@@ -12,20 +12,14 @@ use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\Layout\Split;
-use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Illuminate\Support\Str;
 
 
-#[Layout('layouts.body')]
 class MyAnnouncements extends Component implements HasForms, HasTable
 {
     use InteractsWithTable;
@@ -34,6 +28,7 @@ class MyAnnouncements extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading(__('pagination.nothing'))
             ->query(auth()->user()->announcements()->with('features.attribute', 'features.attribute_option', 'media')->getQuery())
             ->columns([
                 SpatieMediaLibraryImageColumn::make('media')
@@ -47,6 +42,7 @@ class MyAnnouncements extends Component implements HasForms, HasTable
                     ->description(fn (Announcement $announcement) => $announcement->description)
                     ->weight(FontWeight::Bold)
                     ->wrap()
+                    ->markdown()
                     ->extraAttributes(['class' => 'py-2']),
 
                 TextColumn::make('price')
@@ -101,6 +97,6 @@ class MyAnnouncements extends Component implements HasForms, HasTable
     }
     public function render()
     {
-        return view('livewire.profile.my-announcements');
+        return view('livewire.layouts.table');
     }
 }

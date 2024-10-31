@@ -79,4 +79,17 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function wishlist()
+    {
+        $announcements = auth()->user()->wishlist()->isPublished()->latest()
+            ->paginate(30)->withQueryString();
+
+        return view('profile.wishlist', compact('announcements'));
+    }
+
+    public function my_announcements(Request $request): View
+    {
+        return view('profile.my-announcements');
+    }
 }
