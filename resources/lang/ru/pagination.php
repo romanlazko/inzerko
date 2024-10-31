@@ -15,5 +15,6 @@ return [
 
     'previous' => '&laquo; Предыдущая',
     'next' => 'Следующая &raquo;',
+    'nothing' => 'Ничего не найдено.',
 
 ];

@@ -1,21 +1,10 @@
 <?php
 
-use App\Facades\RapidApiTranslator;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Profile\ProfileController;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-use NlpTools\Classifiers\MultinomialNBClassifier;
-use NlpTools\Documents\TokensDocument;
-use NlpTools\Documents\TrainingSet;
-use NlpTools\FeatureFactories\DataAsFeatures;
-use NlpTools\Models\FeatureBasedNB;
-use NlpTools\Tokenizers\WhitespaceTokenizer;
 use Stevebauman\Location\Facades\Location;
-use App\Http\Controllers\Profile\MessageController;
-use App\Http\Controllers\Profile\Wishlist;
 use App\Http\Requests\SearchRequest;
-use App\Livewire\Components\OpsMap;
 use App\Livewire\Pages\Admin\Announcement\Announcements;
 use App\Livewire\Pages\Admin\Announcement\EditAnnouncement;
 use App\Livewire\Pages\Admin\Announcement\Moderation;
@@ -28,8 +17,6 @@ use App\Livewire\Pages\Admin\Telegram\Channels;
 use App\Livewire\Pages\Admin\Telegram\Chats;
 use App\Livewire\Pages\Admin\Telegram\Logs;
 use App\Livewire\Pages\Admin\User\Users;
-use App\Livewire\Pages\User\Profile\Messages;
-use App\Livewire\Pages\User\Profile\MyAnnouncements;
 use App\View\Models\HomeViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -116,22 +103,14 @@ Route::middleware(['auth'])->name('profile.')->prefix('profile')->group(function
     Route::patch('/update', [ProfileController::class, 'update'])->name('update');
     Route::delete('/destroy', [ProfileController::class, 'destroy'])->name('destroy');
     Route::patch('/updateAvatar', [ProfileController::class, 'updateAvatar'])->name('updateAvatar');
-    Route::get('/wishlist', [Wishlist::class, 'index'])->name('wishlist');
-    Route::get('/my-announcements', MyAnnouncements::class)->name('my-announcements');
-});
-
-Route::get('/location', function () {
-    dd(Location::get(), request()->ip());
+    Route::get('/wishlist', [ProfileController::class, 'wishlist'])->name('wishlist');
+    Route::get('/my-announcements', [ProfileController::class, 'my_announcements'])->name('my-announcements');
 });
 
 Route::get('cron', function () {
     Artisan::call('queue:work --stop-when-empty --tries=2 --max-time=60');
     return true;
 });
-
-
-
-
 
 require __DIR__.'/auth.php';
 
