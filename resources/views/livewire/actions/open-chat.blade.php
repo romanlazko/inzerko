@@ -14,7 +14,7 @@
             class="padding-0"
         >
             @if ($action)
-                {{ $this->getMountedActionForm(mountedAction: $action) }}
+                {{ $action->getModalContent() }}
             @endif
         </x-filament::modal>
 

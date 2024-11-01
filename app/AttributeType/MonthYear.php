@@ -33,10 +33,22 @@ class MonthYear extends BaseAttributeType
         ];
     }
 
+    protected function fakeData(): array
+    {
+        return [
+            'attribute_id' => $this->attribute->id,
+            'translated_value' => [
+                'original' => fake()->dateTime()->format('Y-m-d'),
+            ],
+        ];
+    }
+
     protected function getFilamentFilterComponent(Get $get = null): ?ViewComponent
     {
         return Cluster::make([
             ComponentsSelect::make("attributes.{$this->attribute->name}.from")
+                ->label(__('livewire.placeholders.from'))
+                ->placeholder(__('livewire.placeholders.from'))
                 ->options(function () {
                     $startYear = 1960;
                     $currentYear = Carbon::now()->year;
@@ -49,10 +61,11 @@ class MonthYear extends BaseAttributeType
 
                     return $years;
                 })
-                ->extraInputAttributes(['aria-label' => 'Select '.$this->attribute->label])
-                ->placeholder(__('livewire.placeholders.from')),
+                ->extraInputAttributes(['aria-label' => 'Select '.$this->attribute->label]),
 
             ComponentsSelect::make("attributes.{$this->attribute->name}.to")
+                ->label(__('livewire.placeholders.to'))
+                ->placeholder(__('livewire.placeholders.to'))
                 ->options(function () {
                     $startYear = 1960;
                     $currentYear = Carbon::now()->year;
@@ -66,7 +79,6 @@ class MonthYear extends BaseAttributeType
                     return $years;
                 })
                 ->extraInputAttributes(['aria-label' => 'Select '.$this->attribute->label])
-                ->placeholder(__('livewire.placeholders.to'))
         ])
         ->label($this->attribute->label)
         ->columns(['default' => 2]);
@@ -76,6 +88,8 @@ class MonthYear extends BaseAttributeType
     {
         return Cluster::make([
             ComponentsSelect::make("attributes.{$this->attribute->name}.month")
+                ->label(__('livewire.placeholders.month'))
+                ->placeholder(__('livewire.placeholders.month'))
                 ->options([
                     '01' => 'January',
                     '02' => 'February',
@@ -90,10 +104,11 @@ class MonthYear extends BaseAttributeType
                     '11' => 'November',
                     '12' => 'December',
                 ])
-                ->placeholder(__('livewire.placeholders.month'))
                 ->required($this->attribute->is_required),
 
             ComponentsSelect::make("attributes.{$this->attribute->name}.year")
+                ->label(__('livewire.placeholders.year'))
+                ->placeholder(__('livewire.placeholders.year'))
                 ->options(function () {
                     $startYear = 1960;
                     $currentYear = Carbon::now()->year;
@@ -106,7 +121,6 @@ class MonthYear extends BaseAttributeType
 
                     return $years;
                 })
-                ->placeholder(__('livewire.placeholders.year'))
                 ->required($this->attribute->is_required)
         ])
         ->label($this->attribute->label)

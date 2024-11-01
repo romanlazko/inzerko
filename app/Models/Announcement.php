@@ -115,9 +115,14 @@ class Announcement extends Model implements HasMedia, Auditable
         return $this->votes()->one()->where('user_id', auth()->id());
     }
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function getCategoriesAttribute()
+    {
+        return $this->category?->parentsAndSelf;
     }
 
     public function channels()

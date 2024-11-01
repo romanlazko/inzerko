@@ -118,12 +118,31 @@ class Category extends Model implements HasMedia
 
     public function getParentsAndSelf()
     {
-        return Cache::remember($this?->slug.'_category_parents_and_self', config('cache.ttl'), fn () => 
-            collect([
+        $cacheKey = $this?->slug.'_category_parents_and_self';
+        
+        return Cache::remember($cacheKey, config('cache.ttl'), function () {
+            return collect([
                 $this,
                 ...$this->parent?->getParentsAndSelf() ?? []
-            ])
-        );
+            ]);
+        });
+    }
+
+    public function getParentsAndSelfAttribute()
+    {
+        return $this->getParentsAndSelf();
+    }
+
+    public function getChildrenAndSelfAttribute()
+    {
+        $cacheKey = $this?->slug.'_category_children_and_self';
+
+        return Cache::remember($cacheKey, config('cache.ttl'), function () {
+            return collect([
+                $this,
+                ...$this->children->map(fn ($child) => $child->childrenAndSelf)->flatten()
+            ]);
+        });
     }
 
     public function scopeIsActive($query)

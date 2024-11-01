@@ -27,11 +27,24 @@ class FromTo extends Between
             );
     }
 
+    protected function fakeData(): array
+    {
+        return [
+            'attribute_id' => $this->attribute->id,
+            'translated_value' => [
+                'original' => [
+                    'from' => fake()->numberBetween(0, 1000),
+                    'to' => fake()->numberBetween(1000, 2000),
+                ],
+            ],
+        ];
+    }
+
     protected function getFeatureValue(null|string|array $translated_value = null): ?string
     {
         return implode('-', array_filter([
-            'from' => $translated_value['from'],
-            'to' => $translated_value['to'],
+            'from' => $translated_value['from'] ?? null,
+            'to' => $translated_value['to'] ?? null,
         ]));
     }
 
@@ -39,11 +52,13 @@ class FromTo extends Between
     {   
         return Cluster::make([
             ComponentsTextInput::make('attributes.'.$this->attribute->name.'.from')
+                ->label(__('livewire.placeholders.from'))
                 ->placeholder(__('livewire.placeholders.from'))
                 ->numeric()
                 ->default('')
                 ->required($this->attribute->is_required),
             ComponentsTextInput::make('attributes.'.$this->attribute->name.'.to')
+                ->label(__('livewire.placeholders.to'))
                 ->placeholder(__('livewire.placeholders.to'))
                 ->numeric()
                 ->default('')

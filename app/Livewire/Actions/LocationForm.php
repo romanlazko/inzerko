@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Actions;
 
-use App\Livewire\Components\Forms\Components\OpsMap;
+use App\Livewire\Components\Forms\Fields\OpsMap;
 use App\Models\Geo;
 use Livewire\Component;
 use Filament\Actions\Action;
@@ -10,14 +10,11 @@ use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Actions\StaticAction;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\HtmlString;
 
 class LocationForm extends Component implements HasForms, HasActions
 {
@@ -45,6 +42,15 @@ class LocationForm extends Component implements HasForms, HasActions
         $this->countries = Cache::rememberForever('countries', fn () => Geo::select('name', 'country')->where('level', 'PCLI')->get());
     }
 
+    public function render()
+    {
+        $actions = [
+            'location',
+        ];
+
+        return view('livewire.layouts.actions', compact('actions'));
+    }
+
     public function location(): Action
     {
         return Action::make('location') 
@@ -53,19 +59,18 @@ class LocationForm extends Component implements HasForms, HasActions
             ->extraAttributes(['class' => 'cursor-pointer whitespace-nowrap'])
             ->label(Geo::find($this->locationData['geo_id'] ?? null)?->name ?? __('livewire.location'))
             ->form([
-
                 Select::make('geo_id')
                     ->label(__('livewire.city'))
-                    ->searchable()
-                    ->preload()
+                    ->placeholder(__('livewire.city'))
                     ->options(function (Get $get) {
                         return Geo::orderBy('level')
                             ->select('id', 'name', 'country')
                             ->get()
                             ->pluck('name', 'id');
                     })
-
                     ->optionsLimit(20)
+                    ->searchable()
+                    ->preload()
                     ->getSearchResultsUsing(function (string $search, Get $get) {
                         return Geo::whereRaw('LOWER(alternames) LIKE ?', ['%' . mb_strtolower($search) . '%'])
                             ->limit(30)
@@ -74,7 +79,7 @@ class LocationForm extends Component implements HasForms, HasActions
                             ->pluck('name', 'id');
                     })
                     ->live()
-                    ->placeholder(__('livewire.city'))
+                    ->required()
                     ->afterStateUpdated(function (Set $set, Get $get, $state, $livewire) {
                         $geo = Geo::find($state) ?? Geo::radius($this->defaultCoordinates['lat'], $this->defaultCoordinates['lng'], 10)?->first();
                         $set('coordinates', [
@@ -84,9 +89,9 @@ class LocationForm extends Component implements HasForms, HasActions
 
                         $livewire->dispatch('refreshMap');
                     })
-                    ->required()
                     ->columnSpan(1),
                 OpsMap::make('coordinates')
+                    ->label(false)
                     ->showMyLocationButton()
                     ->liveLocation(true, false, 500)
                     ->debounce(1000)
@@ -114,11 +119,11 @@ class LocationForm extends Component implements HasForms, HasActions
                     ->extraStyles([
                         'border-radius: 10px'
                     ])
-                    ->label(false)
                     ->required()
                     ->columnSpanFull(),
                 Select::make('radius')
                     ->label(__('livewire.radius'))
+                    ->placeholder(__('livewire.radius'))
                     ->options([
                         10 => '10 km',
                         20 => '20 km',
@@ -128,11 +133,10 @@ class LocationForm extends Component implements HasForms, HasActions
                         60 => '60 km',
                         70 => '70 km',
                     ])
+                    ->selectablePlaceholder(false)
                     ->afterStateHydrated(function (Set $set) {
                         $set('radius', $this->locationData['radius'] ?? 30);
                     })
-                    ->selectablePlaceholder(false)
-                    ->placeholder(__('livewire.radius'))
             ])
             ->action(fn (array $data) => 
                 $this->redirectRoute('announcement.search', ['location' => $data, 'category' => $this->category?->slug])
@@ -151,15 +155,6 @@ class LocationForm extends Component implements HasForms, HasActions
                     ->label($this->moving ? __('livewire.search') : __('livewire.apply'))
             )
             ->modalWidth('xl');
-    }
-
-    public function render()
-    {
-        $actions = [
-            'location',
-        ];
-
-        return view('livewire.actions.actions', compact('actions'));
     }
 
     public function resetData()

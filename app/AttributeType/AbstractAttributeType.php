@@ -39,6 +39,11 @@ abstract class AbstractAttributeType
         ]));
     }
 
+    public function getFakeData()
+    {
+        return $this->fakeData();
+    }
+
     private function getTranslatedValue($translated_value)
     {
         return $this->getFeatureValue($translated_value[app()->getLocale()] ?? $translated_value['original'] ?? null);
@@ -46,28 +51,11 @@ abstract class AbstractAttributeType
 
     public function getCreateSchema(): ?array
     {
-        if ($this->isVisible()) {
+        if ($this->isVisible() AND !$this->isHidden() AND isset($this->data[$this->attribute->name]) ) {
             return $this->schema();
         }
 
         return null;
-    }
-
-    protected function schema(): array
-    {
-        if ($this->attribute->attribute_options->isNotEmpty()) {
-            return [
-                'attribute_id' => $this->attribute->id,
-                'attribute_option_id' => $this->data[$this->attribute->name],
-            ];
-        }
-
-        return [
-            'attribute_id' => $this->attribute->id,
-            'translated_value'        => [
-                'original' => $this->data[$this->attribute->name]
-            ],
-        ];
     }
 
     public function getCreateComponent(Get $get = null): ?ViewComponent
@@ -135,6 +123,10 @@ abstract class AbstractAttributeType
 
         return false;
     }
+
+    protected abstract function schema(): ?array;
+
+    protected abstract function fakeData(): ?array;
 
     protected abstract function getFilterQuery(Builder $query) : Builder;
 

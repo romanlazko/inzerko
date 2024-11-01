@@ -3,7 +3,7 @@
 namespace App\Livewire\Components\Announcement;
 
 use App\AttributeType\AttributeFactory;
-use App\Livewire\Components\Forms\Components\Wizard;
+use App\Livewire\Components\Forms\Fields\Wizard;
 use App\Livewire\Traits\AnnouncementCrud;
 use App\Models\Category;
 use App\Services\Actions\CategoryAttributeService;
@@ -13,6 +13,7 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -38,6 +39,7 @@ class Create extends Component implements HasForms
             'country' => 'CZ',
         ],
         'categories' => [],
+        'category_id' => null
     ];
 
     public $parent_categories;
@@ -52,6 +54,13 @@ class Create extends Component implements HasForms
     {
         $this->form->fill(session('data') ?? $this->data);
         $this->parent_categories = Category::where('parent_id', null)->get()->pluck('name', 'id');
+    }
+
+    public function render(): View
+    {
+        session()->put('data', array_diff_key($this->data, ['attachments' => ""]));
+
+        return view('livewire.components.announcement.create');
     }
 
     public function form(Form $form): Form
@@ -71,6 +80,10 @@ class Create extends Component implements HasForms
                         ->schema([
                             Section::make(__('livewire.category'))
                                 ->schema([
+                                    TextInput::make('category_id')
+                                        ->hidden()
+                                        ->dehydratedWhenHidden()
+                                        ->required(),
                                     Grid::make(2)
                                         ->schema(fn (Get $get, Set $set) => [
                                             Select::make('categories.0')
@@ -81,6 +94,7 @@ class Create extends Component implements HasForms
                                                         unset($this->data['categories'][$key]);
                                                     }
                                                 })
+                                                ->dehydrated(false)
                                                 ->required()
                                                 ->live(),
                                             ...$this->getSubcategories($get, $set)
@@ -133,16 +147,9 @@ class Create extends Component implements HasForms
         $this->redirectRoute('profile.my-announcements');
     }
 
-    public function render(): View
-    {
-        session()->put('data', array_diff_key($this->data, ['attachments' => ""]));
-
-        return view('components.livewire.announcement.create');
-    }
-
     public function getFormSchema(): array
     {
-        return CategoryAttributeService::forCreate($this->data['categories'] ?? [])
+        return CategoryAttributeService::forCreate(Category::find($this->data['category_id']))
             ?->sortBy('createSection.order_number')
             ?->groupBy('createSection.name')
             ?->map(function ($section, $section_name) {
@@ -150,7 +157,6 @@ class Create extends Component implements HasForms
                 
                 if ($fields->isNotEmpty()) {
                     return Section::make($section_name)
-                        // ->extraAttributes($section->first()->createSection->is_visible ? [] : ['class' => 'hidden'])
                         ->schema([
                             Grid::make([
                                 'default' => 2,
@@ -170,21 +176,25 @@ class Create extends Component implements HasForms
 
     public function getSubcategories(Get $get, Set $set, int $currentLevel = 0): array
     {
-        $currentCategory = $this->getCategories()?->get($get('categories.'.$currentLevel))?->get('children');
+        $currentCategoryChildren = $this->getCategories()?->get($get('categories.'.$currentLevel))?->get('children');
         $nextLevel = $currentLevel + 1;
 
-        if ($currentCategory?->isNotEmpty()) {
+        if ($currentCategoryChildren?->isNotEmpty()) {
             return [
                 Select::make('categories.'.$nextLevel)
-                    ->options($currentCategory?->pluck('name', 'id'))
+                    ->options($currentCategoryChildren?->pluck('name', 'id'))
                     ->hiddenLabel()
                     ->live()
                     ->afterStateUpdated(function (Set $set) use ($nextLevel) {
                         unset($this->data['categories'][$nextLevel+1]);
                     })
+                    ->dehydrated(false)
                     ->required(),
                 ...$this->getSubcategories($get, $set, $nextLevel)
             ];
+        }
+        else {
+            $set('category_id', $get('categories.'.$currentLevel));
         }
 
         return [];
@@ -192,9 +202,11 @@ class Create extends Component implements HasForms
 
     public function getFields($section)
     {
-        return $section->sortBy('create_layout->order_number')->map(function ($attribute) {
-                return AttributeFactory::getCreateComponent($attribute);
-            })
+        return $section
+            ->sortBy('create_layout->order_number')
+            ->map(fn ($attribute) => 
+                AttributeFactory::getCreateComponent($attribute)
+            )
             ->filter();
     }
 

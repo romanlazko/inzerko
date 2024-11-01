@@ -39,8 +39,8 @@ class ToggleButtons extends BaseAttributeType
         return ComponentsToggleButtons::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)
             ->options($this->attribute->attribute_options->where('is_null', false)->pluck('name', 'id'))
-            ->inline()
             ->live()
+            ->inline()
             ->required($this->attribute->is_required);
     }
 }

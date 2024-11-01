@@ -8,7 +8,7 @@
                     <x-heroicon-c-home class="size-5"/>	
                 </a>
             </x-nav.breadcrumb-link>
-            @forelse ($category?->getParentsAndSelf()->reverse() ?? [] as $parent)
+            @forelse ($category?->parentsAndSelf?->reverse() ?? [] as $parent)
                 <x-nav.breadcrumb-link>
                     <a href="{{ route('announcement.search', ['category' => $parent->slug]) }}" @class(['text-blue-600 cursor-pointer', 'text-gray-800 font-medium' => $loop->last, 'hover:underline ' => !$loop->last])>
                         {{ $parent->name }}
