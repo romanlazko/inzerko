@@ -15,13 +15,48 @@ class BaseAttributeType extends AbstractAttributeType
                     ->where('sort.attribute_id', $this->attribute->id);
             })
             ->orderByRaw('CAST(JSON_UNQUOTE(JSON_EXTRACT(sort.translated_value, "$.original")) AS UNSIGNED) ' . $direction);
-
-        return $query;
     }
 
     protected function getFilterQuery(Builder $query) : Builder
     {
         return $query;
+    }
+
+    protected function schema(): array
+    {
+        if ($this->attribute->attribute_options->isNotEmpty()) {
+            return [
+                'attribute_id' => $this->attribute->id,
+                'attribute_option_id' => $this->data[$this->attribute->name],
+            ];
+        }
+
+        return [
+            'attribute_id' => $this->attribute->id,
+            'translated_value'        => [
+                'original' => $this->data[$this->attribute->name]
+            ],
+        ];
+    }
+
+    protected function fakeData(): array
+    {
+        if ($this->attribute->attribute_options->isNotEmpty()) {
+            return [
+                'attribute_id' => $this->attribute->id,
+                'attribute_option_id' => $this->attribute->attribute_options->where('is_null', '!=' ,true)->random()->id,
+            ];
+        }
+
+        return [
+            'attribute_id' => $this->attribute->id,
+            'translated_value'        => [
+                'original' => match (($this->attribute->create_layout['rules'] ?? null) ? $this->attribute->create_layout['rules'][0] : null) {
+                    'numeric' => fake()->numberBetween(0, 100),
+                    default => fake()->sentence(12),
+                },
+            ],
+        ];
     }
 
     protected function getFeatureValue(null|string|array $translated_value = null): ?string

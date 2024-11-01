@@ -94,6 +94,16 @@ class AttributeFactory
 
     /**
      * @param Attribute $attribute
+     * @param array|null $data
+     * @return array
+     */
+    public static function getFakeData(Attribute $attribute, ?array  $data = []) : ?array
+    {
+        return self::getCreateClass($attribute, $data)?->getFakeData();
+    }
+
+    /**
+     * @param Attribute $attribute
      * @param Feature|null $feature
      * @return ?string
      */

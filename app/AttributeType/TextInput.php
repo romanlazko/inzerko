@@ -12,8 +12,8 @@ class TextInput extends BaseAttributeType
     {
         return ComponentsTextInput::make('attributes.'.$this->attribute->name)
                 ->label($this->attribute->label)
-                ->rules($this->attribute->create_layout['rules'] ?? [])
                 ->suffix($this->attribute->suffix)
+                ->rules($this->attribute->create_layout['rules'] ?? [])
                 ->required($this->attribute->is_required);
     }
 

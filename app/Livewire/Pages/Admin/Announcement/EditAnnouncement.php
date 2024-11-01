@@ -10,7 +10,6 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
-use Illuminate\Contracts\View\View;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Get;
 
@@ -66,6 +65,5 @@ class EditAnnouncement extends AdminEditFormLayout
     {
         $this->announcement->update($this->form->getState());
         $this->form->model($this->announcement)->saveRelationships();
-        
     }
 }

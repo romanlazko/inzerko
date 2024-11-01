@@ -28,10 +28,12 @@ class Between extends BaseAttributeType
     {   
         return Cluster::make([
             ComponentsTextInput::make('attributes.'.$this->attribute->name.'.from')
+                ->label(__('livewire.placeholders.from'))
                 ->placeholder(__('livewire.placeholders.from'))
                 ->numeric()
                 ->default(''),
             ComponentsTextInput::make('attributes.'.$this->attribute->name.'.to')
+                ->label(__('livewire.placeholders.to'))
                 ->placeholder(__('livewire.placeholders.to'))
                 ->numeric()
                 ->default(''),

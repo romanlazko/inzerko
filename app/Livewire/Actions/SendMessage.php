@@ -23,6 +23,16 @@ class SendMessage extends Component implements HasForms, HasActions
 
     public $user_id;
 
+    public function render()
+    {
+        $actions = [
+            'sendMessage',
+            'showContact',
+        ];
+
+        return view('livewire.layouts.actions', compact('actions'));
+    }
+
     public function showContact()
     {
         $user = User::findOrFail($this->user_id);
@@ -102,15 +112,5 @@ class SendMessage extends Component implements HasForms, HasActions
         
                 $thread->recipient->notify((new NewMessage($thread))->delay(now()->addMinutes(10)));
             });
-    }
-
-    public function render()
-    {
-        $actions = [
-            'sendMessage',
-            'showContact',
-        ];
-
-        return view('livewire.actions.actions', compact('actions'));
     }
 }

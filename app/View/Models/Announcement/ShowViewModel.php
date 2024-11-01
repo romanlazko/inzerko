@@ -37,9 +37,7 @@ class ShowViewModel
             'features.attribute_option:id,alternames',
             'features.attribute.showSection:id,alternames,order_number,slug',
             'features.attribute.group:id,slug,separator',
-            'categories:id,slug,alternames,parent_id',
-            // 'categories.parent',
-            // 'categories.children',
+            'category:id,slug,alternames,parent_id',
         ]);
     }
 

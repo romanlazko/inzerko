@@ -10,5 +10,5 @@ class StatusSwitcher extends SelectColumn
 {
     use HasColor;
 
-    protected string $view = 'components.livewire.tables.columns.status-switcher';
+    protected string $view = 'livewire.components.tables.columns.status-switcher';
 }

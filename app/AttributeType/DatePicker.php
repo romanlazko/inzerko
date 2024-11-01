@@ -27,6 +27,16 @@ class DatePicker extends BaseAttributeType
         ];
     }
 
+    protected function fakeData(): array
+    {
+        return [
+            'attribute_id' => $this->attribute->id,
+            'translated_value' => [
+                'original' => fake()->dateTime()->format('Y-m-d'),
+            ],
+        ];
+    }
+
     protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
     {
         return ComponentsDatePicker::make('attributes.'.$this->attribute->name)

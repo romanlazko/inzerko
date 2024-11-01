@@ -30,6 +30,17 @@ class Price extends Between
         ];
     }
 
+    protected function fakeData(): array
+    {
+        return [
+            'attribute_id' => $this->attribute->id,
+            'attribute_option_id' => $this->attribute->attribute_options->where('is_null', '!=' ,true)->random()->id,
+            'translated_value' => [
+                'original' => fake()->numberBetween(0, 100000),
+            ],
+        ];
+    }
+
     protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
     {   
         return Grid::make()

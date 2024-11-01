@@ -13,7 +13,6 @@ class MarkdownEditor extends BaseAttributeType
     {
         return ComponentsMarkdownEditor::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)
-            ->required($this->attribute->is_required)
             ->toolbarButtons([
                 'bold',
                 'bulletList',
@@ -22,6 +21,7 @@ class MarkdownEditor extends BaseAttributeType
                 'redo',
                 'undo',
             ])
+            ->required($this->attribute->is_required)
             ->dehydrateStateUsing(fn (string $state) => Purifier::purify($state));
     }
 }

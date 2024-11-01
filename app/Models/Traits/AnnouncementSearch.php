@@ -5,15 +5,11 @@ namespace App\Models\Traits;
 use App\AttributeType\AttributeFactory;
 use App\Models\Sorting;
 use App\Enums\Status;
-use App\Models\Attribute;
 use App\Models\Category;
-use App\Models\Geo;
 
 use App\Services\Actions\CategoryAttributeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
-
-use function JmesPath\search;
 
 trait AnnouncementSearch
 {
@@ -23,10 +19,7 @@ trait AnnouncementSearch
             return $query;
         }
 
-        return $query->whereHas('categories', fn ($query) 
-            => $query->where('category_id', $category->id)
-                ->select('categories.id')
-        );
+        return $query->whereIn('category_id', $category?->childrenAndSelf->pluck('id'));
     }
 
     public function scopeGeo($query, $location = null)

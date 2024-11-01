@@ -27,24 +27,6 @@ class IndexViewModel
         $this->sortings = $this->sortings();
     }
 
-    private function announcements()
-    {
-        return Announcement::with([
-                'media',
-                'features' => fn ($query) => $query->forAnnouncementCard(),
-                'geo',
-                'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
-            ])
-            ->category($this->category)
-            ->sort($this->request->sort)
-            ->geo($this->request->location)
-            ->filter($this->request->filters['attributes'] ?? [], $this->category)
-            ->search($this->request->search)
-            ->isPublished()
-            ->paginate(30)
-            ->withQueryString();
-    }
-
     private function category(): ?Category
     {
         if (!$this->request->route('category')) {
@@ -77,26 +59,27 @@ class IndexViewModel
         });
     }
 
+    private function announcements()
+    {
+        return Announcement::with([
+                'media',
+                'features' => fn ($query) => $query->forAnnouncementCard(),
+                'geo',
+                'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
+            ])
+            ->category($this->category)
+            ->sort($this->request->sort)
+            ->geo($this->request->location)
+            ->filter($this->request->filters['attributes'] ?? [], $this->category)
+            ->search($this->request->search)
+            ->isPublished()
+            ->paginate(30)
+            ->withQueryString();
+    }
+
     private function sortings()
     {
         return CategoryAttributeService::forSorting($this->category);
-    }
-
-    private function features() 
-    {
-        return Feature::select('announcement_id')
-            ->with([
-                'announcement.media',
-                'announcement.features' => fn ($query) => $query->forAnnouncementCard(),
-                'announcement.geo',
-                'announcement.userVotes',
-            ])
-            ->filter($this->request->filters['attributes'] ?? [], $this->category)
-            ->search($this->request->search)
-            ->sort($this->request->sort)
-            ->whereHas('announcement', fn ($query) => $query->category($this->category)->isPublished()->geo($this->request->location))
-            ->paginate(30)
-            ->withQueryString();
     }
 
     public function getCategory()

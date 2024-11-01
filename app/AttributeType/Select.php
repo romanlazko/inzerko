@@ -24,17 +24,17 @@ class Select extends BaseAttributeType
     {
         return ComponentsSelect::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)
-            ->extraInputAttributes(['title' => 'Select '.$this->attribute->label])
             ->options($this->attribute->attribute_options?->pluck('name', 'id'))
-            ->live();
+            ->live()
+            ->extraInputAttributes(['title' => 'Select '.$this->attribute->label]);
     }
 
     protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
     {
         return ComponentsSelect::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)
-            ->live()
             ->options($this->attribute->attribute_options->pluck('name', 'id'))
+            ->live()
             ->required($this->attribute->is_required);
     }
 }

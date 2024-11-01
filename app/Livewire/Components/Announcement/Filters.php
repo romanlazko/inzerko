@@ -34,6 +34,11 @@ class Filters extends Component implements HasForms
 
         $this->form->fill($filters);
     }
+    
+    public function render()
+    {
+        return view('livewire.components.announcement.filters');
+    }
 
     public function form(Form $form): Form
     {
@@ -52,12 +57,6 @@ class Filters extends Component implements HasForms
             ])
             ->statePath('filters')
             ->extraAttributes(['class' => 'rounded-2xl']);
-    }
-
-
-    public function render()
-    {
-        return view('components.livewire.announcement.filters');
     }
 
     public function search()

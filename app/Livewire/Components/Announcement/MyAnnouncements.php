@@ -25,6 +25,11 @@ class MyAnnouncements extends Component implements HasForms, HasTable
     use InteractsWithTable;
     use InteractsWithForms;
     
+    public function render()
+    {
+        return view('livewire.layouts.table');
+    }
+    
     public function table(Table $table): Table
     {
         return $table
@@ -94,9 +99,5 @@ class MyAnnouncements extends Component implements HasForms, HasTable
                 ])
                 ->button()
             ]);
-    }
-    public function render()
-    {
-        return view('livewire.layouts.table');
     }
 }
