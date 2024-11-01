@@ -31,6 +31,10 @@ class ConnectTelegramController extends Controller
             'telegram_chat_id' => $request->telegram_chat_id,
         ]);
 
+        if (!$request->user()->hasVerifiedEmail() AND $request->user()->markEmailAsVerified()) {
+            event(new Verified($request->user()));
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME)->with([
             'ok' => true,
             'description' => __('auth.telegram.verified'),

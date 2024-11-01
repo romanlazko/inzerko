@@ -1,5 +1,5 @@
 @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-    <div class="p-4 bg-red-600 text-white rounded-lg">
+    <div class="p-4 bg-red-600 text-white rounded-xl">
         <div class="mb-4 text-sm">
             {{ __('profile.verify_email.description') }}
         </div>

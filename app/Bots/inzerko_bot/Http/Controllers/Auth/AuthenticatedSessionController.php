@@ -13,10 +13,6 @@ class AuthenticatedSessionController extends Controller
 {
     public function auth(Request $request)
     {
-        // if (! $request->hasValidSignature()) {
-        //     abort(Response::HTTP_UNAUTHORIZED);
-        // }
-
         $user = User::where([
             'email' => $request->email,
             'telegram_chat_id' => $request->telegram_chat_id
@@ -30,10 +26,7 @@ class AuthenticatedSessionController extends Controller
         
         return redirect()->route($request->to_route);
     }
-
-    /**
-     * Destroy an authenticated session.
-     */
+    
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
