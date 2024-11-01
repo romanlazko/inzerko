@@ -168,7 +168,7 @@ enum Status: int implements HasLabel
             self::rejected => self::rejected,
             self::published => self::published,
             self::sold => self::sold,
-            default => self::created,
+            default => self::await_moderation,
         };
     }
 
