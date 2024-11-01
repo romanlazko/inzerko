@@ -100,7 +100,7 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
 
                     TextColumn::make('channels')
                         ->state(fn (Announcement $announcement) => view(
-                            'components.livewire.tables.columns.telegram-channel-status',
+                            'livewire.components.tables.columns.telegram-channel-status',
                             [
                                 'collection' => $announcement->channels->map(function ($channel) {
                                     $channel->color = $channel->status?->filamentColor();
