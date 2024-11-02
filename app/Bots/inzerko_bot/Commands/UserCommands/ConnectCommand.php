@@ -22,8 +22,6 @@ class ConnectCommand extends Command
 
     protected $enabled = true;
 
-    public static $usage = ['connect_command'];
-
     public function execute(Update $updates): Response
     {
         preg_match(self::$pattern, $updates->getMessage()?->getCommand(), $matches);
@@ -54,7 +52,7 @@ class ConnectCommand extends Command
     {
         try {
             $buttons = BotApi::inlineKeyboard([
-                [array('Продолжить', ConnectCommand::$command, '')],
+                [array('Продолжить', $updates->getMessage()?->getCommand(), '')],
             ]);
 
             $text = implode("\n", [
