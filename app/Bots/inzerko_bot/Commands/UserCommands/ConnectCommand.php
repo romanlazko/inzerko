@@ -20,7 +20,7 @@ class ConnectCommand extends Command
 
     protected $enabled = true;
 
-    public $usage = ['connect_command'];
+    public static $usage = ['connect_command'];
 
     public function execute(Update $updates): Response
     {
@@ -43,7 +43,7 @@ class ConnectCommand extends Command
     {
         try {
             $buttons = BotApi::inlineKeyboard([
-                [array('Продолжить', self::$command, $telegram_token)],
+                [array('Продолжить', ConnectCommand::$command, $telegram_token)],
             ], 'telegram_token');
 
             $text = implode("\n", [
