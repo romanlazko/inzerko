@@ -11,6 +11,7 @@ class CommandsList extends DefaultCommandsList
             AdminCommands\HelpCommand::class,
         ],
         'user'      => [
+            UserCommands\GetContact::class,
             UserCommands\ConnectCommand::class,
 
             UserCommands\CreateAnnouncement::class,
