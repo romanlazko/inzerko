@@ -22,6 +22,8 @@ class ConnectCommand extends Command
 
     protected $enabled = true;
 
+    public static $usage = ['connect_command'];
+
     public function execute(Update $updates): Response
     {
         preg_match(self::$pattern, $updates->getMessage()?->getCommand(), $matches);
