@@ -23,13 +23,7 @@ class GetContact extends Command
 
     public function execute(Update $updates): Response
     {
-        $this->bot->executeCommand(AdvertisementCommand::$command);
-
         preg_match(static::$pattern, $updates->getMessage()?->getCommand(), $matches);
-
-        // $telegram_chat = TelegramChat::findOr($matches[3], function () {
-        //     throw new TelegramUserException('Chat not found');
-        // });
 
         $buttons = BotApi::inlineKeyboardWithLink([
             'text'  => "👤 Контакт на автора", 
