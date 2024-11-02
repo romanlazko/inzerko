@@ -62,11 +62,10 @@ class ConnectCommand extends Command
                 "*Настройки конфиденциальности вступят в силу в течении 5-ти минут, после этого нажми на кнопку «Продолжить»*",
             ]);
 
-            return BotApi::editMessageText([
+            return BotApi::sendMessage([
                 'text'          => $text,
                 'reply_markup'  => $buttons,
                 'chat_id'       => $updates->getChat()->getId(),
-                'message_id'    => $updates->getCallbackQuery()->getMessage()->getMessageId(),
                 'parse_mode'    => "Markdown",
             ]);
         }
