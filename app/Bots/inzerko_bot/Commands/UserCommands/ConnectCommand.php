@@ -44,7 +44,7 @@ class ConnectCommand extends Command
             'chat_id' => $updates->getChat()->getId(),
             'text' => "На ваш эмейл {$user->email} было отправлено письмо для подтверждения связи с ботом. Пожалуйста, подтвердите связь с ботом, нажав на кнопку в письме.",
             'parse_mode'    =>  'Markdown',
-            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
+            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()?->getMessageId(),
         ]);
     }
 
@@ -62,11 +62,12 @@ class ConnectCommand extends Command
                 "*Настройки конфиденциальности вступят в силу в течении 5-ти минут, после этого нажми на кнопку «Продолжить»*",
             ]);
 
-            return BotApi::sendMessage([
+            return BotApi::returnInline([
                 'text'          => $text,
                 'reply_markup'  => $buttons,
                 'chat_id'       => $updates->getChat()->getId(),
                 'parse_mode'    => "Markdown",
+                'message_id'    =>  $updates->getCallbackQuery()?->getMessage()?->getMessageId(),
             ]);
         }
         catch(TelegramException $e){
