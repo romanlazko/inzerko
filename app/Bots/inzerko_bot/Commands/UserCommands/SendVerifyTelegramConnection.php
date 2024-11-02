@@ -28,7 +28,7 @@ class SendVerifyTelegramConnection extends Command
     public function execute(Update $updates): Response
     {
         $telegram_chat      = DB::getChat($updates->getChat()->getId());
-        $telegram_token     = $updates->getInlineData('telegram_token');
+        $telegram_token     = $updates->getInlineData()->getTelegramToken();
         $user               = User::firstWhere('telegram_token', $telegram_token);
 
         if (BotApi::getChat(['chat_id' => $updates->getChat()->getId()])->getResult()->getHasPrivateForwards()) {
