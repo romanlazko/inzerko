@@ -3,14 +3,12 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
 use App\Models\User;
-use App\Notifications\VerifyTelegramConnection;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 use Romanlazko\Telegram\Exceptions\TelegramException;
-use Romanlazko\Telegram\Exceptions\TelegramUserException;
 
 class ConnectCommand extends Command
 {
@@ -21,6 +19,8 @@ class ConnectCommand extends Command
     public static $pattern = "/^(\/start\s)(connect)-(.{10})$/";
 
     protected $enabled = true;
+
+    public $usage = ['connect_command'];
 
     public function execute(Update $updates): Response
     {
@@ -33,27 +33,18 @@ class ConnectCommand extends Command
         }
 
         if (BotApi::getChat(['chat_id' => $updates->getChat()->getId()])->getResult()->getHasPrivateForwards()) {
-            return $this->sendPrivacyInstructions($updates);
+            return $this->sendPrivacyInstructions($updates, $matches[3]);
         }
 
-        $user = User::firstWhere('telegram_token', $matches[3]);
-        
-        $user->notify(new VerifyTelegramConnection($telegram_chat->id));
-
-        return BotApi::returnInline([
-            'chat_id' => $updates->getChat()->getId(),
-            'text' => "На ваш эмейл {$user->email} было отправлено письмо для подтверждения связи с ботом. Пожалуйста, подтвердите связь с ботом, нажав на кнопку в письме.",
-            'parse_mode'    =>  'Markdown',
-            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()?->getMessageId(),
-        ]);
+        return $this->bot->executeCommand(SendVerifyTelegramConnection::$command);
     }
 
-    public function sendPrivacyInstructions(Update $updates)
+    public function sendPrivacyInstructions(Update $updates, string $telegram_token)
     {
         try {
             $buttons = BotApi::inlineKeyboard([
-                [array('Продолжить', $updates->getMessage()?->getCommand(), '')],
-            ]);
+                [array('Продолжить', ConnectCommand::$command, $telegram_token)],
+            ], 'telegram_token');
 
             $text = implode("\n", [
                 "*Ой ой*"."\n",

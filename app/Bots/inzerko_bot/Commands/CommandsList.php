@@ -28,6 +28,7 @@ class CommandsList extends DefaultCommandsList
 
 
             UserCommands\SendTelegramEmailVerificationNotification::class,
+            UserCommands\SendVerifyTelegramConnection::class,
 
             UserCommands\StartCommand::class,
             UserCommands\MenuCommand::class,
