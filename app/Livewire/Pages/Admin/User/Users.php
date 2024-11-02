@@ -76,8 +76,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                             ->options(config('translate.languages')),
                         Select::make('telegram_chat_id')
                             ->options(TelegramChat::all()->map(fn (TelegramChat $telegram_chat) => [
-                                'id' => $telegram_chat->id,
-                                'username' => $telegram_chat->username ?? "{$telegram_chat->first_name} {$telegram_chat->last_name}",
+                                $telegram_chat->id => $telegram_chat->username ?? "{$telegram_chat->first_name} {$telegram_chat->last_name}",
                             ])) 
                             ->searchable()
                             ->unique(ignoreRecord: true),
