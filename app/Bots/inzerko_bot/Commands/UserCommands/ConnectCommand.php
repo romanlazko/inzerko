@@ -43,7 +43,7 @@ class ConnectCommand extends Command
     {
         try {
             $buttons = BotApi::inlineKeyboard([
-                [array('Продолжить', ConnectCommand::$command, $telegram_token)],
+                [array('Продолжить', self::$command, $telegram_token)],
             ], 'telegram_token');
 
             $text = implode("\n", [
