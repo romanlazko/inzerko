@@ -52,7 +52,7 @@ class ConnectCommand extends Command
     {
         try {
             $buttons = BotApi::inlineKeyboard([
-                [array('Продолжить', self::$command, '')],
+                [array('Продолжить', ConnectCommand::$command, '')],
             ]);
 
             $text = implode("\n", [
