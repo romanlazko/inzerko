@@ -27,13 +27,13 @@ class GetContact extends Command
 
         preg_match(static::$pattern, $updates->getMessage()?->getCommand(), $matches);
 
-        $telegram_chat = TelegramChat::findOr($matches[3], function () {
-            throw new TelegramUserException('Chat not found');
-        });
+        // $telegram_chat = TelegramChat::findOr($matches[3], function () {
+        //     throw new TelegramUserException('Chat not found');
+        // });
 
         $buttons = BotApi::inlineKeyboardWithLink([
             'text'  => "👤 Контакт на автора", 
-            'url'   => "tg://user?id={$telegram_chat->chat_id}"
+            'url'   => "tg://user?id={$matches[3]}"
         ]);
 
         $text = [
