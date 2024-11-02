@@ -17,7 +17,7 @@ class GetContact extends Command
 
     public static $title = '';
 
-    public static $pattern = "/^(\/start\s)(chat)=(\d+)$/";
+    public static $pattern = "/^(\/start\s)(contact)-(\d+)$/";
 
     protected $enabled = true;
 
