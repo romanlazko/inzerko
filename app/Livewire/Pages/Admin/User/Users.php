@@ -77,7 +77,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                         Select::make('telegram_chat_id')
                             ->options(TelegramChat::all()->map(fn (TelegramChat $telegram_chat) => [
                                 $telegram_chat->id => $telegram_chat->username ?? "{$telegram_chat->first_name} {$telegram_chat->last_name}",
-                            ])) 
+                            ])->flatten()->toArray()) 
                             ->searchable()
                             ->unique(ignoreRecord: true),
                         TextInput::make('telegram_token')
