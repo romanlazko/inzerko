@@ -1,7 +1,8 @@
 <?php 
 
-namespace App\Bots\inzerko_bot\Commands\UserCommands;
+namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
+use App\Bots\inzerko_bot\Commands\UserCommands\CreateAnnouncement;
 use App\Models\User;
 use App\Services\ProfileService;
 use Illuminate\Support\Facades\Validator;

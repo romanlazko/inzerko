@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Bots\inzerko_bot\Notifications;
 
 
 use Illuminate\Support\Facades\URL;
@@ -45,10 +45,10 @@ class TelegramEmailVerification extends Notification implements ShouldQueue
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject(__('notification.telegram_email_verification.subject'))
-            ->line(__('notification.telegram_email_verification.line_1'))
-            ->action(__('notification.telegram_email_verification.action'), $url)
-            ->line(__('notification.telegram_email_verification.line_2'));
+            ->subject(__('notification.verify_email.subject'))
+            ->line(__('notification.verify_email.line_1'))
+            ->action(__('notification.verify_email.action'), $url)
+            ->line(__('notification.verify_email.line_2'));
     }
 
     /**
@@ -60,7 +60,7 @@ class TelegramEmailVerification extends Notification implements ShouldQueue
     protected function verificationUrl($notifiable)
     {
         return URL::temporarySignedRoute(
-            'verification.verify-telegram', 
+            'inzerko_bot.verify', 
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)), 
             $this->prepareParameters($notifiable)
         );

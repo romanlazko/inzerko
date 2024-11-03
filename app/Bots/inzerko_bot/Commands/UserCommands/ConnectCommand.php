@@ -31,14 +31,15 @@ class ConnectCommand extends Command
         }
 
         $buttons = BotApi::inlineKeyboard([
-            [array(SendVerifyTelegramConnection::getTitle('ru'), SendVerifyTelegramConnection::$command, $matches[3])],
+            [array(SendVerifyTelegramConnection::getTitle('ru'), "Да подключить", $matches[3])],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ], 'telegram_token');
 
         return BotApi::returnInline([
             'chat_id' => $updates->getChat()->getId(),
             'text' => implode("\n", [
-                "*Прежде чем продолжить, пожалуйста, подтвердите свой e-mail*"."\n",
+                "*Подключение телеграм аккаунта*"."\n",
+                "Хотите подключить этот телеграм аккаунт к аккаунту на сайте *INZERKO.cz*?",
             ]),
             'parse_mode'    =>  'Markdown',
             'reply_markup'  => $buttons,

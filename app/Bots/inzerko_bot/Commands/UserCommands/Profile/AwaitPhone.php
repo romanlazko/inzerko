@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Bots\inzerko_bot\Commands\UserCommands;
+namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
 use Illuminate\Support\Facades\Validator;
 use Romanlazko\Telegram\App\Commands\Command;

@@ -45,4 +45,8 @@
     <div class="w-full lg:hidden block sticky bottom-0 h-12 z-20 border-t ">
         <x-nav.footer/>
     </div>
+
+    <footer class="w-full bg-gray-900 h-20">
+        
+    </footer>
 </x-body-layout>

@@ -1,7 +1,8 @@
 <?php 
 
-namespace App\Bots\inzerko_bot\Commands\UserCommands;
+namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
+use App\Bots\inzerko_bot\Commands\UserCommands\MenuCommand;
 use App\Models\User;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;

@@ -31,7 +31,7 @@ class VerificationSuccessNotification extends Notification implements ShouldQueu
     {
         $this->locale($notifiable->locale);
 
-        return ['mail', TelegramChannel::class];
+        return $notifiable->chat ? ['mail', TelegramChannel::class] : ['mail'];
     }
 
     /**

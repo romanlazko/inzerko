@@ -10,7 +10,7 @@
     </header>
 
     @if (! auth()->user()->chat)
-        <form action="{{ route('telegram.connect') }}" method="post">
+        <form action="{{ route('inzerko_bot.telegram.connect') }}" method="post">
             @csrf
             <button class="mt-6 text-sm text-blue-500 hover:text-blue-700 hover:underline">{{ __('profile.update_telegram_information_form.connect_telegram') }}</button>
         </form>

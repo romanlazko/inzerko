@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Bots\inzerko_bot\Http\Controllers\Auth;
 
 use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Http\Controllers\Controller;

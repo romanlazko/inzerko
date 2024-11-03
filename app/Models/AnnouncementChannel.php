@@ -31,16 +31,27 @@ class AnnouncementChannel extends Model
         return $this->belongsTo(TelegramChat::class, 'telegram_chat_id', 'id');
     }
 
-    public function publish()
+    public function publish($dispatch = 'dispatch')
     {
-        $result = $this->updateStatus(Status::await_telegram_publication);
+        $result = $this->updateStatus(Status::await_publication);
 
         if ($result) {
-            PublishAnnouncementOnTelegramChannelJob::dispatch($this->id);
+            PublishAnnouncementOnTelegramChannelJob::$dispatch($this->id);
         }
 
         return $result;
     }
+
+    // public function publishSync()
+    // {
+    //     $result = $this->updateStatus(Status::await_publication);
+
+    //     if ($result) {
+    //         PublishAnnouncementOnTelegramChannelJob::dispatchSync($this->id);
+    //     }
+
+    //     return $result;
+    // }
 
     public function published(array|\Throwable|\Error $info = [])
     {

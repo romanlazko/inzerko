@@ -33,19 +33,20 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $announcement_channel = AnnouncementChannel::where('id', $this->announcement_channel_id)->first();
+        $announcement_channel = AnnouncementChannel::find($this->announcement_channel_id)->load('currentStatus', 'announcement', 'telegram_chat');
 
-        if ($announcement_channel->status->isAwaitTelegramPublication()) {
+        if (! $announcement_channel->status->isAwaitPublication()) {
+            throw new \Exception('Announcement is not available for publishing on Channel');
+        }
 
-            $response = $this->publishOnChannel($announcement_channel->announcement, $announcement_channel->telegram_chat);
+        $response = $this->publishOnChannel($announcement_channel->announcement, $announcement_channel->telegram_chat);
 
-            if ($response->getOk()) {
-                $announcement_channel->published([
-                    'channel' => $announcement_channel->telegram_chat->title,
-                    'response' => $response->getOk(),
-                    'message'  => $response->getMessage(),
-                ]);
-            }
+        if ($response->getOk()) {
+            $announcement_channel->published([
+                'channel' => $announcement_channel->telegram_chat->title,
+                'response' => $response->getOk(),
+                'message'  => $response->getMessage(),
+            ]);
         }
     }
 
@@ -58,7 +59,7 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
         );
 
         return Inzerko::sendPhoto([
-            'caption'                   => view('telegram.announcement.show', ['announcement' => $announcement])->render(),
+            'caption'                   => view('inzerko_bot::announcement.show', ['announcement' => $announcement])->render(),
             'chat_id'                   => $chat->chat_id,
             'photo'                     => $announcement->getFirstMediaUrl('announcements'),
             'parse_mode'                => 'HTML',

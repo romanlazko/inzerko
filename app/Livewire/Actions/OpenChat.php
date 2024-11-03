@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Actions;
 
-use App\Livewire\Components\Chats;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
