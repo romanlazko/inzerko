@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\TelegramVerificationRequest;
 use App\Providers\RouteServiceProvider;
@@ -22,7 +23,9 @@ class ConnectTelegramController extends Controller
             'telegram_token' => $telegram_token,
         ]);
 
-        return redirect("https://t.me/inzerko_bot?start=connect-{$telegram_token}");
+        $bot_username = Inzerko::getBotChat()->username;
+
+        return redirect("https://t.me/{$bot_username}?start=connect-{$telegram_token}");
     }
 
     public function verifyTelegramConnection(TelegramVerificationRequest $request): RedirectResponse

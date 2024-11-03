@@ -2,24 +2,8 @@
 
 namespace App\Bots\pozorbottestbot;
 
+use App\Bots\inzerko_bot\Config as DefaultConfig;
 
-class Config
+class Config extends DefaultConfig
 {
-    public static function getConfig()
-    {
-        return [
-            'inline_data'       => [
-                'city'              => null,
-                'type'              => null,
-                'count'             => null,
-                'condition'         => null,
-                'category_id'       => null,
-                'subcategory_id'    => null,
-                'announcement_id'   => null,
-            ],
-            'lang'              => 'ru',
-            'admin_ids'         => [
-            ],
-        ];
-    }
 }
