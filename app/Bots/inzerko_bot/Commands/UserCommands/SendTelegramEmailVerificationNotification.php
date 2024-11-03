@@ -3,8 +3,8 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\Profile\Profile;
+use App\Bots\inzerko_bot\Notifications\TelegramEmailVerification;
 use App\Models\User;
-use App\Notifications\TelegramEmailVerification;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
