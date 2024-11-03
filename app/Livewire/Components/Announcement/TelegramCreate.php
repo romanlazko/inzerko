@@ -12,7 +12,7 @@ class TelegramCreate extends Create
         
         return Inzerko::sendMessage([
             'text' => 'Объявление успешно создано!',
-            'chat_id' => auth()->user()->telegram_chat_id
+            'chat_id' => auth()->user()->chat?->chat_id
         ]);
     }
 }
