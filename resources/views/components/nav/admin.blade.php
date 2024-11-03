@@ -79,6 +79,12 @@
     @endhasrole
 
     @hasrole('super-duper-admin')
+        <x-nav.responsive-link href="{{ route('admin.pages') }}" :active="request()->routeIs('admin.pages')">
+            {{ __('components.navigation.pages') }}
+        </x-nav.responsive-link>
+    @endhasrole
+
+    @hasrole('super-duper-admin')
         <x-nav.responsive-link href="{{ route('admin.logs') }}" :active="request()->routeIs('admin.logs')">
             {{ __('components.navigation.logs') }}
         </x-nav.responsive-link>

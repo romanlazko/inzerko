@@ -26,7 +26,7 @@ class EditAnnouncement extends AdminEditFormLayout
     {
         return $form
             ->schema(function ($record) {
-                $feature_attributes = CategoryAttributeService::forCreate($record->categories->pluck('id')->toArray());
+                $feature_attributes = CategoryAttributeService::forCreate($record->category);
                 return [
                     SpatieMediaLibraryFileUpload::make('attachments')
                         ->collection('announcements')
@@ -35,10 +35,8 @@ class EditAnnouncement extends AdminEditFormLayout
                         ->image()
                         ->imagePreviewHeight('120')
                         ->required(),
-                    Select::make('categories')
-                        ->relationship('categories')
-                        ->options(fn () => Category::all()->pluck('name', 'id'))
-                        ->multiple(),
+                    Select::make('category_id')
+                        ->options(fn () => Category::with('parent')->get()->groupBy('parent.name')->map->pluck('name', 'id')),
                     Repeater::make('features')
                         ->relationship('features')
                         ->schema([

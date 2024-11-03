@@ -5,17 +5,14 @@
 
 	<div class="md:flex w-full justify-between hidden">
 		<div class="flex items-center justify-end space-x-3 text-white text-sm">
-			<x-nav.link href="{{ route('profile.wishlist') }}" :active="request()->routeIs('profile.wishlist')">
-				{{ __('components.navigation.about_us') }}
-			</x-nav.link>
-
-			<x-nav.link href="{{ route('profile.wishlist') }}" :active="request()->routeIs('profile.wishlist')">
-				{{ __('components.navigation.privacy') }}
-			</x-nav.link>
-
-			<x-nav.link href="{{ route('profile.wishlist') }}" :active="request()->routeIs('profile.wishlist')">
-				{{ __('components.navigation.contacts') }}
-			</x-nav.link>
+			@foreach (App\Models\Page::where([
+				'is_active' => true,
+				'is_header' => true
+			])->get() as $page)
+				<x-nav.link href="{{ route('page', $page->slug) }}" :active="request()->routeIs('page', $page->slug) AND request()->page?->slug == $page->slug">
+					{{ $page->name }}
+				</x-nav.link>
+			@endforeach
 		</div>
 
 		<div class="flex items-center space-x-6 text-white">
@@ -67,17 +64,14 @@
 					<x-nav.profile>
 						<hr>
 
-						<x-nav.responsive-link href="{{ route('profile.wishlist') }}" :active="request()->routeIs('profile.wishlist')">
-							{{ __('components.navigation.about_us') }}
-						</x-nav.responsive-link>
-
-						<x-nav.responsive-link href="{{ route('profile.wishlist') }}" :active="request()->routeIs('profile.wishlist')">
-							{{ __('components.navigation.privacy') }}
-						</x-nav.responsive-link>
-
-						<x-nav.responsive-link href="{{ route('profile.wishlist') }}" :active="request()->routeIs('profile.wishlist')">
-							{{ __('components.navigation.contacts') }}
-						</x-nav.responsive-link>
+						@foreach (App\Models\Page::where([
+							'is_active' => true,
+							'is_header' => true
+						])->get() as $page)
+							<x-nav.responsive-link href="{{ route('page', $page->slug) }}" :active="request()->routeIs('page', $page->slug) AND request()->page?->slug == $page->slug">
+								{{ $page->name }}
+							</x-nav.responsive-link>
+						@endforeach
 					</x-nav.profile>
 				</div>
 			</div>

@@ -42,11 +42,13 @@
         @livewire('actions.open-chat')
     @endauth
 
+    <footer class="w-full bg-gray-900">
+        <p class="w-full max-w-7xl m-auto p-3 text-white text-center">
+            © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+        </p>
+    </footer>
+
     <div class="w-full lg:hidden block sticky bottom-0 h-12 z-20 border-t ">
         <x-nav.footer/>
     </div>
-
-    <footer class="w-full bg-gray-900 h-20">
-        
-    </footer>
 </x-body-layout>

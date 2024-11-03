@@ -8,6 +8,7 @@ use App\Http\Requests\SearchRequest;
 use App\Livewire\Pages\Admin\Announcement\Announcements;
 use App\Livewire\Pages\Admin\Announcement\EditAnnouncement;
 use App\Livewire\Pages\Admin\Announcement\Moderation;
+use App\Livewire\Pages\Admin\CMS\Pages;
 use App\Livewire\Pages\Admin\Settings\Attributes;
 use App\Livewire\Pages\Admin\Settings\Categories;
 use App\Livewire\Pages\Admin\Settings\Sections;
@@ -17,6 +18,7 @@ use App\Livewire\Pages\Admin\Telegram\Channels;
 use App\Livewire\Pages\Admin\Telegram\Chats;
 use App\Livewire\Pages\Admin\Telegram\Logs;
 use App\Livewire\Pages\Admin\User\Users;
+use App\Models\Page;
 use App\View\Models\HomeViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -61,7 +63,15 @@ Route::get('/', function (SearchRequest $request) {
     ->header('Cache-Control', 'private, max-age=0, must-revalidate');
 })->name('home');
 
-
+Route::get('page/{page:slug}', function (Page $page) {
+    if (! $page->is_active) {
+        abort(404);
+    }
+    
+    return view('page', [
+        'page' => $page
+    ]);
+})->name('page');
 
 Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::name('telegram.')->prefix('telegram')->group(function () {
@@ -87,6 +97,8 @@ Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('a
     Route::name('users.')->prefix('users')->group(function () {
         Route::get('users', Users::class)->name('users');
     });
+
+    Route::get('pages', Pages::class)->name('pages');
     
     Route::get('logs', fn () => redirect('admin/logs'))->name('logs');
 });

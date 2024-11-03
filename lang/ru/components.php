@@ -33,6 +33,7 @@ return [
         'all' => 'Все',
         'chats' => 'Чаты',
         'channels' => 'Каналы',
+        'pages' => 'Страницы',
     ],
 
     'livewire' => [

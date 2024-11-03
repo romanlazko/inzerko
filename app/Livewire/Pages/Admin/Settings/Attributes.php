@@ -112,6 +112,8 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                                 'attribute_groups' => 'Groups',
                                 'media' => 'Media',
                                 'sortings' => 'Sortings',
+                                'pages' => 'Pages',
+                                'blocks' => 'Blocks',
                             ])
                     ])
                     ->action(function (array $data) {

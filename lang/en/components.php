@@ -34,6 +34,7 @@ return [
         'all' => 'All',
         'chats' => 'Chats',
         'channels' => 'Channels',
+        'pages' => 'Pages',
     ],
 
     'user' => [
