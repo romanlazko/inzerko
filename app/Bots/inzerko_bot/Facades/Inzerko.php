@@ -14,7 +14,7 @@ class Inzerko extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        if (! app()->environment('test')) {
+        if (! app()->environment('production')) {
             return 'pozorbottestbot';
         }
         return 'inzerko';
