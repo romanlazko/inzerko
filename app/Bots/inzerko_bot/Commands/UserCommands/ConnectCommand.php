@@ -31,7 +31,7 @@ class ConnectCommand extends Command
         }
 
         $buttons = BotApi::inlineKeyboard([
-            [array(SendVerifyTelegramConnection::getTitle('ru'), "Да подключить", $matches[3])],
+            [array("Да подключить", SendVerifyTelegramConnection::$command, $matches[3])],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ], 'telegram_token');
 
