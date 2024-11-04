@@ -21,6 +21,8 @@ return [
     'description' => "Inzerko.cz is a classifieds platform where users can buy, sell, and discover a wide range of products and services. The site features various categories, including real estate, electronics, vehicles, clothing, and jobs, making it a comprehensive marketplace. Users can create accounts to manage their announcements, browse listings, and connect with sellers or buyers.",
 
     'logo' => asset('logo.webp'),
+
+    'favicon' => asset('favicon.ico'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
