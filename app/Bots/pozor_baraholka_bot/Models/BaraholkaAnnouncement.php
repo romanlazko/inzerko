@@ -17,43 +17,13 @@ class BaraholkaAnnouncement extends Model
 
     protected $guarded = [];
 
-    public function photos()
-    {
-        return $this->hasMany(BaraholkaAnnouncementPhoto::class, 'announcement_id', 'id');
-    }
-
     public function chat()
     {
         return $this->belongsTo(TimewebTelegramChat::class, 'chat', 'id');
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(BaraholkaCategory::class);
-    }
-
-    public function subcategory()
-    {
-        return $this->belongsTo(BaraholkaSubcategory::class);
-    }
-
-    public function dto()
-    {
-        return Announcement::fromObject($this);
-    }
-
     public function prepare()
     {
         return Announcement::fromObject($this)->prepare();
-    }
-
-    public function getPhotoAttribute()
-    {
-        return Announcement::fromObject($this)->photos;
     }
 }

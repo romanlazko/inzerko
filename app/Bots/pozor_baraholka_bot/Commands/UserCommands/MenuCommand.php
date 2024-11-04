@@ -22,14 +22,13 @@ class MenuCommand extends Command
 
     public function execute(Update $updates): Response
     {
-        $buttons = BotApi::inlineKeyboard([
-            [array(NewAnnouncement::getTitle('ru'), NewAnnouncement::$command, '')],
-            [array(MyAnnouncements::getTitle('ru'), MyAnnouncements::$command, '')],
-            [array(RullesCommand::getTitle('ru'), RullesCommand::$command, '')]
+        $buttons = BotApi::inlineKeyboardWithLink([
+            'text'  => "Опубликовать объявление", 
+            'url'   => "https://t.me/inzerko_bot"
         ]);
 
         $data = [
-            'text'          =>  "Привет 👋" ."\n\n". "Я помогу тебе создать объявление о продаже либо покупке в каналах *Pozor! Барахолка*",
+            'text'          =>  "Привет 👋" ."\n\n". "Теперь все объявления о продаже либо покупке в каналах *Pozor! Барахолка*, публикуются через нового бота",
             'chat_id'       =>  $updates->getChat()->getId(),
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',

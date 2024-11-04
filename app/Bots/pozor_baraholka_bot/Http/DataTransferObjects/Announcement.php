@@ -32,47 +32,16 @@ class Announcement
 
     }
 
-    public static function fromRequest(Request $request)
-    {
-        return new self(
-            user_id: $request->user()->id ?? null,
-            city: $request->city ?? null,
-            type: $request->type ?? null,
-            title: $request->title ?? null,
-            caption: $request->caption ?? null,
-            cost: $request->cost ?? null,
-            category_id: $request->category_id ?? null,
-            subcategory_id: $request->subcategory_id ?? null,
-            condition: $request->condition ?? null,
-            photos: $request->photos ?? null,
-        );
-    }
-
     public static function fromObject(object $data): Announcement
     {
-        // $photos = null;
-
-        // if (isset($data->photos)){
-        //     if ($data->photos instanceof Collection) {
-        //         $photos = $data->photos->pluck('file_id')->take(9);
-        //     } elseif (is_array($data->photos)) {
-        //         $photos = collect($data->photos)->map(function ($photo) {
-        //             return ['file_id' => $photo];
-        //         })->pluck('file_id')->take(9);
-        //     }
-        // }
-
         return new self(
-            chat: $data->chat ?? null,
             city: $data->city ?? null,
             type: $data->type ?? null,
             title: $data->title ?? null,
             caption: $data->caption ?? null,
             cost: $data->cost ?? null,
-            category_id: $data->category_id ?? null,
-            subcategory_id: $data->subcategory_id ?? null,
+            category: $data->category ?? null,
             condition: $data->condition ?? null,
-            photos: $data->photos ?? null,
         );
     }
     
@@ -113,10 +82,6 @@ class Announcement
 
         if ($this->cost) {
             $text[] = "<i>Стоимость:</i> {$this->cost} CZK";
-        }
-
-        if ($this->id) {
-            $text[] = "<a href='https://t.me/". Config::get('bot_username') ."?start=announcement={$this->id}'>🔗Контакт</a> (<i>Перейди по ссылке и нажми <b>Начать</b></i>)";
         }
 
         if ($this->category && isset($categoryArr[$this->category])) {
