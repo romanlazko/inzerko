@@ -128,7 +128,7 @@ Route::get('cron', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/test', function () {
-    dump(BaraholkaAnnouncement::with('chat')->latest(10)->get());
+    dump(BaraholkaAnnouncement::with('chat')->latest()->limit(10)->get());
 });
 
 
