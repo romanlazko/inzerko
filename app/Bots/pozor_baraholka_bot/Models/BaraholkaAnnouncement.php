@@ -24,7 +24,7 @@ class BaraholkaAnnouncement extends Model
 
     public function chat()
     {
-        return $this->belongsTo(TelegramChat::class, 'telegram_chat_id', 'id');
+        return $this->belongsTo(TimewebTelegramChat::class, 'telegram_chat_id', 'id');
     }
 
     public function user()
