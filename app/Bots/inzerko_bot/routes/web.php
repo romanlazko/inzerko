@@ -3,14 +3,27 @@
 use Illuminate\Support\Facades\Route;
 use App\Bots\inzerko_bot\Http\Controllers\AnnouncementController;
 use App\Bots\inzerko_bot\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Bots\inzerko_bot\Http\Controllers\Auth\ConnectTelegramController;
+use App\Bots\inzerko_bot\Http\Controllers\Auth\VerifyEmailController;
 
 Route::middleware(['web'])->name('inzerko_bot.')->prefix('inzerko_bot')->group(function () {
+    Route::get('verify-email', [VerifyEmailController::class, 'veryfyEmail'])
+        ->middleware(['signed', 'throttle:6,1'])
+        ->name('verify');
+
     Route::get('auth', [AuthenticatedSessionController::class, 'auth'])
         ->middleware(['signed', 'throttle:6,1'])
         ->name('auth');
 
-    Route::middleware(['auth'])->name('announcement.')->prefix('announcement')->group(function () {
-        Route::get('/create', [AnnouncementController::class, 'create'])
-            ->name('create');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('announcement/create', [AnnouncementController::class, 'create'])
+            ->name('announcement.create');
+
+        Route::post('telegram-connect', [ConnectTelegramController::class, 'connectTelegram'])
+            ->name('telegram.connect');
+        
+        Route::get('verify-telegram-connection/{telegram_chat_id}/{telegram_token}', [ConnectTelegramController::class, 'verifyTelegramConnection'])
+            ->middleware(['signed', 'throttle:6,1'])
+            ->name('verify.telegram.connection');
     });
 });

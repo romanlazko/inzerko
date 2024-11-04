@@ -11,6 +11,7 @@
 
     <div class="px-3 py-5 space-y-6">
         @include('profile.partials.verify-email')
+        @include('profile.partials.fill-profile')
 
         <div class="tab-wrapper" x-data="{ activeTab:  0 }">
             <div class="flex space-x-1 px-3">

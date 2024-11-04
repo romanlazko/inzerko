@@ -70,7 +70,11 @@ class Channels extends AdminTableLayout implements HasForms, HasTable
                     ->form([
                         Select::make('telegram_chat_id')
                             ->label('Channel')
-                            ->options(TelegramChat::where('type', 'channel')->whereNotIn('id', $this->announcement->channels()->pluck('telegram_chat_id')->toArray())->get()->pluck('title', 'id')),
+                            ->options(TelegramChat::where('type', 'channel')
+                                ->whereNotIn('id', $this->announcement->channels()->pluck('telegram_chat_id')->toArray())
+                                ->get()
+                                ->pluck('title', 'id')
+                            ),
                     ])
                     ->action(function ($data) {
                         $this->announcement->channels()->create([

@@ -2,6 +2,8 @@
 
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
+use App\Bots\inzerko_bot\Commands\UserCommands\Profile\Profile;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -40,6 +42,6 @@ class MenuCommand extends Command
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
 
-        return BotApi::returnInline($data);
+        return Inzerko::returnInline($data);
     }
 }

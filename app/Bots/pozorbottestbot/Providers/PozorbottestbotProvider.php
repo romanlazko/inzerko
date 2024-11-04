@@ -2,7 +2,9 @@
 
 namespace App\Bots\pozorbottestbot\Providers;
 
+use App\Models\TelegramBot;
 use Illuminate\Support\ServiceProvider;
+use Romanlazko\Telegram\App\Bot;
 
 class PozorbottestbotProvider extends ServiceProvider
 {
@@ -11,6 +13,9 @@ class PozorbottestbotProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind('pozorbottestbot', function () {
+            return new Bot(TelegramBot::firstWhere('username', 'pozorbottestbot')?->token);
+        });
     }
 
     /**

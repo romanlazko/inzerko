@@ -93,43 +93,11 @@ trait AnnouncementModeration
         $result = $this->updateStatus(Status::await_publication, $info);
         
         if ($result) {
-            $this->publishOnTelegram($info);
+            PublishAnnouncementJob::dispatch($this->id);
+            // ->delay(now()->addMinutes(5))
         }
         
         return $result;
-    }
-
-    public function publishOnTelegram(array|\Throwable|\Error $info = [])
-    {
-        $result = $this->updateStatus(Status::await_telegram_publication, $info);
-
-        if ($result) {
-            PublishAnnouncementOnAllTelegramChannelsJob::dispatch($this->id);
-        }
-
-        return $result;
-    }
-
-    public function publishedOnTelegram(array|\Throwable|\Error $info = [])
-    {
-        $result = $this->updateStatus(Status::published_on_telegram, $info);
-
-        if ($result) {
-            $this->published($info);
-        }
-
-        return $result;
-    }
-
-    public function publishIfAllChannelsIsPublished()
-    {
-        $publishedChannels = $this->channels->filter(function ($channel) {
-            return $channel->status?->isPublished();
-        });
-
-        if ($this->channels->count() == $publishedChannels->count()) {
-            return $this->published();
-        }
     }
 
     public function publishingFailed(array|\Throwable|\Error $info = [])

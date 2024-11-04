@@ -22,17 +22,17 @@
                 {{ __('components.navigation.bots') }}
             </x-nav.responsive-link>
             @foreach (\App\Models\TelegramBot::select('first_name', 'id')->get() as $bot)
-                <x-nav.dropdown :active="request()->routeIs('admin.telegram.chats', $bot->id) || request()->routeIs('admin.telegram.logs', $bot->id) || request()->routeIs('admin.telegram.channels', $bot->id)">
+                <x-nav.dropdown :active="request()->routeIs('admin.telegram.chats', $bot->id) || request()->routeIs('admin.telegram.logs', $bot->id) || request()->routeIs('admin.telegram.channels', $bot->id) AND request()->telegram_bot->id == $bot->id">
                     <x-slot name="trigger">
                         {{ $bot->first_name }}
                     </x-slot>
-                    <x-nav.responsive-link href="{{ route('admin.telegram.chats', $bot->id) }}" :active="request()->routeIs('admin.telegram.chats', $bot->id)">
+                    <x-nav.responsive-link href="{{ route('admin.telegram.chats', $bot->id) }}" :active="request()->routeIs('admin.telegram.chats', $bot->id) AND request()->telegram_bot->id == $bot->id">
                         {{ __('components.navigation.chats') }}
                     </x-nav.responsive-link>
-                    <x-nav.responsive-link href="{{ route('admin.telegram.channels', $bot->id) }}" :active="request()->routeIs('admin.telegram.channels', $bot->id)">
+                    <x-nav.responsive-link href="{{ route('admin.telegram.channels', $bot->id) }}" :active="request()->routeIs('admin.telegram.channels', $bot->id) AND request()->telegram_bot->id == $bot->id">
                         {{ __('components.navigation.channels') }}
                     </x-nav.responsive-link>
-                    <x-nav.responsive-link href="{{ route('admin.telegram.logs', $bot->id) }}" :active="request()->routeIs('admin.telegram.logs', $bot->id)">
+                    <x-nav.responsive-link href="{{ route('admin.telegram.logs', $bot->id) }}" :active="request()->routeIs('admin.telegram.logs', $bot->id) AND request()->telegram_bot->id == $bot->id">
                         {{ __('components.navigation.logs') }}
                     </x-nav.responsive-link>
                 </x-nav.dropdown>
@@ -76,6 +76,12 @@
                 {{ __('components.navigation.sortings') }}
             </x-nav.responsive-link>
         </x-nav.dropdown>
+    @endhasrole
+
+    @hasrole('super-duper-admin')
+        <x-nav.responsive-link href="{{ route('admin.pages') }}" :active="request()->routeIs('admin.pages')">
+            {{ __('components.navigation.pages') }}
+        </x-nav.responsive-link>
     @endhasrole
 
     @hasrole('super-duper-admin')

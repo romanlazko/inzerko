@@ -5,7 +5,7 @@
 
 <div {{ $attributes->merge(['class' => "w-full transition ease-in-out duration-150 group space-y-1 block w-full announcement-card cursor-pointer"]) }}>
     <a href="{{ route('announcement.show', $announcement) }}"  class="space-y-1">
-        <div class="w-full rounded-2xl overflow-hidden h-min">
+        <div class="w-full rounded-2xl overflow-hidden h-min border group-hover:border-gray-300">
             <x-ux.slider :medias="$announcement?->getMedia('announcements')" conversion="medium" :withDots="true"/>
         </div>
         <p class="text-lg font-semibold text-gray-900 line-clamp-1 group-hover:underline">

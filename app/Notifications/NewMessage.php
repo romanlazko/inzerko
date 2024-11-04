@@ -2,12 +2,10 @@
 
 namespace App\Notifications;
 
-use App\Facades\Bot;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\Channels\TelegramChannel;
 
 class NewMessage extends Notification implements ShouldQueue
@@ -35,7 +33,7 @@ class NewMessage extends Notification implements ShouldQueue
     {
         $this->locale($notifiable->locale);
         
-        return ['mail', TelegramChannel::class];
+        return $notifiable->chat ? ['mail', TelegramChannel::class] : ['mail'];
     }
 
     /**
@@ -64,7 +62,6 @@ class NewMessage extends Notification implements ShouldQueue
         return [
             'text'                      => $text,
             'chat_id'                   => $notifiable->chat->chat_id,
-            'parse_mode'                => 'HTML',
             'disable_web_page_preview'  => 'true',
             'parse_mode'                => 'Markdown',
         ];

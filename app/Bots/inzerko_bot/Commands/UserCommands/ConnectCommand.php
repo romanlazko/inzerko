@@ -3,12 +3,12 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
 use App\Models\User;
-use App\Notifications\VerifyTelegramConnection;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
+use Romanlazko\Telegram\Exceptions\TelegramException;
 
 class ConnectCommand extends Command
 {
@@ -27,20 +27,22 @@ class ConnectCommand extends Command
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
         if (User::where('telegram_chat_id', $telegram_chat->id)->first()) {
-            return BotApi::returnInline([
-                'chat_id' => $updates->getChat()->getId(),
-                'text' => "Этот телеграм аккаунт уже подключен к аккаунту на сайте.",
-                'parse_mode'    =>  'Markdown',
-                'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
-            ]);
+            return $this->handleError("Этот телеграм аккаунт уже подключен к аккаунту на сайте.");
         }
 
-        User::firstWhere('telegram_token', $matches[3])?->notify(new VerifyTelegramConnection($telegram_chat->id));
+        $buttons = BotApi::inlineKeyboard([
+            [array("Да подключить", SendVerifyTelegramConnection::$command, $matches[3])],
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
+        ], 'telegram_token');
 
         return BotApi::returnInline([
             'chat_id' => $updates->getChat()->getId(),
-            'text' => "На ваш эмейл было отправлено письмо для подтверждения связи с ботом. Пожалуйста, подтвердите связь с ботом, нажав на кнопку в письме.",
+            'text' => implode("\n", [
+                "*Подключение телеграм аккаунта*"."\n",
+                "Хотите подключить этот телеграм аккаунт к аккаунту на сайте *INZERKO.cz*?",
+            ]),
             'parse_mode'    =>  'Markdown',
+            'reply_markup'  => $buttons,
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
     }

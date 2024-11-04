@@ -22,13 +22,15 @@
             </label>
         @endif
     
-        @if ($user?->chat?->username)
+        @if ($user?->chat)
             <label class="text-gray-500 flex text-sm items-center space-x-1">
                 <x-heroicon-o-paper-airplane class="size-5"/>
                 <span>
                     {{ __('components.user.telegram') }}
                 </span>
-                <a href="https://t.me/{{ $user?->chat?->username }}" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">{{ $user?->chat?->username }}</a>
+                <a href="{{ $user?->chat?->contact }}" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
+                    {{ $user?->chat?->username ?? "@{$user?->chat?->first_name} {$user?->chat?->last_name}" }}
+                </a>
             </label>
         @endif
     </div>

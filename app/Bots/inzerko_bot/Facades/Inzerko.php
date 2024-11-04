@@ -14,12 +14,19 @@ class Inzerko extends Facade
 {
     protected static function getFacadeAccessor()
     {
+        if (! app()->environment('production')) {
+            return 'pozorbottestbot';
+        }
         return 'inzerko';
     }
 
     public static function __callStatic($method, $arguments)
     {
         $instance = static::getFacadeRoot();
+
+        if (method_exists($instance, $method)) {
+            return $instance->$method(...$arguments);
+        }
         
         return $instance::$method(...$arguments);
     }

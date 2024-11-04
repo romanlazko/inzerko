@@ -2,8 +2,9 @@
 
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
+use App\Bots\inzerko_bot\Commands\UserCommands\Profile\Profile;
+use App\Bots\inzerko_bot\Notifications\TelegramEmailVerification;
 use App\Models\User;
-use App\Notifications\TelegramEmailVerification;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
@@ -36,18 +37,18 @@ class SendTelegramEmailVerificationNotification extends Command
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
 
-        $user->notify(new TelegramEmailVerification);
+        if ($user->notify(new TelegramEmailVerification)) {
+            BotApi::answerCallbackQuery([
+                'callback_query_id' => $updates->getCallbackQuery()->getId(),
+                'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке на письме.',
+                'show_alert' => true
+            ]);
+        }
 
         $buttons = BotApi::inlineKeyboard([
             [array(Profile::getTitle('ru'), Profile::$command, '')],
             [array(SendTelegramEmailVerificationNotification::getTitle('ru'), SendTelegramEmailVerificationNotification::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
-        ]);
-
-        BotApi::answerCallbackQuery([
-            'callback_query_id' => $updates->getCallbackQuery()->getId(),
-            'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке на письме.',
-            'show_alert' => true
         ]);
 
         return BotApi::returnInline([
