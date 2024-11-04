@@ -1,5 +1,6 @@
 <?php
 
+use App\Bots\pozor_baraholka_bot\Models\BaraholkaAnnouncement;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -67,7 +68,7 @@ Route::get('page/{page:slug}', function (Page $page) {
     if (! $page->is_active) {
         abort(404);
     }
-    
+
     return view('page', [
         'page' => $page
     ]);
@@ -125,5 +126,9 @@ Route::get('cron', function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/test', function () {
+    return dump(BaraholkaAnnouncement::find(1));
+});
 
 

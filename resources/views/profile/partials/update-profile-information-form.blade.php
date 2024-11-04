@@ -46,19 +46,19 @@
             <x-form.label :value="__('profile.update_profile_information_form.languages')" :required="true"/>
             <div class="w-full items-center p-3 border rounded-md mt-1">
                 <x-form.label for="en" class="items-center flex space-x-2">
-                    <x-form.checkbox id="en" name="lang[]" value="en" :checked="in_array('en', auth()?->user()?->lang ?? [])"/>
+                    <x-form.checkbox id="en" name="lang[]" value="en" :checked="in_array('en', $user->lang ?? [])"/>
                     <span class="text-indigo-700">
                         {{ __('profile.update_profile_information_form.english') }}
                     </span>
                 </x-form.label>
                 <x-form.label for="ru" class="items-center flex space-x-2">
-                    <x-form.checkbox id="ru" name="lang[]" value="ru" :checked="in_array('ru', auth()?->user()?->lang ?? [])"/>
+                    <x-form.checkbox id="ru" name="lang[]" value="ru" :checked="in_array('ru', $user->lang ?? [])"/>
                     <span class="text-indigo-700">
                         {{ __('profile.update_profile_information_form.russian') }}
                     </span>
                 </x-form.label>
                 <x-form.label for="cz" class="items-center flex space-x-2">
-                    <x-form.checkbox id="cz" name="lang[]" value="cz" :checked="in_array('cz', auth()?->user()?->lang ?? [])"/>
+                    <x-form.checkbox id="cz" name="lang[]" value="cz" :checked="in_array('cz', $user->lang ?? [])"/>
                     <span class="text-indigo-700">
                         {{ __('profile.update_profile_information_form.czech') }}
                     </span>
