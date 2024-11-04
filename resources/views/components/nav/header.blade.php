@@ -17,18 +17,18 @@
 
 		<div class="flex items-center space-x-6 text-white">
 			@auth
-				<x-nav.link href="{{ route('profile.wishlist') }}">
+				<x-nav.link href="{{ route('profile.wishlist') }}" aria-label="Wishlist">
 					<x-heroicon-s-heart class="size-5"/>
 				</x-nav.link>
 
-				<x-nav.link @click="$dispatch('open-chat')" tag="button">
+				<x-nav.link @click="$dispatch('open-chat')" tag="button" aria-label="Messages">
 					<div class="relative leading-3 size-5 m-auto">
 						<x-unread-messages/>
 						<x-heroicon-s-chat-bubble-left-right class="size-5"/>
 					</div>
 				</x-nav.link>
 				
-				<x-nav.link href="{{ route('profile.edit') }}">
+				<x-nav.link href="{{ route('profile.edit') }}" aria-label="Profile">
 					<x-heroicon-s-user class="size-5"/>
 				</x-nav.link>
 			@else
