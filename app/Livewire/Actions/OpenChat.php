@@ -25,13 +25,25 @@ use Illuminate\Support\Str;
 
 class OpenChat extends Component implements HasForms, HasActions, HasTable
 {
-    use InteractsWithTable;
+    use InteractsWithTable { 
+        bootedInteractsWithTable as bootParentInteractsWithTable;
+    }
     use InteractsWithActions;
     use InteractsWithForms;
 
     public function render()
     {
         return view('livewire.actions.open-chat');
+    }
+
+    public function bootedInteractsWithTable(): void
+    {
+        if (! auth()->user()) {
+            $this->shouldMountInteractsWithTable = false;
+            return; 
+        }
+
+        $this->bootParentInteractsWithTable();
     }
 
     public function table(Table $table): Table

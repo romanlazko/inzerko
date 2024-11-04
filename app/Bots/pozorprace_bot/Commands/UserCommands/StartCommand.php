@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Bots\pozor_baraholka_bot\Commands\AdminCommands;
+namespace App\Bots\pozorprace_bot\Commands\UserCommands;
 
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -11,7 +11,7 @@ class StartCommand extends Command
     public static $command = 'start';
 
     public static $usage = ['/start', 'start'];
- 
+
     protected $enabled = true;
 
     public function execute(Update $updates): Response

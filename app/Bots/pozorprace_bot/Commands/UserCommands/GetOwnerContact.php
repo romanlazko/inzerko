@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\Bots\pozor_baraholka_bot\Commands\UserCommands;
+namespace App\Bots\pozorprace_bot\Commands\UserCommands;
 
 use Romanlazko\Telegram\App\BotApi;
-use App\Bots\pozor_baraholka_bot\Models\BaraholkaAnnouncement;
+use App\Bots\pozorprace_bot\Models\PraceAnnouncement;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Commands\UserCommands\AdvertisementCommand;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -24,20 +24,22 @@ class GetOwnerContact extends Command
     {
         preg_match(static::$pattern, $updates->getMessage()?->getCommand(), $matches);
 
-        $announcement = BaraholkaAnnouncement::findOr($matches[3] ?? null, function () {
+        $announcement = PraceAnnouncement::findOr($matches[3] ?? null, function () {
             throw new TelegramUserException("Объявление не найдено");
         });
 
-        if ($announcement->status !== 'published') {
+        if ($announcement->status === 'irrelevant') {
             throw new TelegramUserException("Объявление уже не актуально.");
         }
 
-        $announcement->increment('views');
+        if ($announcement->status === 'published') {
+            $announcement->increment('views');
+        }
         
         return $this->sendAnnouncementContact($announcement);
     }
 
-    private function sendAnnouncementContact(BaraholkaAnnouncement $announcement)
+    private function sendAnnouncementContact(PraceAnnouncement $announcement)
     {
         $buttons = BotApi::inlineKeyboardWithLink([
             'text'  => "👤 Контакт на автора", 
@@ -58,27 +60,12 @@ class GetOwnerContact extends Command
         ]);
     }
 
-    private function prepare(BaraholkaAnnouncement $announcement): string
+    private function prepare(PraceAnnouncement $announcement) 
     {
-        $categoryArr = [
-            'clothes'       => '#одежда',
-            'accessories'   => '#аксессуары',
-            'for_home'      => '#для_дома',
-            'electronics'   => '#электроника',
-            'sport'         => '#спорт',
-            'furniture'     => '#мебель',
-            'books'         => '#книги',
-            'games'         => '#игры',
-            'auto'          => '#авто_мото',
-            'property'      => '#недвижимость',
-            'animals'       => '#животные',
-            'other'         => '#прочее',
-        ];
-
         $text = [];
 
         if ($announcement->type) {
-            $text[] = $announcement->type === 'buy' ? '#куплю' : '#продам';
+            $text[] = $announcement->type === 'propose' ? "#предлагаю_работу" : "#ищу_работу";
         }
 
         if ($announcement->title) {
@@ -89,16 +76,32 @@ class GetOwnerContact extends Command
             $text[] = $announcement->caption;
         }
 
-        if ($announcement->condition) {
-            $text[] = "<i>Состояние:</i> " . ($announcement->condition === 'new' ? 'Новое' : 'Б/у');
+        if ($announcement->additional_info) {
+            $text[] = $announcement->additional_info;
         }
 
-        if ($announcement->cost) {
-            $text[] = "<i>Стоимость:</i> {$announcement->cost} CZK";
+        if ($announcement->salary_type AND $announcement->salary) {
+            $salary_type_arr = [
+                'hour' => "в час",
+                'day' => "в день",
+                'month' => "в месяц",
+                'ex_post' => "за выполненную работу",
+            ];
+            $text[] = "<i>Предлагаемая оплата:</i> {$announcement->salary} CZK {$salary_type_arr[$announcement->salary_type]}";
         }
 
-        if ($announcement->category && isset($categoryArr[$announcement->category])) {
-            $text[] = $categoryArr[$announcement->category];
+        if ($announcement->education) {
+            $education_arr = [
+                'not_required' => "Не требуется",
+                'secondary' => "Среднее",
+                'higher' => "Высшее",
+                'special' => "Специальное",
+            ];
+            $text[] = "<i>Требуемое образование:</i> {$education_arr[$announcement->education]}";
+        }
+
+        if ($announcement->workplace) {
+            $text[] = "<i>Место работы:</i> {$announcement->workplace}";
         }
 
         return implode("\n\n", $text);

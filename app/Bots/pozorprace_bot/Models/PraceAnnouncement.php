@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Bots\pozor_baraholka_bot\Models;
+namespace App\Bots\pozorprace_bot\Models;
 
-use App\Bots\pozor_baraholka_bot\Http\DataTransferObjects\Announcement;
-use App\Models\User;
+use App\Bots\pozorprace_bot\Models\TimewebTelegramChat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Romanlazko\Telegram\Models\TelegramChat;
 
-class BaraholkaAnnouncement extends Model
+class PraceAnnouncement extends Model
 {
-    protected $connection = 'timeweb_mysql';
-
     use HasFactory; use SoftDeletes;
+
+    protected $connection = 'timeweb_mysql';
 
     protected $guarded = [];
 

@@ -1,4 +1,4 @@
-<div>
+<div class="h-0">
     @auth
         @php
             $action = $this->getMountedAction();

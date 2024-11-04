@@ -62,12 +62,11 @@
 	
 				<div x-cloak x-show="dropdownOpen" class="absolute right-0 z-40 mt-2 p-0 overflow-hidden bg-white rounded-md shadow-xl border">
 					<x-nav.profile>
-						<hr>
-
 						@foreach (App\Models\Page::where([
 							'is_active' => true,
 							'is_header' => true
 						])->get() as $page)
+							@if ($loop->first) <hr> @endif
 							<x-nav.responsive-link href="{{ route('page', $page->slug) }}" :active="request()->routeIs('page', $page->slug) AND request()->page?->slug == $page->slug">
 								{{ $page->name }}
 							</x-nav.responsive-link>
