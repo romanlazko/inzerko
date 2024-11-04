@@ -128,7 +128,7 @@ Route::get('cron', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/test', function () {
-    return dump(BaraholkaAnnouncement::first()->dto());
+    dump(BaraholkaAnnouncement::first()->dto());
 });
 
 
