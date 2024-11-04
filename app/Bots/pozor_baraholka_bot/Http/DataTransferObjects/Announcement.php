@@ -4,7 +4,6 @@ namespace App\Bots\pozor_baraholka_bot\Http\DataTransferObjects;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Romanlazko\Telegram\App\Config;
 

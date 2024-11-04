@@ -54,9 +54,13 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
     {
         app()->setLocale($this->lang);
 
-        $buttons = Inzerko::inlineKeyboardWithLink(
-            array('text' => "Посмотреть объявление", 'url' => route('announcement.show', $announcement)),
+        $buttons = BotApi::inlineKeyboardWithLink(
+            array('text' => "Посмотреть объявление", 'web_app' => ['url' => route('announcement.show', $announcement)]),
         );
+
+        // $buttons = Inzerko::inlineKeyboardWithLink(
+        //     array('text' => "Посмотреть объявление", 'url' => route('announcement.show', $announcement)),
+        // );
 
         return Inzerko::sendPhoto([
             'caption'                   => view('inzerko_bot::announcement.show', ['announcement' => $announcement])->render(),

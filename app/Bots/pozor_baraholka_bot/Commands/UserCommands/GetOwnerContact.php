@@ -22,8 +22,6 @@ class GetOwnerContact extends Command
 
     public function execute(Update $updates): Response
     {
-        $this->bot->executeCommand(AdvertisementCommand::$command);
-
         preg_match(static::$pattern, $updates->getMessage()?->getCommand(), $matches);
 
         $announcement = BaraholkaAnnouncement::findOr($matches[3] ?? null, function () {
@@ -39,7 +37,7 @@ class GetOwnerContact extends Command
         return $this->sendAnnouncementContact($announcement);
     }
 
-    private function sendAnnouncementContact($announcement)
+    private function sendAnnouncementContact(BaraholkaAnnouncement $announcement)
     {
         $buttons = BotApi::inlineKeyboardWithLink([
             'text'  => "👤 Контакт на автора", 
