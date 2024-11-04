@@ -21,6 +21,7 @@ use App\Livewire\Pages\Admin\Telegram\Logs;
 use App\Livewire\Pages\Admin\User\Users;
 use App\Models\Page;
 use App\View\Models\HomeViewModel;
+use App\Livewire\Pages\Admin\Dashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -75,6 +76,8 @@ Route::get('page/{page:slug}', function (Page $page) {
 })->name('page');
 
 Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('admin')->group(function () {
+    Route::get('/', Dashboard::class)->name('dashboard');
+
     Route::name('telegram.')->prefix('telegram')->group(function () {
         Route::get('bots', Bots::class)->name('bots');
         Route::get('{telegram_bot}/chats', Chats::class)->name('chats');
@@ -128,7 +131,7 @@ Route::get('cron', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/test', function () {
-    return dump(BaraholkaAnnouncement::find(1));
+    dump(BaraholkaAnnouncement::with('chat')->latest()->limit(10)->get());
 });
 
 

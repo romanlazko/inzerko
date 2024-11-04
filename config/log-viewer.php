@@ -48,7 +48,7 @@ return [
     |
     */
 
-    'back_to_system_url' => config('app.url', 'http://localhost') . '/admin/announcements',
+    'back_to_system_url' => '/admin',
 
     'back_to_system_label' => null, // Displayed by default: "Back to {{ app.name }}"
 

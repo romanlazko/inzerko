@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Bots\pozor_baraholka_bot\Commands\UserCommands;
+namespace App\Bots\pozorprace_bot\Commands\UserCommands;
 
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -28,7 +28,7 @@ class MenuCommand extends Command
         ]);
 
         $data = [
-            'text'          =>  "Привет 👋" ."\n\n". "Теперь все объявления о продаже либо покупке в каналах *Pozor! Барахолка*, публикуются через нового бота",
+            'text'          =>  "Привет 👋" ."\n\n". "Теперь все объявления о работе в каналах *Pozor! Работа*, публикуются через нового бота",
             'chat_id'       =>  $updates->getChat()->getId(),
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',

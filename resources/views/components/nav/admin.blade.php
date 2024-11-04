@@ -1,5 +1,10 @@
 <nav class="space-y-3 px-2">
     @hasrole('super-duper-admin')
+        <x-nav.responsive-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+            {{ __('Dashboard') }}
+        </x-nav.responsive-link>
+    @endhasrole
+    @hasrole('super-duper-admin')
         <x-nav.dropdown :active="request()->routeIs('admin.announcement.*')">
             <x-slot name="trigger">
                 {{ __('components.navigation.announcements') }}

@@ -100,7 +100,7 @@ class CategoriesTableSeeder extends Seeder
             array (
                 'id' => 8,
                 'parent_id' => 2,
-                'alternames' => '{"cz": "Pronájem pokoje", "en": "Rent room", "ru": "Аренда комнаты"}',
+                'alternames' => '{"cs": "Pronájem pokoje", "en": "Rent room", "ru": "Аренда комнаты"}',
                 'slug' => 'arenda-komnaty',
                 'is_active' => 1,
                 'created_at' => '2024-07-14 10:27:05',
