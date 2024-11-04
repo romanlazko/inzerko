@@ -11,7 +11,15 @@
         <meta data-rh="true" property="og:site_name" content="{{ config('app.name') }}">
         <meta data-rh="true" property="og:locale" content="{{ app()->getLocale() }}">
 
-        {!! seo($meta) !!}
+        {!! seo($meta ?? new \RalphJSmit\Laravel\SEO\Support\SEOData(
+                title: config('app.name'),
+                description: config('app.description'),
+                image: config('app.logo'),
+                url: url()->current(),
+                enableTitleSuffix: true,
+                site_name: config('app.name'),
+                locale: app()->getLocale(),
+            )) !!}
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
