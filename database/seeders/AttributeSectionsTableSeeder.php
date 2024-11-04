@@ -23,7 +23,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'slug' => 'required_information',
-                'alternames' => '{"cz": "Povinné informace", "en": "Required information", "ru": "Обязательная информация"}',
+                'alternames' => '{"cs": "Povinné informace", "en": "Required information", "ru": "Обязательная информация"}',
                 'order_number' => 2,
                 'is_visible' => 1,
                 'created_at' => '2024-05-21 16:49:07',
@@ -34,7 +34,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'slug' => 'prices',
-                'alternames' => '{"cz": "Ceniky", "en": "Prices", "ru": "Цены"}',
+                'alternames' => '{"cs": "Ceniky", "en": "Prices", "ru": "Цены"}',
                 'order_number' => 3,
                 'is_visible' => 1,
                 'created_at' => '2024-05-21 17:37:18',
@@ -45,7 +45,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 3,
                 'slug' => 'real_estate_type',
-                'alternames' => '{"cz": "Typ", "en": "Type", "ru": "Тип"}',
+                'alternames' => '{"cs": "Typ", "en": "Type", "ru": "Тип"}',
                 'order_number' => 1,
                 'is_visible' => 1,
                 'created_at' => '2024-05-21 17:49:24',
@@ -56,7 +56,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'slug' => 'building_information',
-                'alternames' => '{"cz": "Informace o budově", "en": "Building information", "ru": "Информация о здании"}',
+                'alternames' => '{"cs": "Informace o budově", "en": "Building information", "ru": "Информация о здании"}',
                 'order_number' => 5,
                 'is_visible' => 1,
                 'created_at' => '2024-05-21 18:41:49',
@@ -67,7 +67,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 5,
                 'slug' => 'property_information',
-                'alternames' => '{"cz": "Informace o objektu", "en": "Property information", "ru": "Информация об объекте"}',
+                'alternames' => '{"cs": "Informace o objektu", "en": "Property information", "ru": "Информация об объекте"}',
                 'order_number' => 4,
                 'is_visible' => 1,
                 'created_at' => '2024-05-22 11:09:33',
@@ -78,7 +78,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 6,
                 'slug' => 'more_information',
-                'alternames' => '{"cz": "Doplňující informace", "en": "More information", "ru": "Дополнительная информация "}',
+                'alternames' => '{"cs": "Doplňující informace", "en": "More information", "ru": "Дополнительная информация "}',
                 'order_number' => 3,
                 'is_visible' => 1,
                 'created_at' => '2024-05-23 18:48:01',
@@ -89,7 +89,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 7,
                 'slug' => 'remuneration',
-                'alternames' => '{"cz": "Odměna za práci", "en": "Remuneration", "ru": "Оплата труда"}',
+                'alternames' => '{"cs": "Odměna za práci", "en": "Remuneration", "ru": "Оплата труда"}',
                 'order_number' => 3,
                 'is_visible' => 1,
                 'created_at' => '2024-05-23 19:48:37',
@@ -100,7 +100,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 8,
                 'slug' => 'phone_memory',
-                'alternames' => '{"cz": "Paměť", "en": "Memory", "ru": "Память"}',
+                'alternames' => '{"cs": "Paměť", "en": "Memory", "ru": "Память"}',
                 'order_number' => 4,
                 'is_visible' => 1,
                 'created_at' => '2024-05-25 14:58:25',
@@ -111,7 +111,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 9,
                 'slug' => 'phone_display',
-                'alternames' => '{"cz": "Displej", "en": "Display", "ru": "Дисплей"}',
+                'alternames' => '{"cs": "Displej", "en": "Display", "ru": "Дисплей"}',
                 'order_number' => 5,
                 'is_visible' => 1,
                 'created_at' => '2024-05-25 15:15:12',
@@ -122,7 +122,7 @@ class AttributeSectionsTableSeeder extends Seeder
             array (
                 'id' => 10,
                 'slug' => 'location',
-                'alternames' => '{"cz": "Lokace", "en": "Location", "ru": "Расположение"}',
+                'alternames' => '{"cs": "Lokace", "en": "Location", "ru": "Расположение"}',
                 'order_number' => 3,
                 'is_visible' => 1,
                 'created_at' => '2024-05-28 09:01:11',

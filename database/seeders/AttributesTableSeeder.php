@@ -23,7 +23,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'name' => 'description',
-                'alterlabels' => '{"cz": "Popis", "en": "Description", "ru": "Описание"}',
+                'alterlabels' => '{"cs": "Popis", "en": "Description", "ru": "Описание"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -47,7 +47,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'name' => 'current_price',
-                'alterlabels' => '{"cz": "Cena", "en": "Price", "ru": "Стоимость"}',
+                'alterlabels' => '{"cs": "Cena", "en": "Price", "ru": "Стоимость"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -71,7 +71,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 5,
                 'name' => 'note_on_price',
-                'alterlabels' => '{"cz": "Poznámka k ceně", "en": "Note on price", "ru": "Пометка к цене"}',
+                'alterlabels' => '{"cs": "Poznámka k ceně", "en": "Note on price", "ru": "Пометка к цене"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -95,7 +95,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 6,
                 'name' => 'real_estate_deposit',
-                'alterlabels' => '{"cz": "Kauce", "en": "Deposit", "ru": "Залог"}',
+                'alterlabels' => '{"cs": "Kauce", "en": "Deposit", "ru": "Залог"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[{"value": "5", "attribute_name": "real_estate_type"}, {"value": "78", "attribute_name": "real_estate_type"}]',
@@ -119,7 +119,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 7,
                 'name' => 'real_estate_type',
-                'alterlabels' => '{"cz": "Typ", "en": "Type", "ru": "Тип"}',
+                'alterlabels' => '{"cs": "Typ", "en": "Type", "ru": "Тип"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -143,7 +143,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 8,
                 'name' => 'real_estate_configuration',
-                'alterlabels' => '{"cz": "Konfigurace", "en": "Configuration", "ru": "Конфигурация"}',
+                'alterlabels' => '{"cs": "Konfigurace", "en": "Configuration", "ru": "Конфигурация"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -239,9 +239,9 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 12,
                 'name' => 'number_of_underground_floors',
-                'alterlabels' => '{"cz": "Počet podzemních podlaží", "en": "Number of underground floors", "ru": "Количество подземных этажей"}',
+                'alterlabels' => '{"cs": "Počet podzemních podlaží", "en": "Number of underground floors", "ru": "Количество подземных этажей"}',
                 'alterprefixes' => NULL,
-                'altersuffixes' => '{"cz": "podlaží", "en": "floors", "ru": "этажей"}',
+                'altersuffixes' => '{"cs": "podlaží", "en": "floors", "ru": "этажей"}',
                 'visible' => '[]',
                 'hidden' => NULL,
                 'create_layout' => '{"type": "text_input", "rules": ["numeric"], "section_id": "4", "column_span": "2", "column_start": "3", "order_number": "4"}',
@@ -263,7 +263,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 13,
                 'name' => 'elevator',
-                'alterlabels' => '{"cz": "Výtah", "en": "Elevator", "ru": "Лифт"}',
+                'alterlabels' => '{"cs": "Výtah", "en": "Elevator", "ru": "Лифт"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -287,7 +287,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 14,
                 'name' => 'balcony',
-                'alterlabels' => '{"cz": "Balkon", "en": "Balcony", "ru": "Балкон"}',
+                'alterlabels' => '{"cs": "Balkon", "en": "Balcony", "ru": "Балкон"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -311,7 +311,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 15,
                 'name' => 'parking',
-                'alterlabels' => '{"cz": "Parkoviště", "en": "Parking", "ru": "Паркинг"}',
+                'alterlabels' => '{"cs": "Parkoviště", "en": "Parking", "ru": "Паркинг"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -335,7 +335,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 16,
                 'name' => 'square',
-                'alterlabels' => '{"cz": "Plocha", "en": "Square", "ru": "Площадь"}',
+                'alterlabels' => '{"cs": "Plocha", "en": "Square", "ru": "Площадь"}',
                 'alterprefixes' => NULL,
                 'altersuffixes' => '{"en": "m²"}',
                 'visible' => '[]',
@@ -359,7 +359,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 21,
                 'name' => 'salary_type',
-                'alterlabels' => '{"cz": "Typ platby", "en": "Salary type", "ru": "Тип оплаты"}',
+                'alterlabels' => '{"cs": "Typ platby", "en": "Salary type", "ru": "Тип оплаты"}',
                 'alterprefixes' => '{"cs": "/", "en": "/", "ru": "/"}',
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -383,7 +383,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 22,
                 'name' => 'phone_ram',
-            'alterlabels' => '{"cz": "RAM (operační paměť)", "en": "RAM (operating memory)", "ru": "RAM (оперативная память)"}',
+            'alterlabels' => '{"cs": "RAM (operační paměť)", "en": "RAM (operating memory)", "ru": "RAM (оперативная память)"}',
                 'alterprefixes' => '[]',
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -407,7 +407,7 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 23,
                 'name' => 'phone_rom',
-            'alterlabels' => '{"cz": "ROM (zabudovaná paměť)", "en": "ROM (integrated memory)", "ru": "ROM (встроенная память)"}',
+            'alterlabels' => '{"cs": "ROM (zabudovaná paměť)", "en": "ROM (integrated memory)", "ru": "ROM (встроенная память)"}',
                 'alterprefixes' => '[]',
                 'altersuffixes' => '[]',
                 'visible' => '[]',
@@ -431,9 +431,9 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 24,
                 'name' => 'display_diagonal',
-                'alterlabels' => '{"cz": "Úhlopříčka displeje", "en": "Display diagonal", "ru": "Диагональ дисплея"}',
+                'alterlabels' => '{"cs": "Úhlopříčka displeje", "en": "Display diagonal", "ru": "Диагональ дисплея"}',
                 'alterprefixes' => NULL,
-                'altersuffixes' => '{"cz": null, "en": "\\"", "ru": null}',
+                'altersuffixes' => '{"cs": null, "en": "\\"", "ru": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
                 'create_layout' => '{"type": "select", "section_id": "9", "column_span": "2", "column_start": "1", "order_number": "1"}',
@@ -455,9 +455,9 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 25,
                 'name' => 'display_type',
-                'alterlabels' => '{"cz": "Typ displeje ", "en": "Display type", "ru": "Тип дисплея"}',
+                'alterlabels' => '{"cs": "Typ displeje ", "en": "Display type", "ru": "Тип дисплея"}',
                 'alterprefixes' => NULL,
-                'altersuffixes' => '{"cz": null, "en": null, "ru": null}',
+                'altersuffixes' => '{"cs": null, "en": null, "ru": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
                 'create_layout' => '{"type": "select", "section_id": "9", "column_span": "2", "column_start": "3", "order_number": "2"}',
@@ -479,9 +479,9 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 27,
                 'name' => 'geo_id',
-                'alterlabels' => '{"cz": "Lokace", "en": "Location", "ru": "Расположение"}',
+                'alterlabels' => '{"cs": "Lokace", "en": "Location", "ru": "Расположение"}',
                 'alterprefixes' => NULL,
-                'altersuffixes' => '{"cz": null, "en": null, "ru": null}',
+                'altersuffixes' => '{"cs": null, "en": null, "ru": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
                 'create_layout' => '{"type": "location", "section_id": "10", "column_span": "4", "column_start": "1", "order_number": "1"}',
@@ -503,9 +503,9 @@ class AttributesTableSeeder extends Seeder
             array (
                 'id' => 28,
                 'name' => 'salary',
-                'alterlabels' => '{"cz": "Mzda", "en": "Salary", "ru": "Зарплата"}',
+                'alterlabels' => '{"cs": "Mzda", "en": "Salary", "ru": "Зарплата"}',
                 'alterprefixes' => '[]',
-                'altersuffixes' => '{"cz": null, "en": null, "ru": null}',
+                'altersuffixes' => '{"cs": null, "en": null, "ru": null}',
                 'visible' => '[]',
                 'hidden' => NULL,
                 'create_layout' => '{"type": "from_to", "rules": ["numeric"], "section_id": "7", "column_span": "3", "column_start": "1", "order_number": "1"}',
