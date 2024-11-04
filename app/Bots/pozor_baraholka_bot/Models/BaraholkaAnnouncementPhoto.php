@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BaraholkaAnnouncementPhoto extends Model
 {
     use HasFactory; use SoftDeletes;
+    
+    protected $connection = 'timeweb_mysql';
 
     protected $fillable = [
         'file_id',
