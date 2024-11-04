@@ -56,7 +56,7 @@ class VerifyTelegramConnection extends Notification implements ShouldQueue
     protected function verificationUrl($notifiable)
     {
         return URL::temporarySignedRoute(
-            'verify.telegram.connection',
+            'inzerko_bot.verify.telegram.connection',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
                 'telegram_chat_id' => $this->telegram_chat_id,
