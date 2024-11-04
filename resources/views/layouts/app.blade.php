@@ -40,7 +40,7 @@
 
     @livewire('actions.open-chat')
 
-    <footer class="w-full text-gray-500 bg-gray-100 ">
+    <footer class="w-full text-gray-600 bg-gray-100 ">
         <div class="max-w-7xl m-auto p-3 lg:flex lg:items-center justify-center lg:space-x-5 text-xs text-center space-y-4 lg:space-y-0">
             <p>
                 © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
