@@ -42,6 +42,6 @@ class MenuCommand extends Command
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
 
-        return BotApi::returnInline($data);
+        return Inzerko::returnInline($data);
     }
 }
