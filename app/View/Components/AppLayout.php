@@ -4,7 +4,9 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;
-use RalphJSmit\Laravel\SEO\Support\SEOData;
+// use RalphJSmit\Laravel\SEO\Support\SEOData;
+
+// use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class AppLayout extends Component
 {
@@ -13,16 +15,6 @@ class AppLayout extends Component
      */
     public function render(): View
     {
-        $meta = new SEOData(
-            title: config('app.name'),
-            description: config('app.description'),
-            image: config('app.logo'),
-            url: url()->current(),
-            enableTitleSuffix: true,
-            site_name: config('app.name'),
-            locale: app()->getLocale(),
-        );
-
-        return view('layouts.app', compact('meta'));
+        return view('layouts.app');
     }
 }
