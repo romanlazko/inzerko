@@ -9,7 +9,7 @@ use Romanlazko\Telegram\Exceptions\TelegramException;
 
 abstract class Command extends CommandsCommand
 {
-    protected function hasPrivateForwards(): bool
+    protected function hasPrivateForwards(): ?bool
     {
         return BotApi::getChat(['chat_id' => $this->updates->getChat()->getId()])->getResult()->getHasPrivateForwards();
     }
