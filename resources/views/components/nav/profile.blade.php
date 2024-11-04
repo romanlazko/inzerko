@@ -26,7 +26,7 @@
 
     @hasrole('super-duper-admin')
         <hr>
-        <x-nav.responsive-link :href="route('admin.announcement.moderation')" :active="request()->routeIs('admin.announcements.inde')">
+        <x-nav.responsive-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
             <x-heroicon-o-adjustments-horizontal class="size-5"/>
             <span>{{ __("components.navigation.admin") }}</span>
         </x-nav.responsive-link>
