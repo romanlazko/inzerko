@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Romanlazko\Telegram\Channels\TelegramChannel;
+use Romanlazko\Telegram\Models\TelegramChat;
 
 class NewMessage extends Notification implements ShouldQueue
 {
@@ -50,7 +51,7 @@ class NewMessage extends Notification implements ShouldQueue
                     ->line(__('notification.new_message.line_2'));
     }
 
-    public function toTelegram(object $notifiable)
+    public function toTelegram(TelegramChat $notifiable)
     {
         $text = implode("\n", [
             __('notification.new_message.line_1') ."\n",
@@ -61,7 +62,7 @@ class NewMessage extends Notification implements ShouldQueue
 
         return [
             'text'                      => $text,
-            'chat_id'                   => $notifiable->chat->chat_id,
+            'chat_id'                   => $notifiable?->chat_id,
             'disable_web_page_preview'  => 'true',
             'parse_mode'                => 'Markdown',
         ];
