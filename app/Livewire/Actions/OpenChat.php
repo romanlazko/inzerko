@@ -132,7 +132,7 @@ class OpenChat extends Component implements HasForms, HasActions, HasTable
                             'message' => $data['message'],
                         ]);
 
-                        $record->recipient->notify(new NewMessage($record))->delay(1);
+                        $record->recipient->notify((new NewMessage($record))->delay(1));
 
                         $this->dispatch('scroll-to-bottom');
 
