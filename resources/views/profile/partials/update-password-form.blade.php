@@ -9,7 +9,7 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6 max-w-xl">
+    <form method="post" action="{{ route('profile.update-password') }}" class="mt-6 space-y-6 max-w-xl">
         @csrf
         @method('put')
 

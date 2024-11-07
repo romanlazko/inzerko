@@ -37,6 +37,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'phone',
         'telegram_chat_id',
         'lang',
+        'notification_settings',
         'locale',
         'telegram_token'
     ];
@@ -59,7 +60,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'lang' => 'array'
+        'lang' => 'array',
+        'notification_settings' => 'object',
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -134,7 +136,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmail);
+        if ($this instanceof MustVerifyEmail && ! $this->hasVerifiedEmail()) {
+            $this->notify(new VerifyEmail);
+        }
     }
 
     public function sendPasswordResetNotification($token)

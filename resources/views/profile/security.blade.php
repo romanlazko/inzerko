@@ -9,21 +9,12 @@
         <x-nav.profile/>
     </x-slot>
 
-    <div class="px-3 py-5 space-y-4">
-        @include('profile.partials.verify-email')
-        @include('profile.partials.fill-profile')
-
+    <div class="py-5 px-3 space-y-4">
         <x-ux.white-block>
-            @include('profile.partials.update-profile-information-form')
+            @include('profile.partials.update-password-form')
         </x-ux.white-block>
-
         <x-ux.white-block>
-            @include('profile.partials.update-telegram-information-form')
-        </x-ux.white-block>
-        
-        <x-ux.white-block>
-            @include('profile.partials.logout-form')
+            @include('profile.partials.delete-user-form')
         </x-ux.white-block>
     </div>
-    
 </x-app-layout>

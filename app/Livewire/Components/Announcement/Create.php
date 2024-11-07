@@ -53,7 +53,7 @@ class Create extends Component implements HasForms
     public function mount(): void
     {
         $this->form->fill(session('data') ?? $this->data);
-        $this->parent_categories = Category::where('parent_id', null)->get()->pluck('name', 'id');
+        $this->parent_categories = Category::where('parent_id', null)->isActive()->get()->pluck('name', 'id');
     }
 
     public function render(): View
@@ -106,6 +106,7 @@ class Create extends Component implements HasForms
                         ->schema($this->getFormSchema())
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('photos')
+                        ->visible(Category::find($this->data['category_id'])?->hasPhotos ?? false)
                         ->schema([
                             Section::make(__('livewire.photos'))
                                 ->schema([
@@ -179,7 +180,7 @@ class Create extends Component implements HasForms
         $currentCategoryChildren = $this->getCategories()?->get($get('categories.'.$currentLevel))?->get('children');
         $nextLevel = $currentLevel + 1;
 
-        if ($currentCategoryChildren?->isNotEmpty()) {
+        if ($currentCategoryChildren?->where('is_active', true)?->isNotEmpty()) {
             return [
                 Select::make('categories.'.$nextLevel)
                     ->options($currentCategoryChildren?->pluck('name', 'id'))
@@ -216,8 +217,9 @@ class Create extends Component implements HasForms
 
         return Cache::remember($cacheKey, config('cache.ttl'), function () {
             return Category::whereIn('id', $this->data['categories'])
-                ->select('id', 'alternames', 'parent_id')
-                ->with('children:alternames,id,parent_id')
+                ->select('id', 'alternames', 'parent_id', 'is_active')
+                ->with('children:alternames,id,parent_id,is_active')
+                ->isActive()
                 ->get()
                 ->keyBy('id')
                 ->map(fn (Category $category) => collect([

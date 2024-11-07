@@ -19,18 +19,15 @@ class Filters extends Component implements HasForms
 {
     use InteractsWithForms;
 
-    public $filters = [
-    ];
-
-    public $gettedFilters = null;
+    public $filters = [];
 
     public $category;
+
+    public $count = 0;
 
     public function mount(null|array $filters = null , $category = null)
     {
         $this->category = $category;
-
-        $this->gettedFilters = $filters;
 
         $this->form->fill($filters);
     }

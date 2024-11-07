@@ -1,6 +1,6 @@
-@props(['value' => null, 'required' => false])
+@props(['value' => null, 'required' => false, 'disabled' => false])
 
-<label {{ $attributes->merge(['class' => 'block font-bold text-sm text-gray-700']) }}>
+<label {{ $attributes->merge(['class' => 'block font-bold text-sm ' . ($disabled ? ' text-gray-400' : ' text-gray-700')]) }}>
     @if ($value)
         {{ $value }}
         @if ($required)

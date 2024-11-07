@@ -150,6 +150,11 @@ class Category extends Model implements HasMedia
         return $query->where('is_active', true);
     }
 
+    public function getHasPhotosAttribute()
+    {
+        return false;
+    }
+
     public function getDynamicSEOData(): SEOData
     {
         return Cache::remember($this?->slug.'_category_seo_data', config('cache.ttl'), fn () => 

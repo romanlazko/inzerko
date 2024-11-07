@@ -22,6 +22,16 @@
         <span>{{ __("components.navigation.messages") }}</span>
     </x-nav.responsive-link>
 
+    <x-nav.responsive-link :href="route('profile.notifications')" :active="request()->routeIs('profile.notifications')">
+        <x-heroicon-m-bell-alert class="size-5"/>
+        <span>{{ __("components.navigation.notifications") }}</span>
+    </x-nav.responsive-link>
+
+    <x-nav.responsive-link :href="route('profile.security')" :active="request()->routeIs('profile.security')">
+        <x-heroicon-c-shield-check class="size-5"/>
+        <span>{{ __("components.navigation.security") }}</span>
+    </x-nav.responsive-link>
+
     {{ $slot }}
 
     @hasrole('super-duper-admin')

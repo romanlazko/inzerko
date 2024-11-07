@@ -42,5 +42,12 @@ return [
 
     'fill_profile' => [
         'description' => 'Fill your profile information to get started.',
-    ]
+    ], 
+
+    'new_message_notifications_form' => [
+        'title' => 'New Message Notifications',
+        'description' => 'Choose how you would like to be notified when you receive new messages.',
+        'email' => 'Receive notifications of new messages by Email',
+        'telegram' => 'Receive notifications of new messages by Telegram',
+    ],
 ];

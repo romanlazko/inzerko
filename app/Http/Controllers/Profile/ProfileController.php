@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 use Laravolt\Avatar\Facade as Avatar;
 
@@ -59,6 +61,27 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function security(Request $request): View
+    {
+        return view('profile.security', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updatePassword(Request $request): RedirectResponse
+    {
+        $validated = $request->validateWithBag('updatePassword', [
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return back()->with('status', 'password-updated');
+    }
+
     /**
      * Delete the user's account.
      */
@@ -91,5 +114,24 @@ class ProfileController extends Controller
     public function my_announcements(Request $request): View
     {
         return view('profile.my-announcements');
+    }
+
+    public function notifications(Request $request): View
+    {
+        return view('profile.notifications', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateNotifications(Request $request): RedirectResponse
+    {
+        $request->user()->update([
+            'notification_settings' => $request->notification_settings,
+        ]);
+
+        return Redirect::route('profile.notifications')->with([
+            'ok' => true,
+            'description' => 'profile.notifications.success',
+        ]);
     }
 }
