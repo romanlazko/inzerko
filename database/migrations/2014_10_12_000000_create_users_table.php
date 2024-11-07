@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('telegram_token')->nullable();
             $table->json('lang')->nullable();
+            $table->json('notification_settings')->nullable();
             $table->string('locale')->default('cs')->nullable();
             $table->rememberToken();
             $table->timestamps();

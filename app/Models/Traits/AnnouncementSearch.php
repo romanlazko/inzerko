@@ -62,6 +62,7 @@ trait AnnouncementSearch
         return $query->whereHas('features', fn ($query) =>
             $query->where(fn ($query) => 
                 $query->whereRaw('LOWER(features.translated_value) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                    ->orWhereRaw('MATCH(translated_value) AGAINST(? IN NATURAL LANGUAGE MODE)', [mb_strtolower($search)])
                     ->orWhereHas('attribute_option', fn ($query) => 
                         $query->whereRaw('LOWER(alternames) LIKE ?', ['%' . mb_strtolower($search) . '%'])
                     )

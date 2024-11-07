@@ -25,6 +25,10 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('current_status');
+            $table->index('category_id');
+            $table->index('deleted_at');
         });
     }
 

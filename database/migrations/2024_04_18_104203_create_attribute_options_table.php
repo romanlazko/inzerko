@@ -23,6 +23,8 @@ return new class extends Migration
             $table->boolean('is_null')->default(false)->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('deleted_at');
         });
     }
 

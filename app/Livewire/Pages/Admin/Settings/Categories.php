@@ -55,6 +55,7 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
                     ->description(fn (Category $category): string => $category->slug)
                     ->url(fn (Category $category): string => route('admin.setting.categories', $category)),
                 ToggleColumn::make('is_active'),
+                ToggleColumn::make('has_attachments'),
                 TextColumn::make('children')
                     ->state(function (Category $record) {
                         return $record->children->pluck('name');

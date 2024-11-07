@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\CacheRelationship;
+use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,6 +25,7 @@ class Category extends Model implements HasMedia
     protected $casts = [
         'alternames' => 'array',
         'is_active' => 'boolean',
+        'has_attachments' => 'boolean',
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -53,7 +55,7 @@ class Category extends Model implements HasMedia
 
     public function announcements()
     {
-        return $this->belongsToMany(Announcement::class);
+        return $this->hasMany(Announcement::class);
     }
 
     public function children()
@@ -148,11 +150,6 @@ class Category extends Model implements HasMedia
     public function scopeIsActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    public function getHasPhotosAttribute()
-    {
-        return false;
     }
 
     public function getDynamicSEOData(): SEOData

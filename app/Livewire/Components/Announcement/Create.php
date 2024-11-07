@@ -106,7 +106,7 @@ class Create extends Component implements HasForms
                         ->schema($this->getFormSchema())
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('photos')
-                        ->visible(Category::find($this->data['category_id'])?->hasPhotos ?? false)
+                        ->visible(Category::find($this->data['category_id'])?->has_attachments ?? false)
                         ->schema([
                             Section::make(__('livewire.photos'))
                                 ->schema([

@@ -68,13 +68,28 @@ class NewMessage extends Notification implements ShouldQueue
         ];
     }
 
-    public function shouldSend(object $notifiable): bool
+    public function shouldSend(object $notifiable, string $channel): bool
+    {
+        if ($channel === TelegramChannel::class) {
+            return ($notifiable->notification_settings?->telegram ?? false) AND $this->unreadMessagesCount($notifiable);
+        }
+
+        if ($channel === 'mail') {
+            return ($notifiable->notification_settings?->email ?? false) AND $this->unreadMessagesCount($notifiable);
+        }
+
+        return false;
+    }
+
+    public function unreadMessagesCount(object $notifiable)
     {
         $unreadMessagesCount = $this->thread->messages()
-            ->where('read_at', null)
-            ->where('user_id', '!=', $notifiable->id)
-            ->count();
+        ->where('read_at', null)
+        ->where('user_id', '!=', $notifiable->id)
+        ->count();
 
         return $unreadMessagesCount > 0;
     }
+
+
 }

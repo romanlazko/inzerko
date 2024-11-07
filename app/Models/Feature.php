@@ -39,6 +39,11 @@ class Feature extends Model
         return $this->belongsTo(AttributeOption::class);
     }
 
+    public function setTranslatedValueAttribute($value)
+    {
+        $this->attributes['translated_value'] = json_encode($value, JSON_UNESCAPED_UNICODE);
+    }
+
     public function getValueAttribute()
     {
         return AttributeFactory::getValueByFeature($this->attribute, $this);
