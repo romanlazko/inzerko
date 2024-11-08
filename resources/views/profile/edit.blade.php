@@ -18,7 +18,7 @@
         </x-ux.white-block>
 
         <x-ux.white-block>
-            @include('profile.partials.update-telegram-information-form')
+            @include('profile.partials.update-communication-information-form')
         </x-ux.white-block>
         
         <x-ux.white-block>

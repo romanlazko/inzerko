@@ -36,43 +36,7 @@
             <x-form.error class="mt-2" :messages="$errors->get('email')" />
         </div>
 
-        <div>
-            <x-form.label for="phone" :value="__('profile.update_profile_information_form.phone')" :required="true"/>
-            <x-form.input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)" autofocus autocomplete="phone" />
-            <x-form.error class="mt-2" :messages="$errors->get('phone')" />
-        </div>
-
-        <div>
-            <x-form.label :value="__('profile.update_profile_information_form.languages')" :required="true"/>
-            <div class="w-full items-center p-1 border border-gray-300 rounded-lg mt-1 space-y-1">
-                <x-form.label for="en" class="items-center flex space-x-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
-                    <span class="text-indigo-700">
-                        {{ __('profile.update_profile_information_form.english') }}
-                    </span>
-                    <x-form.checkbox id="en" name="lang[]" value="en" :checked="in_array('en', $user->lang ?? [])"/>
-                </x-form.label>
-
-                <hr class="mx-2">
-
-                <x-form.label for="ru" class="items-center flex space-x-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
-                    <span class="text-indigo-700">
-                        {{ __('profile.update_profile_information_form.russian') }}
-                    </span>
-                    <x-form.checkbox id="ru" name="lang[]" value="ru" :checked="in_array('ru', $user->lang ?? [])"/>
-                </x-form.label>
-
-                <hr class="mx-2">
-                
-                <x-form.label for="cz" class="items-center flex space-x-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
-                    <span class="text-indigo-700">
-                        {{ __('profile.update_profile_information_form.czech') }}
-                    </span>
-                    <x-form.checkbox id="cz" name="lang[]" value="cz" :checked="in_array('cz', $user->lang ?? [])"/>
-                </x-form.label>
-            </div>
-            
-            <x-form.error class="mt-2" :messages="$errors->get('lang')" />
-        </div>
+        
 
         <div class="flex items-center gap-4">
             <x-buttons.primary>{{ __('profile.save') }}</x-buttons.primary>

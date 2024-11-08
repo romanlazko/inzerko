@@ -109,6 +109,7 @@ Route::middleware(['auth'])->name('profile.')->prefix('profile')->group(function
     Route::get('/', [ProfileController::class, 'edit'])->name('edit');
     Route::patch('update', [ProfileController::class, 'update'])->name('update');
     Route::patch('update-avatar', [ProfileController::class, 'updateAvatar'])->name('update-avatar');
+    Route::patch('update-communication', [ProfileController::class, 'updateCommunication'])->name('update-communication');
 
     Route::get('security', [ProfileController::class, 'security'])->name('security');
     Route::put('update-password', [ProfileController::class, 'updatePassword'])->name('update-password');

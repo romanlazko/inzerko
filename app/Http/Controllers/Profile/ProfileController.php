@@ -61,6 +61,26 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function updateCommunication(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'communication' => ['required'],
+            'communication.*.phone' => ['required_if_accepted:communication.*.visible'],
+            'lang' => ['required', 'array'],
+            'lang.*' => ['string', 'in:en,ru,cz'],
+        ]);
+
+        $request->user()->update([
+            'communication' => $request->communication,
+            'lang' => $request->lang,
+        ]);
+
+        return Redirect::route('profile.edit')->with([
+            'ok' => true,
+            'description' => 'profile.notifications.success',
+        ]);
+    }
+
     public function security(Request $request): View
     {
         return view('profile.security', [

@@ -173,6 +173,7 @@ return [
         'data.categories.*' => [
             'required' => 'You must select at least one category.',
         ],
+        'communication.*.phone.required_if_accepted' => 'The :attribute field is required.',
     ],
 
     /*
@@ -186,6 +187,8 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'communication.*.phone' => 'phone',
+        'lang' => 'language',
+    ],
 ];

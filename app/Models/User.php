@@ -33,6 +33,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'name',
         'avatar',
         'email',
+        'communication',
         'password',
         'phone',
         'telegram_chat_id',
@@ -62,6 +63,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'password' => 'hashed',
         'lang' => 'array',
         'notification_settings' => 'object',
+        'communication' => 'object',
     ];
 
     public function getSlugOptions() : SlugOptions

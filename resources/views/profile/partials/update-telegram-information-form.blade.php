@@ -10,9 +10,11 @@
     </header>
 
     @if (! $user->chat)
-        <form action="{{ route('inzerko_bot.telegram.connect') }}" method="post">
+        <form action="{{ route('inzerko_bot.telegram.connect') }}" method="post" class="mt-6 space-y-6 max-w-xl">
             @csrf
-            <button class="mt-6 text-sm text-blue-500 hover:text-blue-700 hover:underline">{{ __('profile.update_telegram_information_form.connect_telegram') }}</button>
+            <div class="flex items-center gap-4">
+                <x-buttons.primary>{{ __('profile.update_telegram_information_form.connect_telegram') }}</x-buttons.primary>
+            </div>
         </form>
     @else
         <div class="flex items-center">
@@ -30,5 +32,11 @@
                 </div>
             </div>
         </div>
+        <form action="{{ route('inzerko_bot.telegram.disconnect') }}" method="post" class="mt-6 space-y-6 max-w-xl">
+            @csrf
+            <div class="flex items-center gap-4">
+                <x-buttons.primary>{{ __('profile.update_telegram_information_form.disconnect_telegram') }}</x-buttons.primary>
+            </div>
+        </form>
     @endif
 </section>

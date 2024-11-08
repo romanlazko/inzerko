@@ -149,6 +149,7 @@ return [
         'data.categories.*' => [
             'required' => 'Вы должны выбрать хотя бы одну категорию.',
         ],
+        'communication.*.phone.required_if_accepted' => 'Поле ":attribute" обязательно для заполнения.',
     ],
 
     /*
@@ -162,5 +163,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'communication.*.phone' => 'телефон',
+        'lang' => 'язык',
+    ],
 ];

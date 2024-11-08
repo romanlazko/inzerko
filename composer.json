@@ -32,6 +32,7 @@
         "opcodesio/log-viewer": "^3.11",
         "orangehill/iseed": "^3.0",
         "owen-it/laravel-auditing": "^13.6",
+        "owenvoke/blade-fontawesome": "^2.7",
         "pepperfm/filament-json": "^1.1",
         "ralphjsmit/laravel-seo": "^1.5",
         "romanlazko/slurp": "^0.0.5",
