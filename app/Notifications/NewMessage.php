@@ -2,11 +2,12 @@
 
 namespace App\Notifications;
 
+use App\Bots\inzerko_bot\Channels\InzerkoChannel;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Romanlazko\Telegram\Channels\TelegramChannel;
 use Romanlazko\Telegram\Models\TelegramChat;
 
 class NewMessage extends Notification implements ShouldQueue
@@ -34,7 +35,7 @@ class NewMessage extends Notification implements ShouldQueue
     {
         $this->locale($notifiable->locale);
         
-        return $notifiable->chat ? ['mail', TelegramChannel::class] : ['mail'];
+        return $notifiable->chat ? ['mail', InzerkoChannel::class] : ['mail'];
     }
 
     /**
@@ -60,17 +61,17 @@ class NewMessage extends Notification implements ShouldQueue
             "[" . __('notification.new_message.action') . "](" . route('home') . ")"
         ]);
 
-        return [
+        return Inzerko::sendMessage([
             'text'                      => $text,
             'chat_id'                   => $notifiable?->chat_id,
             'disable_web_page_preview'  => 'true',
             'parse_mode'                => 'Markdown',
-        ];
+        ]);
     }
 
     public function shouldSend(object $notifiable, string $channel): bool
     {
-        if ($channel === TelegramChannel::class) {
+        if ($channel === InzerkoChannel::class) {
             return ($notifiable->notification_settings?->telegram ?? false) AND $this->unreadMessagesCount($notifiable);
         }
 
