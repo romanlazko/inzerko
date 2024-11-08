@@ -41,7 +41,7 @@ class Location extends BaseAttributeType
                 ComponentsSelect::make('geo_id')
                     ->label(__('livewire.labels.city'))
                     ->placeholder(__('livewire.labels.city'))
-                    ->options(fn (Get $get) => Geo::where('country', $get('attributes.country') ?? 'CZ')?->pluck('name', 'id'))
+                    ->options(fn (Get $get) => Geo::orderBy('level')->where('country', $get('attributes.country') ?? 'CZ')?->pluck('name', 'id'))
                     ->searchable()
                     ->getSearchResultsUsing(function (string $search, Get $get) {
                         return Geo::where('country', $get('attributes.country') ?? 'CZ')
