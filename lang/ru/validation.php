@@ -145,6 +145,8 @@ return [
     'url' => 'Поле ":attribute" должно быть допустимым URL.',
     'uuid' => 'Поле ":attribute" должно быть допустимым UUID.',
 
+    'at_least_one_selected' => 'Необходимо выбрать хотя бы один элемент.',
+
     'custom' => [
         'data.categories.*' => [
             'required' => 'Вы должны выбрать хотя бы одну категорию.',

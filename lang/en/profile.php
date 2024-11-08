@@ -7,6 +7,7 @@ return [
     'saved' => 'Saved',
     'logout' => 'Logout',
     'fill_your_profile' => 'Fill your profile',
+
     'update_passport_form' => [
         'title' =>'Update Password',
         'description' => 'Ensure your account is using a long, random password to stay secure.',
@@ -29,7 +30,6 @@ return [
         'english' => 'English',
         'russian' => 'Russian',
         'czech' => 'Czech',
-        'success' => 'Communication information has been successfully updated!',
         'contact_information' => 'Contact Information',
         'contact_phone' => 'Phone number to call',
         'contact_phone_hint' => 'Users will be able to call you by this phone number',

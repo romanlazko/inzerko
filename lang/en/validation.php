@@ -158,6 +158,8 @@ return [
     'ulid' => 'The :attribute field must be a valid ULID.',
     'uuid' => 'The :attribute field must be a valid UUID.',
 
+    'at_least_one_selected' => 'At least one item must be selected.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -174,6 +176,7 @@ return [
             'required' => 'You must select at least one category.',
         ],
         'communication.*.phone.required_if_accepted' => 'The :attribute field is required.',
+        
     ],
 
     /*

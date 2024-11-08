@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Rules\AtLeastOneSelected;
+use App\Rules\AtLeastOneVisible;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +43,7 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with([
             'ok' => true, 
-            'description' => __('profile.update_profile_information_form.success')
+            'description' => __('profile.saved')
         ]);
     }
 
@@ -57,14 +59,14 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with([
             'ok' => true,
-            'description' => 'profile.update_profile_information_form.success',
+            'description' => __('profile.saved'),
         ]);
     }
 
     public function updateCommunication(Request $request): RedirectResponse
     {
         $request->validate([
-            'communication' => ['required'],
+            'communication' => ['required', 'array', new AtLeastOneSelected('visible')],
             'communication.*.phone' => ['required_if_accepted:communication.*.visible'],
             'lang' => ['required', 'array'],
             'lang.*' => ['string', 'in:en,ru,cz'],
@@ -77,7 +79,7 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with([
             'ok' => true,
-            'description' => 'profile.notifications.success',
+            'description' => __('profile.saved'),
         ]);
     }
 
@@ -99,7 +101,7 @@ class ProfileController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return back()->with('status', 'password-updated');
+        return back()->with('status', __('password-updated'));
     }
 
     /**
@@ -151,7 +153,7 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.notifications')->with([
             'ok' => true,
-            'description' => 'profile.notifications.success',
+            'description' => __('profile.saved'),
         ]);
     }
 }

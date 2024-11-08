@@ -141,9 +141,10 @@
                     </div>
                 </x-form.label>
             </div>
-        </div>
 
-        <br>
+            <x-form.error class="mt-2" :messages="$errors->get('communication')" />
+            <x-form.error class="mt-2" :messages="$errors->get('communication.*.visible')" />
+        </div>
 
         <div>
             <x-form.label :value="__('profile.update_communication_information_form.languages')" :required="true"/>
