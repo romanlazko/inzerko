@@ -46,6 +46,7 @@ return [
         'title' => 'Подключение Telegram',
         'description' => 'Подключите Telegram для получения уведомлений о новых сообщениях.',
         'connect_telegram' => 'Подключить Telegram',
+        'disconnect_telegram' => 'Отключить Telegram',
     ],
 
     'new_message_notifications_form' => [

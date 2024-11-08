@@ -45,6 +45,7 @@ return [
         'title' => 'Connect Telegram',
         'description' => 'Connect your Telegram account to get notified when you receive new messages.',
         'connect_telegram' => 'Connect Telegram',
+        'disconnect_telegram' => 'Disconnect Telegram',
     ],
 
     'verify_email' => [
