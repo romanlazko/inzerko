@@ -128,7 +128,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function isProfileFilled()
     {
-        return ! is_null($this->phone) AND ! is_null($this->lang) AND ! is_null($this->name); 
+        return ! is_null($this->communication) AND ! is_null($this->lang) AND ! is_null($this->name); 
     }
 
     public function isSuperAdmin()
