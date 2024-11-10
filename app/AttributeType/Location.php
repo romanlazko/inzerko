@@ -23,7 +23,7 @@ class Location extends BaseAttributeType
         parent::__construct($attribute, $data);
     }
 
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return Grid::make(2)
             ->schema([

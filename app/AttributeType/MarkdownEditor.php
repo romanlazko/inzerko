@@ -9,7 +9,7 @@ use Filament\Support\Components\ViewComponent;
 
 class MarkdownEditor extends BaseAttributeType
 {
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return ComponentsMarkdownEditor::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)

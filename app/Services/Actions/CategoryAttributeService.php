@@ -32,6 +32,12 @@ class CategoryAttributeService
                 ->load('createSection:id,order_number,alternames,is_visible');
     }
 
+    public static function forUpdate(Category|null $category)
+    {
+        return self::getAttributesByCategory($category)
+                ->load('createSection:id,order_number,alternames,is_visible');
+    }
+
     public static function getAttributesByCategory(Category|null $category)
     {
         $categories = $category?->getParentsAndSelf()?->pluck('id')->toArray();

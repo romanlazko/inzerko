@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\SearchRequest;
 use App\Livewire\Pages\Admin\Announcement\Announcements;
+use App\Livewire\Pages\Admin\Announcement\Edit;
 use App\Livewire\Pages\Admin\Announcement\EditAnnouncement;
 use App\Livewire\Pages\Admin\Announcement\Moderation;
 use App\Livewire\Pages\Admin\CMS\Pages;
@@ -79,7 +80,7 @@ Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('a
     Route::name('announcement.')->prefix('announcement')->group(function () {
         Route::get('announcements', Announcements::class)->name('announcements');
         Route::get('moderation', Moderation::class)->name('moderation');
-        Route::get('edit/{announcement}', EditAnnouncement::class)->name('edit');
+        Route::get('edit/{announcement}', Edit::class)->name('edit');
     });
 
     Route::name('setting.')->prefix('setting')->group(function () {

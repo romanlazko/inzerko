@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Livewire\Components\Announcement;
+namespace App\Livewire\Pages\Admin\Announcement;
 
 use App\AttributeType\AttributeFactory;
 use App\Livewire\Components\Forms\Fields\Wizard;
+use App\Livewire\Layouts\AdminEditFormLayout;
 use App\Livewire\Traits\AnnouncementCrud;
 use App\Models\Announcement;
 use App\Models\Category;
@@ -29,10 +30,8 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\HtmlString;
 
-class Create extends Component implements HasForms
+class Edit extends AdminEditFormLayout
 {
-    use InteractsWithForms, AnnouncementCrud;
-
     public ?array $data = [
         'geo_id' => null,
         'attachments' => null,
@@ -40,16 +39,30 @@ class Create extends Component implements HasForms
             'description' => '',
             'country' => 'CZ',
         ],
+        'categories' => [],
         'category_id' => null
     ];
+
+    public $parent_categories;
 
     protected $schema = [];
 
     public $category_attributes = null;
 
-    public function mount(): void
+    protected $categories = null;
+
+    // public function mount(): void
+    // {
+    //     $this->form->fill(session('data') ?? $this->data);
+    //     $this->parent_categories = Category::where('parent_id', null)->isActive()->get()->pluck('name', 'id');
+    // }
+
+    public Announcement $announcement;
+
+    public function mount(Announcement $announcement): void
     {
-        $this->form->fill(session('data') ?? $this->data);
+        $this->form->fill($this->setData($announcement));
+        $this->parent_categories = Category::where('parent_id', null)->isActive()->get()->pluck('name', 'id');
     }
 
     public function render(): View
@@ -71,36 +84,33 @@ class Create extends Component implements HasForms
                         ->icon('heroicon-m-x-mark')
                         ->action(fn () => $this->resetData()),
                 ]),
-                Wizard::make([
+                Wizard::make(fn (Get $get, Set $set) => [
                     Step::make('categories')
                         ->schema([
                             Section::make(__('livewire.category'))
                                 ->schema([
                                     SelectTree::make('category_id')
-                                        ->label(__('livewire.category'))
                                         ->relationship('category', 'name', 'parent_id')
-                                        ->placeholder(__('Please select a category'))
-                                        ->required()
                                 ]),
                         ])
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('features')
-                        ->schema($this->getFormSchema())
+                        ->schema(fn (Set $set) => $this->getFormSchema($set))
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
-                    Step::make('photos')
-                        ->visible(Category::find($this->data['category_id'])?->has_attachments ?? false)
-                        ->schema([
-                            Section::make(__('livewire.photos'))
-                                ->schema([
-                                    SpatieMediaLibraryFileUpload::make('attachments')
-                                        ->hiddenLabel()
-                                        ->multiple()
-                                        ->image()
-                                        ->imagePreviewHeight('120')
-                                        ->required(),
-                                ]),
-                        ])
-                        ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
+                    // Step::make('photos')
+                    //     ->visible(Category::find($this->data['category_id'])?->has_attachments ?? false)
+                    //     ->schema([
+                    //         Section::make(__('livewire.photos'))
+                    //             ->schema([
+                    //                 SpatieMediaLibraryFileUpload::make('attachments')
+                    //                     ->hiddenLabel()
+                    //                     ->multiple()
+                    //                     ->image()
+                    //                     ->imagePreviewHeight('120')
+                    //                     ->required(),
+                    //             ]),
+                    //     ])
+                    //     ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     
                 ])
                 ->submitAction(new HtmlString(Blade::render(<<<BLADE
@@ -110,11 +120,12 @@ class Create extends Component implements HasForms
                 BLADE)))
                 ->contained(false)
             ])
-            ->model(Announcement::class)
-            ->statePath('data');
+            
+            ->statePath('data')
+            ->model($this->announcement);
     }
 
-    public function create(): void
+    public function update(): void
     {
         $this->validate();
 
@@ -130,13 +141,13 @@ class Create extends Component implements HasForms
         $this->redirectRoute('profile.my-announcements');
     }
 
-    public function getFormSchema(): array
+    public function getFormSchema(Set $set = null): array
     {
-        return CategoryAttributeService::forCreate(Category::find($this->data['category_id']))
+        return CategoryAttributeService::forUpdate(Category::find($this->data['category_id']))
             ?->sortBy('createSection.order_number')
             ?->groupBy('createSection.name')
-            ?->map(function ($section, $section_name) {
-                $fields = $this->getFields($section);
+            ?->map(function ($section, $section_name) use ($set) {
+                $fields = $this->getFields($section, $set);
                 
                 if ($fields->isNotEmpty()) {
                     return Section::make($section_name)
@@ -161,7 +172,7 @@ class Create extends Component implements HasForms
     {
         return $section
             ->sortBy('create_layout->order_number')
-            ->map(fn ($attribute) => 
+            ->map(fn ($attribute) =>
                 AttributeFactory::getCreateComponent($attribute)
             )
             ->filter();
@@ -173,5 +184,24 @@ class Create extends Component implements HasForms
         session()->forget('data');
         $this->reset('data');
         $this->form->fill($this->data);
+    }
+
+    private function setData($announcement)
+    {
+        $data = [
+            'geo_id' => $announcement->geo_id,
+            'attachments' => null,
+            'attributes' => [
+                'description' => '',
+                'country' => 'CZ',
+            ],
+            'category_id' => $announcement->category_id
+        ];
+
+        foreach ($announcement->features as $feature) {
+            $data['attributes'][$feature->attribute->name] = $feature->original;
+        }
+
+        return $data;
     }
 }

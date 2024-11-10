@@ -2,6 +2,7 @@
 
 namespace App\AttributeType;
 
+use App\Models\Feature;
 use Filament\Forms\Get;
 use Guava\FilamentClusters\Forms\Cluster;
 use Filament\Forms\Components\TextInput as ComponentsTextInput;
@@ -27,7 +28,7 @@ class FromTo extends Between
             );
     }
 
-    protected function fakeData(): array
+    protected function getFakeSchema(): array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -40,15 +41,15 @@ class FromTo extends Between
         ];
     }
 
-    protected function getFeatureValue(null|string|array $translated_value = null): ?string
+    protected function getValue(Feature $feature = null): ?string
     {
         return implode('-', array_filter([
-            'from' => $translated_value['from'] ?? null,
-            'to' => $translated_value['to'] ?? null,
+            $feature?->translated_value['original']['from'] ?? null,
+            $feature?->translated_value['original']['to'] ?? null,
         ]));
     }
 
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {   
         return Cluster::make([
             ComponentsTextInput::make('attributes.'.$this->attribute->name.'.from')

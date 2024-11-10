@@ -4,6 +4,7 @@ namespace App\AttributeType;
 
 use App\Models\Attribute;
 use App\Models\Feature;
+use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -31,63 +32,10 @@ class AttributeFactory
 
     /**
      * @param Attribute $attribute
-     * @return ?ViewComponent
-     */
-    public static function getFilterComponent(Attribute $attribute) : ?ViewComponent
-    {
-        return self::getFilterClass($attribute)?->getFilterComponent();
-    }
-
-    /**
-     * @param Attribute $attribute
-     * @param array|null $data
-     * @param Builder|null $query
-     * @return ?Builder
-     */
-    public static function applyFilterQuery(Attribute $attribute, ?array $data = [], Builder $query = null) : ?Builder
-    {
-        return self::getFilterClass($attribute, $data)?->filter($query);
-    }
-
-    /**
-     * @param Attribute $attribute
-     * @param array|null $data
-     * @param Builder|null $query
-     * @return ?Builder
-     */
-    public static function applySearchQuery(Attribute $attribute, ?array $data = [], Builder $query = null) : ?Builder
-    {
-        return self::getFilterClass($attribute, $data)?->search($query) ?? $query;
-    }
-
-    /**
-     * @param Attribute $attribute
-     * @param array|null $data
-     * @param Builder|null $query
-     * @return ?Builder
-     */
-    public static function applyAlternativeSearchQuery(Attribute $attribute, ?array $data = [], Builder $query = null) : ?Builder
-    {
-        return self::getFilterClass($attribute, $data)?->alternativeSearch($query);
-    }
-
-    /**
-     * @param Attribute $attribute
-     * @param string $destination
-     * @param Builder|null $query
-     * @return ?Builder
-     */
-    public static function applySortQuery(Attribute $attribute, Builder $query = null, string $direction = 'asc') : ?Builder
-    {
-        return self::getCreateClass($attribute)?->sort($query, $direction) ?? $query;
-    }
-
-    /**
-     * @param Attribute $attribute
      * @param array|null $data
      * @return array
      */
-    public static function getCreateSchema(Attribute $attribute, ?array  $data = []) : ?array
+    public static function getCreateSchema(Attribute $attribute, ?array $data = []) : ?array
     {
         return self::getCreateClass($attribute, $data)?->getCreateSchema();
     }
@@ -104,12 +52,52 @@ class AttributeFactory
 
     /**
      * @param Attribute $attribute
+     * @return ?ViewComponent
+     */
+    public static function getFilterComponent(Attribute $attribute) : ?ViewComponent
+    {
+        return self::getFilterClass($attribute)?->getFilterComponent();
+    }
+
+    /**
+     * @param Attribute $attribute
+     * @param array|null $data
+     * @param Builder|null $query
+     * @return ?Builder
+     */
+    public static function applyFilterQuery(Attribute $attribute, ?array $data = [], Builder $query = null) : ?Builder
+    {
+        return self::getFilterClass($attribute, $data)?->applyFilterQuery($query);
+    }
+
+    /**
+     * @param Attribute $attribute
+     * @param string $destination
+     * @param Builder|null $query
+     * @return ?Builder
+     */
+    public static function applySortQuery(Attribute $attribute, Builder $query = null, string $direction = 'asc') : ?Builder
+    {
+        return self::getCreateClass($attribute)?->applySortQuery($query, $direction) ?? $query;
+    }
+
+    /**
+     * @param Attribute $attribute
      * @param Feature|null $feature
      * @return ?string
      */
     public static function getValueByFeature(Attribute $attribute, Feature $feature = null) : ?string
     {
         return self::getShowClass($attribute)?->getValueByFeature($feature);
+    }
+
+    /**
+     * @param Attribute $attribute
+     * @return ?ViewComponent
+     */
+    public static function getOriginalByFeature(Attribute $attribute, Feature $feature = null) : mixed
+    {
+        return self::getCreateClass($attribute)?->getOriginalByFeature($feature);
     }
 
     /**
@@ -134,10 +122,10 @@ class AttributeFactory
      */
     private static function getClass(?array $layout, Attribute $attribute, ?array $data = []) : ?AbstractAttributeType
     {
-        $namespace = self::getNamespace($layout['type'] ?? 'hidden');
+        $className = self::getClassName($layout['type'] ?? 'hidden');
 
-        if (class_exists($namespace)) {
-            return new $namespace($attribute, $data);
+        if (class_exists($className)) {
+            return new $className($attribute, $data);
         }
 
         return null;
@@ -149,7 +137,7 @@ class AttributeFactory
      * @param string $type The type for which to retrieve the namespace.
      * @return string The namespace corresponding to the given type.
      */
-    private static function getNamespace(string $type) : string
+    private static function getClassName(string $type) : string
     {
         return self::$namespace . str_replace('_', '', ucwords($type, '_'));
     }

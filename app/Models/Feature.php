@@ -44,19 +44,19 @@ class Feature extends Model
         $this->attributes['translated_value'] = json_encode($value, JSON_UNESCAPED_UNICODE);
     }
 
-    public function getValueAttribute()
+    public function getValueAttribute(): ?string
     {
         return AttributeFactory::getValueByFeature($this->attribute, $this);
+    }
+
+    public function getOriginalAttribute(): mixed
+    {
+        return AttributeFactory::getOriginalByFeature($this->attribute, $this);
     }
 
     public function getLabelAttribute()
     {
         return $this->attribute->label;
-    }
-
-    public function getSuffixAttribute()
-    {
-        return $this->attribute->suffix;
     }
 
     public function scopeForAnnouncementCard($query)

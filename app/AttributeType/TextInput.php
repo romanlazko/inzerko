@@ -8,7 +8,7 @@ use Filament\Support\Components\ViewComponent;
 
 class TextInput extends BaseAttributeType
 {
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return ComponentsTextInput::make('attributes.'.$this->attribute->name)
                 ->label($this->attribute->label)
@@ -17,7 +17,7 @@ class TextInput extends BaseAttributeType
                 ->required($this->attribute->is_required);
     }
 
-    protected function getFilamentFilterComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentFilterComponent(): ?ViewComponent
     {
         return ComponentsTextInput::make('attributes.'.$this->attribute->name)
                 ->label($this->attribute->label)

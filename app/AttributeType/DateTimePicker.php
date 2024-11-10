@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Builder;
 
 class DateTimePicker extends BaseAttributeType
 {   
-    public function getValueByFeature(Feature $feature = null) : ?string
+    public function getValue(Feature $feature = null) : ?string
     {
-        return Carbon::parse($feature->translated_value['original'])->format('Y-m-d H:i:s');
+        return Carbon::parse($feature?->translated_value['original'])->format('Y-m-d H:i:s');
     }
 
-    protected function schema(): array
+    protected function getSchema(): array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -27,7 +27,7 @@ class DateTimePicker extends BaseAttributeType
         ];
     }
 
-    protected function fakeData(): array
+    protected function getFakeSchema(): array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -37,7 +37,7 @@ class DateTimePicker extends BaseAttributeType
         ];
     }
 
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return ComponentsDateTimePicker::make('attributes.'.$this->attribute->name)
                 ->label($this->attribute->label)
@@ -49,7 +49,7 @@ class DateTimePicker extends BaseAttributeType
                 });
     }
 
-    protected function getFilamentFilterComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentFilterComponent(): ?ViewComponent
     {
         return ComponentsDateTimePicker::make('attributes.'.$this->attribute->name)
                 ->label($this->attribute->label);

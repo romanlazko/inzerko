@@ -8,7 +8,7 @@ use Filament\Support\Components\ViewComponent;
 
 class TextArea extends BaseAttributeType
 {
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return ComponentsTextarea::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)

@@ -24,7 +24,7 @@ class Between extends BaseAttributeType
         return $query;
     }
 
-    protected function getFilamentFilterComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentFilterComponent(): ?ViewComponent
     {   
         return Cluster::make([
             ComponentsTextInput::make('attributes.'.$this->attribute->name.'.from')
@@ -43,8 +43,8 @@ class Between extends BaseAttributeType
             ->columns(['default' => 2]);
     }
 
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {   
-        return (new TextInput($this->attribute, $this->data))->getFilamentCreateComponent($get);
+        return (new TextInput($this->attribute, $this->data))->getFilamentCreateComponent();
     }
 }

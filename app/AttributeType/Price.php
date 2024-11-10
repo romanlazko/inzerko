@@ -8,18 +8,17 @@ use Filament\Forms\Get;
 use Filament\Forms\Components\TextInput as ComponentsTextInput;
 use Filament\Support\Components\ViewComponent;
 use Filament\Forms\Components\Select as ComponentsSelect;
+use Filament\Forms\Set;
 use Illuminate\Support\Number;
 
 class Price extends Between
 {
-    public function getValueByFeature(Feature $feature = null) : ?string
+    public function getValue(Feature $feature = null) : ?string
     {
         return Number::format($feature->translated_value['original'], locale: 'cs')  . ' ' . $feature->attribute_option?->name;
-
-        return $amount;
     }
 
-    protected function schema(): array
+    protected function getSchema(): array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -30,7 +29,7 @@ class Price extends Between
         ];
     }
 
-    protected function fakeData(): array
+    protected function getFakeSchema(): array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -41,7 +40,7 @@ class Price extends Between
         ];
     }
 
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {   
         return Grid::make()
             ->schema([
@@ -57,5 +56,13 @@ class Price extends Between
                     ->columnSpan(['default' => 'full', 'md' => 1]),
             ])
             ->columns(3);
+    }
+
+    public function getOriginalValue(Feature $feature = null): mixed
+    {
+        return [
+            'amount' => $feature?->translated_value['original'],
+            'currency' => $feature?->attribute_option_id
+        ];
     }
 }

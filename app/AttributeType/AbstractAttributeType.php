@@ -5,6 +5,7 @@ namespace App\AttributeType;
 use App\Models\Attribute;
 use App\Models\Feature;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -14,7 +15,47 @@ abstract class AbstractAttributeType
     {
     }
 
-    public function filter(Builder $query) : Builder
+    public function getCreateComponent(): ?ViewComponent
+    {
+        if ($this->attribute->create_layout['type'] == 'hidden') {
+            return null;
+        }
+
+        return $this->getFilamentCreateComponent()
+            ?->columnSpan(['default' => 'full', 'sm' => $this->attribute->create_layout['column_span'] ?? 'full'])
+            ?->columnStart(['default' => '1', 'sm' => $this->attribute->create_layout['column_start'] ?? '1'])
+            ?->visible(fn (Get $get) => $this->isVisible($get))
+            ?->hidden(fn (Get $get) => $this->isHidden($get));
+    }
+
+    public function getCreateSchema(): ?array
+    {
+        if ($this->isVisible() AND !$this->isHidden() AND isset($this->data[$this->attribute->name]) ) {
+            return $this->getSchema();
+        }
+
+        return null;
+    }
+
+    public function getFakeData()
+    {
+        return $this->getFakeSchema();
+    }
+
+    public function getFilterComponent(): ?ViewComponent
+    {
+        if ($this->attribute->filter_layout['type'] == 'hidden') {
+            return null;
+        }
+
+        return $this->getFilamentFilterComponent()
+            ?->columnSpan(['default' => 'full', 'sm' => $this->attribute->filter_layout['column_span'] ?? 'full'])
+            ?->columnStart(['default' => '1', 'sm' => $this->attribute->filter_layout['column_start'] ?? '1'])
+            ?->visible(fn (Get $get) => $this->isVisible($get))
+            ?->hidden(fn (Get $get) => $this->isHidden($get));
+    }
+
+    public function applyFilterQuery(Builder $query) : Builder
     {
         if ($this->isVisible() AND isset($this->data[$this->attribute->name]) AND !empty($this->data[$this->attribute->name]) AND $this->data[$this->attribute->name] != null) {
             $query->whereHas('features', function ($query) {
@@ -25,7 +66,7 @@ abstract class AbstractAttributeType
         return $query;
     }
 
-    public function sort(Builder $query, $direction = 'asc') : Builder
+    public function applySortQuery(Builder $query, $direction = 'asc') : Builder
     {
         return $this->getSortQuery($query, $direction);
     }
@@ -34,54 +75,14 @@ abstract class AbstractAttributeType
     {
         return implode(' ', array_filter([
             $this->attribute->prefix,
-            $feature->attribute_option?->name ?? $this->getTranslatedValue($feature->translated_value),
+            $this->getValue($feature),
             $this->attribute->suffix
         ]));
     }
 
-    public function getFakeData()
+    public function getOriginalByFeature(Feature $feature = null) : mixed
     {
-        return $this->fakeData();
-    }
-
-    private function getTranslatedValue($translated_value)
-    {
-        return $this->getFeatureValue($translated_value[app()->getLocale()] ?? $translated_value['original'] ?? null);
-    }
-
-    public function getCreateSchema(): ?array
-    {
-        if ($this->isVisible() AND !$this->isHidden() AND isset($this->data[$this->attribute->name]) ) {
-            return $this->schema();
-        }
-
-        return null;
-    }
-
-    public function getCreateComponent(Get $get = null): ?ViewComponent
-    {
-        if ($this->attribute->create_layout['type'] == 'hidden') {
-            return null;
-        }
-
-        return $this->getFilamentCreateComponent($get)
-            ?->columnSpan(['default' => 'full', 'sm' => $this->attribute->create_layout['column_span'] ?? 'full'])
-            ?->columnStart(['default' => '1', 'sm' => $this->attribute->create_layout['column_start'] ?? '1'])
-            ?->visible(fn (Get $get) => $this->isVisible($get))
-            ?->hidden(fn (Get $get) => $this->isHidden($get));
-    }
-
-    public function getFilterComponent(Get $get = null): ?ViewComponent
-    {
-        if ($this->attribute->filter_layout['type'] == 'hidden') {
-            return null;
-        }
-
-        return $this->getFilamentFilterComponent($get)
-            ?->columnSpan(['default' => 'full', 'sm' => $this->attribute->filter_layout['column_span'] ?? 'full'])
-            ?->columnStart(['default' => '1', 'sm' => $this->attribute->filter_layout['column_start'] ?? '1'])
-            ?->visible(fn (Get $get) => $this->isVisible($get))
-            ?->hidden(fn (Get $get) => $this->isHidden($get));
+        return $this->getOriginalValue($feature);
     }
 
     protected function isVisible(Get $get = null): bool
@@ -124,17 +125,15 @@ abstract class AbstractAttributeType
         return false;
     }
 
-    protected abstract function schema(): ?array;
+    protected abstract function getFilamentCreateComponent(): ?ViewComponent;
+    protected abstract function getSchema(): ?array;
+    protected abstract function getFakeSchema(): ?array;
 
-    protected abstract function fakeData(): ?array;
-
+    protected abstract function getFilamentFilterComponent(): ?ViewComponent;
     protected abstract function getFilterQuery(Builder $query) : Builder;
-
     protected abstract function getSortQuery(Builder $query, $direction = 'asc') : Builder;
 
-    protected abstract function getFeatureValue(null|string|array $translated_value = null): ?string;
 
-    protected abstract function getFilamentCreateComponent(Get $get = null): ?ViewComponent;
-
-    protected abstract function getFilamentFilterComponent(Get $get = null): ?ViewComponent;
+    protected abstract function getValue(Feature $feature = null): ?string;
+    protected abstract function getOriginalValue(Feature $feature): mixed;
 }

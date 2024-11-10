@@ -2,13 +2,15 @@
 
 namespace App\AttributeType;
 
+use App\Models\Feature;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Database\Eloquent\Builder;
 
 class BaseAttributeType extends AbstractAttributeType
 {
-    protected function getSortQuery(Builder $query, $direction = 'asc') : Builder
+    protected function getSortQuery(Builder $query, $direction = 'asc'): Builder
     {
         return $query->select('sort.translated_value', 'announcements.*')->rightJoin('features as sort', function($join) {
                 $join->on('announcements.id', '=', 'sort.announcement_id')
@@ -17,12 +19,18 @@ class BaseAttributeType extends AbstractAttributeType
             ->orderByRaw('CAST(JSON_UNQUOTE(JSON_EXTRACT(sort.translated_value, "$.original")) AS UNSIGNED) ' . $direction);
     }
 
-    protected function getFilterQuery(Builder $query) : Builder
+    protected function getFilterQuery(Builder $query): Builder
     {
-        return $query;
+        return $query->where('attribute_id', $this->attribute->id)
+            ->when($this->attribute->attribute_options->isNotEmpty(), fn ($query) =>
+                $query->where('attribute_option_id', $this->data[$this->attribute->name])
+            )
+            ->when($this->attribute->attribute_options->isEmpty(), fn ($query) =>
+                $query->where('translated_value->original', $this->data[$this->attribute->name])
+            );
     }
 
-    protected function schema(): array
+    protected function getSchema(): array
     {
         if ($this->attribute->attribute_options->isNotEmpty()) {
             return [
@@ -39,7 +47,7 @@ class BaseAttributeType extends AbstractAttributeType
         ];
     }
 
-    protected function fakeData(): array
+    protected function getFakeSchema(): array
     {
         if ($this->attribute->attribute_options->isNotEmpty()) {
             return [
@@ -59,21 +67,26 @@ class BaseAttributeType extends AbstractAttributeType
         ];
     }
 
-    protected function getFeatureValue(null|string|array $translated_value = null): ?string
+    protected function getValue(Feature $feature = null): ?string
     {
-        if (is_array($translated_value)) {
-            return implode('-', array_filter($translated_value));
-        }
-
-        return $translated_value;
+        return $feature->attribute_option?->name ?? $feature->translated_value[app()->getLocale()] ?? $feature->translated_value['original'] ?? null;
     }
 
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    public function getOriginalValue(Feature $feature): mixed
+    {
+        if ($this->attribute->attribute_options->isNotEmpty()) {
+            return $feature->attribute_option_id;
+        }
+
+        return $feature->translated_value['original'];
+    }
+
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return null;
     }
 
-    protected function getFilamentFilterComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentFilterComponent(): ?ViewComponent
     {
         return null;
     }
