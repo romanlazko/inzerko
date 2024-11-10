@@ -71,6 +71,7 @@ class ProfileController extends Controller
             'lang' => ['required', 'array'],
             'lang.*' => ['string', 'in:en,ru,cz'],
         ]);
+        
 
         $request->user()->update([
             'communication' => $request->communication,
