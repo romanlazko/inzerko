@@ -85,7 +85,7 @@
                                 {{ __('Features') }}
                             </h2>
 
-                            <div class="space-y-3 sm:space-y-0 sm:gap-6 grid grid-cols-2 ">
+                            <div class="space-y-3 sm:space-y-0 sm:gap-6 grid grid-cols-1 ">
                                 @foreach ($announcement->features->where('attribute.is_feature')->sortBy('attribute.showSection.order_number')->groupBy('attribute.showSection.name') as $section_name => $feature_section)
                                     <div class="space-y-2">
                                         <h4 class="font-bold text-sm">
