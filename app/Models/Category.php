@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CardLayout;
 use App\Models\Traits\CacheRelationship;
 use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +27,7 @@ class Category extends Model implements HasMedia
         'alternames' => 'array',
         'is_active' => 'boolean',
         'has_attachments' => 'boolean',
+        'card_layout' => CardLayout::class
     ];
 
     public function getSlugOptions() : SlugOptions

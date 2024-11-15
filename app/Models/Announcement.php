@@ -33,6 +33,14 @@ class Announcement extends Model implements HasMedia, Auditable
 
     protected $guarded = [];
 
+    protected $fillable = [
+        'user_id',
+        'slug',
+        'geo_id',
+        'current_status',
+        'category_id',
+    ];
+
     protected $casts = [
         'current_status' => Status::class,
     ];
@@ -52,7 +60,7 @@ class Announcement extends Model implements HasMedia, Auditable
             })
             ->preventOverwrite()
             ->skipGenerateWhen(function () {
-                return $this->features->isEmpty();
+                return is_array($this->features) ?? $this->features?->isEmpty();
             })
             ->doNotGenerateSlugsOnCreate()
             ->saveSlugsTo('slug');
@@ -167,7 +175,7 @@ class Announcement extends Model implements HasMedia, Auditable
     {
         $group = $this->getGroupByName('description');
 
-        return $group?->pluck('value')->implode($this->getGroupSeparator($group));
+        return str($group?->pluck('value')->implode($this->getGroupSeparator($group)))->sanitizeHtml();
     }
 
     private function getGroupSeparator($group)

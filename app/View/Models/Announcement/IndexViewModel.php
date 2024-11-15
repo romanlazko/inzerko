@@ -34,7 +34,7 @@ class IndexViewModel
         }
 
         return Cache::remember($this->request->route('category').'_category', config('cache.ttl'), function () {
-            return Category::select('id', 'slug', 'parent_id', 'is_active', 'alternames')
+            return Category::select('id', 'slug', 'parent_id', 'is_active', 'alternames', 'card_layout')
                 ->where('slug', $this->request->route('category'))
                 ->isActive()
                 ->first();

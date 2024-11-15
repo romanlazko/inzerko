@@ -34,27 +34,25 @@ class Create extends Component implements HasForms
     use InteractsWithForms, AnnouncementCrud;
 
     public ?array $data = [
+        'attachments' => [],
+        'category_id' => null,
         'geo_id' => null,
-        'attachments' => null,
         'attributes' => [
             'description' => '',
-            'country' => 'CZ',
         ],
-        'category_id' => null
     ];
 
-    protected $schema = [];
-
-    public $category_attributes = null;
-
+    public $categories;
+    
     public function mount(): void
     {
-        $this->form->fill(session('data') ?? $this->data);
+        $this->categories = Category::all();
+        $this->form->fill(session('create_data', $this->data));
     }
 
     public function render(): View
     {
-        session()->put('data', array_diff_key($this->data, ['attachments' => ""]));
+        session()->put('create_data', array_diff_key($this->data, ['attachments' => ""]));
 
         return view('livewire.components.announcement.create');
     }
@@ -81,18 +79,20 @@ class Create extends Component implements HasForms
                                         ->relationship('category', 'name', 'parent_id')
                                         ->placeholder(__('Please select a category'))
                                         ->required()
+                                        ->live()
                                 ]),
                         ])
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('features')
-                        ->schema($this->getFormSchema())
+                        ->schema(fn (Get $get) => $this->getSections($get('category_id')))
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('photos')
-                        ->visible(Category::find($this->data['category_id'])?->has_attachments ?? false)
+                        ->visible(fn (Get $get) => $this->categories->find($get('category_id'))?->has_attachments ?? false)
                         ->schema([
                             Section::make(__('livewire.photos'))
                                 ->schema([
                                     SpatieMediaLibraryFileUpload::make('attachments')
+                                        ->collection('announcements')
                                         ->hiddenLabel()
                                         ->multiple()
                                         ->image()
@@ -118,9 +118,11 @@ class Create extends Component implements HasForms
     {
         $this->validate();
 
-        $this->createAnnouncement((object) $this->data);
+        $announcement = $this->createAnnouncement((object) $this->form->getState());
 
-        session()->forget('data');
+        $this->form->model($announcement)->saveRelationships();
+
+        session()->forget('create_data');
 
         $this->afterCreating();
     }
@@ -130,9 +132,9 @@ class Create extends Component implements HasForms
         $this->redirectRoute('profile.my-announcements');
     }
 
-    public function getFormSchema(): array
+    public function getSections($category_id): array
     {
-        return CategoryAttributeService::forCreate(Category::find($this->data['category_id']))
+        return CategoryAttributeService::forCreate($this->categories->find($category_id))
             ?->sortBy('createSection.order_number')
             ?->groupBy('createSection.name')
             ?->map(function ($section, $section_name) {
@@ -170,7 +172,7 @@ class Create extends Component implements HasForms
     private function resetData()
     {
         $this->dispatch('reset-form');
-        session()->forget('data');
+        session()->forget('create_data');
         $this->reset('data');
         $this->form->fill($this->data);
     }

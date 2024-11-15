@@ -5,6 +5,7 @@ return [
     'category' => 'Категория',
     'photos' => 'Фотографии',
     'create' => 'Создать',
+    'update' => 'Обновить',
     'features' => 'Особенности',
     'information' => 'Информация',
     'location' => 'Местоположение',

@@ -5,6 +5,7 @@ return [
     'category' => 'Category',
     'photos' => 'Photos',
     'create' => 'Create',
+    'update' => 'Update',
     'features' => 'Features',
     'information' => 'Information',
     'location' => 'Location',

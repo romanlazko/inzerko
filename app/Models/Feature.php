@@ -63,7 +63,7 @@ class Feature extends Model
     {
         $title_price_attributes = Cache::remember('title_price_attributes', config('cache.ttl'), function () {
             return Attribute::whereHas('group', fn ($query) => 
-                $query->whereIn('slug', ['title', 'price'])
+                $query->whereIn('slug', ['title', 'price', 'description'])
             )
             ->pluck('id');
         });

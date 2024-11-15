@@ -14,62 +14,34 @@ use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard\Step;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\HtmlString;
 
 class Edit extends AdminEditFormLayout
 {
+    use AnnouncementCrud;
+
     public ?array $data = [
-        'geo_id' => null,
-        'attachments' => null,
-        'attributes' => [
-            'description' => '',
-            'country' => 'CZ',
-        ],
-        'categories' => [],
-        'category_id' => null
     ];
 
-    public $parent_categories;
-
-    protected $schema = [];
-
-    public $category_attributes = null;
-
-    protected $categories = null;
-
-    // public function mount(): void
-    // {
-    //     $this->form->fill(session('data') ?? $this->data);
-    //     $this->parent_categories = Category::where('parent_id', null)->isActive()->get()->pluck('name', 'id');
-    // }
+    public $categories;
 
     public Announcement $announcement;
 
     public function mount(Announcement $announcement): void
     {
+        $this->categories = Category::all();
         $this->form->fill($this->setData($announcement));
-        $this->parent_categories = Category::where('parent_id', null)->isActive()->get()->pluck('name', 'id');
     }
 
     public function render(): View
     {
-        session()->put('data', array_diff_key($this->data, ['attachments' => ""]));
-
-        return view('livewire.components.announcement.create');
+        return view('livewire.components.announcement.edit');
     }
 
     public function form(Form $form): Form
@@ -84,38 +56,42 @@ class Edit extends AdminEditFormLayout
                         ->icon('heroicon-m-x-mark')
                         ->action(fn () => $this->resetData()),
                 ]),
-                Wizard::make(fn (Get $get, Set $set) => [
+                Wizard::make([
                     Step::make('categories')
                         ->schema([
                             Section::make(__('livewire.category'))
                                 ->schema([
                                     SelectTree::make('category_id')
+                                        ->label(__('livewire.category'))
                                         ->relationship('category', 'name', 'parent_id')
+                                        ->placeholder(__('Please select a category'))
+                                        ->required()
+                                        ->live()
                                 ]),
                         ])
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('features')
-                        ->schema(fn (Set $set) => $this->getFormSchema($set))
+                        ->schema(fn (Get $get) => $this->getSections($get('category_id')))
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
-                    // Step::make('photos')
-                    //     ->visible(Category::find($this->data['category_id'])?->has_attachments ?? false)
-                    //     ->schema([
-                    //         Section::make(__('livewire.photos'))
-                    //             ->schema([
-                    //                 SpatieMediaLibraryFileUpload::make('attachments')
-                    //                     ->hiddenLabel()
-                    //                     ->multiple()
-                    //                     ->image()
-                    //                     ->imagePreviewHeight('120')
-                    //                     ->required(),
-                    //             ]),
-                    //     ])
-                    //     ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
-                    
+                    Step::make('photos')
+                        ->visible(fn (Get $get) => $this->categories->find($get('category_id'))?->has_attachments ?? false)
+                        ->schema([
+                            Section::make(__('livewire.photos'))
+                                ->schema([
+                                    SpatieMediaLibraryFileUpload::make('attachments')
+                                        ->collection('announcements')
+                                        ->hiddenLabel()
+                                        ->multiple()
+                                        ->image()
+                                        ->imagePreviewHeight('120')
+                                        ->required(),
+                                ]),
+                        ])
+                        ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                 ])
                 ->submitAction(new HtmlString(Blade::render(<<<BLADE
                     <x-filament.submit>
-                        {{ __('livewire.create') }}
+                        {{ __('livewire.update') }}
                     </x-filament.submit>
                 BLADE)))
                 ->contained(false)
@@ -129,25 +105,25 @@ class Edit extends AdminEditFormLayout
     {
         $this->validate();
 
-        $this->createAnnouncement((object) $this->data);
+        $this->updateAnnouncement($this->announcement, (object) $this->form->getState());
 
-        session()->forget('data');
+        $this->form->model($this->announcement)->saveRelationships();
 
-        $this->afterCreating();
+        $this->afterUpdating();
     }
 
-    public function afterCreating()
+    public function afterUpdating()
     {
-        $this->redirectRoute('profile.my-announcements');
+        $this->redirectRoute('admin.announcement.announcements');
     }
 
-    public function getFormSchema(Set $set = null): array
+    public function getSections($category_id): array
     {
-        return CategoryAttributeService::forUpdate(Category::find($this->data['category_id']))
+        return CategoryAttributeService::forUpdate($this->categories->find($category_id))
             ?->sortBy('createSection.order_number')
             ?->groupBy('createSection.name')
-            ?->map(function ($section, $section_name) use ($set) {
-                $fields = $this->getFields($section, $set);
+            ?->map(function ($section, $section_name) {
+                $fields = $this->getFields($section);
                 
                 if ($fields->isNotEmpty()) {
                     return Section::make($section_name)
@@ -181,7 +157,6 @@ class Edit extends AdminEditFormLayout
     private function resetData()
     {
         $this->dispatch('reset-form');
-        session()->forget('data');
         $this->reset('data');
         $this->form->fill($this->data);
     }
@@ -190,12 +165,7 @@ class Edit extends AdminEditFormLayout
     {
         $data = [
             'geo_id' => $announcement->geo_id,
-            'attachments' => null,
-            'attributes' => [
-                'description' => '',
-                'country' => 'CZ',
-            ],
-            'category_id' => $announcement->category_id
+            'category_id' => $announcement->category_id,
         ];
 
         foreach ($announcement->features as $feature) {

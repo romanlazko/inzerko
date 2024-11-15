@@ -18,6 +18,7 @@ trait HasTypeOptions
             'between'   => 'Между',
             'from_to'   => 'From-To',
             'markdown_editor' => 'Markdown Editor',
+            'rich_editor' => 'Rich Editor',
         ],
         'other' => [
             'location'  => 'Местоположение',

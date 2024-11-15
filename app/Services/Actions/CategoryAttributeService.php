@@ -13,8 +13,7 @@ class CategoryAttributeService
 {
     public static function forFilter(Category|null $category)
     {
-        return self::getAttributesByCategory($category)
-            ->load('filterSection:id,order_number,alternames');
+        return self::getAttributesByCategory($category);
     }
 
     public static function forSorting(Category|null $category)
@@ -28,14 +27,13 @@ class CategoryAttributeService
 
     public static function forCreate(Category|null $category)
     {
-        return self::getAttributesByCategory($category)
-                ->load('createSection:id,order_number,alternames,is_visible');
+        return self::getAttributesByCategory($category);
+                // ->load('createSection:id,order_number,alternames,is_visible');
     }
 
     public static function forUpdate(Category|null $category)
     {
-        return self::getAttributesByCategory($category)
-                ->load('createSection:id,order_number,alternames,is_visible');
+        return self::getAttributesByCategory($category);
     }
 
     public static function getAttributesByCategory(Category|null $category)

@@ -4,7 +4,6 @@ namespace App\AttributeType;
 
 use App\Facades\Purifier;
 use Filament\Forms\Components\MarkdownEditor as ComponentsMarkdownEditor;
-use Filament\Forms\Get;
 use Filament\Support\Components\ViewComponent;
 
 class MarkdownEditor extends BaseAttributeType
@@ -21,6 +20,8 @@ class MarkdownEditor extends BaseAttributeType
                 'redo',
                 'undo',
             ])
+            ->maxLength(1000)
+            ->live()
             ->required($this->attribute->is_required)
             ->dehydrateStateUsing(fn (string $state) => Purifier::purify($state));
     }

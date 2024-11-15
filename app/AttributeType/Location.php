@@ -3,51 +3,33 @@
 namespace App\AttributeType;
 
 use App\Models\Attribute;
+use App\Models\Geo;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select as ComponentsSelect;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Support\Components\ViewComponent;
-use Igaster\LaravelCities\Geo;
 use Illuminate\Support\Facades\Cache;
 
 class Location extends BaseAttributeType
 {
-    private $countries;
-
-    public function __construct(public Attribute $attribute, public $data = [])
-    {
-        $this->countries = Cache::rememberForever('countries', fn () => Geo::select('name', 'country')->where('level', 'PCLI')->get());
-
-        parent::__construct($attribute, $data);
-    }
-
     protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return Grid::make(2)
             ->schema([
-                ComponentsSelect::make('attributes.country')
-                    ->label(__('livewire.labels.country'))
-                    ->placeholder(__('livewire.labels.country'))
-                    ->options($this->countries->pluck('name', 'country'))
-                    ->searchable()
-                    ->live()
-                    ->afterStateUpdated(function (Set $set) {
-                        $set('geo_id', null);
-                    })
-                    ->required()
-                    ->default('CZ'),
                 ComponentsSelect::make('geo_id')
                     ->label(__('livewire.labels.city'))
                     ->placeholder(__('livewire.labels.city'))
-                    ->options(fn (Get $get) => Geo::orderBy('level')->where('country', $get('attributes.country') ?? 'CZ')?->pluck('name', 'id'))
+                    ->options(fn (Get $get) => Geo::orderBy('level')->where('country', 'CZ')->limit(10)->get()?->pluck('name', 'id'))
                     ->searchable()
-                    ->getSearchResultsUsing(function (string $search, Get $get) {
-                        return Geo::where('country', $get('attributes.country') ?? 'CZ')
-                            ->whereRaw('LOWER(alternames) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                    ->getSearchResultsUsing(function (string $search) {
+                        return Geo::whereRaw('LOWER(alternames) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                            ->where('country', 'CZ')
+                            ->limit(10)
+                            ->get()
                             ->pluck('name', 'id');
                     })
+                    ->getOptionLabelUsing(fn ($value): ?string => Geo::find($value)?->name)
                     ->preload()
                     ->live()
                     ->required()

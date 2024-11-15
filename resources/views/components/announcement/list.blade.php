@@ -1,4 +1,4 @@
-@props(['cols' => 1, 'layout' => 'sm', 'announcements' => [], 'paginator' => null])
+@props(['cols' => 1, 'layout' => 'default', 'announcements' => [], 'paginator' => null])
 
 <div {{ $attributes->merge(['class' => 'w-full space-y-4 lg:space-y-0 pb-4']) }}>
     @if (isset($header))
@@ -31,7 +31,7 @@
                 ])
             >
                 @foreach ($announcements as $index => $announcement)
-                    <x-announcement.card :announcement="$announcement" :layout="$layout" />
+                    <x-announcement.card :layout="$announcement->category?->card_layout->name" :announcement="$announcement" />
                 @endforeach
             </div>
 

@@ -29,8 +29,9 @@ class HomeViewModel
                 'features' => fn ($query) => $query->forAnnouncementCard(),
                 'geo',
                 'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
+                'category'
             ])
-            ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at')
+            ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at', 'announcements.category_id')
             ->isPublished()
             ->orderByDesc('announcements.created_at')
             ->paginate(30)

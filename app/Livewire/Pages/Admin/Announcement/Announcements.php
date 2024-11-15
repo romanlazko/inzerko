@@ -48,8 +48,7 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
                     }),
             ])
             ->query(Announcement::with([
-                'media', 
-                'user.media', 
+                'media',
                 'category', 
                 'channels.telegram_chat', 
                 'geo', 
@@ -90,7 +89,7 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
                         ->extraAttributes(['class' => 'text-xs']),
 
                     TextColumn::make('location')
-                        ->state(fn (Announcement $announcement) => $announcement->geo->name)
+                        ->state(fn (Announcement $announcement) => $announcement->geo?->name)
                         ->badge()
                         ->color('gray'),
 

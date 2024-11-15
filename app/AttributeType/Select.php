@@ -2,12 +2,8 @@
 
 namespace App\AttributeType;
 
-use App\Models\Feature;
 use Filament\Forms\Components\Select as ComponentsSelect;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;
-use Illuminate\Database\Eloquent\Builder;
 
 class Select extends BaseAttributeType
 {
