@@ -11,8 +11,8 @@
 
     <div class="mt-6 space-y-6 max-w-xl">
         @if (! $user->chat)
-            <form action="{{ route('inzerko_bot.telegram.connect') }}" method="post" class="mt-6 space-y-6 max-w-xl">
-                @csrf
+            <form action="{{ route('inzerko_bot.telegram.connect') }}" method="get" class="mt-6 space-y-6 max-w-xl">
+                {{-- @csrf --}}
                 <div class="flex items-center gap-4">
                     <x-buttons.primary>{{ __('profile.update_telegram_information_form.connect_telegram') }}</x-buttons.primary>
                 </div>
