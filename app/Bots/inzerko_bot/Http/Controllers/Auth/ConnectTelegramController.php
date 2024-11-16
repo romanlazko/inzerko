@@ -26,11 +26,11 @@ class ConnectTelegramController extends Controller
 
         $bot_username = Inzerko::getBotChat()->username;
 
-        Log::info("Redirecting to: https://t.me/{$bot_username}?start=connect-{$telegram_token}");
+        // Log::info("Redirecting to: https://t.me/{$bot_username}?start=connect-{$telegram_token}");
 
-        return response()->json([
-            'redirect_url' => "https://t.me/{$bot_username}?start=connect-{$telegram_token}"
-        ]);
+        // return response()->json([
+        //     'redirect_url' => "https://t.me/{$bot_username}?start=connect-{$telegram_token}"
+        // ]);
 
         return redirect('https://t.me/'.$bot_username.'?start=connect-'.$telegram_token);
     }
