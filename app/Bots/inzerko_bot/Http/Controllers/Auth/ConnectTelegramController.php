@@ -32,6 +32,8 @@ class ConnectTelegramController extends Controller
         //     'redirect_url' => "https://t.me/{$bot_username}?start=connect-{$telegram_token}"
         // ]);
 
+        return header("Location: https://t.me/{$bot_username}?start=connect-{$telegram_token}");
+
         return redirect('https://t.me/'.$bot_username.'?start=connect-'.$telegram_token);
     }
 
