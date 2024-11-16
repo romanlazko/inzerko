@@ -26,15 +26,17 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['components.nav.header', 'layouts.app'], function ($view) {
+        View::composer('*', function ($view) {
             $pages = Cache::remember('pages', config('cache.ttl'), function () {
                 return Page::where([
                     'is_active' => true,
-                    'is_header' => true
                 ])->get();
             });
 
-            $view->with('pages', $pages);
+            $view->with([
+                'header_pages' => $pages->where('is_header', true),
+                'footer_pages' => $pages->where('is_footer', true),
+            ]);
         });
         // View::composer('*', function ($view) {
         //     $locale = session('locale', config('app.locale'));

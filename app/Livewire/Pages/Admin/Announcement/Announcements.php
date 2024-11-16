@@ -69,7 +69,7 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
                             ->map
                             ->sortBy('attribute.create_layout.order_number')
                             ->flatten()
-                            ->map(fn (Feature $feature) => "{$feature->label}: ". substr($feature->value, 0, 100))
+                            ->map(fn (Feature $feature) => "{$feature->label}: ". str($feature->value)->stripTags()->limit(100))
                         )
                         ->color('neutral')
                         ->badge()

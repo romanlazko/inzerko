@@ -5,7 +5,7 @@
 
 	<div class="md:flex w-full justify-between hidden">
 		<div class="flex items-center justify-end space-x-3 text-white text-sm">
-			@foreach ($pages as $page)
+			@foreach ($header_pages as $page)
 				<x-nav.link href="{{ route('page', $page->slug) }}" :active="request()->routeIs('page', $page->slug) AND request()->page?->slug == $page->slug">
 					{{ $page->name }}
 				</x-nav.link>
@@ -59,7 +59,7 @@
 	
 				<div x-cloak x-show="dropdownOpen" class="absolute right-0 z-40 mt-2 p-0 overflow-hidden bg-white rounded-md shadow-xl border">
 					<x-nav.profile>
-						@foreach ($pages as $page)
+						@foreach ($header_pages as $page)
 							@if ($loop->first) <hr> @endif
 							<x-nav.responsive-link href="{{ route('page', $page->slug) }}" :active="request()->routeIs('page', $page->slug) AND request()->page?->slug == $page->slug">
 								{{ $page->name }}

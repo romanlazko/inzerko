@@ -26,13 +26,13 @@
 
             <div 
                 @class([
-                    'w-full h-min space-y-6 xl:sticky top-6 col-span-1 lg:col-span-2 xl:col-span-1 px-3 z-20',
+                    'w-full h-min space-y-6 xl:sticky py-6 lg:py-0 top-6 col-span-1 lg:col-span-2 xl:col-span-1 z-20',
                     'order-2' => $announcement->media?->isNotEmpty(),
                     'order-1 lg:order-3' => $announcement->media?->isEmpty(),
                 ])
             >
                 <div class="space-y-6 w-full">
-                    <div class="space-y-4">
+                    <div class="space-y-4 px-3 ">
                         <div class="h-full flex items-center justify-between">
                             <span class="text-sm text-gray-500">
                                 {{ $announcement->geo?->name }} - {{ $announcement->created_at->diffForHumans() }}
@@ -51,12 +51,17 @@
                         </div>
                     </div>
                     
-                    <hr>
+                    <hr class="mx-3">
 
-                    <div class="space-y-4 w-full">
-                        <x-user.card :user="$announcement->user"/>
+                    <div class="space-y-4 w-full p-1">
+                        <a href="{{ route('profile.show', $announcement->user) }}" class="cursor-pointer w-full inline-block hover:bg-gray-100 hover:ring-1 hover:ring-gray-300 rounded-2xl p-2">
+                            <x-user.card :user="$announcement->user"/>
+                        </a>
+
+                        <div class="px-2">
+                            <livewire:actions.send-message :announcement_id="$announcement->id" :user_id="$announcement->user?->id"/>
+                        </div>
                         
-                        <livewire:actions.send-message :announcement_id="$announcement->id" :user_id="$announcement->user?->id"/>
                     </div>
                 </div>
             </div>

@@ -67,6 +67,8 @@ Route::get('page/{page:slug}', function (Page $page) {
     ]);
 })->name('page');
 
+Route::get('user/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
 Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
 

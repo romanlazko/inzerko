@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use App\Rules\AtLeastOneSelected;
 use App\Rules\AtLeastOneVisible;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +20,22 @@ use Laravolt\Avatar\Facade as Avatar;
 
 class ProfileController extends Controller
 {
+
+    public function show(User $user): View
+    {
+        return view('profile.show', [
+            'user' => $user,
+            'announcements' => $user->announcements()->with([
+                    'category', 
+                    'media',    
+                    'features' => fn ($query) => $query->forAnnouncementCard(),
+                    'geo',
+                    'votes',
+                ])
+                ->orderBy('category_id')
+                ->paginate(10),
+        ]);
+    }
     /**
      * Display the user's profile form.
      */

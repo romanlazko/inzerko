@@ -2,7 +2,7 @@
 
 <div class="flex space-x-4 items-center">
     <div class="relative">
-        <img src="{{ $user?->getFirstMediaUrl('avatar', 'thumb') }}" alt="" class="rounded-full w-14 h-14 min-h-14 min-w-14 object-cover aspect-square">
+        <img src="{{ $user?->getFirstMediaUrl('avatar', 'thumb') }}" alt="" class="rounded-full w-14 h-14 min-h-14 min-w-14 object-cover aspect-square border">
     </div>
     <div class="w-full space-y-2">
         <span class="block font-medium leading-none text-start">

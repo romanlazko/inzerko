@@ -18,6 +18,7 @@ use Filament\Forms\Components\Livewire;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\DB;
 use Filament\Tables\Filters\Filter;
+use CodeWithDennis\FilamentSelectTree\SelectTree;
 
 abstract class AdminAnnouncementTableLayout extends AdminTableLayout
 {
@@ -220,21 +221,41 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                     return $query->when($data['current_status'], fn ($query) => $query->where('current_status', $data['current_status']));
                 }),
 
-            Filter::make('category')
+            // Filter::make('category')
+            //     ->form([
+            //         Select::make('category')
+            //             ->options(fn () => 
+            //                 Category::all()
+            //                     ->loadCount('announcements')
+            //                     ->groupBy('parent.name')
+            //                     ->map
+            //                     ->mapWithKeys(fn ($category) => [$category->id => $category->name . ' (' . $category->announcements_count . ')'])
+            //                     ->toArray()
+            //             ),
+            //     ])
+            //     ->query(function ($query, array $data) {
+            //         return $query->when($data['category'], fn ($query) => $query->category(Category::find($data['category'])));
+            //     }),
+            Filter::make('tree')
                 ->form([
-                    Select::make('category')
-                        ->options(fn () => 
-                            Category::all()
-                                ->loadCount('announcements')
-                                ->groupBy('parent.name')
-                                ->map
-                                ->mapWithKeys(fn ($category) => [$category->id => $category->name . ' (' . $category->announcements_count . ')'])
-                                ->toArray()
-                        ),
+                    SelectTree::make('category')
+                        ->relationship('category', 'name', 'parent_id'),
                 ])
                 ->query(function ($query, array $data) {
                     return $query->when($data['category'], fn ($query) => $query->category(Category::find($data['category'])));
                 }),
+                // ->query(function ($query, array $data) {
+                //     return $query->when($data['category'], function ($query, $categories) {
+                //         return $query->whereHas('category', fn($query) => $query->where('id', $categories));
+                //     });
+                // }),
+                // ->indicateUsing(function (array $data): ?string {
+                //     if (! $data['category']) {
+                //         return null;
+                //     }
+        
+                //     return __('Categories') . ': ' . implode(', ', Category::where('id', $data['category'])->get()->pluck('name')->toArray());
+                // }),
 
             SelectFilter::make('user')
                 ->relationship('user', 'name')

@@ -1,19 +1,19 @@
 @props(['user' => null, 'announcement' => null])
 
 <div class="flex space-x-4 items-center">
-    <div class="relative">
-        <img src="{{ $announcement?->getFirstMediaUrl('announcements', 'thumb') }}" alt="" class="rounded-full w-14 h-14 min-h-14 min-w-14 object-cover aspect-square">
-    </div>
+    <a href="{{ route('announcement.show', $announcement) }}" class="relative cursor-pointer">
+        <img src="{{ $announcement?->getFirstMediaUrl('announcements', 'thumb') }}" alt="" class="border-2 border-inherit hover:border-indigo-600 rounded-full w-14 h-14 min-h-14 min-w-14 object-cover aspect-square">
+    </a>
     <div class="w-full space-y-2">
         <span class="block font-medium leading-none text-start line-clamp-1">
             {{ $announcement?->title }}
         </span>
-        <label class="text-gray-500 flex text-xs items-center space-x-1">
+        <a href="{{ route('profile.show', $user) }}" class="text-gray-500 flex text-xs items-center space-x-1 hover:underline cursor-pointer">
             <img src="{{ $user?->getFirstMediaUrl('avatar', 'thumb') }}" alt="" class="rounded-full w-5 h-5 min-h-5 min-w-5 object-cover aspect-square">
             <span class="text-xs text-gray-900">
                 {{ $user?->name }}
             </span>
-        </label>
+        </a>
         @if ($user?->lang)
             <label class="text-gray-500 flex text-xs items-center space-x-1">
                 <x-heroicon-o-language class="size-4"/>
@@ -27,38 +27,5 @@
                 @endforeach
             </label>
         @endif
-
-        {{-- @if ($announcement)
-            <label class="text-gray-500 flex text-xs items-center space-x-1">
-                <img src="{{ $announcement?->getFirstMediaUrl('announcements', 'thumb') }}" alt="" class="rounded-full w-5 h-5 min-h-5 min-w-5 object-cover aspect-square">
-                <span class="text-xs text-gray-900">
-                    {{ $announcement->title }}
-                </span>
-            </label>
-            @endif
-            <label class="text-gray-500 flex text-xs items-center space-x-1">
-                <x-heroicon-o-clock class="size-4"/>
-                <span class="block text-gray-500 text-xs leading-none">
-                    {{ __('components.user.registered') }} 
-                </span>
-                <span class="text-xs text-gray-900">
-                    {{ $user?->created_at->diffForHumans() }}
-                </span>
-            </label>
-            
-            @if ($user?->lang)
-                <label class="text-gray-500 flex text-xs items-center space-x-1">
-                    <x-heroicon-o-language class="size-4"/>
-                    <span>
-                        {{ __('components.user.languages') }}
-                    </span>
-                    @foreach ($user?->lang ?? [] as $item)
-                        <span class="text-xs text-gray-900 uppercase">
-                            {{ $item }}@if (!$loop->last),@endif
-                        </span>
-                    @endforeach
-                </label>
-            @endif --}}
-        
     </div>
 </div>

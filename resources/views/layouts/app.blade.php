@@ -45,7 +45,7 @@
             <p>
                 © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
             </p>
-            @foreach ($pages as $page)
+            @foreach ($footer_pages as $page)
                 <a href="{{ route('page', $page->slug) }}" class="hover:text-indigo-700 block">{{ $page->name }}</a>
             @endforeach
         </div>

@@ -53,7 +53,13 @@ class SendMessage extends Component implements HasForms, HasActions
 
     public function sendMessage()
     {
-        $announcement = Announcement::findOrFail($this->announcement_id);
+        if (! $announcement = Announcement::find($this->announcement_id)) {
+            return Action::make('sendMessage')
+                ->hidden()
+                ->extraAttributes([
+                    'class' => 'hidden',
+                ]);
+        }
 
         $action = Action::make('sendMessage')
             ->label(__('livewire.send_message'))

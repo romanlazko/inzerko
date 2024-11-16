@@ -3,7 +3,7 @@
         <script src="https://telegram.org/js/telegram-web-app.js"></script>
     @endpush
     
-    <div class="p-2">
+    <div class="p-2 pb-48">
         <livewire:components.announcement.telegram-create/>
     </div>
     

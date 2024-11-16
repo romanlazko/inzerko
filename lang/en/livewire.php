@@ -51,5 +51,11 @@ return [
         'apply_filters' => 'Apply filters',
         'location' => 'Location',
         'reset_form' => 'Reset form',
+        'sold_on_this_site' => 'I sold it on this site',
+        'sold_on_another_resource' => 'I sold it on another resource',
+        'dont_want_to_answer' => 'I don\'t want to answer',
+        'where_did_you_sell_it' => 'Where did you sell it?',
+        'mark_as_sold' => 'Mark as sold',
+        'mark_as_available' => 'Mark as available',
     ],
 ];
