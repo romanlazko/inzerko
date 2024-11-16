@@ -39,9 +39,19 @@ class Feature extends Model
         return $this->belongsTo(AttributeOption::class);
     }
 
-    public function getValueAttribute()
+    public function setTranslatedValueAttribute($value)
+    {
+        $this->attributes['translated_value'] = json_encode($value, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getValueAttribute(): ?string
     {
         return AttributeFactory::getValueByFeature($this->attribute, $this);
+    }
+
+    public function getOriginalAttribute(): mixed
+    {
+        return AttributeFactory::getOriginalByFeature($this->attribute, $this);
     }
 
     public function getLabelAttribute()
@@ -49,16 +59,11 @@ class Feature extends Model
         return $this->attribute->label;
     }
 
-    public function getSuffixAttribute()
-    {
-        return $this->attribute->suffix;
-    }
-
     public function scopeForAnnouncementCard($query)
     {
         $title_price_attributes = Cache::remember('title_price_attributes', config('cache.ttl'), function () {
             return Attribute::whereHas('group', fn ($query) => 
-                $query->whereIn('slug', ['title', 'price'])
+                $query->whereIn('slug', ['title', 'price', 'description'])
             )
             ->pluck('id');
         });

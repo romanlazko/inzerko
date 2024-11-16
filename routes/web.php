@@ -2,11 +2,13 @@
 
 use App\Bots\pozor_baraholka_bot\Models\BaraholkaAnnouncement;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\SearchRequest;
 use App\Livewire\Pages\Admin\Announcement\Announcements;
+use App\Livewire\Pages\Admin\Announcement\Edit;
 use App\Livewire\Pages\Admin\Announcement\EditAnnouncement;
 use App\Livewire\Pages\Admin\Announcement\Moderation;
 use App\Livewire\Pages\Admin\CMS\Pages;
@@ -38,17 +40,7 @@ use Illuminate\Support\Facades\Artisan;
 
 // Route::get('/map', OpsMap::class)->name('map');
 
-Route::post('/locale', function (Request $request){
-    if ($user = auth()->user()) {
-        $user->update([
-            'locale' => $request->locale
-        ]);
-    }
-
-    session(['locale' => $request->locale]);
-
-    return back();
-})->name('locale');
+Route::get('/locale', [Controller::class, 'locale'])->name('locale');
 
 Route::get('/', function (SearchRequest $request) {
     session()->forget('filters');
@@ -75,6 +67,8 @@ Route::get('page/{page:slug}', function (Page $page) {
     ]);
 })->name('page');
 
+Route::get('user/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
 Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
 
@@ -88,7 +82,7 @@ Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('a
     Route::name('announcement.')->prefix('announcement')->group(function () {
         Route::get('announcements', Announcements::class)->name('announcements');
         Route::get('moderation', Moderation::class)->name('moderation');
-        Route::get('edit/{announcement}', EditAnnouncement::class)->name('edit');
+        Route::get('edit/{announcement}', Edit::class)->name('edit');
     });
 
     Route::name('setting.')->prefix('setting')->group(function () {
@@ -116,11 +110,19 @@ Route::controller(AnnouncementController::class)->name('announcement.')->group(f
 
 Route::middleware(['auth'])->name('profile.')->prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'edit'])->name('edit');
-    Route::patch('/update', [ProfileController::class, 'update'])->name('update');
-    Route::delete('/destroy', [ProfileController::class, 'destroy'])->name('destroy');
-    Route::patch('/updateAvatar', [ProfileController::class, 'updateAvatar'])->name('updateAvatar');
-    Route::get('/wishlist', [ProfileController::class, 'wishlist'])->name('wishlist');
-    Route::get('/my-announcements', [ProfileController::class, 'my_announcements'])->name('my-announcements');
+    Route::patch('update', [ProfileController::class, 'update'])->name('update');
+    Route::patch('update-avatar', [ProfileController::class, 'updateAvatar'])->name('update-avatar');
+    Route::patch('update-communication', [ProfileController::class, 'updateCommunication'])->name('update-communication');
+
+    Route::get('security', [ProfileController::class, 'security'])->name('security');
+    Route::put('update-password', [ProfileController::class, 'updatePassword'])->name('update-password');
+    Route::delete('destroy', [ProfileController::class, 'destroy'])->name('destroy');
+
+    Route::get('notifications', [ProfileController::class, 'notifications'])->name('notifications');
+    Route::patch('update-notifications', [ProfileController::class, 'updateNotifications'])->name('update-notifications');
+
+    Route::get('wishlist', [ProfileController::class, 'wishlist'])->name('wishlist');
+    Route::get('my-announcements', [ProfileController::class, 'my_announcements'])->name('my-announcements');
 });
 
 Route::get('cron', function () {

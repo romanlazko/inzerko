@@ -8,6 +8,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Support\Enums\ActionSize;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
@@ -43,8 +44,8 @@ class MyAnnouncements extends Component implements HasForms, HasTable
                     ->limit(2)
                     ->limitedRemainingText(),
                 TextColumn::make('title')
-                    ->state(fn (Announcement $announcement) => $announcement->title)
-                    ->description(fn (Announcement $announcement) => $announcement->description)
+                    ->state(fn (Announcement $announcement) => str($announcement->title)->stripTags()->limit(50))
+                    ->description(fn (Announcement $announcement) => $announcement->description->stripTags()->limit(100))
                     ->weight(FontWeight::Bold)
                     ->wrap()
                     ->markdown()
@@ -64,16 +65,16 @@ class MyAnnouncements extends Component implements HasForms, HasTable
             ->actions([
                 ActionGroup::make([
                     Action::make('sold')
-                        ->label(__("Mark as 'Sold'"))
+                        ->label(__('livewire.labels.mark_as_sold'))
                         ->form([
                             Section::make()
                                 ->schema([
                                     ToggleButtons::make('sold')
-                                        ->label(__('Where did you sell it?'))
+                                        ->label(__('livewire.labels.where_did_you_sell_it'))
                                         ->options([
-                                            '1' => __('I sold it on this site'),
-                                            '2' => __('I sold it on another site'),
-                                            '3' => __("I don't want to answer"),
+                                            'sold_on_this_site' => __('livewire.labels.sold_on_this_site'),
+                                            'sold_on_another_site' => __('livewire.labels.sold_on_another_resource'),
+                                            'dont_want_to_answer' => __('livewire.labels.dont_want_to_answer'),
                                         ])
                                         ->required()
                                 ])
@@ -84,19 +85,22 @@ class MyAnnouncements extends Component implements HasForms, HasTable
                         ->icon('heroicon-m-archive-box-x-mark')
                         ->color('success')
                         ->action(function ($record, array $data) {
-                            $record->sold();
+                            $record->sold($data);
                         })
                         ->visible(fn ($record) => $record->status == Status::published),
                     Action::make('available')
-                        ->label(__("Mark as 'Available'"))
+                        ->label(__('livewire.labels.mark_as_available'))
                         ->icon('heroicon-m-archive-box-arrow-down')
                         ->color('info')
                         ->action(function ($record) {
                             $record->published();
                         })
+
                         ->visible(fn ($record) => $record->status == Status::sold),
                     DeleteAction::make()
                 ])
+                ->hiddenLabel()
+                ->size(ActionSize::ExtraSmall)
                 ->button()
             ]);
     }

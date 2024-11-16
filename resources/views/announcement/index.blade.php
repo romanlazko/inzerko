@@ -18,11 +18,16 @@
         </div>
     </x-slot>
 
-    <x-announcement.list :announcements="$announcements" :cols="3" :paginator="true">
+    <x-announcement.list :announcements="$announcements" :cols="3" :paginator="true" :layout="$category->card_layout->name ?? 'default'">
         <x-slot name="header">
             <div class="w-full md:flex justify-between items-center space-y-2 md:space-y-0">
                 <h2 class="text-xl lg:text-3xl font-bold">
-                    {{ $category?->name ?? __('announcement.all') }} <span class="text-gray-500">{{ $paginator->total() }}</span>
+                    {{
+                        ($request->search ? __('announcement.by_search', ['search' => $request->search]) : null)
+                        ?? $category?->name
+                        ?? __('announcement.all')
+                    }}
+                    <span class="text-gray-500">{{ $paginator->total() }}</span>
                 </h2>
                 <form action="{{ route('announcement.search', ['category' => $category?->slug]) }}">
                     <div class="w-full flex items-center space-x-2 ">

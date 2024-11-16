@@ -20,7 +20,7 @@ class ToggleButtons extends BaseAttributeType
             ->where('attribute_option_id', $this->data[$this->attribute->name]);
     }
 
-    protected function getFilamentFilterComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentFilterComponent(): ?ViewComponent
     {
         return ComponentsToggleButtons::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)
@@ -34,7 +34,7 @@ class ToggleButtons extends BaseAttributeType
             });
     }
 
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return ComponentsToggleButtons::make('attributes.'.$this->attribute->name)
             ->label($this->attribute->label)

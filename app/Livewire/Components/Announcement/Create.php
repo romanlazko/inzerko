@@ -5,8 +5,10 @@ namespace App\Livewire\Components\Announcement;
 use App\AttributeType\AttributeFactory;
 use App\Livewire\Components\Forms\Fields\Wizard;
 use App\Livewire\Traits\AnnouncementCrud;
+use App\Models\Announcement;
 use App\Models\Category;
 use App\Services\Actions\CategoryAttributeService;
+use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Grid;
@@ -32,33 +34,25 @@ class Create extends Component implements HasForms
     use InteractsWithForms, AnnouncementCrud;
 
     public ?array $data = [
+        'attachments' => [],
+        'category_id' => null,
         'geo_id' => null,
-        'attachments' => null,
         'attributes' => [
             'description' => '',
-            'country' => 'CZ',
         ],
-        'categories' => [],
-        'category_id' => null
     ];
 
-    public $parent_categories;
-
-    protected $schema = [];
-
-    public $category_attributes = null;
-
-    protected $categories = null;
-
+    public $categories;
+    
     public function mount(): void
     {
-        $this->form->fill(session('data') ?? $this->data);
-        $this->parent_categories = Category::where('parent_id', null)->get()->pluck('name', 'id');
+        $this->categories = Category::all();
+        $this->form->fill(session('create_data', $this->data));
     }
 
     public function render(): View
     {
-        session()->put('data', array_diff_key($this->data, ['attachments' => ""]));
+        session()->put('create_data', array_diff_key($this->data, ['attachments' => ""]));
 
         return view('livewire.components.announcement.create');
     }
@@ -75,41 +69,30 @@ class Create extends Component implements HasForms
                         ->icon('heroicon-m-x-mark')
                         ->action(fn () => $this->resetData()),
                 ]),
-                Wizard::make(fn (Get $get, Set $set) => [
+                Wizard::make([
                     Step::make('categories')
                         ->schema([
                             Section::make(__('livewire.category'))
                                 ->schema([
-                                    TextInput::make('category_id')
-                                        ->hidden()
-                                        ->dehydratedWhenHidden()
-                                        ->required(),
-                                    Grid::make(2)
-                                        ->schema(fn (Get $get, Set $set) => [
-                                            Select::make('categories.0')
-                                                ->options($this->parent_categories)
-                                                ->afterStateUpdated(function (Get $get) {
-                                                    foreach ($this->data['categories'] as $key => $value) {
-                                                        if ($key == 0) continue;
-                                                        unset($this->data['categories'][$key]);
-                                                    }
-                                                })
-                                                ->dehydrated(false)
-                                                ->required()
-                                                ->live(),
-                                            ...$this->getSubcategories($get, $set)
-                                        ]),
+                                    SelectTree::make('category_id')
+                                        ->label(__('livewire.category'))
+                                        ->relationship('category', 'name', 'parent_id')
+                                        ->placeholder(__('Please select a category'))
+                                        ->required()
+                                        ->live()
                                 ]),
                         ])
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('features')
-                        ->schema($this->getFormSchema())
+                        ->schema(fn (Get $get) => $this->getSections($get('category_id')))
                         ->extraAttributes(['style' => 'padding: 0; margin: 0; gap: 0px;']),
                     Step::make('photos')
+                        ->visible(fn (Get $get) => $this->categories->find($get('category_id'))?->has_attachments ?? false)
                         ->schema([
                             Section::make(__('livewire.photos'))
                                 ->schema([
                                     SpatieMediaLibraryFileUpload::make('attachments')
+                                        ->collection('announcements')
                                         ->hiddenLabel()
                                         ->multiple()
                                         ->image()
@@ -127,7 +110,7 @@ class Create extends Component implements HasForms
                 BLADE)))
                 ->contained(false)
             ])
-            
+            ->model(Announcement::class)
             ->statePath('data');
     }
 
@@ -135,9 +118,11 @@ class Create extends Component implements HasForms
     {
         $this->validate();
 
-        $this->createAnnouncement((object) $this->data);
+        $announcement = $this->createAnnouncement((object) $this->form->getState());
 
-        session()->forget('data');
+        $this->form->model($announcement)->saveRelationships();
+
+        session()->forget('create_data');
 
         $this->afterCreating();
     }
@@ -147,9 +132,9 @@ class Create extends Component implements HasForms
         $this->redirectRoute('profile.my-announcements');
     }
 
-    public function getFormSchema(): array
+    public function getSections($category_id): array
     {
-        return CategoryAttributeService::forCreate(Category::find($this->data['category_id']))
+        return CategoryAttributeService::forCreate($this->categories->find($category_id))
             ?->sortBy('createSection.order_number')
             ?->groupBy('createSection.name')
             ?->map(function ($section, $section_name) {
@@ -174,32 +159,6 @@ class Create extends Component implements HasForms
             ?->toArray();
     }
 
-    public function getSubcategories(Get $get, Set $set, int $currentLevel = 0): array
-    {
-        $currentCategoryChildren = $this->getCategories()?->get($get('categories.'.$currentLevel))?->get('children');
-        $nextLevel = $currentLevel + 1;
-
-        if ($currentCategoryChildren?->isNotEmpty()) {
-            return [
-                Select::make('categories.'.$nextLevel)
-                    ->options($currentCategoryChildren?->pluck('name', 'id'))
-                    ->hiddenLabel()
-                    ->live()
-                    ->afterStateUpdated(function (Set $set) use ($nextLevel) {
-                        unset($this->data['categories'][$nextLevel+1]);
-                    })
-                    ->dehydrated(false)
-                    ->required(),
-                ...$this->getSubcategories($get, $set, $nextLevel)
-            ];
-        }
-        else {
-            $set('category_id', $get('categories.'.$currentLevel));
-        }
-
-        return [];
-    }
-
     public function getFields($section)
     {
         return $section
@@ -210,27 +169,10 @@ class Create extends Component implements HasForms
             ->filter();
     }
 
-    public function getCategories(): SupportCollection
-    {
-        $cacheKey = implode('_', $this->data['categories'] ?? []) . '_create_categories';
-
-        return Cache::remember($cacheKey, config('cache.ttl'), function () {
-            return Category::whereIn('id', $this->data['categories'])
-                ->select('id', 'alternames', 'parent_id')
-                ->with('children:alternames,id,parent_id')
-                ->get()
-                ->keyBy('id')
-                ->map(fn (Category $category) => collect([
-                    'id' => $category->id,
-                    'children' => $category->children,
-                ]));
-        });
-    }
-
     private function resetData()
     {
         $this->dispatch('reset-form');
-        session()->forget('data');
+        session()->forget('create_data');
         $this->reset('data');
         $this->form->fill($this->data);
     }

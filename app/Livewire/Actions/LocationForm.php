@@ -39,7 +39,7 @@ class LocationForm extends Component implements HasForms, HasActions
     {
         $this->category = $category;
         $this->locationData = $location ?? []; 
-        $this->countries = Cache::rememberForever('countries', fn () => Geo::select('name', 'country')->where('level', 'PCLI')->get());
+        // $this->countries = Cache::rememberForever('countries', fn () => Geo::select('name', 'country')->where('level', 'PCLI')->get());
     }
 
     public function render()
@@ -65,9 +65,11 @@ class LocationForm extends Component implements HasForms, HasActions
                     ->options(function (Get $get) {
                         return Geo::orderBy('level')
                             ->select('id', 'name', 'country')
+                            ->limit(30)
                             ->get()
                             ->pluck('name', 'id');
                     })
+                    ->getOptionLabelUsing(fn ($value): ?string => Geo::find($value)?->name)
                     ->optionsLimit(20)
                     ->searchable()
                     ->preload()

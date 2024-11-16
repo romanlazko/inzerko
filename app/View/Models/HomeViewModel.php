@@ -9,6 +9,7 @@ use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Feature;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class HomeViewModel
 {
@@ -29,8 +30,10 @@ class HomeViewModel
                 'features' => fn ($query) => $query->forAnnouncementCard(),
                 'geo',
                 'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
+                'category'
             ])
-            ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at')
+            ->category()
+            ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at', 'announcements.category_id')
             ->isPublished()
             ->orderByDesc('announcements.created_at')
             ->paginate(30)

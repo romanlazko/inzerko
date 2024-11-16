@@ -5,10 +5,7 @@
 
 	<div class="md:flex w-full justify-between hidden">
 		<div class="flex items-center justify-end space-x-3 text-white text-sm">
-			@foreach (App\Models\Page::where([
-				'is_active' => true,
-				'is_header' => true
-			])->get() as $page)
+			@foreach ($header_pages as $page)
 				<x-nav.link href="{{ route('page', $page->slug) }}" :active="request()->routeIs('page', $page->slug) AND request()->page?->slug == $page->slug">
 					{{ $page->name }}
 				</x-nav.link>
@@ -50,7 +47,7 @@
 
 	</div>
 	<div class="flex items-center space-x-2 w-min">
-		<x-nav.locale class="md:w-min w-full"/>
+		<x-nav.locale class="px-6 md:px-0"/>
 
 		<div class="flex items-center md:hidden relative">
 			<div x-data="{ dropdownOpen: false }" class="relative">
@@ -58,14 +55,11 @@
 					<x-heroicon-c-bars-3-bottom-right class="size-5"/>
 				</button>
 	
-				<div x-cloak :class="dropdownOpen ? 'block' : 'hidden'" @click="dropdownOpen = false" class="fixed inset-0 z-[35] transition-opacity  bg-black opacity-50"></div>
+				<div x-cloak :class="dropdownOpen ? 'block' : 'hidden'" @click="dropdownOpen = false" class="fixed inset-0 z-[35] transition-opacity"></div>
 	
 				<div x-cloak x-show="dropdownOpen" class="absolute right-0 z-40 mt-2 p-0 overflow-hidden bg-white rounded-md shadow-xl border">
 					<x-nav.profile>
-						@foreach (App\Models\Page::where([
-							'is_active' => true,
-							'is_header' => true
-						])->get() as $page)
+						@foreach ($header_pages as $page)
 							@if ($loop->first) <hr> @endif
 							<x-nav.responsive-link href="{{ route('page', $page->slug) }}" :active="request()->routeIs('page', $page->slug) AND request()->page?->slug == $page->slug">
 								{{ $page->name }}

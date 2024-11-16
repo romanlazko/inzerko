@@ -35,6 +35,8 @@ return [
         'chats' => 'Chats',
         'channels' => 'Channels',
         'pages' => 'Pages',
+        'notifications' => 'Notifications',
+        'security' => 'Security',
     ],
 
     'user' => [

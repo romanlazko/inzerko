@@ -22,6 +22,8 @@ return new class extends Migration
             
             $table->boolean('is_active')->default(0);
 
+            $table->boolean('has_attachments')->default(0);
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Settings;
 
+use App\Enums\CardLayout;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute;
 use App\Models\Category;
@@ -18,6 +19,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -55,6 +57,9 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
                     ->description(fn (Category $category): string => $category->slug)
                     ->url(fn (Category $category): string => route('admin.setting.categories', $category)),
                 ToggleColumn::make('is_active'),
+                ToggleColumn::make('has_attachments'),
+                SelectColumn::make('card_layout')
+                    ->options(CardLayout::class),
                 TextColumn::make('children')
                     ->state(function (Category $record) {
                         return $record->children->pluck('name');

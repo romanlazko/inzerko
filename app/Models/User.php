@@ -33,10 +33,12 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'name',
         'avatar',
         'email',
+        'communication',
         'password',
         'phone',
         'telegram_chat_id',
         'lang',
+        'notification_settings',
         'locale',
         'telegram_token'
     ];
@@ -59,7 +61,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'lang' => 'array'
+        'lang' => 'array',
+        'notification_settings' => 'object',
+        'communication' => 'object',
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -124,7 +128,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function isProfileFilled()
     {
-        return ! is_null($this->phone) AND ! is_null($this->lang) AND ! is_null($this->name); 
+        return ! is_null($this->communication) AND ! is_null($this->lang) AND ! is_null($this->name); 
     }
 
     public function isSuperAdmin()
@@ -134,7 +138,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmail);
+        if ($this instanceof MustVerifyEmail && ! $this->hasVerifiedEmail()) {
+            $this->notify(new VerifyEmail);
+        }
     }
 
     public function sendPasswordResetNotification($token)

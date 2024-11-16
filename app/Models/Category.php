@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\CardLayout;
 use App\Models\Traits\CacheRelationship;
+use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,6 +26,8 @@ class Category extends Model implements HasMedia
     protected $casts = [
         'alternames' => 'array',
         'is_active' => 'boolean',
+        'has_attachments' => 'boolean',
+        'card_layout' => CardLayout::class
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -53,7 +57,7 @@ class Category extends Model implements HasMedia
 
     public function announcements()
     {
-        return $this->belongsToMany(Announcement::class);
+        return $this->hasMany(Announcement::class);
     }
 
     public function children()

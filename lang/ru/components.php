@@ -34,6 +34,8 @@ return [
         'chats' => 'Чаты',
         'channels' => 'Каналы',
         'pages' => 'Страницы',
+        'notifications' => 'Уведомления',
+        'security' => 'Безопасность',
     ],
 
     'livewire' => [

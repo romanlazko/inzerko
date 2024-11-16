@@ -1,14 +1,15 @@
 @props(['user' => null])
 
-<div class="w-full space-y-6">
-    <div class="w-full space-y-4">
-        @if ($user?->phone)
+    <div class="w-full space-y-6">
+        @if ($user?->communication?->contact_phone?->visible ?? false)
             <label class="text-gray-500 flex text-sm items-center space-x-1">
                 <x-heroicon-o-phone class="size-5"/>
                 <span>
                     {{ __('components.user.phone') }}
                 </span>
-                <a href="tel:{{ $user?->phone }}" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">{{ $user?->phone }}</a>
+                <a href="tel:{{ $user?->communication?->contact_phone?->phone }}" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
+                    {{ $user?->communication?->contact_phone?->phone }}
+                </a>
             </label>
         @endif
     
@@ -21,19 +22,24 @@
                 <a href="mailto:{{ $user?->email }}" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">{{ $user?->email }}</a>
             </label>
         @endif
-    
-        @if ($user?->chat)
+
+        @if ($user?->communication?->telegram?->visible ?? false)
             <label class="text-gray-500 flex text-sm items-center space-x-1">
-                <x-heroicon-o-paper-airplane class="size-5"/>
-                <span>
-                    {{ __('components.user.telegram') }}
-                </span>
-                <a href="{{ $user?->chat?->contact }}" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
-                    {{ $user?->chat?->username ?? "@{$user?->chat?->first_name} {$user?->chat?->last_name}" }}
+                <x-fab-telegram class="size-5 text-blue-500"/>
+                <a href="https://t.me/{{ $user?->communication?->telegram?->phone }}" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
+                    Telegram
                 </a>
             </label>
         @endif
-    </div>
+
+        @if ($user?->communication?->whatsapp?->visible ?? false)
+            <label class="text-gray-500 flex text-sm items-center space-x-1">
+                <x-fab-whatsapp-square class="size-5 text-green-500"/>
+                <a href="https://api.whatsapp.com/send?phone={{ $user?->communication?->whatsapp?->phone }}" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
+                    WhatsApp
+                </a>
+            </label>
+        @endif
 </div>
     
 

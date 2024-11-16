@@ -17,7 +17,6 @@ abstract class AdminEditFormLayout extends Component implements HasForms
     
     public ?array $data = [];
     
-    
     abstract public function form(Form $form): Form;
 
     abstract public function update();

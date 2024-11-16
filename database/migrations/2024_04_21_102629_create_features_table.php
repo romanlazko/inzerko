@@ -29,9 +29,15 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->json('translated_value')->nullable();
+            $table->text('translated_value')->fulltext()->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('announcement_id');
+            $table->index('attribute_id');
+            $table->index(['announcement_id', 'attribute_id', 'deleted_at']);
+            $table->index(['attribute_id', 'attribute_option_id']);
+            $table->index('deleted_at');
         });
     }
 

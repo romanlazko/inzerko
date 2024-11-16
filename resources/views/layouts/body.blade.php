@@ -14,7 +14,7 @@
         {!! seo($meta ?? new \RalphJSmit\Laravel\SEO\Support\SEOData(
                 title: config('app.name'),
                 description: config('app.description'),
-                image: config('app.logo'),
+                image: asset((config('app.logo'))),
                 url: url()->current(),
                 enableTitleSuffix: true,
                 site_name: config('app.name'),

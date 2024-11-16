@@ -18,12 +18,12 @@ class MonthYear extends BaseAttributeType
         return (new Between($this->attribute, $this->data))->getFilterQuery($query);
     }
 
-    public function getValueByFeature(Feature $feature = null) : ?string
+    public function getValue(Feature $feature = null) : ?string
     {
         return Carbon::parse($feature->translated_value['original'])->format('M Y');
     }
 
-    protected function schema(): array
+    protected function getSchema(): array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -33,7 +33,7 @@ class MonthYear extends BaseAttributeType
         ];
     }
 
-    protected function fakeData(): array
+    protected function getFakeSchema(): array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -43,7 +43,7 @@ class MonthYear extends BaseAttributeType
         ];
     }
 
-    protected function getFilamentFilterComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentFilterComponent(): ?ViewComponent
     {
         return Cluster::make([
             ComponentsSelect::make("attributes.{$this->attribute->name}.from")
@@ -84,7 +84,7 @@ class MonthYear extends BaseAttributeType
         ->columns(['default' => 2]);
     }
 
-    protected function getFilamentCreateComponent(Get $get = null): ?ViewComponent
+    protected function getFilamentCreateComponent(): ?ViewComponent
     {
         return Cluster::make([
             ComponentsSelect::make("attributes.{$this->attribute->name}.month")

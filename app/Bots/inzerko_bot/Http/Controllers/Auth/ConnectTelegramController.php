@@ -28,6 +28,19 @@ class ConnectTelegramController extends Controller
         return redirect("https://t.me/{$bot_username}?start=connect-{$telegram_token}");
     }
 
+    public function disconnectTelegram(): RedirectResponse
+    {
+        auth()->user()->update([
+            'telegram_chat_id' => null,
+            'telegram_token' => null,
+        ]);
+
+        return redirect()->intended(RouteServiceProvider::HOME)->with([
+            'ok' => true,
+            'description' => __('auth.telegram.disconnected'),
+        ]);
+    }
+
     public function verifyTelegramConnection(TelegramVerificationRequest $request): RedirectResponse
     {
         $request->user()->update([

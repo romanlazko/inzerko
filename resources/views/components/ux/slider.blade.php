@@ -142,7 +142,11 @@
             </div>
 
             @if ($withButtons)
-                <div class="absolute inset-0 flex justify-between items-center z-10">
+                <div 
+                    class="absolute inset-0 flex justify-between items-center z-10" 
+                    x-on:keydown.left.window="prevSlide()"
+                    x-on:keydown.right.window="nextSlide()"
+                >
                     <button @click.prevent="prevSlide()" @dblclick.prevent class="h-full p-1 lg:px-3" title="Previous Slide">
                         <div class="bg-gray-800 bg-opacity-50 lg:hover:bg-opacity-90 text-white p-2 rounded-full opacity-30 hover:opacity-100 lg:opacity-100 ">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

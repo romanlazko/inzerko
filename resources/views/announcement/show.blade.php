@@ -11,56 +11,28 @@
     
     <div class="space-y-6 lg:py-12">
         <div class="grid w-full grid-cols-1 lg:grid-cols-5 xl:grid-cols-3 lg:gap-6 max-w-7xl m-auto px-0 lg:px-3">
-            <div class="order-1 col-span-2 lg:col-span-3 xl:col-span-2 lg:rounded-2xl overflow-hidden">
-                <x-ux.slider
-                    :medias="$announcement->getMedia('announcements')"
-                    :fallbackMedia="$announcement->getFirstMediaUrl('announcements', 'thumb')"
-                    height="500px"
-                    :withFullscreen="true"
-                    :withButtons="true"
-                    :withDots="true"
-                />
-            </div>
-
-            <div class="w-full overflow-hidden order-3 col-span-2 lg:col-span-3 xl:col-span-2 px-3">
-                <hr class="pb-6 lg:hidden lg:pb-0">
-                <div class="space-y-6">
-                    <x-markdown class="html">
-                        {{ $announcement->description }}
-                    </x-markdown>
-
-                    @if ($announcement->features->where('attribute.is_feature')->isNotEmpty())
-                        <hr>
-                        
-                        <div class="space-y-3 sm:space-y-0 sm:gap-6 grid grid-cols-1 ">
-                            @foreach ($announcement->features->where('attribute.is_feature')->sortBy('attribute.showSection.order_number')->groupBy('attribute.showSection.name') as $section_name => $feature_section)
-                                <div class="space-y-2">
-                                    <h4 class="font-bold text-sm">
-                                        {{ $section_name }}:
-                                    </h4>
-                                    
-                                    <ul class="w-full list-inside list-disc">
-                                        @foreach ($feature_section->sortBy('attribute.show_layout.order_number') as $feature)
-                                            <li class="w-full grid grid-cols-2 space-x-2 text-sm">
-                                                <span class="text-gray-500 inline-block">
-                                                    • {{ $feature->label }}:
-                                                </span>
-                                                <span class="">
-                                                    {{ $feature->value }}
-                                                </span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
+            @if ($announcement->media?->isNotEmpty())
+                <div class="order-1 col-span-2 lg:col-span-3 xl:col-span-2 lg:rounded-2xl overflow-hidden">
+                    <x-ux.slider
+                        :medias="$announcement->getMedia('announcements')"
+                        :fallbackMedia="$announcement->getFirstMediaUrl('announcements', 'thumb')"
+                        height="500px"
+                        :withFullscreen="true"
+                        :withButtons="true"
+                        :withDots="true"
+                    />
                 </div>
-            </div>
+            @endif
 
-            <div class="w-full h-min space-y-6 py-6 xl:sticky top-0 order-2 col-span-1 lg:col-span-2 xl:col-span-1 px-3 z-20">
+            <div 
+                @class([
+                    'w-full h-min space-y-6 xl:sticky py-6 lg:py-0 top-6 col-span-1 lg:col-span-2 xl:col-span-1 z-20',
+                    'order-2' => $announcement->media?->isNotEmpty(),
+                    'order-1 lg:order-3' => $announcement->media?->isEmpty(),
+                ])
+            >
                 <div class="space-y-6 w-full">
-                    <div class="space-y-4">
+                    <div class="space-y-4 px-3 ">
                         <div class="h-full flex items-center justify-between">
                             <span class="text-sm text-gray-500">
                                 {{ $announcement->geo?->name }} - {{ $announcement->created_at->diffForHumans() }}
@@ -79,13 +51,69 @@
                         </div>
                     </div>
                     
-                    <hr>
+                    <hr class="mx-3">
 
-                    <div class="space-y-4 w-full">
-                        <x-user.card :user="$announcement->user"/>
+                    <div class="space-y-4 w-full p-1">
+                        <a href="{{ route('profile.show', $announcement->user) }}" class="cursor-pointer w-full inline-block hover:bg-gray-100 hover:ring-1 hover:ring-gray-300 rounded-2xl p-2">
+                            <x-user.card :user="$announcement->user"/>
+                        </a>
+
+                        <div class="px-2">
+                            <livewire:actions.send-message :announcement_id="$announcement->id" :user_id="$announcement->user?->id"/>
+                        </div>
                         
-                        <livewire:actions.send-message :announcement_id="$announcement->id" :user_id="$announcement->user->id"/>
                     </div>
+                </div>
+            </div>
+
+            <div 
+                @class([
+                    'w-full overflow-hidden order-2 col-span-2 lg:col-span-3 xl:col-span-2 px-3',
+                    'order-3' => $announcement->media?->isNotEmpty(),
+                    'order-2' => $announcement->media?->isEmpty(),
+                ])
+            >
+                <hr class="pb-6 lg:hidden lg:pb-0">
+                <div class="space-y-12">
+                    <div class="space-y-4">
+                        <h2 class="font-bold text-2xl">
+                            {{ __('Description') }}
+                        </h2>
+                        <div class="space-y-3 html">
+                            {!! $announcement->description !!}
+                        </div>
+                    </div>
+
+                    @if ($announcement->features->where('attribute.is_feature')->isNotEmpty())
+                        <div class="space-y-4">
+                            <h2 class="font-bold text-2xl">
+                                {{ __('Features') }}
+                            </h2>
+
+                            <div class="space-y-3 sm:space-y-0 sm:gap-6 grid grid-cols-1 ">
+                                @foreach ($announcement->features->where('attribute.is_feature')->sortBy('attribute.showSection.order_number')->groupBy('attribute.showSection.name') as $section_name => $feature_section)
+                                    <div class="space-y-2">
+                                        <h4 class="font-bold text-sm">
+                                            {{ $section_name }}:
+                                        </h4>
+                                        
+                                        <ul class="w-full list-outside space-y-1">
+                                            @foreach ($feature_section->sortBy('attribute.show_layout.order_number') as $feature)
+                                                <li class="w-full grid grid-cols-2 md:flex space-x-2 text-sm ">
+                                                    <span class="text-gray-500 inline-block">
+                                                        {{ $feature->label }}:
+                                                    </span>
+                                                    <span class="">
+                                                        {{ $feature->value }}
+                                                    </span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

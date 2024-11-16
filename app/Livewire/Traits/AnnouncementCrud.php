@@ -20,14 +20,8 @@ trait AnnouncementCrud
             ]);
     
             if ($announcement) {
-                $announcement->features()->createMany($this->getFeatures($announcement->category, $data->attributes));
-                $announcement->channels()->createMany($this->getChannels($announcement));
-                
-                if (isset($data->attachments) AND !empty($data->attachments)) {
-                    foreach ($data->attachments as $attachment) {
-                        $announcement->addMedia($attachment)->toMediaCollection('announcements', 's3');
-                    }
-                }
+                $announcement->features()->createMany($this->getCreateFeatures($announcement->category, $data->attributes));
+                $announcement->channels()->createMany($this->getCreateChannels($announcement));
     
                 $announcement->moderate();
             }
@@ -36,7 +30,7 @@ trait AnnouncementCrud
         });
     }
 
-    private function getFeatures(Category $category, array $attributes) : array
+    private function getCreateFeatures(Category $category, array $attributes) : array
     {
         return CategoryAttributeService::forCreate($category)
             ->map(fn ($attribute) => 
@@ -46,7 +40,7 @@ trait AnnouncementCrud
             ->all();
     }
 
-    private function getChannels($announcement) : array
+    private function getCreateChannels($announcement) : array
     {
         $locationChannels = TelegramChat::whereHas('geo', fn ($query) => $query->radius($announcement->geo->latitude, $announcement->geo->longitude, 30))
             ->whereHas('categories', fn ($query) => $query->whereIn('category_id', $announcement->categories?->pluck('id')))
@@ -60,5 +54,27 @@ trait AnnouncementCrud
         }
 
         return $locationChannels->map(fn ($channel) => ['telegram_chat_id' => $channel->id])->all();
+    }
+
+    public function updateAnnouncement(Announcement $announcement, object $data): ?Announcement
+    {
+        return DB::transaction(function () use ($data, $announcement) {
+            $announcement = tap($announcement, fn ($announcement) => $announcement->update([
+                'geo_id' => $data->geo_id,
+                'category_id' => $data->category_id,
+            ]));
+
+            $announcement->features()->delete();
+            $announcement->channels()->delete();
+
+            if ($announcement) {
+                $announcement->features()->createMany($this->getCreateFeatures($announcement->category, $data->attributes));
+                $announcement->channels()->createMany($this->getCreateChannels($announcement));
+    
+                $announcement->moderate();
+            }
+
+            return $announcement;
+        });
     }
 }

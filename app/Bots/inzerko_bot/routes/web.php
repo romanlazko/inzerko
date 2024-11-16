@@ -21,6 +21,9 @@ Route::middleware(['web'])->name('inzerko_bot.')->prefix('inzerko_bot')->group(f
 
         Route::post('telegram-connect', [ConnectTelegramController::class, 'connectTelegram'])
             ->name('telegram.connect');
+
+        Route::post('telegram-disconnect', [ConnectTelegramController::class, 'disconnectTelegram'])
+            ->name('telegram.disconnect');
         
         Route::get('verify-telegram-connection/{telegram_chat_id}/{telegram_token}', [ConnectTelegramController::class, 'verifyTelegramConnection'])
             ->middleware(['signed', 'throttle:6,1'])
