@@ -19,7 +19,7 @@ Route::middleware(['web'])->name('inzerko_bot.')->prefix('inzerko_bot')->group(f
         Route::get('announcement/create', [AnnouncementController::class, 'create'])
             ->name('announcement.create');
 
-        Route::get('telegram-connect', [ConnectTelegramController::class, 'connectTelegram'])
+        Route::post('telegram-connect', [ConnectTelegramController::class, 'connectTelegram'])
             ->name('telegram.connect');
 
         Route::post('telegram-disconnect', [ConnectTelegramController::class, 'disconnectTelegram'])
