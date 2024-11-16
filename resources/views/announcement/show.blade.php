@@ -92,11 +92,11 @@
                                             {{ $section_name }}:
                                         </h4>
                                         
-                                        <ul class="w-full list-inside list-disc">
+                                        <ul class="w-full list-outside space-y-1">
                                             @foreach ($feature_section->sortBy('attribute.show_layout.order_number') as $feature)
-                                                <li class="w-full flex space-x-2 text-sm">
+                                                <li class="w-full grid grid-cols-2 md:flex space-x-2 text-sm ">
                                                     <span class="text-gray-500 inline-block">
-                                                        • {{ $feature->label }}:
+                                                        {{ $feature->label }}:
                                                     </span>
                                                     <span class="">
                                                         {{ $feature->value }}
