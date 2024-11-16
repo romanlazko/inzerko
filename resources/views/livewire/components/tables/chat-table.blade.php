@@ -102,7 +102,7 @@
                 $action = $this->getMountedTableAction();
             @endphp
 
-            <x-chat-modal
+            <x-chat.modal
                 :alignment="$action?->getModalAlignment()"
                 :autofocus="$action?->isModalAutofocused()"
                 :close-button="$action?->hasModalCloseButton()"
@@ -176,7 +176,7 @@
                         </div>
                     </x-slot>
                 @endif
-            </x-chat-modal>
+            </x-chat.modal>
         </form>
 
         @php

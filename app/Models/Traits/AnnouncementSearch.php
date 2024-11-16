@@ -16,7 +16,7 @@ trait AnnouncementSearch
     public function scopeCategory($query, ?Category $category = null)
     {
         if (!$category) {
-            return $query;
+            return $query->whereHas('category', fn ($query) => $query->where('has_attachments', true));
         }
 
         return $query->whereIn('category_id', $category?->childrenAndSelf->pluck('id'));

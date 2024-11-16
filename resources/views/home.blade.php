@@ -1,4 +1,4 @@
-<x-app-layout :title="__('home.title')">
+<x-app-layout :title="__('home.title')" class="w-full max-w-7xl m-auto">
     <x-slot name="header">
         <div class="w-full space-y-24 py-12">
             <div class="max-w-2xl m-auto space-y-12">

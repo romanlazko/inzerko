@@ -66,6 +66,7 @@ class IndexViewModel
                 'features' => fn ($query) => $query->forAnnouncementCard(),
                 'geo',
                 'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
+                'category'
             ])
             ->category($this->category)
             ->sort($this->request->sort)

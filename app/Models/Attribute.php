@@ -117,4 +117,9 @@ class Attribute extends Model
     {
         return $this->hasMany(Sorting::class);
     }
+
+    public function getSortingsAttribute()
+    {
+        return $this->cacheRelation('sortings');
+    }
 }

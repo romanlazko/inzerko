@@ -45,10 +45,7 @@
             <p>
                 © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
             </p>
-            @foreach (App\Models\Page::where([
-                'is_active' => true,
-                'is_footer' => true
-            ])->get() as $page)
+            @foreach ($pages as $page)
                 <a href="{{ route('page', $page->slug) }}" class="hover:text-indigo-700 block">{{ $page->name }}</a>
             @endforeach
         </div>

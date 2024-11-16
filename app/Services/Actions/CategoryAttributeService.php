@@ -19,7 +19,7 @@ class CategoryAttributeService
     public static function forSorting(Category|null $category)
     {
         return self::getAttributesByCategory($category)
-            ->load('sortings:id,alternames,attribute_id,order_number')
+            // ->load('sortings:id,alternames,attribute_id,order_number')
             ->pluck('sortings')
             ->flatten()
             ->sortBy('order_number');

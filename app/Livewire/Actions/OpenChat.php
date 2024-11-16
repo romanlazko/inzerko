@@ -104,13 +104,13 @@ class OpenChat extends Component implements HasForms, HasActions, HasTable
             ->recordAction('answer')
             ->actions([
                 ActionsAction::make('answer')
-                    ->modalHeading(fn ($record) => new HtmlString(view('components.user.card', ['user' => $record->recipient])))
+                    ->modalHeading(fn ($record) => new HtmlString(view('components.chat.miniature', ['user' => $record->recipient, 'announcement' => $record->announcement])))
                     ->modalContent(function ($record) {
                         $record->messages()->where('user_id', '!=', auth()->id())->update(['read_at' => now()]);
 
                         cookie()->queue(cookie()->forget('unreadMessagesCount'));
 
-                        return view('components.messages', ['messages' => $record->messages, 'user_id' => auth()->id()]);
+                        return view('components.chat.messages', ['messages' => $record->messages, 'user_id' => auth()->id()]);
                     })
                     ->modalAutofocus(true)
                     ->form([

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Page;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -25,6 +26,16 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer(['components.nav.header', 'layouts.app'], function ($view) {
+            $pages = Cache::remember('pages', config('cache.ttl'), function () {
+                return Page::where([
+                    'is_active' => true,
+                    'is_header' => true
+                ])->get();
+            });
+
+            $view->with('pages', $pages);
+        });
         // View::composer('*', function ($view) {
         //     $locale = session('locale', config('app.locale'));
         //     URL::defaults(['locale' => $locale]);

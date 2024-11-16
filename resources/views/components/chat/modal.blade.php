@@ -154,7 +154,7 @@
                     }}
                 >
                     @if ($heading)
-                        <div class="fi-modal-header flex px-6 pt-6 items-center fi-sticky sticky top-0 z-10 border-b border-gray-200 bg-white pb-6 dark:border-white/10 dark:bg-gray-900">
+                        <div class="fi-modal-header flex p-3 items-center fi-sticky sticky top-0 z-10 border-b border-gray-200 bg-white dark:border-white/10 dark:bg-gray-900">
                             <div class="absolute end-6 top-6">
                                 <x-filament::icon-button
                                     color="gray"

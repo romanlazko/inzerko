@@ -28,7 +28,7 @@
                 @class([
                     'w-full h-min space-y-6 xl:sticky top-6 col-span-1 lg:col-span-2 xl:col-span-1 px-3 z-20',
                     'order-2' => $announcement->media?->isNotEmpty(),
-                    'order-3' => $announcement->media?->isEmpty(),
+                    'order-1 lg:order-3' => $announcement->media?->isEmpty(),
                 ])
             >
                 <div class="space-y-6 w-full">
