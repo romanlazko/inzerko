@@ -11,11 +11,9 @@
 
     <div class="mt-6 space-y-6 max-w-xl">
         @if (! $user->chat)
-            <form action="{{ route('inzerko_bot.telegram.connect') }}" method="get" class="mt-6 space-y-6 max-w-xl">
-                {{-- @csrf --}}
-                <div class="flex items-center gap-4">
-                    <x-buttons.primary>{{ __('profile.update_telegram_information_form.connect_telegram') }}</x-buttons.primary>
-                </div>
+            <form action="{{ route('inzerko_bot.telegram.connect') }}" method="post" class="mt-6 space-y-6 max-w-xl">
+                @csrf
+                <button class="mt-6 text-sm text-blue-500 hover:text-blue-700 hover:underline">{{ __('profile.update_telegram_information_form.connect_telegram') }}</button>
             </form>
         @else
             <div class="flex items-center">
