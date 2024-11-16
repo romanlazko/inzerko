@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\TelegramVerificationRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class ConnectTelegramController extends Controller
@@ -24,6 +25,12 @@ class ConnectTelegramController extends Controller
         ]);
 
         $bot_username = Inzerko::getBotChat()->username;
+
+        Log::info("Redirecting to: https://t.me/{$bot_username}?start=connect-{$telegram_token}");
+
+        return response()->json([
+            'redirect_url' => "https://t.me/{$bot_username}?start=connect-{$telegram_token}"
+        ]);
 
         return redirect('https://t.me/'.$bot_username.'?start=connect-'.$telegram_token);
     }
