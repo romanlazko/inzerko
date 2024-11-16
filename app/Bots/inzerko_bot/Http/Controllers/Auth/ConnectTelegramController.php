@@ -18,7 +18,6 @@ class ConnectTelegramController extends Controller
     public function connectTelegram()
     {
         $telegram_token = Str::random(10);
-        dd('ok');
 
         auth()->user()->update([
             'telegram_token' => $telegram_token,
