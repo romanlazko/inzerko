@@ -26,6 +26,8 @@ use App\View\Models\HomeViewModel;
 use App\Livewire\Pages\Admin\Dashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,6 +136,25 @@ require __DIR__.'/auth.php';
 
 Route::get('/test', function () {
     dump(BaraholkaAnnouncement::with('chat')->latest()->limit(10)->get());
+});
+
+Route::get('/create-photo', function () {
+    $manager = new ImageManager(Driver::class);
+
+    // // create new image 640x480
+    // $image = $manager->create(640, 480);
+
+    // create new image 512x512 with grey background
+    $image = $manager->create(512, 512)->fill('ccc')->text('Hello World!', 256, 256, function ($font) {
+        $font->filename(public_path('fonts/roboto/Roboto-Bold.ttf'));
+        $font->size(70);
+        $font->color('fff');
+        $font->lineHeight(1);
+        $font->align('center');
+        $font->valign('middle');
+    });
+
+    $image->save(public_path('images/generated_image.png'));
 });
 
 
