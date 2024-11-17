@@ -146,12 +146,14 @@ return [
     'uuid' => 'Поле ":attribute" должно быть допустимым UUID.',
 
     'at_least_one_selected' => 'Необходимо выбрать хотя бы один элемент.',
+    'phone' => 'Поле ":attribute" должно быть допустимым номером телефона.',
 
     'custom' => [
         'data.categories.*' => [
             'required' => 'Вы должны выбрать хотя бы одну категорию.',
         ],
         'communication.*.phone.required_if_accepted' => 'Поле ":attribute" обязательно для заполнения.',
+        'phone' => 'Недопустимый номер телефона.',
     ],
 
     /*

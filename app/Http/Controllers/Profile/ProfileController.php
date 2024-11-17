@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use libphonenumber\PhoneNumberUtil;
 
 use Laravolt\Avatar\Facade as Avatar;
 
@@ -41,8 +42,17 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $phoneUtil = PhoneNumberUtil::getInstance();
+        $supportedRegions = $phoneUtil->getSupportedRegions();
+
+        $countryCodes = [];
+        foreach ($supportedRegions as $regionCode) {
+            $countryCodes[$regionCode] = $phoneUtil->getCountryCodeForRegion($regionCode);
+        }
+
         return view('profile.edit', [
             'user' => $request->user(),
+            'countryCodes' => $countryCodes
         ]);
     }
 
@@ -83,9 +93,10 @@ class ProfileController extends Controller
 
     public function updateCommunication(Request $request): RedirectResponse
     {
+        // dd($request->all());
         $request->validate([
             'communication' => ['required', 'array', new AtLeastOneSelected('visible')],
-            'communication.*.phone' => ['required_if_accepted:communication.*.visible'],
+            'communication.*.phone' => ['required_if_accepted:communication.*.visible', 'nullable', 'phone:CZ'],
             'lang' => ['required', 'array'],
             'lang.*' => ['string', 'in:en,ru,cz'],
         ]);
