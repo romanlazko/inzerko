@@ -8,7 +8,6 @@ class Config
 {
     public static function getConfig()
     {
-        Log::info('inzerko_bot getConfig');
         return [
             'inline_data'       => [
                 'telegram_token'    => null,

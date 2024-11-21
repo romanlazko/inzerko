@@ -4,6 +4,7 @@ namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
 use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
@@ -35,6 +36,8 @@ class ConnectCommand extends Command
             [array("Да подключить", SendVerifyTelegramConnection::$command, $matches[3])],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ], 'telegram_token');
+
+        Log::info('inzerko_bot buttons', $buttons);
 
         return Inzerko::returnInline([
             'chat_id' => $updates->getChat()->getId(),
