@@ -72,7 +72,10 @@ class SendVerifyTelegramConnection extends Command
 
         return Inzerko::returnInline([
             'chat_id' => $updates->getChat()->getId(),
-            'text' => 'Произошла ошибка при отправке письма.',
+            'text' => implode("\n", [
+                'Произошла ошибка при отправке письма.' .$telegram_token,
+                $user->name
+            ]),
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
