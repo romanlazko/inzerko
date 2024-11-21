@@ -6,6 +6,7 @@ use App\Bots\inzerko_bot\Commands\Command;
 use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Bots\inzerko_bot\Notifications\VerifyTelegramConnection;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -30,13 +31,15 @@ class SendVerifyTelegramConnection extends Command
         $telegram_token     = $updates->getInlineData()->getTelegramToken();
         $user               = User::firstWhere('telegram_token', $telegram_token);
 
-        if ($this->hasPrivateForwards()) {
-            return $this->sendPrivacyInstructions(
-                Inzerko::inlineKeyboard([
-                    [array('Продолжить', SendVerifyTelegramConnection::$command, $telegram_token)],
-                ], 'telegram_token')
-            );
-        }
+        Log::info('inzerko_bot Updates', $updates->getInlineData()->asArray());
+
+        // if ($this->hasPrivateForwards()) {
+        //     return $this->sendPrivacyInstructions(
+        //         Inzerko::inlineKeyboard([
+        //             [array('Продолжить', SendVerifyTelegramConnection::$command, $telegram_token)],
+        //         ], 'telegram_token')
+        //     );
+        // }
 
         // Inzerko::returnInline([
         //     'chat_id' => $updates->getChat()->getId(),
