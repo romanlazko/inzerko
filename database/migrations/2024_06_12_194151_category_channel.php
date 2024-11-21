@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->constrained();
             $table->foreignIdFor(TelegramChat::class)->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

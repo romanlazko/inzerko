@@ -5,13 +5,10 @@ namespace App\Livewire\Layouts;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\View;
-use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Filament\Forms\Form;
-use Illuminate\Database\Eloquent\Model;
 
-#[Layout('layouts.admin')]
-abstract class AdminEditFormLayout extends Component implements HasForms
+abstract class AdminEditFormLayout extends AdminLayout implements HasForms
 {
     use InteractsWithForms;
     
@@ -23,6 +20,8 @@ abstract class AdminEditFormLayout extends Component implements HasForms
 
     public function render(): View
     {
+        abort_if(! $this->roleOrPermission(['admin', 'moderator', 'super-duper-admin']), 403);
+
         return view('livewire.layouts.edit-form');
     }
 }

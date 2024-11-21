@@ -6,25 +6,26 @@ use App\Enums\Status;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Announcement;
 use App\Models\AnnouncementChannel;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use App\Models\TelegramChat;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\DeleteBulkAction;
 use App\Livewire\Components\Tables\Columns\StatusSwitcher;
-use Novadaemon\FilamentPrettyJson\PrettyJson;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Form;
 
 use Filament\Forms\Components\Select;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+
 class Channels extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public Announcement $announcement;
 
     public function mount($announcement_id)

@@ -21,14 +21,15 @@ return new class extends Migration
                 ->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('phone')->nullable();
             $table->string('password')->nullable();
             $table->string('telegram_token')->nullable();
             $table->json('lang')->nullable();
             $table->json('notification_settings')->nullable();
+            $table->json('communication')->nullable();
             $table->string('locale')->default('cs')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

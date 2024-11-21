@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @layer utilities {
+    .dynamic-text {
+        font-size: clamp(0.5rem, 1rem, 1.5rem, 2rem);
+    }
+} */
+
 /* .fi-modal-content {
     background-color: #e5e7eb;
     padding: 6px;

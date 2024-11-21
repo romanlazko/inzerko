@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(TelegramChat::class)->constrained()->onDelete('cascade');
             $table->integer('current_status')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

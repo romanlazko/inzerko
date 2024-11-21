@@ -17,7 +17,7 @@
             <x-form.label :value="__('profile.update_communication_information_form.contact_information')" :required="true"/>
 
             <div class="w-full items-center p-1 border border-gray-300 rounded-lg mt-1 space-y-1">
-                <x-form.label for="contact_phone_visible" class="items-center grid grid-cols-4 gap-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
+                <x-form.label for="contact_phone" class="items-center grid grid-cols-4 gap-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
                     <div class="flex space-x-1 col-span-3">
                         <x-heroicon-s-phone-arrow-down-left class="size-5 text-indigo-500"/>
                         <span class="font-normal">
@@ -26,7 +26,6 @@
                     </div>
                     
                     <x-form.checkbox 
-                        id="contact_phone_visible" 
                         name="communication[contact_phone][visible]" 
                         class="peer/phone ml-auto col-span-1" 
                         value="1" 
@@ -40,16 +39,16 @@
                             :required="true" 
                             class="text-xs font-normal text-gray-400"
                         />
+
                         <x-form.input 
                             id="contact_phone" 
-                            name="communication[contact_phone][phone]" 
-                            type="text" 
-                            class="block w-full font-normal text-sm" 
+                            name="communication[contact_phone][phone]"
+                            type="tel" 
+                            class="block w-full font-normal text-sm phone" 
                             :value="old('communication.contact_phone.phone', $user->communication?->contact_phone?->phone)" 
-                            autofocus 
-                            autocomplete="phone"
-                            placeholder="{{ __('profile.update_communication_information_form.contact_phone') }}"
+                            autofocus
                         />
+
                         <x-form.error 
                             class="mt-2" 
                             :messages="$errors->get('communication.contact_phone.phone')"
@@ -59,7 +58,7 @@
         
                 <hr class="mx-2">
     
-                <x-form.label for="telegram_visible" class="items-center grid grid-cols-4 gap-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
+                <x-form.label for="telegram" class="items-center grid grid-cols-4 gap-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
                     <div class="flex space-x-1 col-span-3">
                         <x-fab-telegram class="size-5 text-blue-500"/>
                         <span class="font-normal">
@@ -67,8 +66,7 @@
                         </span>
                     </div>
     
-                    <x-form.checkbox 
-                        id="telegram_visible" 
+                    <x-form.checkbox
                         name="communication[telegram][visible]" 
                         class="peer/telegram ml-auto col-span-1" 
                         value="1" 
@@ -77,21 +75,21 @@
     
                     <div class="hidden peer-checked/telegram:block col-span-full space-y-2">
                         <x-form.label 
-                            for="telegram_phone" 
+                            for="telegram" 
                             :value="__('profile.update_communication_information_form.telegram_phone_hint')" 
                             :required="true" 
                             class="text-xs font-normal text-gray-400"
                         />
+
                         <x-form.input 
-                            id="telegram_phone" 
+                            id="telegram" 
                             name="communication[telegram][phone]" 
-                            type="text" 
-                            class="block w-full font-normal text-sm" 
+                            type="tel" 
+                            class="block w-full font-normal text-sm phone" 
                             :value="old('communication.telegram.phone', $user->communication?->telegram?->phone)" 
-                            autofocus 
-                            autocomplete="phone"
-                            placeholder="{{ __('profile.update_communication_information_form.telegram_phone') }}"
+                            autofocus
                         />
+
                         <x-form.error 
                             class="mt-2" 
                             :messages="$errors->get('communication.telegram.phone')" 
@@ -101,7 +99,7 @@
         
                 <hr class="mx-2">
                 
-                <x-form.label for="whatsapp_visible" class="items-center grid grid-cols-4 gap-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
+                <x-form.label for="whatsapp" class="items-center grid grid-cols-4 gap-2 w-full justify-between hover:bg-gray-50 p-3 rounded-lg">
                     <div class="flex space-x-1 col-span-3">
                         <x-fab-whatsapp-square class="size-5 text-green-500"/>
                         <span class="font-normal">
@@ -109,8 +107,7 @@
                         </span>
                     </div>
     
-                    <x-form.checkbox 
-                        id="whatsapp_visible" 
+                    <x-form.checkbox
                         name="communication[whatsapp][visible]" 
                         class="peer/whatsapp ml-auto col-span-1" 
                         value="1" 
@@ -119,21 +116,21 @@
     
                     <div class="hidden peer-checked/whatsapp:block col-span-full space-y-2">
                         <x-form.label 
-                            for="phone"
+                            for="whatsapp"
                             :value="__('profile.update_communication_information_form.whatsapp_phone_hint')" 
                             :required="true" 
                             class="text-xs font-normal text-gray-400"
                         />
+
                         <x-form.input 
-                            id="phone" 
+                            id="whatsapp" 
                             name="communication[whatsapp][phone]" 
                             type="text" 
-                            class="block w-full font-normal text-sm" 
+                            class="block w-full font-normal text-sm phone" 
                             :value="old('communication.whatsapp.phone', $user->communication?->whatsapp?->phone)" 
-                            autofocus 
-                            autocomplete="phone"
-                            placeholder="{{ __('profile.update_communication_information_form.whatsapp_phone') }}"
+                            autofocus
                         />
+
                         <x-form.error 
                             class="mt-2" 
                             :messages="$errors->get('communication.whatsapp.phone')" 
@@ -184,5 +181,38 @@
         </div>
     </form>
 
-    
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const inputs = document.querySelectorAll('.phone');
+                inputs.forEach(input => {
+                    if (input) {
+                        let iti = window.intlTelInput(input, {
+                            initialCountry: 'cz',
+                            geoIpLookup: null,
+                            strictMode: true,
+                            separateDialCode: true,
+                            hiddenInput: () => ({ phone: "communication[" + input.getAttribute('id') + "][phone]"}),
+                            loadUtilsOnInit: 'https://cdn.jsdelivr.net/npm/intl-tel-input/build/js/utils.js', // для форматирования
+                        });
+
+                        const validate = () => {
+                            if (input.value === '') {
+                                input.setCustomValidity('');
+                            } else if (!iti.isValidNumber()) {
+                                input.setCustomValidity(@json(__('validation.custom.phone')));
+
+                                event.preventDefault();
+                            } else {
+                                input.setCustomValidity('');
+                            }
+                        };
+                        input.closest('form').addEventListener('submit', validate);
+                        input.addEventListener('change', validate);
+                        input.addEventListener('keyup', validate);
+                    }
+                });
+            });
+        </script>
+    @endpush
 </section>

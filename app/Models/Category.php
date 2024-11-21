@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use App\Enums\CardLayout;
 use App\Models\Traits\CacheRelationship;
-use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
@@ -19,7 +22,12 @@ use Spatie\Sluggable\SlugOptions;
 
 class Category extends Model implements HasMedia
 {
-    use HasFactory; use HasSlug; use SoftDeletes; use InteractsWithMedia; use HasSEO; use CacheRelationship;
+    use HasFactory; 
+    use HasSlug; 
+    use SoftDeletes; 
+    use InteractsWithMedia; 
+    use HasSEO; 
+    use CacheRelationship;
 
     protected $guarded = [];
 
@@ -27,7 +35,6 @@ class Category extends Model implements HasMedia
         'alternames' => 'array',
         'is_active' => 'boolean',
         'has_attachments' => 'boolean',
-        'card_layout' => CardLayout::class
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -41,7 +48,7 @@ class Category extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('categories')
-            ->useDisk('aws_categories')
+            ->useDisk('s3_categories')
             ->useFallbackUrl('/images/no-photo.jpg')
             ->singleFile();
     }
@@ -55,89 +62,83 @@ class Category extends Model implements HasMedia
             ->height(70);
     }
 
-    public function announcements()
+    //RELATIONS
+
+    public function announcements(): HasMany
     {
         return $this->hasMany(Announcement::class);
     }
 
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 
-    public function getChildrenAttribute()
+    public function getChildrenAttribute(): Collection
     {
         return $this->cacheRelation('children');
     }
 
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
     }
 
-    public function getParentAttribute()
+    public function getParentAttribute(): ?Category
     {
         return $this->cacheRelation('parent');
     }
 
-    public function siblings()
+    public function siblings(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id', 'parent_id');
     }
 
-    public function getSiblingsAttribute()
+    public function getSiblingsAttribute(): Collection
     {
         return $this->cacheRelation('siblings');
     }
 
-    public function channels()
+    public function channels(): BelongsToMany
     {
         return $this->belongsToMany(TelegramChat::class, 'category_channel', 'category_id', 'telegram_chat_id');
     }
 
-    public function getChannelsAttribute()
+    public function getChannelsAttribute(): Collection
     {
         return $this->cacheRelation('channels');
     }
 
-    public function attributes()
+    public function attributes(): BelongsToMany
     {
         return $this->belongsToMany(Attribute::class);
     }
 
-    public function getAttributesAttribute()
+    public function getAttributesAttribute(): Collection
     {
         return $this->cacheRelation('attributes');
     }
 
-    public function getNameAttribute()
+    //ATTRIBUTES
+
+    public function getNameAttribute(): ?string
     {
         return $this->alternames[app()->getLocale()] ?? $this->alternames['en'] ?? null;
     }
 
-    public function getNameWithAnnouncementCountAttribute()
-    {
-        return $this->name . ' (' . $this->announcements->count() . ')';
-    }
-
-    public function getParentsAndSelf()
+    public function getParentsAndSelfAttribute(): Collection
     {
         $cacheKey = $this?->slug.'_category_parents_and_self';
         
         return Cache::remember($cacheKey, config('cache.ttl'), function () {
             return collect([
                 $this,
-                ...$this->parent?->getParentsAndSelf() ?? []
+                ...$this->parent?->parentsAndSelf ?? []
             ]);
         });
     }
 
-    public function getParentsAndSelfAttribute()
-    {
-        return $this->getParentsAndSelf();
-    }
-
-    public function getChildrenAndSelfAttribute()
+    public function getChildrenAndSelfAttribute(): Collection
     {
         $cacheKey = $this?->slug.'_category_children_and_self';
 
@@ -149,10 +150,14 @@ class Category extends Model implements HasMedia
         });
     }
 
-    public function scopeIsActive($query)
+    //SCOPES
+
+    public function scopeIsActive($query): Builder
     {
         return $query->where('is_active', true);
     }
+
+    //SEO  
 
     public function getDynamicSEOData(): SEOData
     {

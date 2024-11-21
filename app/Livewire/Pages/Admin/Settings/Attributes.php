@@ -9,17 +9,23 @@ use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute;
 use App\Models\Category;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\SelectFilter;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+
 class Attributes extends AdminTableLayout implements HasForms, HasTable
-{   
+{
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public function table(Table $table): Table
     {
         return $table
@@ -121,14 +127,24 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                     })
                     ->hidden(app()->environment('production'))
                     ->slideOver()
-                    ->closeModalByClickingAway(false),
-                CreateAttributeAction::make(),
+                    ->closeModalByClickingAway(false)
+                    ->visible($this->roleOrPermission(['manage'], 'attribute')),
+                CreateAttributeAction::make()
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'attribute')),
             ])
             ->actions([
-                EditAttributeAction::make(),
-                DeleteAction::make()
+                EditAttributeAction::make()
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'attribute')),
+                DeleteAction::make('delete')
                     ->hiddenLabel()
                     ->button()
+                    ->action(fn (Attribute $record) => $record->delete())
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'attribute')),
+                DeleteAction::make('forceDelete')
+                    ->hiddenLabel()
+                    ->button()
+                    ->action(fn (Attribute $record) => $record->forceDelete())
+                    ->visible($this->roleOrPermission(['force_delete', 'manage'], 'attribute')),
             ])
             ->recordAction('edit')
             ->paginated(false)

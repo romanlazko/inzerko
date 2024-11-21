@@ -32,7 +32,7 @@ trait VisibleHiddenSection
                                     ->label('Attribute')
                                     ->options(function (Get $get) {
                                         $categories = Category::whereIn('id',$get('../../categories'))->get()->map(function ($category) { 
-                                            return $category->getParentsAndSelf()->pluck('id'); 
+                                            return $category->parentsAndSelf->pluck('id'); 
                                         })
                                         ->flatten();
 
@@ -68,7 +68,7 @@ trait VisibleHiddenSection
                                     ->label('Attribute')
                                     ->options(function (Get $get) {
                                         $categories = Category::whereIn('id',$get('../../categories'))->get()->map(function ($category) { 
-                                            return $category->getParentsAndSelf()->pluck('id'); 
+                                            return $category->parentsAndSelf->pluck('id'); 
                                         })
                                         ->flatten();
 

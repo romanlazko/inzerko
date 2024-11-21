@@ -13,18 +13,24 @@ use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Get;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 
 class Sortings extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     use CategorySection;
 
     public function table(Table $table): Table
@@ -93,7 +99,8 @@ class Sortings extends AdminTableLayout implements HasForms, HasTable
                             ])
                     ])
                     ->slideOver()
-                    ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb']),
+                    ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'sorting')),
             ])
             ->columns([
                 TextColumn::make('order_number')
@@ -181,10 +188,12 @@ class Sortings extends AdminTableLayout implements HasForms, HasTable
                             ])
                     ])
                     ->hiddenLabel()
-                    ->button(),
+                    ->button()
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'sorting')),
                 DeleteAction::make()
                     ->hiddenLabel()
                     ->button()
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'sorting')),
             ]);
     }
 }

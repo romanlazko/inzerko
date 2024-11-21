@@ -3,25 +3,34 @@
 namespace App\Livewire\Pages\Admin\Telegram;
 
 use App\Livewire\Layouts\AdminTableLayout;
+
 use App\Models\Category;
 use App\Models\TelegramBot;
-use Faker\Provider\ar_EG\Text;
-use Filament\Tables\Actions\Action;
+
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
+
 use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+
 use Novadaemon\FilamentPrettyJson\PrettyJson;
 use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\Generators\BotDirectoryGenerator;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+
 class Bots extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+
     public function table(Table $table): Table
     {
         return $table
@@ -72,30 +81,11 @@ class Bots extends AdminTableLayout implements HasForms, HasTable
                         return $response->getDescription();
                     })  
                     ->slideOver()
-                    ->closeModalByClickingAway(false),
+                    ->closeModalByClickingAway(false)
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'telegram')),
             ])
             ->recordAction('view')
             ->actions([
-                Action::make('Chats')
-                    ->hiddenLabel()
-                    ->button()
-                    ->icon('heroicon-o-chat-bubble-bottom-center')
-                    ->url(fn ($record) => route('admin.telegram.chats', $record))
-                    ->color('success'),
-                Action::make('Channels')
-                    ->hiddenLabel()
-                    ->button()
-                    ->icon('heroicon-o-megaphone')
-                    ->url(fn ($record) => route('admin.telegram.channels', $record))
-                    ->color('info'),
-
-                Action::make('Logs')
-                    ->hiddenLabel()
-                    ->button()
-                    ->icon('heroicon-o-clipboard-document-list')
-                    ->url(fn ($record) => route('admin.telegram.logs', $record))
-                    ->color('danger'),
-
                 ViewAction::make()
                     ->icon('heroicon-o-eye')
                     ->hiddenLabel()
@@ -113,7 +103,12 @@ class Bots extends AdminTableLayout implements HasForms, HasTable
                                 $bot = new Bot($record->token);
                                 return json_encode($bot->getAllCommandsList());
                             }),
-                    ]),
+                    ])
+                    ->visible($this->roleOrPermission(['view', 'manage'], 'telegram')),
+                DeleteAction::make()
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'telegram'))
+                    ->hiddenLabel()
+                    ->button(),
             ]);
     }
 }

@@ -10,7 +10,7 @@ return [
     |
     */
 
-    'enabled' => env('LOG_VIEWER_ENABLED', false),
+    'enabled' => env('LOG_VIEWER_ENABLED', true),
 
     'api_only' => env('LOG_VIEWER_API_ONLY', false),
 
@@ -35,7 +35,7 @@ return [
     |
     */
 
-    'route_path' => 'admin/logs',
+    'route_path' => 'log-viewer',
 
     /*
     |--------------------------------------------------------------------------

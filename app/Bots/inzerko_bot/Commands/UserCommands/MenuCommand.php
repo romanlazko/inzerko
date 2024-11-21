@@ -24,7 +24,7 @@ class MenuCommand extends Command
 
     public function execute(Update $updates): Response
     {
-        $buttons = BotApi::inlineKeyboard([
+        $buttons = Inzerko::inlineKeyboard([
             [array(CreateAnnouncement::getTitle('ru'), CreateAnnouncement::$command, '')],
             [array(Profile::getTitle('ru'), Profile::$command, '')],
         ]);
@@ -34,14 +34,12 @@ class MenuCommand extends Command
             "Я помогу тебе создать объявление в каналах *Pozor*."."\n",
         ]);
 
-        $data = [
+        return Inzerko::returnInline([
             'text'          =>  $text,
             'chat_id'       =>  $updates->getChat()->getId(),
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
-        ];
-
-        return Inzerko::returnInline($data);
+        ]);
     }
 }

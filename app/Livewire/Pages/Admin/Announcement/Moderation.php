@@ -5,22 +5,28 @@ namespace App\Livewire\Pages\Admin\Announcement;
 use App\Enums\Status;
 use App\Livewire\Components\Tables\Columns\ImageGridColumn;
 use App\Models\Announcement;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\Layout\Panel;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Support\HtmlString;
 use Spatie\LaravelMarkdown\MarkdownRenderer;
 use App\Livewire\Components\Tables\Columns\StatusSwitcher;
 use App\Livewire\Layouts\AdminAnnouncementTableLayout;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+
 class Moderation extends AdminAnnouncementTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public function table(Table $table): Table
     {
         return $table
@@ -38,7 +44,7 @@ class Moderation extends AdminAnnouncementTableLayout implements HasForms, HasTa
                 Stack::make([
                     StatusSwitcher::make('current_status')
                         ->options(Status::class)
-                        ->color(fn (Announcement $announcement) => $announcement->current_status->filamentColor()),
+                        ->color(fn (Announcement $announcement) => $announcement->current_status?->filamentColor()),
 
                     TextColumn::make('categories')
                         ->getStateUsing(fn (Announcement $announcement) => $announcement->categories?->pluck('name'))
@@ -78,7 +84,7 @@ class Moderation extends AdminAnnouncementTableLayout implements HasForms, HasTa
                         ]),
 
                     TextColumn::make('location')
-                        ->state(fn (Announcement $announcement) => $announcement->geo->name)
+                        ->state(fn (Announcement $announcement) => $announcement->geo?->name)
                         ->badge()
                         ->color('gray'),
 
@@ -114,6 +120,7 @@ class Moderation extends AdminAnnouncementTableLayout implements HasForms, HasTa
             ->contentGrid([
                 'md' => 2,
                 'xl' => 3,
+                '2xl' => 4
             ])
             ->paginationPageOptions([25, 50, 100])
             ->poll('2s');

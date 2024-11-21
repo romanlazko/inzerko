@@ -10,11 +10,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Thread extends Model
 {
-    use HasFactory; use SoftDeletes;
+    use HasFactory; 
+    use SoftDeletes;
 
-    protected $guarded = [
-        
-    ];
+    protected $guarded = [];
+
+    protected static function booted(): void
+    {
+        static::deleted(function (Thread $thread) {
+            $thread->messages()->delete();
+        });
+
+        static::forceDeleted(function (Thread $thread) {
+            $thread->messages()->forceDelete();
+        });
+
+        static::restored(function (Thread $thread) {
+            $thread->messages()->restore();
+        });
+    }
 
     public function messages()
     {
@@ -31,20 +45,10 @@ class Thread extends Model
         return $this->belongsToMany(User::class);
     }
 
-    // public function lastMessageRelation()
-    // {
-    //     return $this->messages()->latestOfMany();
-    // }
-
     public function latestMessage()
     {
         return $this->hasOne(Message::class)->latestOfMany();
     }
-
-    // public function getLastMessageAttribute()
-    // {
-    //     return $this->lastMessageRelation->first();
-    // }
 
     public function getRecipientAttribute()
     {

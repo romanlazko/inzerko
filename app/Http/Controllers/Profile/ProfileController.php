@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use App\Rules\AtLeastOneSelected;
 use App\Rules\AtLeastOneVisible;
+use App\Services\ProfileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use libphonenumber\PhoneNumberUtil;
 
 use Laravolt\Avatar\Facade as Avatar;
 
@@ -23,17 +26,20 @@ class ProfileController extends Controller
 
     public function show(User $user): View
     {
+        $announcements = $user->announcements()
+            ->with([
+                'category', 
+                'media',    
+                'features' => fn ($query) => $query->forAnnouncementCard(),
+                'geo',
+                'votes',
+            ])
+            ->orderBy('category_id')
+            ->paginate(10);
+
         return view('profile.show', [
             'user' => $user,
-            'announcements' => $user->announcements()->with([
-                    'category', 
-                    'media',    
-                    'features' => fn ($query) => $query->forAnnouncementCard(),
-                    'geo',
-                    'votes',
-                ])
-                ->orderBy('category_id')
-                ->paginate(10),
+            'announcements' => $announcements,
         ]);
     }
     /**
@@ -42,22 +48,25 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $request->user()
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($request->user()->id)],
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-        
-        $request->user()->save();
+        ProfileService::update(
+            user: $request->user(),
+            name: $request->name,
+            email: $request->email
+        );
 
         return Redirect::route('profile.edit')->with([
             'ok' => true, 
@@ -85,16 +94,16 @@ class ProfileController extends Controller
     {
         $request->validate([
             'communication' => ['required', 'array', new AtLeastOneSelected('visible')],
-            'communication.*.phone' => ['required_if_accepted:communication.*.visible'],
+            'communication.*.phone' => ['required_if_accepted:communication.*.visible', 'nullable', 'phone:CZ'],
             'lang' => ['required', 'array'],
             'lang.*' => ['string', 'in:en,ru,cz'],
         ]);
         
-
-        $request->user()->update([
-            'communication' => $request->communication,
-            'lang' => $request->lang,
-        ]);
+        ProfileService::update(
+            user: $request->user(),
+            communication:$request->communication,
+            lang: $request->lang
+        );
 
         return Redirect::route('profile.edit')->with([
             'ok' => true,
@@ -102,11 +111,9 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function security(Request $request): View
+    public function security(): View
     {
-        return view('profile.security', [
-            'user' => $request->user(),
-        ]);
+        return view('profile.security');
     }
 
     public function updatePassword(Request $request): RedirectResponse
@@ -116,9 +123,10 @@ class ProfileController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
-        $request->user()->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+        ProfileService::update(
+            user: $request->user(),
+            password: $validated['password']
+        );
 
         return back()->with('status', __('password-updated'));
     }
@@ -146,13 +154,19 @@ class ProfileController extends Controller
 
     public function wishlist()
     {
-        $announcements = auth()->user()->wishlist()->isPublished()->latest()
-            ->paginate(30)->withQueryString();
+        $announcements = auth()->user()
+            ->wishlist()
+            ->isPublished()
+            ->latest()
+            ->paginate(30)
+            ->withQueryString();
 
-        return view('profile.wishlist', compact('announcements'));
+        return view('profile.wishlist', [
+            'announcements' => $announcements
+        ]);
     }
 
-    public function my_announcements(Request $request): View
+    public function my_announcements(): View
     {
         return view('profile.my-announcements');
     }
@@ -166,9 +180,10 @@ class ProfileController extends Controller
 
     public function updateNotifications(Request $request): RedirectResponse
     {
-        $request->user()->update([
-            'notification_settings' => $request->notification_settings,
-        ]);
+        ProfileService::update(
+            user: $request->user(),
+            notification_settings: $request->notification_settings
+        );
 
         return Redirect::route('profile.notifications')->with([
             'ok' => true,

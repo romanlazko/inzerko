@@ -2,6 +2,7 @@
 
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -22,7 +23,7 @@ class HelpCommand extends Command
 
     public function execute(Update $updates): Response
     {
-        $buttons = BotApi::inlineKeyboard([
+        $buttons = Inzerko::inlineKeyboard([
             [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
         ]);
 
@@ -33,14 +34,12 @@ class HelpCommand extends Command
             "/start - 🏁 Start bot." 
         ]);
 
-        $data = [
+        return Inzerko::returnInline([
             'text'          =>  $text,
             'chat_id'       =>  $updates->getChat()->getId(),
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
-        ];
-
-        return BotApi::returnInline($data);
+        ]);
     }
 }

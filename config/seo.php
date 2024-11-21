@@ -59,7 +59,7 @@ return [
      *
      * You can use the following filetypes: ico, png, gif, jpeg, svg.
      */
-    'favicon' => config('app.favicon'),
+    'favicon' => 'favicon.ico',
 
     'title' => [
         /**
@@ -82,7 +82,7 @@ return [
          * so you'll need to add the suffix manually if you want that. If set to null, we'll determine the title
          * just like the other pages.
          */
-        'homepage_title' => null,
+        'homepage_title' => config('app.name'),
     ],
 
     'description' => [
@@ -91,7 +91,8 @@ return [
          * where we don't have a description set via an associated ->seo model or via
          * the ->getDynamicSEOData() method.
          */
-        'fallback' => null,
+        'fallback' => "Inzerko.cz is a classifieds platform where users can buy, sell, and discover a wide range of products and services. The site features various categories, including real estate, electronics, vehicles, clothing, and jobs, making it a comprehensive marketplace. Users can create accounts to manage their announcements, browse listings, and connect with sellers or buyers.",
+        'homepage_description' => "Inzerko.cz is a classifieds platform where users can buy, sell, and discover a wide range of products and services. The site features various categories, including real estate, electronics, vehicles, clothing, and jobs, making it a comprehensive marketplace. Users can create accounts to manage their announcements, browse listings, and connect with sellers or buyers.",
     ],
 
     'image' => [
@@ -102,6 +103,7 @@ return [
          * (`secure_url($yourProvidedPath)`), so make sure the image is accessible from the public folder.
          */
         'fallback' => null,
+        'logo' => 'logo.webp'
     ],
 
     'author' => [

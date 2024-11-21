@@ -18,7 +18,6 @@ use Filament\Forms\Components\Livewire;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\DB;
 use Filament\Tables\Filters\Filter;
-use CodeWithDennis\FilamentSelectTree\SelectTree;
 
 abstract class AdminAnnouncementTableLayout extends AdminTableLayout
 {
@@ -35,7 +34,7 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
         ])
         ->dropdown(false)
         ->visible(fn (Announcement $announcement) => 
-            $announcement->status?->isCreated()
+            $announcement->status?->isCreated() AND $this->roleOrPermission(['moderate', 'manage'], 'announcement')
         );
     }
 
@@ -69,10 +68,20 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ->modalWidth('md')
                 ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
                 ->size(ActionSize::ExtraSmall),
+            Action::make('retry_moderation')
+                ->label(__("Retry"))
+                ->action(fn (Announcement $announcement) => $announcement->moderate())
+                ->color('warning')
+                ->button()
+                ->icon('heroicon-c-arrow-path-rounded-square')
+                ->size(ActionSize::ExtraSmall)
+                ->visible(fn (Announcement $announcement) => 
+                    $announcement->status?->isModerationFailed() OR $announcement->status?->isModerationNotPassed()
+                ),
         ])
         ->dropdown(false)
         ->visible(fn (Announcement $announcement) => 
-            $announcement->status?->isOnModeration()
+            $announcement->status?->isOnModeration() AND $this->roleOrPermission(['moderate', 'manage'], 'announcement')
         );
     }
 
@@ -101,6 +110,7 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                     $announcement->status?->isPublishingFailed()
                 ),
             ])
+            ->visible($this->roleOrPermission(['moderate', 'manage'], 'announcement'))
             ->dropdown(false);
     }
 
@@ -117,7 +127,7 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ->visible(fn (Announcement $announcement) => $announcement->status?->isApproved()),
                 
             Action::make('publish_without_translating')
-                ->label(__("Publish without translating"))
+                ->label(__("Skip translating"))
                 ->action(fn (Announcement $announcement) => $announcement->publish())
                 ->color('warning')
                 ->button()
@@ -144,7 +154,7 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
         ])
         ->dropdown(false)
         ->visible(fn (Announcement $announcement) => 
-            $announcement->status?->isApproved() OR $announcement->status?->isAwaitTranslation() OR $announcement->status?->isTranslationFailed()
+            $announcement->status?->isApproved() OR $announcement->status?->isAwaitTranslation() OR $announcement->status?->isTranslationFailed() AND $this->roleOrPermission(['moderate', 'manage'], 'announcement')
         );
     }
 
@@ -152,7 +162,7 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
     {
         return ActionGroup::make([
             Action::make('history')
-                ->label(__("View history"))
+                ->modalHeading(fn (Announcement $announcement) => "Audits: {$announcement->title}")
                 ->form(fn (Announcement $announcement) => [
                     Livewire::make(Audits::class, ['announcement_id' => $announcement->id])
                 ])
@@ -166,7 +176,7 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ->size(ActionSize::ExtraSmall),
             
             Action::make('statuses')
-                ->label(__("View statuses"))
+                ->modalHeading(fn (Announcement $announcement) => "Statuses: {$announcement->title}")
                 ->form(fn (Announcement $announcement) => [
                     Livewire::make(Statuses::class, ['announcement_id' => $announcement->id])
                 ])
@@ -179,8 +189,8 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ->button()
                 ->size(ActionSize::ExtraSmall),
 
-            Action::make("Telegram Channels")
-                ->modalHeading(fn (Announcement $announcement) => "Telegram Channels: {$announcement->getFeatureByName('title')?->value}")
+            Action::make("telegram_channels")
+                ->modalHeading(fn (Announcement $announcement) => "Telegram Channels: {$announcement->title}")
                 ->form(fn (Announcement $announcement) => [
                     Livewire::make(Channels::class, ['announcement_id' => $announcement->id]),
                 ])
@@ -193,11 +203,13 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ->button()
                 ->size(ActionSize::ExtraSmall),
 
-            DeleteAction::make('delete_announcement')
+            DeleteAction::make()
                 ->hiddenLabel()
                 ->button()
-                ->size(ActionSize::ExtraSmall),
+                ->size(ActionSize::ExtraSmall)
+                ->visible($this->roleOrPermission(['delete', 'manage'], 'announcement')),
         ])
+        ->visible($this->roleOrPermission(['manage'], 'announcement'))
         ->dropdown(false);
     }
 
@@ -221,41 +233,21 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                     return $query->when($data['current_status'], fn ($query) => $query->where('current_status', $data['current_status']));
                 }),
 
-            // Filter::make('category')
-            //     ->form([
-            //         Select::make('category')
-            //             ->options(fn () => 
-            //                 Category::all()
-            //                     ->loadCount('announcements')
-            //                     ->groupBy('parent.name')
-            //                     ->map
-            //                     ->mapWithKeys(fn ($category) => [$category->id => $category->name . ' (' . $category->announcements_count . ')'])
-            //                     ->toArray()
-            //             ),
-            //     ])
-            //     ->query(function ($query, array $data) {
-            //         return $query->when($data['category'], fn ($query) => $query->category(Category::find($data['category'])));
-            //     }),
-            Filter::make('tree')
+            Filter::make('category')
                 ->form([
-                    SelectTree::make('category')
-                        ->relationship('category', 'name', 'parent_id'),
+                    Select::make('category')
+                        ->options(fn () => 
+                            Category::all()
+                                ->loadCount('announcements')
+                                ->groupBy('parent.name')
+                                ->map
+                                ->mapWithKeys(fn ($category) => [$category->id => $category->name . ' (' . $category->announcements_count . ')'])
+                                ->toArray()
+                        ),
                 ])
                 ->query(function ($query, array $data) {
                     return $query->when($data['category'], fn ($query) => $query->category(Category::find($data['category'])));
                 }),
-                // ->query(function ($query, array $data) {
-                //     return $query->when($data['category'], function ($query, $categories) {
-                //         return $query->whereHas('category', fn($query) => $query->where('id', $categories));
-                //     });
-                // }),
-                // ->indicateUsing(function (array $data): ?string {
-                //     if (! $data['category']) {
-                //         return null;
-                //     }
-        
-                //     return __('Categories') . ': ' . implode(', ', Category::where('id', $data['category'])->get()->pluck('name')->toArray());
-                // }),
 
             SelectFilter::make('user')
                 ->relationship('user', 'name')

@@ -157,6 +157,8 @@ return [
     'url' => 'Pole :attribute musí být platná URL.',
     'ulid' => 'Pole :attribute musí být platný ULID.',
     'uuid' => 'Pole :attribute musí být platný UUID.',
+    'at_least_one_selected' => 'Musí být vybrána alespoň jedna položka.',
+    'phone' => 'Neplatné telefonní číslo.',
 
     /*
     |--------------------------------------------------------------------------
@@ -173,6 +175,8 @@ return [
         'data.categories.*' => [
             'required' => 'Musíte vybrat alespoň jednu kategorii.',
         ],
+        'communication.*.phone.required_if_accepted' => 'Pole ":attribute" je povinné.',
+        'phone' => 'Neplatné telefonní číslo.',
     ],
 
     /*
@@ -186,6 +190,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'communication.*.phone' => 'telefonní číslo',
+        'lang' => 'jazyk',
+    ],
 
 ];

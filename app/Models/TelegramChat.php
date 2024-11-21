@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Akuechler\Geoly;
 use App\Bots\inzerko_bot\Facades\Inzerko;
-use App\Enums\Status;
-use Romanlazko\Telegram\App\BotApi;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Romanlazko\Telegram\Models\TelegramChat as Model;
 use Romanlazko\Telegram\Models\TelegramMessage;
 use Spatie\MediaLibrary\HasMedia;
@@ -15,11 +17,8 @@ use Laravolt\Avatar\Facade as Avatar;
 
 class TelegramChat extends Model implements HasMedia
 {
-    use InteractsWithMedia, Geoly;
-
-    // protected $casts = [
-    //     'status' => Status::class,
-    // ];
+    use InteractsWithMedia; 
+    use Geoly;
 
     public function registerMediaCollections(): void
     {
@@ -34,27 +33,27 @@ class TelegramChat extends Model implements HasMedia
             });
     }
 
-    public function messages()
+    public function messages(): HasMany
     {
         return $this->hasMany(TelegramMessage::class, 'chat', 'id');
     }
 
-    public function latestMessage()
+    public function latestMessage(): HasOne
     {
         return $this->hasOne(TelegramMessage::class, 'chat', 'id')->latestOfMany();
     }
 
-    public function geo()
+    public function geo(): BelongsTo
     {
         return $this->belongsTo(Geo::class);
     }
 
-    public function categories()
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_channel', 'telegram_chat_id', 'category_id');
     }
 
-    public function getAvatarAttribute()
+    public function getAvatarAttribute(): string
     {
         if ($this->getMedia('avatar')->isEmpty()) {
             if ($this->photo) {

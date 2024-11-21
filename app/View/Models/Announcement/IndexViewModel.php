@@ -34,7 +34,7 @@ class IndexViewModel
         }
 
         return Cache::remember($this->request->route('category').'_category', config('cache.ttl'), function () {
-            return Category::select('id', 'slug', 'parent_id', 'is_active', 'alternames', 'card_layout')
+            return Category::select('id', 'slug', 'parent_id', 'is_active', 'alternames')
                 ->where('slug', $this->request->route('category'))
                 ->isActive()
                 ->first();
@@ -66,7 +66,7 @@ class IndexViewModel
                 'features' => fn ($query) => $query->forAnnouncementCard(),
                 'geo',
                 'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
-                'category'
+                'category.media'
             ])
             ->category($this->category)
             ->sort($this->request->sort)

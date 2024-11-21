@@ -18,7 +18,7 @@
         </div>
     </x-slot>
 
-    <x-announcement.list :announcements="$announcements" :cols="3" :paginator="true" :layout="$category->card_layout->name ?? 'default'">
+    <x-announcement.list :announcements="$announcements" :cols="3" :paginator="true">
         <x-slot name="header">
             <div class="w-full md:flex justify-between items-center space-y-2 md:space-y-0">
                 <h2 class="text-xl lg:text-3xl font-bold">

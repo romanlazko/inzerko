@@ -18,7 +18,10 @@
     ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('table', 'filament/tables') }}"
     x-data="table"
 >
-    <x-filament-tables::container>
+    {{-- <x-filament-tables::container> --}}
+        
+    {{-- </x-filament-tables::container> --}}
+    <div>
         <div class="fi-ta-header-ctn divide-y divide-gray-200 dark:divide-white/10">
             <div class="fi-ta-header-toolbar flex items-center justify-between px-4 py-3 sm:px-6 w-full">
                 <x-filament-tables::search-field
@@ -29,6 +32,8 @@
                 />
             </div>
         </div>
+        
+        <hr>
 
         <div wire:poll.5000ms class="fi-ta-content relative divide-y divide-gray-200 overflow-x-auto dark:divide-white/10 dark:border-t-white/10">
             @if (count($records))
@@ -60,6 +65,7 @@
                                 />
                             </button>
                         </div>
+                        <hr>
                     @endforeach
                 </x-filament::grid>
             @else
@@ -85,7 +91,7 @@
                 class="fi-ta-pagination px-3 py-3 sm:px-6"
             />
         @endif
-    </x-filament-tables::container>
+    </div>
 
     @if ($this instanceof \Filament\Tables\Contracts\HasTable && (! $this->hasTableModalRendered))
         <form wire:submit.prevent="callMountedTableAction" id="show-chat-form" x-data="{

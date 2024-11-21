@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Load existing GeoJSON if available
                     const existingGeoJson = this.getGeoJson();
-                    if (existingGeoJson) {
+                        if (existingGeoJson) {
                             this.drawItems = L.geoJSON(existingGeoJson, {
                                 pointToLayer: (feature, latlng) => {
                                     return L.circleMarker(latlng, {

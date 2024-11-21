@@ -2,16 +2,14 @@
 
 namespace App\Models\Traits;
 
-use App\Enums\Status;
-use App\Jobs\PublishAnnouncementJob;
-use App\Jobs\TranslateAnnouncement;
-use App\Models\AnnouncementStatus as AnnouncementStatusModel;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 trait CacheRelationship
 {
 
-    public function cacheRelation($relation_name, $ttl = null)
+    public function cacheRelation($relation_name, $ttl = null): mixed
     {
         if ($this->relationLoaded($relation_name)) {
             return $this->getRelationValue($relation_name);

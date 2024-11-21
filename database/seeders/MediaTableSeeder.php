@@ -21,48 +21,6 @@ class MediaTableSeeder extends Seeder
         \DB::table('media')->insert(array (
             0 => 
             array (
-                'id' => 1,
-                'model_type' => 'App\\Models\\Category',
-                'model_id' => 1,
-                'uuid' => '217fd19f-83d7-4a55-8fe7-628311efdf54',
-                'collection_name' => 'categories',
-                'name' => '01J5C6C7ZA106E42237PQ6HM5K',
-                'file_name' => '01JBCHF7AZG5KGXNDWWHYMKKQF.png',
-                'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
-                'size' => 288592,
-                'manipulations' => '[]',
-                'custom_properties' => '[]',
-                'generated_conversions' => '{"thumb": true}',
-                'responsive_images' => '[]',
-                'order_column' => 1,
-                'created_at' => '2024-10-29 16:24:16',
-                'updated_at' => '2024-10-29 16:24:20',
-            ),
-            1 => 
-            array (
-                'id' => 2,
-                'model_type' => 'App\\Models\\Category',
-                'model_id' => 3,
-                'uuid' => 'ae259b42-d878-49b9-b79c-e6666c6ad6a7',
-                'collection_name' => 'categories',
-                'name' => '01J0GTQGGWYW71S48V826Q3BCN',
-                'file_name' => '01JBCHFPRN1AHR8D5EP27Y929G.png',
-                'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
-                'size' => 49271,
-                'manipulations' => '[]',
-                'custom_properties' => '[]',
-                'generated_conversions' => '{"thumb": true}',
-                'responsive_images' => '[]',
-                'order_column' => 1,
-                'created_at' => '2024-10-29 16:24:32',
-                'updated_at' => '2024-10-29 16:24:35',
-            ),
-            2 => 
-            array (
                 'id' => 3,
                 'model_type' => 'App\\Models\\Category',
                 'model_id' => 4,
@@ -71,8 +29,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RHFD851RWX4CSEH2MMFRFK',
                 'file_name' => '01JBCHG0YXSVH56485B139EZSY.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 7627,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -82,7 +40,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:24:42',
                 'updated_at' => '2024-10-29 16:24:44',
             ),
-            3 => 
+            1 => 
             array (
                 'id' => 4,
                 'model_type' => 'App\\Models\\Category',
@@ -92,8 +50,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RHBVFC38D4XVJ4N6VXHX4T',
                 'file_name' => '01JBCHG9PNWR5RP8Q3YDCJ11HP.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 34384,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -103,7 +61,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:24:51',
                 'updated_at' => '2024-10-29 16:24:54',
             ),
-            4 => 
+            2 => 
             array (
                 'id' => 5,
                 'model_type' => 'App\\Models\\Category',
@@ -113,8 +71,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RH9BE3Q0CPJRY1RJ7TY8YB',
                 'file_name' => '01JBCHGS510ZAJ2MX5KTKX4MR9.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 27003,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -124,7 +82,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:25:07',
                 'updated_at' => '2024-10-29 16:25:09',
             ),
-            5 => 
+            3 => 
             array (
                 'id' => 6,
                 'model_type' => 'App\\Models\\Category',
@@ -134,8 +92,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RJ99PQWSX2T159D2E8T2PN',
                 'file_name' => '01JBCHH2WZ1BZYNDE85HW1FPHA.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 94509,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -145,7 +103,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:25:17',
                 'updated_at' => '2024-10-29 16:25:19',
             ),
-            6 => 
+            4 => 
             array (
                 'id' => 7,
                 'model_type' => 'App\\Models\\Category',
@@ -155,8 +113,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RJKNAPRGDR9403TWYG67E0',
                 'file_name' => '01JBCHHDEJ1VAV5WVD9HF6E1QS.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 26578,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -166,7 +124,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:25:28',
                 'updated_at' => '2024-10-29 16:25:31',
             ),
-            7 => 
+            5 => 
             array (
                 'id' => 8,
                 'model_type' => 'App\\Models\\Category',
@@ -176,8 +134,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RJQVTYZCXK1HW2XVCME1JG',
                 'file_name' => '01JBCHHQYC3F1MZGQR26X9EK4H.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 56308,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -187,7 +145,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:25:39',
                 'updated_at' => '2024-10-29 16:25:40',
             ),
-            8 => 
+            6 => 
             array (
                 'id' => 9,
                 'model_type' => 'App\\Models\\Category',
@@ -197,8 +155,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RKYKB8EG7QN7F8Z0N8GMYE',
                 'file_name' => '01JBCHJ1RFJSHTJDQAVGBTV3AB.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 40955,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -208,7 +166,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:25:49',
                 'updated_at' => '2024-10-29 16:25:50',
             ),
-            9 => 
+            7 => 
             array (
                 'id' => 10,
                 'model_type' => 'App\\Models\\Category',
@@ -218,8 +176,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RN65E9GC4YZKN0QQ7K1E8Y',
                 'file_name' => '01JBCHJF3ZS0F07MHQ1EEPHK5R.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 57635,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -229,7 +187,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:26:02',
                 'updated_at' => '2024-10-29 16:26:05',
             ),
-            10 => 
+            8 => 
             array (
                 'id' => 11,
                 'model_type' => 'App\\Models\\Category',
@@ -239,8 +197,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RNDX8CWYVYHVAXZA35CGM5',
                 'file_name' => '01JBCHJTGH4Y66YXMF6V8X42R1.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 42212,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -250,7 +208,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:26:14',
                 'updated_at' => '2024-10-29 16:26:15',
             ),
-            11 => 
+            9 => 
             array (
                 'id' => 12,
                 'model_type' => 'App\\Models\\Category',
@@ -260,8 +218,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RNGW94VX4JRSBX83EA1HDB',
                 'file_name' => '01JBCHK70SY5P9MPEKJEG91HTR.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 51733,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -271,7 +229,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:26:27',
                 'updated_at' => '2024-10-29 16:26:30',
             ),
-            12 => 
+            10 => 
             array (
                 'id' => 13,
                 'model_type' => 'App\\Models\\Category',
@@ -281,8 +239,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J0H1CJMFJEX6J5VKARXXKG94',
                 'file_name' => '01JBCHM8BGNDGDF2WDGPAWRN83.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 28382,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -292,7 +250,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:27:01',
                 'updated_at' => '2024-10-29 16:27:04',
             ),
-            13 => 
+            11 => 
             array (
                 'id' => 14,
                 'model_type' => 'App\\Models\\Category',
@@ -302,8 +260,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RNSAJ8KGVZYF3C6G70TXTS',
                 'file_name' => '01JBCHMJJ1HJQ87P0YJY7G2XNE.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 59157,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -313,7 +271,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:27:11',
                 'updated_at' => '2024-10-29 16:27:13',
             ),
-            14 => 
+            12 => 
             array (
                 'id' => 15,
                 'model_type' => 'App\\Models\\Category',
@@ -323,8 +281,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RQ2N8CC86T6BK4038JHAEX',
                 'file_name' => '01JBCHMVZ108TQB02RN4CFW99Y.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 14007,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -334,7 +292,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:27:21',
                 'updated_at' => '2024-10-29 16:27:22',
             ),
-            15 => 
+            13 => 
             array (
                 'id' => 16,
                 'model_type' => 'App\\Models\\Category',
@@ -344,8 +302,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RQ7EY0QHPDX7QABGCRRVG3',
                 'file_name' => '01JBCHN68HJSR70ZM7JKMF6FQQ.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 28573,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -355,7 +313,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:27:31',
                 'updated_at' => '2024-10-29 16:27:35',
             ),
-            16 => 
+            14 => 
             array (
                 'id' => 17,
                 'model_type' => 'App\\Models\\Category',
@@ -365,8 +323,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RQC369NWHVHCKGZFHPZVTS',
                 'file_name' => '01JBCHNKDK7RZC0SWVC5DXPW7P.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 20827,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -376,7 +334,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:27:45',
                 'updated_at' => '2024-10-29 16:27:47',
             ),
-            17 => 
+            15 => 
             array (
                 'id' => 18,
                 'model_type' => 'App\\Models\\Category',
@@ -386,8 +344,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RQWJREMSCN4J29AQA5VAGE',
                 'file_name' => '01JBCHNXZZYX109PFE1SHRYJGC.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 32834,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -397,7 +355,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:27:56',
                 'updated_at' => '2024-10-29 16:27:56',
             ),
-            18 => 
+            16 => 
             array (
                 'id' => 19,
                 'model_type' => 'App\\Models\\Category',
@@ -407,8 +365,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RHFD851RWX4CSEH2MMFRFK',
                 'file_name' => '01JBCHWMCQZW8BRT6JV6T6ESEX.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 7627,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -418,7 +376,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:31:35',
                 'updated_at' => '2024-10-29 16:31:36',
             ),
-            19 => 
+            17 => 
             array (
                 'id' => 20,
                 'model_type' => 'App\\Models\\Category',
@@ -428,8 +386,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RRTFV5YWAVNS244P356A6W',
                 'file_name' => '01JBCHWZ3X5F52M8CGTYPF9NBB.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 47055,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -439,7 +397,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:31:46',
                 'updated_at' => '2024-10-29 16:31:48',
             ),
-            20 => 
+            18 => 
             array (
                 'id' => 21,
                 'model_type' => 'App\\Models\\Category',
@@ -449,8 +407,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RRZWT3023EW2YSRAN5FDS6',
                 'file_name' => '01JBCHXJ7EWQK6M8TZ73RT21XF.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 55450,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -460,7 +418,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:32:06',
                 'updated_at' => '2024-10-29 16:32:07',
             ),
-            21 => 
+            19 => 
             array (
                 'id' => 22,
                 'model_type' => 'App\\Models\\Category',
@@ -470,8 +428,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RRYQAD7AH7220D92SDH9Z6',
                 'file_name' => '01JBCHXXTP63H6WH59R7P7V51C.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 22381,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -481,7 +439,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:32:18',
                 'updated_at' => '2024-10-29 16:32:19',
             ),
-            22 => 
+            20 => 
             array (
                 'id' => 23,
                 'model_type' => 'App\\Models\\Category',
@@ -491,8 +449,8 @@ class MediaTableSeeder extends Seeder
                 'name' => '01J2RSAZA6PPNG1JDDDFT23A1P',
                 'file_name' => '01JBCHYCJN7YQGSZ8MZTC54T8A.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 23079,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -502,7 +460,7 @@ class MediaTableSeeder extends Seeder
                 'created_at' => '2024-10-29 16:32:33',
                 'updated_at' => '2024-10-29 16:32:35',
             ),
-            23 => 
+            21 => 
             array (
                 'id' => 24,
                 'model_type' => 'App\\Models\\Category',
@@ -512,8 +470,8 @@ class MediaTableSeeder extends Seeder
                 'name' => 'pngegg-50',
                 'file_name' => '01JBCJ0PBND4MR429HZ8PY7JX3.png',
                 'mime_type' => 'image/png',
-                'disk' => 'aws_categories',
-                'conversions_disk' => 'aws_categories',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
                 'size' => 35322,
                 'manipulations' => '[]',
                 'custom_properties' => '[]',
@@ -522,6 +480,48 @@ class MediaTableSeeder extends Seeder
                 'order_column' => 1,
                 'created_at' => '2024-10-29 16:33:48',
                 'updated_at' => '2024-10-29 16:33:50',
+            ),
+            22 => 
+            array (
+                'id' => 26,
+                'model_type' => 'App\\Models\\Category',
+                'model_id' => 1,
+                'uuid' => '79079ad9-2a9b-4b1c-8439-2f1fb721e0f2',
+                'collection_name' => 'categories',
+                'name' => '01J5C6C7ZA106E42237PQ6HM5K',
+                'file_name' => '01JD5D38N418NBNX3H5MDXNXGH.png',
+                'mime_type' => 'image/png',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
+                'size' => 288592,
+                'manipulations' => '[]',
+                'custom_properties' => '[]',
+                'generated_conversions' => '{"thumb": true}',
+                'responsive_images' => '[]',
+                'order_column' => 1,
+                'created_at' => '2024-11-20 19:24:32',
+                'updated_at' => '2024-11-20 19:25:01',
+            ),
+            23 => 
+            array (
+                'id' => 27,
+                'model_type' => 'App\\Models\\Category',
+                'model_id' => 3,
+                'uuid' => 'd7c27f95-9d55-419f-a914-b74512312a2c',
+                'collection_name' => 'categories',
+                'name' => '01J0GTQGGWYW71S48V826Q3BCN',
+                'file_name' => '01JD5D5J5RB8CBNSD681ECPPAF.png',
+                'mime_type' => 'image/png',
+                'disk' => 's3_categories',
+                'conversions_disk' => 's3_categories',
+                'size' => 49271,
+                'manipulations' => '[]',
+                'custom_properties' => '[]',
+                'generated_conversions' => '{"thumb": true}',
+                'responsive_images' => '[]',
+                'order_column' => 1,
+                'created_at' => '2024-11-20 19:25:48',
+                'updated_at' => '2024-11-20 19:26:01',
             ),
         ));
         

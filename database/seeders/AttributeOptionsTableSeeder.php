@@ -1057,11 +1057,11 @@ class AttributeOptionsTableSeeder extends Seeder
             array (
                 'id' => 106,
                 'attribute_id' => 42,
-                'alternames' => '{"cs": "Kč", "en": "CZK", "ru": "CZK"}',
+                'alternames' => '{"cs": "Kč", "en": "CZK", "ru": "Kč"}',
                 'is_default' => 0,
                 'is_null' => 0,
                 'created_at' => '2024-08-10 18:07:00',
-                'updated_at' => '2024-10-29 12:42:02',
+                'updated_at' => '2024-11-19 00:29:41',
                 'deleted_at' => NULL,
             ),
             95 => 
@@ -1123,11 +1123,11 @@ class AttributeOptionsTableSeeder extends Seeder
             array (
                 'id' => 112,
                 'attribute_id' => 6,
-                'alternames' => '{"cs": null, "en": "CZK", "ru": null}',
+                'alternames' => '{"cs": "Kč", "en": "CZK", "ru": "Kč"}',
                 'is_default' => 0,
                 'is_null' => 0,
                 'created_at' => '2024-08-14 10:08:37',
-                'updated_at' => '2024-08-14 10:08:37',
+                'updated_at' => '2024-11-19 00:29:12',
                 'deleted_at' => NULL,
             ),
             101 => 
@@ -1156,11 +1156,11 @@ class AttributeOptionsTableSeeder extends Seeder
             array (
                 'id' => 115,
                 'attribute_id' => 38,
-                'alternames' => '{"cs": null, "en": "CZK", "ru": null}',
+                'alternames' => '{"cs": "Kč", "en": "CZK", "ru": "Kč"}',
                 'is_default' => 0,
                 'is_null' => 0,
                 'created_at' => '2024-08-14 10:11:47',
-                'updated_at' => '2024-08-14 10:11:47',
+                'updated_at' => '2024-11-19 00:29:24',
                 'deleted_at' => NULL,
             ),
             104 => 

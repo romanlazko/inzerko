@@ -18,11 +18,6 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    'description' => "Inzerko.cz is a classifieds platform where users can buy, sell, and discover a wide range of products and services. The site features various categories, including real estate, electronics, vehicles, clothing, and jobs, making it a comprehensive marketplace. Users can create accounts to manage their announcements, browse listings, and connect with sellers or buyers.",
-
-    'logo' => 'logo.webp',
-
-    'favicon' => 'favicon.ico',
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -62,7 +57,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL'),
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -75,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------

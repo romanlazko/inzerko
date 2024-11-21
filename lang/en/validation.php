@@ -159,6 +159,7 @@ return [
     'uuid' => 'The :attribute field must be a valid UUID.',
 
     'at_least_one_selected' => 'At least one item must be selected.',
+    'phone' => 'The :attribute field must be a valid number.',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +177,7 @@ return [
             'required' => 'You must select at least one category.',
         ],
         'communication.*.phone.required_if_accepted' => 'The :attribute field is required.',
-        
+        'phone' => 'Invalid phone number.',
     ],
 
     /*

@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\Status as StatusEnum;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Status extends Model
 {
-    use HasFactory;
+    use HasFactory; 
+    use SoftDeletes;
 
     protected $guarded = [];
 
@@ -34,7 +37,7 @@ class Status extends Model
         });
     }
 
-    public function statusable()
+    public function statusable(): MorphTo
     {
         return $this->morphTo();
     }

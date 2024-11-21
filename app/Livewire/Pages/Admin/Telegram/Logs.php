@@ -4,19 +4,24 @@ namespace App\Livewire\Pages\Admin\Telegram;
 
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\TelegramBot;
-use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Romanlazko\Telegram\Models\TelegramLog;
 use Novadaemon\FilamentPrettyJson\PrettyJson;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+
 class Logs extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public TelegramBot $telegram_bot;
 
     public function mount(TelegramBot $telegram_bot)

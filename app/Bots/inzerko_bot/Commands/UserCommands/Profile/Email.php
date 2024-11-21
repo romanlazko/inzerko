@@ -3,6 +3,7 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\MenuCommand;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -22,7 +23,7 @@ class Email extends Command
     {
         $updates->getFrom()->setExpectation(AwaitEmail::$expectation);
         
-        $buttons = BotApi::inlineKeyboard([
+        $buttons = Inzerko::inlineKeyboard([
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ]);
 
@@ -34,7 +35,7 @@ class Email extends Command
             'message_id'    => $updates->getCallbackQuery()?->getMessage()?->getMessageId(),
         ];
 
-        return BotApi::returnInline($data);
+        return Inzerko::returnInline($data);
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\CreateAnnouncement;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Models\User;
 use App\Services\ProfileService;
 use Illuminate\Support\Facades\Validator;
@@ -37,7 +38,7 @@ class StoreProfile extends Command
         $validator = $this->validator($notes);
 
         if ($validator->stopOnFirstFailure()->fails()) {
-            return BotApi::answerCallbackQuery([
+            return Inzerko::answerCallbackQuery([
                 'callback_query_id' => $updates->getCallbackQuery()->getId(),
                 'text' => $validator->errors()->first(),
                 'show_alert' => true
@@ -49,14 +50,19 @@ class StoreProfile extends Command
         $user = ProfileService::create(
             name: $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
             email: $validated['email'],
-            phone: $validated['phone'],
             locale: $updates->getFrom()->getLanguageCode(),
             telegram_chat_id: $telegram_chat->id,
-            telegram_token: Str::random(8)
+            telegram_token: Str::random(8),
+            communication: [
+                'telegram' => [
+                    'phone' => $notes['phone'],
+                    'visible' => true,
+                ]
+            ]
         );
 
         if ($telegram_chat->photo) {
-            $photo_url = BotApi::getPhoto(['file_id' => $telegram_chat->photo]);
+            $photo_url = Inzerko::getPhoto(['file_id' => $telegram_chat->photo]);
 
             $user->addMediaFromUrl($photo_url)->toMediaCollection('avatar');
         }
@@ -73,17 +79,12 @@ class StoreProfile extends Command
             $data, 
             [
                 'email' => 'required|email|unique:users,email',
-                'phone' => 'required|max:16|regex:/^(\+?\d{3}\s*)?\d{3}[\s-]?\d{3}[\s-]?\d{3}$/',
+                'phone' => 'required|phone:AUTO',
             ],
             [
                 'email.required' => 'Поле e-mail обязательно к заполнению',
                 'phone.required' => 'Поле телефона обязательно к заполнению',
             ]
         );
-    }
-
-    private function addAvatar()
-    {
-
     }
 }

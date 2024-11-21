@@ -34,6 +34,9 @@ return [
         'chats' => 'Chaty',
         'channels' => 'Kanály',
         'pages' => 'Stránky',
+        'notifications' => 'Oznámení',
+        'security' => 'Bezpečnost',
+        'archive' => 'Archiv',
     ],
 
     'user' => [

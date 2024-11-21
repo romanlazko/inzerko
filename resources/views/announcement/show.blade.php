@@ -54,8 +54,8 @@
                     <hr class="mx-3">
 
                     <div class="space-y-4 w-full p-1">
-                        <a href="{{ route('profile.show', $announcement->user) }}" class="cursor-pointer w-full inline-block hover:bg-gray-100 hover:ring-1 hover:ring-gray-300 rounded-2xl p-2">
-                            <x-user.card :user="$announcement->user"/>
+                        <a href="{{ route('profile.show', $announcement?->user) }}" target="_blank" class="cursor-pointer w-full inline-block hover:bg-gray-100 hover:ring-1 hover:ring-gray-300 rounded-2xl p-2">
+                            <x-user.card :user="$announcement?->user"/>
                         </a>
 
                         <div class="px-2">
