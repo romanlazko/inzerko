@@ -32,20 +32,15 @@ class ConnectCommand extends Command
             return $this->handleError("Этот телеграм аккаунт уже подключен к аккаунту на сайте.");
         }
 
-        Log::info('ConnectCommand Updates', json_decode($updates->getJson(), true));
-
         $buttons = BotApi::inlineKeyboard([
             [array("Да подключить", SendVerifyTelegramConnection::$command, $matches[3])],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ], 'telegram_token');
 
-        Log::info('ConnectCommand buttons', $buttons);
-
         return Inzerko::returnInline([
             'chat_id' => $updates->getChat()->getId(),
             'text' => implode("\n", [
                 "*Подключение телеграм аккаунта*"."\n",
-                "*Телеграм код:* " . $matches[3],
                 "Хотите подключить этот телеграм аккаунт к аккаунту на сайте *INZERKO.cz*?",
             ]),
             'parse_mode'    => 'Markdown',
