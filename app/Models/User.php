@@ -7,7 +7,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Messanger\Thread;
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,6 +37,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     use InteractsWithMedia; 
     use HasSlug; 
     use SoftDeletes;
+    use Prunable;
 
     /**
      * The attributes that are mass assignable.
@@ -100,6 +103,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
             $user->votes()->restore();
             $user->chat()->restore();
         });
+    }
+
+    public function prunable(): Builder
+    {
+        return static::where('deleted_at', '<=', now()->subMonth());
     }
 
     public function getSlugOptions() : SlugOptions

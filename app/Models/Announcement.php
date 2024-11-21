@@ -19,6 +19,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use App\Models\Traits\Statusable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -35,6 +37,7 @@ class Announcement extends Model implements HasMedia, Auditable
     use AnnouncementSearch;
     use AnnouncementModeration; 
     use Statusable;
+    use Prunable;
 
     protected $guarded = [];
 
@@ -79,6 +82,11 @@ class Announcement extends Model implements HasMedia, Auditable
             $announcement->channels()->restore();
             $announcement->statuses()->restore();
         });
+    }
+
+    public function prunable(): Builder
+    {
+        return static::where('deleted_at', '<=', now()->subMonth());
     }
 
     public function getSlugOptions() : SlugOptions
