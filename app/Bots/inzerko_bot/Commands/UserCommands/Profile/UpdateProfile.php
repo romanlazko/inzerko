@@ -38,12 +38,12 @@ class UpdateProfile extends Command
             user: $user,
             name: $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
             email: $notes['email'] ?? null,
-            communication: [
+            communication: $notes['phone'] ? [
                 'telegram' => [
                     'phone' => $notes['phone'],
                     'visible' => true,
                 ]
-            ]
+            ] : null
         );
 
         $photo_url = Inzerko::getPhoto(['file_id' => $telegram_chat->photo]);
