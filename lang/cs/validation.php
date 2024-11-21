@@ -190,6 +190,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'communication.*.phone' => 'telefonní číslo',
+        'lang' => 'jazyk',
+    ],
 
 ];

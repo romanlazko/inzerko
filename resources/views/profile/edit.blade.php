@@ -11,12 +11,12 @@
 
     <div class="px-3 py-5 space-y-4">
         @include('profile.partials.verify-email')
-        @include('profile.partials.fill-profile')
 
         <x-ux.white-block>
             @include('profile.partials.update-profile-information-form')
         </x-ux.white-block>
 
+        @include('profile.partials.fill-profile')
         <x-ux.white-block>
             @include('profile.partials.update-communication-information-form')
         </x-ux.white-block>

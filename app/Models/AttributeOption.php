@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 class AttributeOption extends Model
 {
-    use HasFactory; use SoftDeletes;
+    use HasFactory; 
+    use SoftDeletes;
 
     public $guarded = [];
 
@@ -17,12 +18,12 @@ class AttributeOption extends Model
         'alternames' => 'array',
     ];
 
-    public function getNameAttribute()
+    public function getNameAttribute(): ?string
     {
         return $this->alternames[app()->getLocale()] ?? $this->alternames['en'] ?? null;
     }
 
-    public function attribute()
+    public function attribute(): BelongsTo
     {
         return $this->belongsTo(Attribute::class);
     }

@@ -7,16 +7,28 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileService 
 {
-    public static function create(string $name = null, string $email = null, string $password = null, string $phone = null, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
+    public static function create(
+        string $name = null,
+        string $email = null,
+        string $password = null,
+        int $telegram_chat_id = null,
+        string $telegram_token = null,
+        array $lang = null,
+        string $locale = null,
+        array $communication = null,
+        array $notification_settings = null
+    )
     {
         return User::create(array_filter([
             'name' => $name,
             'email' => $email,
             'password' => $password ? Hash::make($password) : null,
-            'phone' => $phone,
-            'locale' => $locale,
             'telegram_chat_id' => $telegram_chat_id,
             'telegram_token' => $telegram_token,
+            'lang'  => $lang,
+            'locale' => $locale,
+            'communication' => $communication,
+            'notification_settings' => $notification_settings
         ], function ($value) {
             return !is_null($value) && $value !== '';
         }));
@@ -32,15 +44,28 @@ class ProfileService
         return $user->addMediaFromUrl($url)->toMediaCollection('avatar');
     }
 
-    public static function update(User $user, string $name = null, string $email = null, string $phone = null, string $locale = null, int $telegram_chat_id = null, string $telegram_token = null)
-    {
+    public static function update(
+        User $user,
+        string $name = null,
+        string $email = null,
+        string $password = null,
+        int $telegram_chat_id = null,
+        string $telegram_token = null,
+        array $lang = null,
+        string $locale = null,
+        array $communication = null,
+        array $notification_settings = null
+    ) {
         $user->fill(array_filter([
             'name' => $name,
             'email' => $email,
-            'phone' => $phone,
-            'locale' => $locale,
+            'password' => $password ? Hash::make($password) : null,
             'telegram_chat_id' => $telegram_chat_id,
             'telegram_token' => $telegram_token,
+            'lang'  => $lang,
+            'locale' => $locale,
+            'communication' => $communication,
+            'notification_settings' => $notification_settings
         ], function ($value) {
             return !is_null($value) && $value !== '';
         }));

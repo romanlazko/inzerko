@@ -5,33 +5,30 @@ namespace App\Livewire\Pages\Admin\CMS;
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\Concerns\CategorySection;
 use App\Livewire\Layouts\AdminTableLayout;
-use App\Models\Attribute;
-use App\Models\Category;
 use App\Models\Page;
-use App\Models\Sorting;
-use Aws\Crypto\Polyfill\Key;
-use Closure;
-use Faker\Provider\ar_EG\Text;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Get;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\Action;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+
 class Pages extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     use CategorySection;
 
     public function table(Table $table): Table
@@ -45,7 +42,8 @@ class Pages extends AdminTableLayout implements HasForms, HasTable
                             'pages',
                             'blocks'
                         ]);
-                    }),
+                    })
+                    ->visible($this->roleOrPermission(['manage'], 'page')),
                 CreateAction::make()
                     ->form([
                         Section::make('title')
@@ -75,7 +73,8 @@ class Pages extends AdminTableLayout implements HasForms, HasTable
                             ])
                     ])
                     ->slideOver()
-                    ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb']),
+                    ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'page'))
             ])
             ->columns([
                 TextColumn::make('title'),
@@ -122,10 +121,18 @@ class Pages extends AdminTableLayout implements HasForms, HasTable
                     ->slideOver()
                     ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
                     ->hiddenLabel()
-                    ->button(),
-                DeleteAction::make()
+                    ->button()
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'page')),
+                DeleteAction::make('delete')
                     ->hiddenLabel()
                     ->button()
+                    ->action(fn (Page $record) => $record->delete())
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'page')),
+                DeleteAction::make('forceDelete')
+                    ->hiddenLabel()
+                    ->button()
+                    ->action(fn (Page $record) => $record->forceDelete())
+                    ->visible($this->roleOrPermission(['force_delete', 'manage'], 'page'))
             ]);
     }
 }

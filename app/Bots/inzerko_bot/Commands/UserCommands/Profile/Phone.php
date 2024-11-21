@@ -3,6 +3,7 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\MenuCommand;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -20,7 +21,7 @@ class Phone extends Command
     {
         $updates->getFrom()->setExpectation(AwaitPhone::$expectation);
 
-        $buttons = BotApi::inlineKeyboard([
+        $buttons = Inzerko::inlineKeyboard([
             [
                 array("👈 Назад", Email::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
@@ -32,7 +33,7 @@ class Phone extends Command
 		    "*Пример*: +420 777 123 487",
         ]);
 
-        return BotApi::returnInline([
+        return Inzerko::returnInline([
             'text'          =>  $text,
             'chat_id'       =>  $updates->getChat()->getId(),
             'reply_markup'  =>  $buttons,

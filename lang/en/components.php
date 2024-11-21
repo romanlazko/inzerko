@@ -37,6 +37,7 @@ return [
         'pages' => 'Pages',
         'notifications' => 'Notifications',
         'security' => 'Security',
+        'archive' => 'Archive',
     ],
 
     'user' => [

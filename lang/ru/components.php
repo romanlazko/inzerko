@@ -36,6 +36,7 @@ return [
         'pages' => 'Страницы',
         'notifications' => 'Уведомления',
         'security' => 'Безопасность',
+        'archive' => 'Архив',
     ],
 
     'livewire' => [

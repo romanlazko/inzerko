@@ -18,7 +18,7 @@
     $announcement->price
 }}
 
-<b>{{ 
+<b>{{
     $announcement->categories
         ?->pluck('name')
         ?->map(fn ($value) => str()

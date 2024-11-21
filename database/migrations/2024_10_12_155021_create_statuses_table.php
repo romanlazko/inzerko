@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('status')->nullable()->default(Status::created);
             $table->json('info')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

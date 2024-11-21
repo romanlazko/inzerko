@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Block extends Model
 {
-    use HasFactory; use HasSlug; use SoftDeletes;
+    use HasFactory; 
+    use HasSlug; 
+    use SoftDeletes;
 
     protected $guarded = [];
 
@@ -21,9 +24,7 @@ class Block extends Model
             ->saveSlugsTo('slug');
     }
 
-
-
-    public function page()
+    public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class);
     }

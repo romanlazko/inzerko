@@ -3,6 +3,7 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\MenuCommand;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Models\User;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -33,9 +34,9 @@ class Profile extends Command
 
         $saveProfileCommand = $user ? UpdateProfile::class : StoreProfile::class;
 
-        $buttons = BotApi::inlineKeyboard([
+        $buttons = Inzerko::inlineKeyboard([
             [array($notes['email'] ?? $user?->email ?? 'Email:', Email::$command, '')],
-            [array($notes['phone'] ?? $user?->phone ?? 'Phone:', Phone::$command, '')],
+            [array($notes['phone'] ?? $user?->communication?->telegram?->phone ?? 'Phone:', Phone::$command, '')],
             [array($saveProfileCommand::getTitle('ru'), $saveProfileCommand::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ]);
@@ -44,7 +45,7 @@ class Profile extends Command
             "*Ваш профиль:*"."\n",
         ]);
 
-        return BotApi::returnInline([
+        return Inzerko::returnInline([
             'text'          =>  $text,
             'chat_id'       =>  $updates->getChat()->getId(),
             'reply_markup'  =>  $buttons,

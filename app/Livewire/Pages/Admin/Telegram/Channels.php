@@ -9,18 +9,23 @@ use App\Models\TelegramBot;
 use App\Models\TelegramChat;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 
 class Channels extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+
     public TelegramBot $telegram_bot;
 
     public function mount(TelegramBot $telegram_bot)
@@ -60,7 +65,8 @@ class Channels extends AdminTableLayout implements HasForms, HasTable
             ->actions([
                 DeleteAction::make()
                     ->hiddenLabel()
-                    ->button(),
+                    ->button()
+                    ->visible($this->roleOrPermission('super-duper-admin')),
                 EditAction::make('Edit Location')
                     ->modalHeading(fn (TelegramChat $telegram_chat) => "Edit Location: {$telegram_chat->title}")
                     ->form([

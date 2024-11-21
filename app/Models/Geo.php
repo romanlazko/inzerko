@@ -11,7 +11,7 @@ class Geo extends Model
 
     protected $guarded = [];
 
-    public function getNameAttribute()
+    public function getNameAttribute(): ?string
     {
         return "{$this->attributes['country']}, {$this->attributes['name']}";
     }

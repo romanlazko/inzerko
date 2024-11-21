@@ -64,8 +64,8 @@ trait AnnouncementCrud
                 'category_id' => $data->category_id,
             ]));
 
-            $announcement->features()->delete();
-            $announcement->channels()->delete();
+            $announcement->features()->forceDelete();
+            $announcement->channels()->forceDelete();
 
             if ($announcement) {
                 $announcement->features()->createMany($this->getCreateFeatures($announcement->category, $data->attributes));

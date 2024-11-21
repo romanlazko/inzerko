@@ -155,22 +155,20 @@
                 >
                     @if ($heading)
                         <div class="fi-modal-header flex p-3 items-center fi-sticky sticky top-0 z-10 border-b border-gray-200 bg-white dark:border-white/10 dark:bg-gray-900">
-                            <div class="absolute end-6 top-6">
-                                <x-filament::icon-button
-                                    color="gray"
-                                    icon="heroicon-o-x-mark"
-                                    icon-alias="modal.close-button"
-                                    icon-size="lg"
-                                    :label="__('filament::components/modal.actions.close.label')"
-                                    tabindex="-1"
-                                    :x-on:click="$closeEventHandler"
-                                    class="fi-modal-close-btn"
-                                />
-                            </div>
-
                             <x-filament::modal.heading>
                                 {{ $heading }}
                             </x-filament::modal.heading>
+
+                            <x-filament::icon-button
+                                color="gray"
+                                icon="heroicon-o-x-mark"
+                                icon-alias="modal.close-button"
+                                icon-size="lg"
+                                :label="__('filament::components/modal.actions.close.label')"
+                                tabindex="-1"
+                                :x-on:click="$closeEventHandler"
+                                class="fi-modal-close-btn "
+                            />
                         </div>
                     @endif
 

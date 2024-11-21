@@ -4,16 +4,20 @@ namespace App\Livewire\Pages\Admin\Announcement;
 
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Announcement;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
-use OwenIt\Auditing\Models\Audit;
-use PepperFM\FilamentJson\Columns\JsonColumn;
 use App\Models\Status;
+
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 
 class Statuses extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public Announcement $announcement;
 
     public function mount($announcement_id)

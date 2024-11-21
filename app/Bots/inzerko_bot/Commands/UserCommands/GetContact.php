@@ -2,6 +2,7 @@
 
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use Romanlazko\Telegram\App\BotApi;
 use App\Bots\pozor_baraholka_bot\Models\BaraholkaAnnouncement;
 use App\Models\TelegramChat;
@@ -25,7 +26,7 @@ class GetContact extends Command
     {
         preg_match(static::$pattern, $updates->getMessage()?->getCommand(), $matches);
 
-        $buttons = BotApi::inlineKeyboardWithLink([
+        $buttons = Inzerko::inlineKeyboardWithLink([
             'text'  => "👤 Контакт на автора", 
             'url'   => "tg://user?id={$matches[3]}"
         ]);
@@ -34,7 +35,7 @@ class GetContact extends Command
             "<b>Вот контакт на автора объявления:</b>",
         ];
 
-        return BotApi::sendMessage([
+        return Inzerko::sendMessage([
             'text'                      => implode("\n\n", $text),
             'reply_markup'              => $buttons,
             'chat_id'                   => $this->updates->getChat()->getId(),

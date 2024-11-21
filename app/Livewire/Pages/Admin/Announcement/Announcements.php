@@ -5,10 +5,12 @@ namespace App\Livewire\Pages\Admin\Announcement;
 use App\Enums\Status;
 use App\Models\Announcement;
 use App\Models\Category;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use App\Livewire\Components\Tables\Columns\StatusSwitcher;
@@ -19,11 +21,18 @@ use Filament\Tables\Actions\DeleteBulkAction;
 
 class Announcements extends AdminAnnouncementTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+
     public function table(Table $table): Table
     {
         return $table
             ->heading("All announcements")
             ->headerActions([
+                Action::make('Archive')
+                    ->icon('heroicon-o-archive-box-x-mark')
+                    ->color('warning')
+                    ->url(route('admin.announcement.archive')),
                 Action::make('Generate fake announcements')
                     ->form([
                         Select::make('count')
@@ -43,9 +52,11 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
                             ->label('Category without children')
                             ->required()
                     ])
+                    ->icon('heroicon-o-plus-circle')
                     ->action(function (array $data) {
                         Announcement::factory($data['count'])->for(Category::find($data['category']))->create();
-                    }),
+                    })
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'announcement')),
             ])
             ->query(Announcement::with([
                 'media',
@@ -53,70 +64,71 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
                 'channels.telegram_chat', 
                 'geo', 
                 'features.attribute_option',
+                'features.attribute',
             ]))
             ->defaultSort('created_at', 'desc')
             ->columns([
-                    TextColumn::make('id'),
+                TextColumn::make('id'),
 
-                    SpatieMediaLibraryImageColumn::make('media')
-                        ->collection('announcements', 'thumb')
-                        ->limit(3)
-                        ->wrap(),
+                SpatieMediaLibraryImageColumn::make('media')
+                    ->collection('announcements', 'thumb')
+                    ->limit(3)
+                    ->wrap(),
 
-                    TextColumn::make('features')
-                        ->state(fn (Announcement $announcement) => $announcement->features
-                            ->groupBy('attribute.createSection.order_number')
-                            ->map
-                            ->sortBy('attribute.create_layout.order_number')
-                            ->flatten()
-                            ->map(fn (Feature $feature) => "{$feature->label}: ". str($feature->value)->stripTags()->limit(100))
-                        )
-                        ->color('neutral')
-                        ->badge()
-                        ->searchable(query: function ($query, string $search) {
-                            return $query
-                                ->whereRaw('LOWER(slug) LIKE ?', ['%' . mb_strtolower($search) . '%'])
-                                ->orWhereHas('features', fn ($query) => 
-                                    $query->whereRaw('LOWER(translated_value) LIKE ?', ['%' . mb_strtolower($search) . '%'])
-                                        ->orWhereHas('attribute_option', fn ($query) => 
-                                            $query->whereRaw('LOWER(alternames) LIKE ?', ['%' . mb_strtolower($search) . '%'])
-                                        )
-                                    );
-                        }),
+                TextColumn::make('features')
+                    ->state(fn (Announcement $announcement) => $announcement->features
+                        ->groupBy('attribute.createSection.order_number')
+                        ->map
+                        ->sortBy('attribute.create_layout.order_number')
+                        ->flatten()
+                        ->map(fn (Feature $feature) => "{$feature->label}: ". str($feature->value)->stripTags()->limit(100))
+                    )
+                    ->color('neutral')
+                    ->badge()
+                    ->searchable(query: function ($query, string $search) {
+                        return $query
+                            ->whereRaw('LOWER(slug) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                            ->orWhereHas('features', fn ($query) => 
+                                $query->whereRaw('LOWER(translated_value) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                                    ->orWhereHas('attribute_option', fn ($query) => 
+                                        $query->whereRaw('LOWER(alternames) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                                    )
+                                );
+                    }),
 
-                    TextColumn::make('user.name')
-                        ->description(fn (Announcement $announcement) => $announcement->user?->email)
-                        ->extraAttributes(['class' => 'text-xs']),
+                TextColumn::make('user.name')
+                    ->description(fn (Announcement $announcement) => $announcement->user?->email)
+                    ->extraAttributes(['class' => 'text-xs']),
 
-                    TextColumn::make('location')
-                        ->state(fn (Announcement $announcement) => $announcement->geo?->name)
-                        ->badge()
-                        ->color('gray'),
+                TextColumn::make('location')
+                    ->state(fn (Announcement $announcement) => $announcement->geo?->name)
+                    ->badge()
+                    ->color('gray'),
 
-                    TextColumn::make('categories')
-                        ->getStateUsing(fn (Announcement $announcement) => $announcement->categories?->pluck('name'))
-                        ->badge(),
+                TextColumn::make('categories')
+                    ->getStateUsing(fn (Announcement $announcement) => $announcement->categories?->pluck('name'))
+                    ->badge(),
 
-                    TextColumn::make('channels')
-                        ->state(fn (Announcement $announcement) => view(
-                            'livewire.components.tables.columns.telegram-channel-status',
-                            [
-                                'collection' => $announcement->channels->map(function ($channel) {
-                                    $channel->color = $channel->status?->filamentColor();
-                                    $channel->title = "{$channel->telegram_chat?->title}: {$channel->status?->getLabel()}";
-                                    return $channel;
-                                }),
-                            ],
-                        )),
+                TextColumn::make('channels')
+                    ->state(fn (Announcement $announcement) => view(
+                        'livewire.components.tables.columns.telegram-channel-status',
+                        [
+                            'collection' => $announcement->channels->map(function ($channel) {
+                                $channel->color = $channel->status?->filamentColor();
+                                $channel->title = "{$channel->telegram_chat?->title}: {$channel->status?->getLabel()}";
+                                return $channel;
+                            }),
+                        ],
+                    )),
 
-                    StatusSwitcher::make('current_status')
-                        ->options(Status::class)
-                        ->grow(true)
-                        ->updateStateUsing(fn (Announcement $announcement, string $state) => $announcement->updateStatus($state))
-                        ->color(fn (Announcement $announcement) => $announcement->current_status->filamentColor()),
+                StatusSwitcher::make('current_status')
+                    ->options(Status::class)
+                    ->grow(true)
+                    ->updateStateUsing(fn (Announcement $announcement, string $state) => $announcement->updateStatus($state))
+                    ->color(fn (Announcement $announcement) => $announcement->current_status->filamentColor()),
 
-                    TextColumn::make('created_at')
-                ])
+                TextColumn::make('created_at')
+            ])
             
             ->actions([
                     // CREATE STATUS
@@ -142,8 +154,7 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
             ->filters($this->filters())
             ->bulkActions([
                 DeleteBulkAction::make()
-                    ->modalHeading('Are you sure you want to delete the selected announcements?')
-                    ->action(fn ($records) => $records->each->delete())
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'announcement')),
             ])
             ->persistFiltersInSession()
             ->paginationPageOptions([25, 50, 100])

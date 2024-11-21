@@ -9,7 +9,6 @@ use App\Models\User;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Tables\Actions\DeleteAction;
@@ -17,13 +16,20 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Actions\Action as ActionsAction;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+
 class Users extends AdminTableLayout implements HasForms, HasTable
 {
-
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public function table(Table $table): Table
     {
         return $table
@@ -43,6 +49,13 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('chat')
                     ->state(fn (User $user) => "{$user?->chat?->first_name} {$user?->chat?->last_name}")
                     ->description(fn (User $record) => "{$record?->chat?->username} ({$record?->chat?->chat_id})"),
+                TextColumn::make('roles.name')
+                    ->badge()
+                    ->color('warning'),
+                TextColumn::make('communication.phone')
+                    ->state(fn (User $user) => collect((array) $user->communication)->map(fn ($communication) => $communication->phone))
+                    ->badge()
+                    ->color('gray'),
                 TextColumn::make('lang')
                     ->badge()
                     ->wrap(true),
@@ -64,6 +77,12 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
+            ->headerActions([
+                ActionsAction::make('Archive')
+                    ->icon('heroicon-o-archive-box-x-mark')
+                    ->color('warning')
+                    ->url(route('admin.users.archive')),
+            ])
             ->actions([
                 EditAction::make('edit')
                     ->form([
@@ -72,6 +91,13 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                             ->email(),
                         TextInput::make('phone')
                             ->tel(),
+                        Select::make('roles')
+                            ->relationship('roles', 'name')
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->visible($this->roleOrPermission(['manage'], 'role')),
                         Select::make('locale')
                             ->options(config('translate.languages')),
                         Select::make('telegram_chat_id')
@@ -91,11 +117,13 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                             ->required(),
                     ])
                     ->button()
-                    ->hiddenLabel(),
+                    ->hiddenLabel()
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'user')),
+
                 DeleteAction::make()
-                    ->action(fn (User $record) => $record->remove())
                     ->button()
-                    ->hiddenLabel(),
+                    ->hiddenLabel()
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'user')),
             ])
             ->recordAction('edit');
     }

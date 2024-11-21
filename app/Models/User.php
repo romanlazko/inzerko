@@ -8,6 +8,10 @@ use App\Models\Messanger\Thread;
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cookie;
@@ -20,9 +24,17 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasBots, HasRoles; use InteractsWithMedia; use HasSlug; 
+    use HasApiTokens; 
+    use HasFactory; 
+    use Notifiable; 
+    use HasBots; 
+    use HasRoles; 
+    use InteractsWithMedia; 
+    use HasSlug; 
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -66,6 +78,30 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'communication' => 'object',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleted(function (User $user) {
+            $user->announcements()->delete();
+            $user->threads()->delete();
+            $user->votes()->delete();
+            $user->chat()->delete();
+        });
+
+        static::forceDeleted(function (User $user) {
+            $user->announcements()->forceDelete();
+            $user->threads()->forceDelete();
+            $user->votes()->forceDelete();
+            $user->chat()->forceDelete();
+        });
+
+        static::restored(function (User $user) {
+            $user->announcements()->restore();
+            $user->threads()->restore();
+            $user->votes()->restore();
+            $user->chat()->restore();
+        });
+    }
+
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
@@ -88,17 +124,19 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
             });
     }
 
-    public function chat()
+    //RELATIONS
+
+    public function chat(): BelongsTo
     {
         return $this->belongsTo(TelegramChat::class, 'telegram_chat_id', 'id');
     }
 
-    public function announcements()
+    public function announcements(): HasMany
     {
         return $this->hasMany(Announcement::class);
     }
 
-    public function threads()
+    public function threads(): BelongsToMany
     {
         return $this->belongsToMany(Thread::class)->withCount(['messages' => function ($query) {
             $query->where('read_at', null)
@@ -106,7 +144,19 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         }]);
     }
 
-    public function getUnreadMessagesCountAttribute()
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function wishlist(): BelongsToMany
+    {
+        return $this->belongsToMany(Announcement::class, 'votes')->where('vote', true);
+    }
+
+    //ATTRIBUTES
+
+    public function getUnreadMessagesCountAttribute(): int
     {
         $unreadMessagesCount = Cookie::get('unreadMessagesCount');
 
@@ -121,39 +171,27 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $unreadMessagesCount;
     }
 
-    public function wishlist()
-    {
-        return $this->belongsToMany(Announcement::class, 'votes')->where('vote', true);
-    }
-
-    public function isProfileFilled()
+    public function isProfileFilled(): bool
     {
         return ! is_null($this->communication) AND ! is_null($this->lang) AND ! is_null($this->name); 
     }
 
-    public function isSuperAdmin()
+    public function isSuperAdmin(): bool
     {
         return $this->hasRole('super-duper-admin');
     }
 
-    public function sendEmailVerificationNotification()
+    //NOTIFICATIONS
+
+    public function sendEmailVerificationNotification(): void
     {
         if ($this instanceof MustVerifyEmail && ! $this->hasVerifiedEmail()) {
             $this->notify(new VerifyEmail);
         }
     }
 
-    public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));
     }
-
-    public function remove()
-    {
-        $this->announcements->each->remove();
-        $this->threads()->delete();
-        $this->wishlist()->delete();
-        $this->delete();
-    }
-    
 }

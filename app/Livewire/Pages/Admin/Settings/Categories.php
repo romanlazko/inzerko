@@ -13,21 +13,26 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Set;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 
 class Categories extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public $category;
 
     public $category_attributes;
@@ -40,9 +45,13 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
 
         $this->category_attributes = Attribute::with('createSection')
             ->when($category, function ($query) {
-                return $query->whereNotIn('id', $this->category->getParentsAndSelf()->pluck('attributes')->flatten()->pluck('id')->toArray());
+                return $query->whereNotIn('id', $this->category->parentsAndSelf->pluck('attributes')->flatten()->pluck('id')->toArray());
             })
-            ->get()->groupBy('createSection.slug')->map->pluck('label', 'id')->toArray();
+            ->get()
+            ->groupBy('createSection.slug')
+            ->map
+            ->pluck('label', 'id')
+            ->toArray();
     }
     
     public function table(Table $table): Table
@@ -58,22 +67,20 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
                     ->url(fn (Category $category): string => route('admin.setting.categories', $category)),
                 ToggleColumn::make('is_active'),
                 ToggleColumn::make('has_attachments'),
-                SelectColumn::make('card_layout')
-                    ->options(CardLayout::class),
                 TextColumn::make('children')
                     ->state(function (Category $record) {
-                        return $record->children->pluck('name');
+                        return $record->children?->pluck('name');
                     })
                     ->badge()
                     ->color('success'),
                 TextColumn::make('attributes')
                     ->state(function (Category $record) {
-                        return $record->attributes->pluck('label');
+                        return $record->attributes?->pluck('label');
                     })
                     ->badge(),
                 TextColumn::make('channels')
                     ->state(function (Category $record) {
-                        return $record->channels->pluck('title');
+                        return $record->channels?->pluck('title');
                     })
                     ->color('warning')
                     ->badge(),
@@ -136,11 +143,12 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
                     ])
                     ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
                     ->slideOver()
-                    ->closeModalByClickingAway(false),
+                    ->closeModalByClickingAway(false)
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'category')),
             ])
             ->actions([
                 EditAction::make()
-                    ->modalHeading(fn ($record) => $record->name)
+                    ->modalHeading(fn ($record) => $record?->name)
                     ->form([
                         Section::make()
                             ->schema([
@@ -199,11 +207,14 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
                     ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
                     ->hiddenLabel()
                     ->button()
-                    ->closeModalByClickingAway(false),
+                    ->closeModalByClickingAway(false)
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'category')),
+
                 DeleteAction::make()
                     ->record($this->category)
                     ->hiddenLabel()
                     ->button()
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'category'))
             ])
             ->paginated(false)
             ->recordAction('edit');

@@ -5,14 +5,20 @@ namespace App\Livewire\Pages\Admin\Telegram;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\TelegramBot;
 use App\Models\TelegramChat;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 
 class Chats extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public TelegramBot $telegram_bot;
 
     public function mount(TelegramBot $telegram_bot)
@@ -60,7 +66,8 @@ class Chats extends AdminTableLayout implements HasForms, HasTable
             ->actions([
                 DeleteAction::make()
                     ->hiddenLabel()
-                    ->button(),
+                    ->button()
+                    ->visible($this->roleOrPermission('super-duper-admin')),
             ]);
     }
 }

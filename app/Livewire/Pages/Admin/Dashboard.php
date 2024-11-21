@@ -24,4 +24,5 @@ use Illuminate\Support\Str;
 
 class Dashboard extends AdminLayout
 {
+    
 }

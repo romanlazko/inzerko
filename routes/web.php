@@ -5,29 +5,10 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\SearchRequest;
-use App\Livewire\Pages\Admin\Announcement\Announcements;
-use App\Livewire\Pages\Admin\Announcement\Edit;
-use App\Livewire\Pages\Admin\Announcement\EditAnnouncement;
-use App\Livewire\Pages\Admin\Announcement\Moderation;
-use App\Livewire\Pages\Admin\CMS\Pages;
-use App\Livewire\Pages\Admin\Settings\Attributes;
-use App\Livewire\Pages\Admin\Settings\Categories;
-use App\Livewire\Pages\Admin\Settings\Sections;
-use App\Livewire\Pages\Admin\Settings\Sortings;
-use App\Livewire\Pages\Admin\Telegram\Bots;
-use App\Livewire\Pages\Admin\Telegram\Channels;
-use App\Livewire\Pages\Admin\Telegram\Chats;
-use App\Livewire\Pages\Admin\Telegram\Logs;
-use App\Livewire\Pages\Admin\User\Users;
 use App\Models\Page;
 use App\View\Models\HomeViewModel;
-use App\Livewire\Pages\Admin\Dashboard;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,44 +52,14 @@ Route::get('page/{page:slug}', function (Page $page) {
 
 Route::get('user/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
-Route::middleware(['auth', 'role:super-duper-admin'])->name('admin.')->prefix('admin')->group(function () {
-    Route::get('/', Dashboard::class)->name('dashboard');
-
-    Route::name('telegram.')->prefix('telegram')->group(function () {
-        Route::get('bots', Bots::class)->name('bots');
-        Route::get('{telegram_bot}/chats', Chats::class)->name('chats');
-        Route::get('{telegram_bot}/channels', Channels::class)->name('channels');
-        Route::get('{telegram_bot}/logs', Logs::class)->name('logs');
+Route::controller(AnnouncementController::class)
+    ->name('announcement.')
+    ->group(function () {
+        Route::get('/all/{category:slug?}', 'index')->name('index');
+        Route::get('/search/{category:slug?}', 'search')->name('search');
+        Route::get('/show/{announcement:slug}', 'show')->name('show');
+        Route::get('/create', 'create')->middleware(['auth', 'verified', 'profile_filled'])->name('create');
     });
-
-    Route::name('announcement.')->prefix('announcement')->group(function () {
-        Route::get('announcements', Announcements::class)->name('announcements');
-        Route::get('moderation', Moderation::class)->name('moderation');
-        Route::get('edit/{announcement}', Edit::class)->name('edit');
-    });
-
-    Route::name('setting.')->prefix('setting')->group(function () {
-        Route::get('categories/{category?}', Categories::class)->name('categories');
-        Route::get('attributes', Attributes::class)->name('attributes');
-        Route::get('sections', Sections::class)->name('sections');
-        Route::get('sortings', Sortings::class)->name('sortings');
-    });
-
-    Route::name('users.')->prefix('users')->group(function () {
-        Route::get('users', Users::class)->name('users');
-    });
-
-    Route::get('pages', Pages::class)->name('pages');
-    
-    Route::get('logs', fn () => redirect('admin/logs'))->name('logs');
-});
-
-Route::controller(AnnouncementController::class)->name('announcement.')->group(function () {
-    Route::get('/all/{category:slug?}', 'index')->name('index');
-    Route::get('/search/{category:slug?}', 'search')->name('search');
-    Route::get('/show/{announcement:slug}', 'show')->name('show');
-    Route::get('/create', 'create')->middleware(['auth', 'verified', 'profile_filled'])->name('create');
-});
 
 Route::middleware(['auth'])->name('profile.')->prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'edit'])->name('edit');
@@ -136,25 +87,6 @@ require __DIR__.'/auth.php';
 
 Route::get('/test', function () {
     dump(BaraholkaAnnouncement::with('chat')->latest()->limit(10)->get());
-});
-
-Route::get('/create-photo', function () {
-    $manager = new ImageManager(Driver::class);
-
-    // // create new image 640x480
-    // $image = $manager->create(640, 480);
-
-    // create new image 512x512 with grey background
-    $image = $manager->create(512, 512)->fill('ccc')->text('Hello World!', 256, 256, function ($font) {
-        $font->filename(public_path('fonts/roboto/Roboto-Bold.ttf'));
-        $font->size(70);
-        $font->color('fff');
-        $font->lineHeight(1);
-        $font->align('center');
-        $font->valign('middle');
-    });
-
-    $image->save(public_path('images/generated_image.png'));
 });
 
 

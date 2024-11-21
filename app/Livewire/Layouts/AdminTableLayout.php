@@ -3,19 +3,18 @@
 namespace App\Livewire\Layouts;
 
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 use Livewire\Attributes\Layout;
-use Livewire\Component;
 
-abstract class AdminTableLayout extends Component
+abstract class AdminTableLayout extends AdminLayout 
 {
-    use InteractsWithTable;
-    use InteractsWithForms;
-
-    #[Layout('layouts.admin')]
 
     public function render()
     {
+        abort_if(! $this->roleOrPermission(['admin', 'moderator', 'super-duper-admin']), 403);
+
         return view('livewire.layouts.table');
     }
 }

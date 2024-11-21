@@ -19,10 +19,15 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use App\Models\Traits\Statusable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 
 class Announcement extends Model implements HasMedia, Auditable
 {
-    use HasSlug, HasFactory; 
+    use HasSlug;
+    use HasFactory; 
     use SoftDeletes;
     use InteractsWithMedia; 
     use AuditingAuditable; 
@@ -49,6 +54,30 @@ class Announcement extends Model implements HasMedia, Auditable
     {
         static::created(function (Announcement $announcement) {
             $announcement->updateStatus(Status::created, ['message' => 'Announcement created']);
+        });
+
+        static::deleted(function (Announcement $announcement) {
+            $announcement->votes()->delete();
+            $announcement->features()->delete();
+            $announcement->channels()->delete();
+            $announcement->statuses()->delete();
+        });
+
+        static::forceDeleted(function (Announcement $announcement) {
+            $announcement->votes()->forceDelete();
+            $announcement->features()->forceDelete();
+            $announcement->channels()->forceDelete();
+            $announcement->statuses()->forceDelete();
+        });
+
+        static::restored(function (Announcement $announcement) {
+            $announcement->user()->restore();
+            $announcement->chat()->restore();
+            $announcement->votes()->restore();
+            $announcement->features()->restore();
+            $announcement->category()->restore();
+            $announcement->channels()->restore();
+            $announcement->statuses()->restore();
         });
     }
 
@@ -93,57 +122,56 @@ class Announcement extends Model implements HasMedia, Auditable
             ->useFallbackUrl('/images/no-photo.jpg');
     }
 
-    public function chat()
-    {
-        return $this->belongsTo(TelegramChat::class, 'telegram_chat_id', 'id');
-    }
+    //RELATIONS
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function features()
+    public function chat(): BelongsTo
+    {
+        return $this->belongsTo(TelegramChat::class, 'telegram_chat_id', 'id');
+    }
+
+    public function features(): HasMany
     {
         return $this->hasMany(Feature::class);
     }
 
-    public function geo()
+    public function geo(): BelongsTo
     {
         return $this->belongsTo(Geo::class);
     }
 
-    public function votes()
+    public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
     }
 
-    public function userVotes()
+    public function userVotes(): HasOne
     {
         return $this->votes()->one()->where('user_id', auth()->id());
     }
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function getCategoriesAttribute()
-    {
-        return $this->category?->parentsAndSelf;
-    }
-
-    public function channels()
+    public function channels(): HasMany
     {
         return $this->hasMany(AnnouncementChannel::class);;
     }
 
-    public function getFeatureByName(string $name)
+    //ATTRIBUTES
+
+    public function getCategoriesAttribute(): Collection
     {
-        return $this->features->firstWhere('attribute.name', $name);
+        return $this->category?->parentsAndSelf;
     }
 
-    public function getSectionByName(string $name)
+    public function getSectionByName(string $name): Collection
     {
         return $this->features->groupBy('attribute.showSection.slug')
             ?->get($name)
@@ -151,37 +179,36 @@ class Announcement extends Model implements HasMedia, Auditable
     }
 
 
-    public function getGroupByName(string $name)
+    public function getGroupByName(string $name): Collection
     {
         return $this->features->groupBy('attribute.group.slug')
             ?->get($name)
             ?->sortBy('attribute.group_layout.order_number');
+
+        return $group;
     }
 
-    public function getTitleAttribute()
+    public function getTitleAttribute(): string
     {
         $group = $this->getGroupByName('title');
         
-        return $group?->pluck('value')->implode($this->getGroupSeparator($group));
+        return $group?->pluck('value')->implode(' ');
     }
-    public function getPriceAttribute()
+    public function getPriceAttribute(): string
     {
         $group = $this->getGroupByName('price');
 
-        return $group?->pluck('value')->implode($this->getGroupSeparator($group));
+        return $group?->pluck('value')->implode(' ');
     }
 
-    public function getDescriptionAttribute()
+    public function getDescriptionAttribute(): string
     {
         $group = $this->getGroupByName('description');
 
-        return str($group?->pluck('value')->implode($this->getGroupSeparator($group)))->sanitizeHtml();
+        return str($group?->pluck('value')->implode(' '))->sanitizeHtml();
     }
 
-    private function getGroupSeparator($group)
-    {
-        return $group->first()?->attribute?->group?->separator . ' ';
-    }
+    //SEO
 
     public function getDynamicSEOData(): SEOData
     {
@@ -200,14 +227,5 @@ class Announcement extends Model implements HasMedia, Auditable
             tags: $this->categories->pluck('name')->toArray(),
             openGraphTitle: $this->title,
         );
-    }
-
-    public function remove()
-    {
-        $this->votes()->delete();
-        $this->features()->delete();
-        $this->channels()->delete();
-        $this->categories()->detach();
-        $this->delete();
     }
 }

@@ -12,12 +12,12 @@
         <meta data-rh="true" property="og:locale" content="{{ app()->getLocale() }}">
 
         {!! seo($meta ?? new \RalphJSmit\Laravel\SEO\Support\SEOData(
-                title: config('app.name'),
-                description: config('app.description'),
-                image: asset((config('app.logo'))),
+                title: config('seo.title.homepage_title'),
+                description: config('seo.description.homepage_description'),
+                image: config('seo.image.logo'),
                 url: url()->current(),
                 enableTitleSuffix: true,
-                site_name: config('app.name'),
+                site_name: config('seo.site_name'),
                 locale: app()->getLocale(),
             )) !!}
 

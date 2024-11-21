@@ -3,6 +3,7 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\Profile\Profile;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Bots\inzerko_bot\Notifications\TelegramEmailVerification;
 use App\Models\User;
 use Romanlazko\Telegram\App\BotApi;
@@ -30,7 +31,7 @@ class SendTelegramEmailVerificationNotification extends Command
         
         $user = User::firstWhere('telegram_chat_id', $telegram_chat_id);
 
-        BotApi::returnInline([
+        Inzerko::returnInline([
             'chat_id' => $updates->getChat()->getId(),
             'text' => 'Отправление письма...',
             'parse_mode'    =>  'Markdown',
@@ -38,28 +39,30 @@ class SendTelegramEmailVerificationNotification extends Command
         ]);
 
         if ($user->notify(new TelegramEmailVerification)) {
-            BotApi::answerCallbackQuery([
+            Inzerko::answerCallbackQuery([
                 'callback_query_id' => $updates->getCallbackQuery()->getId(),
                 'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке на письме.',
                 'show_alert' => true
             ]);
         }
 
-        $buttons = BotApi::inlineKeyboard([
+        $buttons = Inzerko::inlineKeyboard([
             [array(Profile::getTitle('ru'), Profile::$command, '')],
             [array(SendTelegramEmailVerificationNotification::getTitle('ru'), SendTelegramEmailVerificationNotification::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ]);
 
-        return BotApi::returnInline([
+        $text = implode("\n", [
+            "*Прежде чем продолжить, пожалуйста, подтвердите свой e-mail*"."\n",
+            "На e-mail: *{$user->email}* было отправлено письмо для подтверждения. Пожалуйста, подтвердите свой e-mail, нажав на кнопку в письме."
+        ]);
+
+        return Inzerko::returnInline([
             'chat_id' => $updates->getChat()->getId(),
-            'text' => implode("\n", [
-                "*Прежде чем продолжить, пожалуйста, подтвердите свой e-mail*"."\n",
-                "На e-mail: *{$user->email}* было отправлено письмо для подтверждения. Пожалуйста, подтвердите свой e-mail, нажав на кнопку в письме."
-            ]),
-            'parse_mode'    =>  'Markdown',
-            'reply_markup'  => $buttons,
-            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
+            'text' => $text,
+            'parse_mode' =>  'Markdown',
+            'reply_markup' => $buttons,
+            'message_id' =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
     }
 }

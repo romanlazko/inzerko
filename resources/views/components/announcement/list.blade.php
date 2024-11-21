@@ -1,4 +1,4 @@
-@props(['cols' => 1, 'layout' => 'default', 'announcements' => [], 'paginator' => null])
+@props(['cols' => 1, 'announcements' => [], 'paginator' => null])
 
 <div {{ $attributes->merge(['class' => 'w-full space-y-4 lg:space-y-0 pb-4']) }}>
     @if (isset($header))
@@ -6,6 +6,7 @@
             {{ $header }}
         </div>
     @endif
+    
     <div class="w-full max-w-7xl m-auto px-3 space-y-6">
         @if($announcements->isEmpty())
             <div class="fi-ta-empty-state-content grid justify-items-center text-center p-12 w-full bg-white ring-1 ring-gray-950/5 rounded-xl">
@@ -31,7 +32,7 @@
                 ])
             >
                 @foreach ($announcements as $index => $announcement)
-                    <x-announcement.card :layout="$announcement->category?->card_layout->name" :announcement="$announcement" />
+                    <x-announcement.card :announcement="$announcement"/>
                 @endforeach
             </div>
 

@@ -3,6 +3,7 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\Profile\Profile;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Models\User;
 use Illuminate\Support\Facades\URL;
 use Romanlazko\Telegram\App\BotApi;
@@ -46,14 +47,14 @@ class CreateAnnouncement extends Command
             'to_route' => 'inzerko_bot.announcement.create'
         ]);
 
-        $buttons = BotApi::inlineKeyboardWithLink(
+        $buttons = Inzerko::inlineKeyboardWithLink(
             array('text' => "Опубликовать объявление", 'web_app' => ['url' => $url]),
             [
                 [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
             ],
         );
 
-        return BotApi::returnInline([
+        return Inzerko::returnInline([
             'text'          => "Правила публикации: [](тут будет ссылка на правила публикации)",
             'chat_id'       => $updates->getChat()->getId(),
             'parse_mode'    => "Markdown",

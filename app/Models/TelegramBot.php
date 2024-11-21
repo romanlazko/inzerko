@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Romanlazko\Telegram\Models\TelegramBot as Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -25,7 +26,7 @@ class TelegramBot extends Model implements HasMedia
             });
     }
 
-    public function chats()
+    public function chats(): HasMany
     {
         return $this->hasMany(TelegramChat::class);
     }

@@ -158,7 +158,7 @@ enum Status: int implements HasLabel
 
     public function publicStatus()
     {
-        if (auth()->check() && auth()->user()->isSuperAdmin()) {
+        if (auth()->check() && auth()->user()->hasRole('admin')) {
             return $this;
         }
 

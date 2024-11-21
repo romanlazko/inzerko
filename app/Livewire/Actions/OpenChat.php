@@ -79,14 +79,15 @@ class OpenChat extends Component implements HasForms, HasActions, HasTable
                         ->limit(1)
                         ->extraAttributes(['class' => 'border rounded-full']),
                     TextColumn::make('user')
-                        ->state(fn ($record) => "{$record->recipient?->name} - {$record->announcement->title}")
-                        ->description(fn ($record) => Str::limit($record->latestMessage->message, 30))
+                        ->state(fn ($record) => "{$record->recipient?->name} - {$record->announcement?->title}")
+                        ->description(fn ($record) => Str::limit($record->latestMessage?->message, 30))
                         ->label(false)
                         ->lineClamp(2)
                         ->searchable(query: function ($query, string $search) {
                             return $query->whereHas('users', fn ($query) =>
                                 $query->where(fn ($query) => 
                                     $query->whereRaw('LOWER(name) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                                        ->orWhereRaw('LOWER(email) LIKE ?', ['%' . mb_strtolower($search) . '%'])
                                 )
                             );
                         })
@@ -101,9 +102,9 @@ class OpenChat extends Component implements HasForms, HasActions, HasTable
                         ->state(fn ($record) => $record?->uread_messages_count)
                 ])
             ])
-            ->recordAction('answer')
+            ->recordAction('messages')
             ->actions([
-                ActionsAction::make('answer')
+                ActionsAction::make('messages')
                     ->modalHeading(fn ($record) => new HtmlString(view('components.chat.miniature', ['user' => $record->recipient, 'announcement' => $record->announcement])))
                     ->modalContent(function ($record) {
                         $record->messages()->where('user_id', '!=', auth()->id())->update(['read_at' => now()]);

@@ -3,7 +3,7 @@
 return [
     'created' => 'Создано',
     'await_moderation' => 'Ожидает модерации',
-    'moderation_failed' => 'Модерация не пройдена',
+    'moderation_failed' => 'Ошибка модерации',
     'moderation_not_passed' => 'Модерация не пройдена',
     'rejected' => 'Отклонено',
     'approved' => 'Одобрено',

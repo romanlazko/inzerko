@@ -4,8 +4,6 @@ namespace App\Models\Traits;
 
 use App\Enums\Status;
 use App\Jobs\PublishAnnouncementJob;
-use App\Jobs\PublishAnnouncementOnAllTelegramChannelsJob;
-use App\Jobs\PublishAnnouncementOnTelegramChannel;
 use App\Jobs\TranslateAnnouncement;
 
 trait AnnouncementModeration

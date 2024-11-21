@@ -3,6 +3,7 @@
 namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\CreateAnnouncement;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Models\User;
 use App\Services\ProfileService;
 use Illuminate\Support\Facades\Validator;
@@ -37,10 +38,15 @@ class UpdateProfile extends Command
             user: $user,
             name: $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
             email: $notes['email'] ?? null,
-            phone: $notes['phone'] ?? null,
+            communication: [
+                'telegram' => [
+                    'phone' => $notes['phone'],
+                    'visible' => true,
+                ]
+            ]
         );
 
-        $photo_url = BotApi::getPhoto(['file_id' => $telegram_chat->photo]);
+        $photo_url = Inzerko::getPhoto(['file_id' => $telegram_chat->photo]);
 
         $user->addMediaFromUrl($photo_url)->toMediaCollection('avatar');
         

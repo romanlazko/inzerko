@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AttributeSection extends Model
 {
-    use HasFactory; use SoftDeletes;
+    use HasFactory; 
+    use SoftDeletes;
 
     public $guarded = [];
 
@@ -16,12 +18,12 @@ class AttributeSection extends Model
         'alternames' => 'array',
     ];
 
-    public function getNameAttribute()
+    public function getNameAttribute(): ?string
     {
         return $this->alternames[app()->getLocale()] ?? $this->alternames['en'] ?? null;
     }
 
-    public function attributes()
+    public function attributes(): HasMany
     {
         return $this->hasMany(Attribute::class);
     }

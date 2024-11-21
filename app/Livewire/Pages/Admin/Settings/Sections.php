@@ -8,17 +8,22 @@ use Closure;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 
 class Sections extends AdminTableLayout implements HasForms, HasTable
 {
+    use InteractsWithTable;
+    use InteractsWithForms;
+    
     public function table(Table $table): Table
     {
         return $table
@@ -57,15 +62,14 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                                     ->required(),
                             ])
                             ->columns(2),
-                    ]),
+                    ])
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'section')),
             ])
             ->columns([
                 TextColumn::make('order_number')
                     ->label('#Order'),
                 TextColumn::make('name')
                     ->description(fn (AttributeSection $attribute_section): string =>  $attribute_section?->slug),
-                // ToggleColumn::make('is_visible')
-                //     ->label('Visible'),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
@@ -107,11 +111,13 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                             ->columns(2)
                     ])
                     ->hiddenLabel()
-                    ->button(),
+                    ->button()
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'section')),
 
                 DeleteAction::make()
                     ->hiddenLabel()
                     ->button()
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'section')),
             ]);
     }
 }
