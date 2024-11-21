@@ -78,15 +78,15 @@ Route::middleware(['auth'])->name('profile.')->prefix('profile')->group(function
     Route::get('my-announcements', [ProfileController::class, 'my_announcements'])->name('my-announcements');
 });
 
-Route::get('cron', function () {
-    Artisan::call('queue:work --stop-when-empty --tries=2 --max-time=60');
+Route::get('run-schedule', function () {
+    Artisan::call('schedule:run');
     return true;
 });
 
 require __DIR__.'/auth.php';
 
-Route::get('/test', function () {
-    dump(BaraholkaAnnouncement::with('chat')->latest()->limit(10)->get());
-});
+// Route::get('/test', function () {
+//     dump(BaraholkaAnnouncement::with('chat')->latest()->limit(10)->get());
+// });
 
 
