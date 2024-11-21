@@ -48,21 +48,11 @@ class SendVerifyTelegramConnection extends Command
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
         
-        if ($user?->notify(new VerifyTelegramConnection($telegram_chat->id))) {
+        if ($user->notify(new VerifyTelegramConnection($telegram_chat->id))) {
             Inzerko::answerCallbackQuery([
                 'callback_query_id' => $updates->getCallbackQuery()->getId(),
                 'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке на письме.',
                 'show_alert' => true
-            ]);
-        } else {
-            return Inzerko::returnInline([
-                'chat_id' => $updates->getChat()->getId(),
-                'text' => implode("\n", [
-                    'Произошла ошибка при отправке письма.' .$telegram_token,
-                    $user->name
-                ]),
-                'parse_mode'    =>  'Markdown',
-                'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
             ]);
         }
 
