@@ -31,7 +31,7 @@ class SendVerifyTelegramConnection extends Command
         $telegram_token     = $updates->getInlineData()->getTelegramToken();
         $user               = User::firstWhere('telegram_token', $telegram_token);
 
-        Log::info('SendVerifyTelegramConnection Updates', json_decode($updates->getJson()));
+        Log::info('SendVerifyTelegramConnection Updates', json_decode($updates->getJson(), true));
 
         // if ($this->hasPrivateForwards()) {
         //     return $this->sendPrivacyInstructions(
