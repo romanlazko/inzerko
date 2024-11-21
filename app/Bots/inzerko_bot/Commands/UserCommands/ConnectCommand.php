@@ -40,11 +40,12 @@ class ConnectCommand extends Command
             'chat_id' => $updates->getChat()->getId(),
             'text' => implode("\n", [
                 "*Подключение телеграм аккаунта*"."\n",
+                "*Телеграм код:* " . $matches[3],
                 "Хотите подключить этот телеграм аккаунт к аккаунту на сайте *INZERKO.cz*?",
             ]),
-            'parse_mode'    =>  'Markdown',
+            'parse_mode'    => 'Markdown',
             'reply_markup'  => $buttons,
-            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
+            'message_id'    => $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
     }
 }
