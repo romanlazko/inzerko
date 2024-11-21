@@ -38,12 +38,12 @@ class SendVerifyTelegramConnection extends Command
             );
         }
 
-        Inzerko::returnInline([
-            'chat_id' => $updates->getChat()->getId(),
-            'text' => 'Отправление письма...',
-            'parse_mode'    =>  'Markdown',
-            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
-        ]);
+        // Inzerko::returnInline([
+        //     'chat_id' => $updates->getChat()->getId(),
+        //     'text' => 'Отправление письма...',
+        //     'parse_mode'    =>  'Markdown',
+        //     'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
+        // ]);
         
         if ($user?->notify(new VerifyTelegramConnection($telegram_chat->id))) {
             Inzerko::answerCallbackQuery([
