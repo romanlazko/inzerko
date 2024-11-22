@@ -40,7 +40,7 @@ class CategoriesTableSeeder extends Seeder
                 'is_active' => 1,
                 'has_attachments' => 1,
                 'created_at' => '2024-05-21 18:31:31',
-                'updated_at' => '2024-11-10 13:13:08',
+                'updated_at' => '2024-11-21 18:54:47',
                 'deleted_at' => NULL,
             ),
             2 => 
@@ -760,8 +760,8 @@ class CategoriesTableSeeder extends Seeder
                 'is_active' => 1,
                 'has_attachments' => 0,
                 'created_at' => '2024-11-14 23:59:28',
-                'updated_at' => '2024-11-14 23:59:30',
-                'deleted_at' => NULL,
+                'updated_at' => '2024-11-22 19:57:54',
+                'deleted_at' => '2024-11-22 19:57:54',
             ),
         ));
         
