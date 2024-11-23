@@ -181,12 +181,12 @@ class Announcement extends Model implements HasMedia, Auditable
 
     //ATTRIBUTES
 
-    public function getCategoriesAttribute(): Collection
+    public function getCategoriesAttribute(): ?Collection
     {
         return $this->category?->parentsAndSelf;
     }
 
-    public function getSectionByName(string $name): Collection
+    public function getSectionByName(string $name): ?Collection
     {
         return $this->features->groupBy('attribute.showSection.slug')
             ?->get($name)
@@ -194,7 +194,7 @@ class Announcement extends Model implements HasMedia, Auditable
     }
 
 
-    public function getGroupByName(string $name): Collection
+    public function getGroupByName(string $name): ?Collection
     {
         return $this->features->groupBy('attribute.group.slug')
             ?->get($name)
