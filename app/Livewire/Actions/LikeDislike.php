@@ -26,7 +26,7 @@ class LikeDislike extends Component
     public function like()
     {
         if (auth()->guest()) {
-            return $this->redirectIntended('login');
+            return $this->redirectIntended(route('login'));
         }
 
         $this->userVote = $this->announcement->votes()->updateOrCreate(

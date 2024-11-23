@@ -524,7 +524,5 @@ class MediaTableSeeder extends Seeder
                 'updated_at' => '2024-11-22 23:00:32',
             ),
         ));
-        
-        
     }
 }

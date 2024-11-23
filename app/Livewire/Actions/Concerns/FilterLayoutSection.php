@@ -2,30 +2,26 @@
 
 namespace App\Livewire\Actions\Concerns;
 
-use App\Models\AttributeSection;
-use Closure;
+use App\Models\Attribute\AttributeSection;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Illuminate\Database\Eloquent\Builder;
 
 trait FilterLayoutSection 
 {
     use AttributeSectionFormSection;
 
-    public static function getFilterLayoutSection(): ?Section
+    public function getFilterLayoutSection(array $type_options = [], array $validation_rules = []): ?Section
     {
         return Section::make(__("Filter layout"))
             ->schema([
                 Grid::make(3)
                     ->schema([
                         Select::make('filter_layout.type')
-                            ->options(self::$type_options)
+                            ->options($type_options)
                             ->required()
                             ->helperText("Тип атрибута при поиске.")
                             ->columnSpanFull()
@@ -43,10 +39,10 @@ trait FilterLayoutSection
                             ->columnSpanFull()
                             ->required()
                             ->editOptionForm([
-                                self::getAttributeSectionFormSection()
+                                $this->getAttributeSectionFormSection($type_options, $validation_rules)
                             ])
                             ->createOptionForm([
-                                self::getAttributeSectionFormSection()
+                                $this->getAttributeSectionFormSection($type_options, $validation_rules)
                             ]),
                         TextInput::make('filter_layout.column_span')
                             ->helperText(__("Сколько места по ширине, внутри секции, будет занимать этот атрибут (от 1 до 4)"))

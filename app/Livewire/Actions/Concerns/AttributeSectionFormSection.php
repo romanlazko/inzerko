@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Actions\Concerns;
 
+use Closure;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\KeyValue;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 
 trait AttributeSectionFormSection
 {
-    public static function getAttributeSectionFormSection(): ?Section
+    public function getAttributeSectionFormSection(array $type_options = [], array $validation_rules = []): ?Section
     {
         return Section::make()
             ->schema([

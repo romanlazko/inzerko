@@ -5,6 +5,7 @@ namespace App\Livewire\Layouts;
 use App\Livewire\Pages\Admin\Announcement\Audits;
 use App\Livewire\Pages\Admin\Announcement\Channels;
 use App\Livewire\Pages\Admin\Announcement\Statuses;
+use App\Livewire\Pages\Admin\Announcement\Reports;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -18,6 +19,7 @@ use Filament\Forms\Components\Livewire;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\DB;
 use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\Toggle;
 
 abstract class AdminAnnouncementTableLayout extends AdminTableLayout
 {
@@ -203,6 +205,26 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ->button()
                 ->size(ActionSize::ExtraSmall),
 
+            Action::make("reports")
+                ->modalHeading(fn (Announcement $announcement) => "Reports: {$announcement->title}")
+                ->form(fn (Announcement $announcement) => [
+                    Livewire::make(Reports::class, ['announcement_id' => $announcement->id]),
+                ])
+                ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
+                ->icon('heroicon-o-exclamation-triangle')
+                ->slideover()
+                ->modalWidth('7xl')
+                ->hiddenLabel()
+                ->color(fn (Announcement $announcement) => match ($announcement->reports->count()) {
+                    1 => 'warning',
+                    default => 'danger' 
+                })
+                ->button()
+                ->size(ActionSize::ExtraSmall)
+                ->badge(fn (Announcement $announcement) => $announcement->reports->count())
+                ->badgeColor('danger')
+                ->visible(fn (Announcement $announcement) => $announcement->reports->isNotEmpty()),
+
             DeleteAction::make()
                 ->hiddenLabel()
                 ->button()
@@ -247,6 +269,14 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ])
                 ->query(function ($query, array $data) {
                     return $query->when($data['category'], fn ($query) => $query->category(Category::find($data['category'])));
+                }),
+
+            Filter::make('reported')
+                ->form([
+                    Toggle::make('reported')
+                ])
+                ->query(function ($query, array $data) {
+                    $query->when($data['reported'], fn ($query) => $query->whereHas('reports'));
                 }),
 
             SelectFilter::make('user')

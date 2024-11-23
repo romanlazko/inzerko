@@ -38,6 +38,7 @@ return [
         'notifications' => 'Notifications',
         'security' => 'Security',
         'archive' => 'Archive',
+        'report_options' => 'Report options',
     ],
 
     'user' => [

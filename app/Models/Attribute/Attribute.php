@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Attribute;
 
+use App\Models\Category;
+use App\Models\Sorting;
 use App\Models\Traits\CacheRelationship;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

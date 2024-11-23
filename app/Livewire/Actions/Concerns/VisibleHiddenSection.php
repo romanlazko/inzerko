@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Actions\Concerns;
 
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Category;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
@@ -14,7 +14,7 @@ use Filament\Forms\Set;
 
 trait VisibleHiddenSection 
 {
-    public static function getVisibleHiddenSection(): ?Section
+    public function getVisibleHiddenSection(array $type_options = [], array $validation_rules = []): ?Section
     {
         return Section::make(__('Visible/Hidden'))
             ->schema([

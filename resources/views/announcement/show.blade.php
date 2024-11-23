@@ -37,8 +37,10 @@
                             <span class="text-sm text-gray-500">
                                 {{ $announcement->geo?->name }} - {{ $announcement->created_at->diffForHumans() }}
                             </span>
-                            
-                            <livewire:actions.like-dislike :announcement="$announcement"/>
+                            <div class="flex items-center space-x-2">
+                                <livewire:actions.send-report :announcement_id="$announcement->id"/>
+                                <livewire:actions.like-dislike :announcement="$announcement"/>
+                            </div>
                         </div>
         
                         <div class="w-full space-y-4">

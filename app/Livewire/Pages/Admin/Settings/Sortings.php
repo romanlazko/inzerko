@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Pages\Admin\Settings;
 
+use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\Concerns\CategorySection;
+use App\Livewire\Actions\SeedAction;
 use App\Livewire\Layouts\AdminTableLayout;
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Category;
+use App\Models\Seeder;
 use App\Models\Sorting;
 use Closure;
 use Filament\Forms\Components\Grid;
@@ -23,6 +26,7 @@ use Filament\Tables\Table;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 
@@ -38,7 +42,12 @@ class Sortings extends AdminTableLayout implements HasForms, HasTable
         return $table
             ->query(Sorting::query())
             ->headerActions([
+                SeedAction::make('sortings')
+                    ->seedTables([
+                        'sortings',
+                    ]),
                 CreateAction::make()
+                    ->icon('heroicon-o-plus-circle')
                     ->form([
                         Section::make()
                             ->columns(2)

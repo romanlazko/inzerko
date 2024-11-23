@@ -6,6 +6,8 @@ use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\SeedAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute\AttributeSection;
+use App\Models\Report;
+use App\Models\ReportOption;
 use App\Models\Seeder;
 use Closure;
 use Filament\Forms\Components\KeyValue;
@@ -20,10 +22,11 @@ use Filament\Tables\Table;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 
-class Sections extends AdminTableLayout implements HasForms, HasTable
+class ReportOptions extends AdminTableLayout implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
@@ -31,11 +34,11 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(AttributeSection::query())
+            ->query(ReportOption::query())
             ->headerActions([
-                SeedAction::make('attribute_sections')
+                SeedAction::make('reports')
                     ->seedTables([
-                        'attribute_sections',
+                        'reports',
                     ]),
                 CreateAction::make()
                     ->icon('heroicon-o-plus-circle')
@@ -66,19 +69,20 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                                     ->required(),
 
                                 TextInput::make('order_number')
-                                    ->helperText(__('Порядковый номер секции внутри формы.'))
+                                    ->helperText(__('Порядковый номер жалобы внутри формы.'))
                                     ->numeric()
                                     ->required(),
                             ])
                             ->columns(2),
                     ])
-                    ->visible($this->roleOrPermission(['create', 'manage'], 'section')),
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'report')),
             ])
             ->columns([
                 TextColumn::make('order_number')
                     ->label('#Order'),
                 TextColumn::make('name')
-                    ->description(fn (AttributeSection $attribute_section): string =>  $attribute_section?->slug),
+                    ->description(fn (ReportOption $report): string =>  $report?->slug),
+                ToggleColumn::make('is_active'),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
@@ -113,7 +117,7 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                                     ->required(),
 
                                 TextInput::make('order_number')
-                                    ->helperText(__('Порядковый номер секции внутри формы.'))
+                                    ->helperText(__('Порядковый номер жалобы внутри формы.'))
                                     ->numeric()
                                     ->required(),
                             ])
@@ -121,12 +125,12 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                     ])
                     ->hiddenLabel()
                     ->button()
-                    ->visible($this->roleOrPermission(['update', 'manage'], 'section')),
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'report')),
 
                 DeleteAction::make()
                     ->hiddenLabel()
                     ->button()
-                    ->visible($this->roleOrPermission(['delete', 'manage'], 'section')),
+                    ->visible($this->roleOrPermission(['delete', 'manage'], 'report')),
             ]);
     }
 }

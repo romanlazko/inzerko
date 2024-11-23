@@ -26,27 +26,58 @@ class EditAttributeAction extends EditAction
     use GroupSection;
     use VisibleHiddenSection;
 
-    public static function make(?string $name = null): static
+    // public static function make(?string $name = null): static
+    // {
+    //     return parent::make($name)
+    //         ->modalHeading(fn ($record) => $record->label)
+    //         ->modalDescription(fn ($record) => $record->name)
+    //         ->form([
+    //             self::getCategorySection(),
+
+    //             self::getNameSection(),
+
+    //             self::getCreateLayoutSection(),
+
+    //             self::getFilterLayoutSection(),
+
+    //             self::getShowLayoutSection(),
+
+    //             self::getGroupSection(),
+
+    //             self::getOptionsSection(),
+
+    //             self::getVisibleHiddenSection(),
+    //         ])
+    //         ->hiddenLabel()
+    //         ->button()
+    //         ->slideOver()
+    //         ->extraModalWindowAttributes(['style' => 'background-color: #e5e7eb'])
+    //         ->closeModalByClickingAway(false);
+    // }
+
+    protected function setUp(): void
     {
-        return parent::make($name)
+        parent::setUp();
+
+        $this
             ->modalHeading(fn ($record) => $record->label)
             ->modalDescription(fn ($record) => $record->name)
             ->form([
-                self::getCategorySection(),
+                $this->getCategorySection($this->type_options, $this->validation_rules),
 
-                self::getNameSection(),
+                $this->getNameSection($this->type_options, $this->validation_rules),
 
-                self::getCreateLayoutSection(),
+                $this->getCreateLayoutSection($this->type_options, $this->validation_rules),
 
-                self::getFilterLayoutSection(),
+                $this->getFilterLayoutSection($this->type_options, $this->validation_rules),
 
-                self::getShowLayoutSection(),
+                $this->getShowLayoutSection($this->type_options, $this->validation_rules),
 
-                self::getGroupSection(),
+                $this->getGroupSection($this->type_options, $this->validation_rules),
 
-                self::getOptionsSection(),
+                $this->getOptionsSection($this->type_options, $this->validation_rules),
 
-                self::getVisibleHiddenSection(),
+                $this->getVisibleHiddenSection($this->type_options, $this->validation_rules),
             ])
             ->hiddenLabel()
             ->button()

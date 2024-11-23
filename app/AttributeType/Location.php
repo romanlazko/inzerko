@@ -2,7 +2,7 @@
 
 namespace App\AttributeType;
 
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Geo;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select as ComponentsSelect;

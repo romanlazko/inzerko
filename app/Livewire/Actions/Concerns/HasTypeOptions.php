@@ -4,7 +4,7 @@ namespace App\Livewire\Actions\Concerns;
 
 trait HasTypeOptions 
 {
-    public static array $type_options = [
+    public array $type_options = [
         'fields_with_options' => [
             'select' => 'SELECT (выбор одного элемента из списка)',
             'multiple_select' => 'MULTIPLE SELECT (выбор нескольких элементов из списка)',

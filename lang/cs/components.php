@@ -37,6 +37,7 @@ return [
         'notifications' => 'Oznámení',
         'security' => 'Bezpečnost',
         'archive' => 'Archiv',
+        'report_options' => 'Možnosti hlášení',
     ],
 
     'user' => [

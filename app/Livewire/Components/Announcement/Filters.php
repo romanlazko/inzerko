@@ -3,7 +3,7 @@
 namespace App\Livewire\Components\Announcement;
 
 use App\AttributeType\AttributeFactory;
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Grid;

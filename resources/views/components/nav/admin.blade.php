@@ -106,6 +106,9 @@
                 <x-nav.responsive-link href="{{ route('admin.setting.sortings') }}" :active="request()->routeIs('admin.setting.sortings')">
                     {{ __('components.navigation.sortings') }}
                 </x-nav.responsive-link>
+                <x-nav.responsive-link href="{{ route('admin.setting.report_options') }}" :active="request()->routeIs('admin.setting.report_options')">
+                    {{ __('components.navigation.report_options') }}
+                </x-nav.responsive-link>
             </x-nav.dropdown>
         @endcan
     {{-- SETTINGS --}}
@@ -120,7 +123,7 @@
 
     {{-- SYSTEM_LOGS --}}
         @can('view', 'system_log')
-            <x-nav.dropdown :active="request()->routeIs('admin.setting.*')">
+            <x-nav.dropdown :active="request()->routeIs('admin.log.*')">
                 <x-slot name="trigger">
                     {{ __('components.navigation.logs') }}
                 </x-slot>
