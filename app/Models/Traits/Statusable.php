@@ -18,7 +18,7 @@ trait Statusable
         return $this->morphOne(StatusModel::class, 'statusable')->orderBy('id', 'desc')->latestOfMany();
     }
 
-    public function getStatusAttribute()
+    public function getStatusAttribute(): StatusEnum
     {
         return $this->current_status;
     }
@@ -28,7 +28,7 @@ trait Statusable
         return $query->where('current_status', $status);
     }
 
-    public function updateStatus(int|string|StatusEnum $status, array|\Throwable|\Error $info = [])
+    public function updateStatus(int|string|StatusEnum $status, array|\Throwable|\Error $info = []): StatusModel
     {
         if (!($status instanceof StatusEnum)) {
             $status = StatusEnum::from($status);
