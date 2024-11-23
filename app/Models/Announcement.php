@@ -24,7 +24,9 @@ use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
+use Stringable;
 
 class Announcement extends Model implements HasMedia, Auditable
 {
@@ -44,9 +46,9 @@ class Announcement extends Model implements HasMedia, Auditable
     protected $fillable = [
         'user_id',
         'slug',
+        'category_id',
         'geo_id',
         'current_status',
-        'category_id',
     ];
 
     protected $casts = [
@@ -172,6 +174,11 @@ class Announcement extends Model implements HasMedia, Auditable
         return $this->hasMany(AnnouncementChannel::class);;
     }
 
+    public function reports(): MorphMany
+    {
+        return $this->morphMany(Report::class, 'reportable');
+    }
+
     //ATTRIBUTES
 
     public function getCategoriesAttribute(): Collection
@@ -196,20 +203,20 @@ class Announcement extends Model implements HasMedia, Auditable
         return $group;
     }
 
-    public function getTitleAttribute(): string
+    public function getTitleAttribute(): Stringable
     {
         $group = $this->getGroupByName('title');
         
-        return $group?->pluck('value')->implode(' ');
+        return str($group?->pluck('value')->implode(' '));
     }
-    public function getPriceAttribute(): string
+    public function getPriceAttribute(): Stringable
     {
         $group = $this->getGroupByName('price');
 
-        return $group?->pluck('value')->implode(' ');
+        return str($group?->pluck('value')->implode(' '));
     }
 
-    public function getDescriptionAttribute(): string
+    public function getDescriptionAttribute(): Stringable
     {
         $group = $this->getGroupByName('description');
 

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Actions\Concerns;
 
-use App\Models\AttributeGroup;
+use App\Models\Attribute\AttributeGroup;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -10,7 +10,7 @@ use Filament\Forms\Components\TextInput;
 
 trait GroupSection 
 {
-    public static function getGroupSection(): ?Section
+    public function getGroupSection(array $type_options = [], array $validation_rules = []): ?Section
     {
         return Section::make(__("Group"))
             ->schema([

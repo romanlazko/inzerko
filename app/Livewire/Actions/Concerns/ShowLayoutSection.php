@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Actions\Concerns;
 
-use App\Models\AttributeSection;
+use App\Models\Attribute\AttributeSection;
 use Closure;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\KeyValue;
@@ -15,14 +15,14 @@ trait ShowLayoutSection
 {
     use AttributeSectionFormSection;
     
-    public static function getShowLayoutSection()
+    public function getShowLayoutSection(array $type_options = [], array $validation_rules = [])
     {
         return Section::make(__("Show layout"))
             ->schema([
                 Grid::make(3)
                     ->schema([
                         Select::make('show_layout.type')
-                            ->options(self::$type_options)
+                            ->options($type_options)
                             ->required()
                             ->live(),
                     ])
@@ -38,10 +38,10 @@ trait ShowLayoutSection
                             ->columnSpanFull()
                             ->required()
                             ->editOptionForm([
-                                self::getAttributeSectionFormSection()
+                                $this->getAttributeSectionFormSection($type_options, $validation_rules)
                             ])
                             ->createOptionForm([
-                                self::getAttributeSectionFormSection()
+                                $this->getAttributeSectionFormSection($type_options, $validation_rules)
                             ]),
 
                         TextInput::make('show_layout.order_number')

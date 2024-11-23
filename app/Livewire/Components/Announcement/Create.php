@@ -4,18 +4,16 @@ namespace App\Livewire\Components\Announcement;
 
 use App\AttributeType\AttributeFactory;
 use App\Livewire\Components\Forms\Fields\Wizard;
-use App\Livewire\Traits\AnnouncementCrud;
 use App\Models\Announcement;
 use App\Models\Category;
 use App\Services\Actions\CategoryAttributeService;
+use App\Services\AnnouncementService;
 use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -24,14 +22,13 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\HtmlString;
 
 class Create extends Component implements HasForms
 {
-    use InteractsWithForms, AnnouncementCrud;
+    use InteractsWithForms;
 
     public ?array $data = [
         'attachments' => [],
@@ -114,11 +111,11 @@ class Create extends Component implements HasForms
             ->statePath('data');
     }
 
-    public function create(): void
+    public function store(): void
     {
         $this->validate();
 
-        $announcement = $this->createAnnouncement((object) $this->form->getState());
+        $announcement = AnnouncementService::store((object) $this->form->getState());
 
         $this->form->model($announcement)->saveRelationships();
 
@@ -127,7 +124,7 @@ class Create extends Component implements HasForms
         $this->afterCreating();
     }
 
-    public function afterCreating()
+    public function afterCreating(): void
     {
         $this->redirectRoute('profile.my-announcements');
     }
@@ -159,7 +156,7 @@ class Create extends Component implements HasForms
             ?->toArray();
     }
 
-    public function getFields($section)
+    public function getFields($section): Collection
     {
         return $section
             ->sortBy('create_layout->order_number')
@@ -169,7 +166,7 @@ class Create extends Component implements HasForms
             ->filter();
     }
 
-    private function resetData()
+    private function resetData(): void
     {
         $this->dispatch('reset-form');
         session()->forget('create_data');

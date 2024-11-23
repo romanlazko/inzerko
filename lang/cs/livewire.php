@@ -16,12 +16,13 @@ return [
     'reset_filters' => 'Resetovat filtry',
     'search' => 'Hledat',
     'apply' => 'Použít',
-    'send_message' => 'Odeslat zprávu',
-    'show_contact' => 'Zobrazit kontakt',
-    'should_be_loggined' => 'Musíte se přihlásit, abyste mohli odeslat zprávu',
-    'you_cant_send_message_to_yourself' => 'Nemůžete poslat zprávu sami sobě',
+    'send_message' => 'Napsat',
+    'show_contact' => 'Kontakt',
+    'should_be_loggined' => 'Pro provedení této akce musíte být přihlášeni.',
+    'you_cant_send_message_to_yourself' => 'Nemůžete poslat zprávu sami sobě.',
     'write_a_message' => 'Napsat zprávu...',
     'login' => 'Přihlásit se',
+    'report' => 'Stížnost na inzerát',
 
     'placeholders' => [
         'from' => 'Od',
@@ -33,6 +34,7 @@ return [
         'year' => 'Rok',
         'month' => 'Měsíc',
         'day' => 'Den',
+        'report_description' => 'Popište prosím důvod, proč se domníváte, že inzerát porušuje pravidla našich webových stránek.',
     ],
 
     'labels' => [
@@ -50,5 +52,6 @@ return [
         'apply_filters' => 'Použít filtry',
         'location' => 'Poloha',
         'reset_form' => 'Resetovat formulář',
+        'report_reason' => 'Přišlech',
     ],
 ];

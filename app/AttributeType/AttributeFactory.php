@@ -2,7 +2,7 @@
 
 namespace App\AttributeType;
 
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Feature;
 use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;

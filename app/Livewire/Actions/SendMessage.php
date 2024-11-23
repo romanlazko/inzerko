@@ -3,6 +3,7 @@
 namespace App\Livewire\Actions;
 
 use App\Models\Announcement;
+use App\Models\Report;
 use App\Models\User;
 use App\Notifications\NewMessage;
 use Livewire\Component;
@@ -12,6 +13,7 @@ use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\ToggleButtons;
 use Illuminate\Support\HtmlString;
 
 class SendMessage extends Component implements HasForms, HasActions
@@ -66,7 +68,8 @@ class SendMessage extends Component implements HasForms, HasActions
             ->icon('heroicon-s-chat-bubble-bottom-center')
             ->outlined()
             ->extraAttributes(['class' => 'w-full'])
-            ->button();
+            ->button()
+            ->modalWidth('xl');
 
         if (auth()->guest()) {
             return $action

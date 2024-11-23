@@ -4,8 +4,10 @@ namespace App\Livewire\Pages\Admin\CMS;
 
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\Concerns\CategorySection;
+use App\Livewire\Actions\SeedAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Page;
+use App\Models\Seeder;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Repeater;
@@ -23,6 +25,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Orangehill\Iseed\Facades\Iseed;
 
 class Pages extends AdminTableLayout implements HasForms, HasTable
 {
@@ -36,15 +39,13 @@ class Pages extends AdminTableLayout implements HasForms, HasTable
         return $table
             ->query(Page::query())
             ->headerActions([
-                Action::make('Save Seeders')
-                    ->action(function () {
-                        CreateSeedersJob::dispatch([
-                            'pages',
-                            'blocks'
-                        ]);
-                    })
-                    ->visible($this->roleOrPermission(['manage'], 'page')),
+                SeedAction::make('pages')
+                    ->seedTables([
+                        'pages',
+                        'blocks',
+                    ]),
                 CreateAction::make()
+                    ->icon('heroicon-o-plus-circle')
                     ->form([
                         Section::make('title')
                             ->columns(2)

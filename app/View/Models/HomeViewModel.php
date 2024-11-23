@@ -5,7 +5,7 @@ namespace App\View\Models;
 use App\AttributeType\AttributeFactory;
 use App\Http\Requests\SearchRequest;
 use App\Models\Announcement;
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Category;
 use App\Models\Feature;
 use Illuminate\Support\Facades\Cache;

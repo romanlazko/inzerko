@@ -11,6 +11,8 @@ use App\Livewire\Pages\Admin\Announcement\Moderation;
 use App\Livewire\Pages\Admin\CMS\Pages;
 use App\Livewire\Pages\Admin\Settings\Attributes;
 use App\Livewire\Pages\Admin\Settings\Categories;
+use App\Livewire\Pages\Admin\Settings\ReportOptions;
+use App\Livewire\Pages\Admin\Settings\Reports;
 use App\Livewire\Pages\Admin\Settings\Sections;
 use App\Livewire\Pages\Admin\Settings\Sortings;
 use App\Livewire\Pages\Admin\Telegram\Bots;
@@ -59,6 +61,7 @@ Route::name('setting.')
         Route::get('attributes', Attributes::class)->name('attributes');
         Route::get('sections', Sections::class)->name('sections');
         Route::get('sortings', Sortings::class)->name('sortings');
+        Route::get('report_options', ReportOptions::class)->name('report_options');
     });
 
 Route::name('users.')

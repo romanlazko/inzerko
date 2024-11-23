@@ -37,6 +37,7 @@ return [
         'notifications' => 'Уведомления',
         'security' => 'Безопасность',
         'archive' => 'Архив',
+        'report_options' => 'Опции жалобы',
     ],
 
     'livewire' => [

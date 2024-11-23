@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Category;
 use App\Models\Sorting;
 use Illuminate\Database\Migrations\Migration;

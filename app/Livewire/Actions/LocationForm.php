@@ -14,7 +14,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Illuminate\Support\Facades\Cache;
 
 class LocationForm extends Component implements HasForms, HasActions
 {
@@ -38,8 +37,7 @@ class LocationForm extends Component implements HasForms, HasActions
     public function mount($location, $category = null)
     {
         $this->category = $category;
-        $this->locationData = $location ?? []; 
-        // $this->countries = Cache::rememberForever('countries', fn () => Geo::select('name', 'country')->where('level', 'PCLI')->get());
+        $this->locationData = $location ?? [];
     }
 
     public function render()

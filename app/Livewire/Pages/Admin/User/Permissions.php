@@ -3,7 +3,9 @@
 namespace App\Livewire\Pages\Admin\User;
 
 use App\Jobs\CreateSeedersJob;
+use App\Livewire\Actions\SeedAction;
 use App\Livewire\Layouts\AdminTableLayout;
+use App\Models\Seeder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\Action;
@@ -51,19 +53,17 @@ class Permissions extends AdminTableLayout implements HasForms, HasTable
                     ->dateTime(),
             ])
             ->headerActions([
-                Action::make('Save Seeders')
-                    ->action(function () {
-                        CreateSeedersJob::dispatch([
-                            'permissions',
-                            'roles',
-                            'role_has_permissions',
-                            'model_has_roles',
-                            'model_has_permissions',
-                        ]);
-                    })
-                    ->visible($this->roleOrPermission(['manage'], 'permission')),
+                SeedAction::make('permissions')
+                    ->seedTables([
+                        'permissions',
+                        'roles',
+                        'role_has_permissions',
+                        'model_has_roles',
+                        'model_has_permissions',
+                    ]),
                 CreateAction::make('create')
                     ->button()
+                    ->icon('heroicon-o-plus-circle')
                     ->form([
                         TextInput::make('name')
                             ->required()

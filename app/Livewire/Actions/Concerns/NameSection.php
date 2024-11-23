@@ -2,12 +2,10 @@
 
 namespace App\Livewire\Actions\Concerns;
 
-use App\Models\Category;
 use Closure;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
@@ -15,7 +13,7 @@ use Filament\Forms\Set;
 
 trait NameSection
 {
-    public static function getNameSection(): ?Section
+    public function getNameSection(array $type_options = [], array $validation_rules = []): ?Section
     {
         return Section::make(__('Name'))
             ->schema([

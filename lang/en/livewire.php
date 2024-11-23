@@ -17,12 +17,13 @@ return [
     'reset_filters' => 'Reset filters',
     'search' => 'Search',
     'apply' => 'Apply',
-    'send_message' => 'Send message',
-    'show_contact' => 'Show contact',
-    'should_be_loggined' => 'You need to login to send message',
+    'send_message' => 'Message',
+    'show_contact' => 'Contact',
+    'should_be_loggined' => 'You must be logged in to perform this action',
     'you_cant_send_message_to_yourself' => 'You can\'t send message to yourself',
     'write_a_message' => 'Write a message...',
     'login' => 'Login',
+    'report' => 'Report Announcement',
 
     'placeholders' => [
         'from' => 'From',
@@ -34,6 +35,7 @@ return [
         'year' => 'Year',
         'month' => 'Month',
         'day' => 'Day',
+        'report_description' => 'Please describe the reason why you believe the ad violates our site rules.',
     ],
 
     'labels' => [
@@ -57,5 +59,6 @@ return [
         'where_did_you_sell_it' => 'Where did you sell it?',
         'mark_as_sold' => 'Mark as sold',
         'mark_as_available' => 'Mark as available',
+        'report_reason' => 'Report reason',
     ],
 ];

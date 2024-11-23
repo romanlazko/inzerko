@@ -1,17 +1,17 @@
-<?php
+<?php 
 
-namespace App\Livewire\Traits;
+namespace App\Services;
 
 use App\AttributeType\AttributeFactory;
 use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\TelegramChat;
-use Illuminate\Support\Facades\DB;
 use App\Services\Actions\CategoryAttributeService;
+use Illuminate\Support\Facades\DB;
 
-trait AnnouncementCrud
+class AnnouncementService
 {
-    public function createAnnouncement(object $data): ?Announcement
+    public static function store(object $data): ?Announcement
     {
         return DB::transaction(function () use ($data) {
             $announcement = auth()->user()->announcements()->create([
@@ -20,8 +20,8 @@ trait AnnouncementCrud
             ]);
     
             if ($announcement) {
-                $announcement->features()->createMany($this->getCreateFeatures($announcement->category, $data->attributes));
-                $announcement->channels()->createMany($this->getCreateChannels($announcement));
+                $announcement->features()->createMany(self::getFeatures($announcement->category, $data->attributes));
+                $announcement->channels()->createMany(self::getChannels($announcement));
     
                 $announcement->moderate();
             }
@@ -30,7 +30,29 @@ trait AnnouncementCrud
         });
     }
 
-    private function getCreateFeatures(Category $category, array $attributes) : array
+    public static function update(Announcement $announcement, object $data): ?Announcement
+    {
+        return DB::transaction(function () use ($data, $announcement) {
+            $announcement = tap($announcement, fn ($announcement) => $announcement->update([
+                'geo_id' => $data->geo_id,
+                'category_id' => $data->category_id,
+            ]));
+
+            $announcement->features()->forceDelete();
+            $announcement->channels()->forceDelete();
+
+            if ($announcement) {
+                $announcement->features()->createMany(self::getFeatures($announcement->category, $data->attributes));
+                $announcement->channels()->createMany(self::getChannels($announcement));
+    
+                $announcement->moderate();
+            }
+
+            return $announcement;
+        });
+    }
+
+    private static function getFeatures(Category $category, array $attributes) : array
     {
         return CategoryAttributeService::forCreate($category)
             ->map(fn ($attribute) => 
@@ -40,7 +62,7 @@ trait AnnouncementCrud
             ->all();
     }
 
-    private function getCreateChannels($announcement) : array
+    private static function getChannels($announcement) : array
     {
         $locationChannels = TelegramChat::whereHas('geo', fn ($query) => $query->radius($announcement->geo->latitude, $announcement->geo->longitude, 30))
             ->whereHas('categories', fn ($query) => $query->whereIn('category_id', $announcement->categories?->pluck('id')))
@@ -56,25 +78,5 @@ trait AnnouncementCrud
         return $locationChannels->map(fn ($channel) => ['telegram_chat_id' => $channel->id])->all();
     }
 
-    public function updateAnnouncement(Announcement $announcement, object $data): ?Announcement
-    {
-        return DB::transaction(function () use ($data, $announcement) {
-            $announcement = tap($announcement, fn ($announcement) => $announcement->update([
-                'geo_id' => $data->geo_id,
-                'category_id' => $data->category_id,
-            ]));
-
-            $announcement->features()->forceDelete();
-            $announcement->channels()->forceDelete();
-
-            if ($announcement) {
-                $announcement->features()->createMany($this->getCreateFeatures($announcement->category, $data->attributes));
-                $announcement->channels()->createMany($this->getCreateChannels($announcement));
     
-                $announcement->moderate();
-            }
-
-            return $announcement;
-        });
-    }
 }

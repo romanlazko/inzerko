@@ -5,9 +5,11 @@ namespace App\Livewire\Pages\Admin\Settings;
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\CreateAttributeAction;
 use App\Livewire\Actions\EditAttributeAction;
+use App\Livewire\Actions\SeedAction;
 use App\Livewire\Layouts\AdminTableLayout;
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Category;
+use App\Models\Seeder;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
@@ -18,6 +20,8 @@ use Filament\Tables\Filters\SelectFilter;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 
@@ -105,30 +109,12 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                     ->grow(false),
             ])
             ->headerActions([
-                Action::make('Create seeder')
-                    ->form([
-                        Select::make('seeders')
-                            ->multiple()
-                            ->options([
-                                'categories' => 'Category',
-                                'attributes' => 'Attribute',
-                                'attribute_category' => 'AttributeCategory',
-                                'attribute_options' => 'AttributeOption',
-                                'attribute_sections' => 'AttributeSection',
-                                'attribute_groups' => 'Groups',
-                                'media' => 'Media',
-                                'sortings' => 'Sortings',
-                                'pages' => 'Pages',
-                                'blocks' => 'Blocks',
-                            ])
-                    ])
-                    ->action(function (array $data) {
-                        CreateSeedersJob::dispatch($data['seeders']);
-                    })
-                    ->hidden(app()->environment('production'))
-                    ->slideOver()
-                    ->closeModalByClickingAway(false)
-                    ->visible($this->roleOrPermission(['manage'], 'attribute')),
+                SeedAction::make('attributes')
+                    ->seedTables([
+                        'attributes',
+                        'attribute_groups',
+                        'attribute_options',
+                    ]),
                 CreateAttributeAction::make()
                     ->visible($this->roleOrPermission(['create', 'manage'], 'attribute')),
             ])
@@ -138,15 +124,13 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                 DeleteAction::make('delete')
                     ->hiddenLabel()
                     ->button()
-                    ->action(fn (Attribute $record) => $record->delete())
                     ->visible($this->roleOrPermission(['delete', 'manage'], 'attribute')),
-                DeleteAction::make('forceDelete')
-                    ->hiddenLabel()
-                    ->button()
-                    ->action(fn (Attribute $record) => $record->forceDelete())
-                    ->visible($this->roleOrPermission(['force_delete', 'manage'], 'attribute')),
             ])
             ->recordAction('edit')
+            ->bulkActions([
+                ForceDeleteBulkAction::make()
+                    ->visible($this->roleOrPermission(['forceDelete', 'manage'], 'attribute'))
+            ])
             ->paginated(false)
             ->filters([
                 SelectFilter::make('category')

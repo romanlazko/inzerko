@@ -89,8 +89,6 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                         TextInput::make('name'),
                         TextInput::make('email')
                             ->email(),
-                        TextInput::make('phone')
-                            ->tel(),
                         Select::make('roles')
                             ->relationship('roles', 'name')
                             ->multiple()

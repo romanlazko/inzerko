@@ -5,7 +5,7 @@ namespace App\Bots\pozorbottestbot\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchRequest;
 use App\Models\Announcement;
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;

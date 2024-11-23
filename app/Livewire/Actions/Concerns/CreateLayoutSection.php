@@ -2,10 +2,8 @@
 
 namespace App\Livewire\Actions\Concerns;
 
-use App\Models\AttributeSection;
-use Closure;
+use App\Models\Attribute\AttributeSection;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -18,14 +16,14 @@ trait CreateLayoutSection
 {
     use AttributeSectionFormSection;
 
-    public static function getCreateLayoutSection(): ?Section
+    public function getCreateLayoutSection(array $type_options = [], array $validation_rules = []): ?Section
     {
         return Section::make(__("Create layout"))
             ->schema([
                 Grid::make(3)
                     ->schema([
                         Select::make('create_layout.type')
-                            ->options(self::$type_options)
+                            ->options($type_options)
                             ->required()
                             ->helperText("Тип атрибута при создании объявления.")
                             ->afterStateUpdated(function (Get $get, Set $set, $state) { 
@@ -46,8 +44,8 @@ trait CreateLayoutSection
                             ->multiple()
                             ->required()
                             ->columnSpanFull()
-                            ->options(self::$validation_rules)
-                            ->visible(fn (Get $get) => in_array($get('create_layout.type'), array_keys(self::$type_options['text_fields']))),
+                            ->options($validation_rules)
+                            ->visible(fn (Get $get) => in_array($get('create_layout.type'), array_keys($type_options['text_fields']))),
                     ])
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),
                 
@@ -61,10 +59,10 @@ trait CreateLayoutSection
                             ->columnSpanFull()
                             ->required()
                             ->editOptionForm([
-                                self::getAttributeSectionFormSection()
+                                $this->getAttributeSectionFormSection()
                             ])
                             ->createOptionForm([
-                                self::getAttributeSectionFormSection()
+                                $this->getAttributeSectionFormSection()
                             ])
                             ->afterStateUpdated(fn (Get $get, Set $set) => 
                                 !$get('filter_layout.section_id')
@@ -112,7 +110,7 @@ trait CreateLayoutSection
 
                         Toggle::make('is_translatable')
                             ->helperText(__("Будет ли переводится этот атрибут автоматически"))
-                            ->visible(fn (Get $get) => in_array($get('create_layout.type'), array_keys(self::$type_options['text_fields']))),
+                            ->visible(fn (Get $get) => in_array($get('create_layout.type'), array_keys($type_options['text_fields']))),
 
                         Toggle::make('is_required')
                             ->helperText(__("Является ли этот атрибут обязательным при создании объявления")),

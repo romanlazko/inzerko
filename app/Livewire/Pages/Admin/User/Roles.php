@@ -3,7 +3,9 @@
 namespace App\Livewire\Pages\Admin\User;
 
 use App\Jobs\CreateSeedersJob;
+use App\Livewire\Actions\SeedAction;
 use App\Livewire\Layouts\AdminTableLayout;
+use App\Models\Seeder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\Action;
@@ -19,6 +21,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Orangehill\Iseed\Facades\Iseed;
 
 class Roles extends AdminTableLayout implements HasForms, HasTable
 {
@@ -44,17 +47,14 @@ class Roles extends AdminTableLayout implements HasForms, HasTable
                     ->dateTime(),
             ])
             ->headerActions([
-                Action::make('Save Seeders')
-                    ->action(function () {
-                        CreateSeedersJob::dispatch([
-                            'permissions',
-                            'roles',
-                            'role_has_permissions',
-                            'model_has_roles',
-                            'model_has_permissions',
-                        ]);
-                    })
-                    ->visible($this->roleOrPermission(['manage'], 'role')),
+                SeedAction::make('roles')
+                    ->seedTables([
+                        'permissions',
+                        'roles',
+                        'role_has_permissions',
+                        'model_has_roles',
+                        'model_has_permissions',
+                    ]),
                 CreateAction::make('create')
                     ->button()
                     ->form([
@@ -74,6 +74,7 @@ class Roles extends AdminTableLayout implements HasForms, HasTable
                             ->getOptionLabelFromRecordUsing(fn (Permission $permission) => "{$permission->name}_{$permission->guard_name}")
                             ->relationship('permissions', 'name'),
                     ])
+                    ->icon('heroicon-o-plus-circle')
                     ->visible($this->roleOrPermission(['create', 'manage'], 'role')),
             ])
             ->actions([

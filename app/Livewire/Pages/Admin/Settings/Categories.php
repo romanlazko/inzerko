@@ -3,9 +3,12 @@
 namespace App\Livewire\Pages\Admin\Settings;
 
 use App\Enums\CardLayout;
+use App\Jobs\CreateSeedersJob;
+use App\Livewire\Actions\SeedAction;
 use App\Livewire\Layouts\AdminTableLayout;
-use App\Models\Attribute;
+use App\Models\Attribute\Attribute;
 use App\Models\Category;
+use App\Models\Seeder;
 use App\Models\TelegramChat;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\KeyValue;
@@ -86,6 +89,14 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
                     ->badge(),
             ])
             ->headerActions([
+                SeedAction::make('categories')
+                    ->seedTables([
+                        'categories',
+                    ]),
+                SeedAction::make('media')
+                    ->seedTables([
+                        'media',
+                    ]),
                 Action::make('back')
                     ->label($this->category?->parent?->name ?? "All")
                     ->icon('heroicon-o-arrow-left-circle')

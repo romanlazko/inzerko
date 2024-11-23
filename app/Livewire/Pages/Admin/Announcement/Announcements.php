@@ -65,6 +65,7 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
                 'geo', 
                 'features.attribute_option',
                 'features.attribute',
+                'reports',
             ]))
             ->defaultSort('created_at', 'desc')
             ->columns([

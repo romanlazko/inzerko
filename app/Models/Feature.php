@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\AttributeType\AttributeFactory;
+use App\Models\Attribute\Attribute;
+use App\Models\Attribute\AttributeOption;
 use App\Services\Actions\CategoryAttributeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

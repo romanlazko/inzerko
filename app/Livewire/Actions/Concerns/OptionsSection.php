@@ -11,7 +11,7 @@ use Filament\Forms\Get;
 
 trait OptionsSection 
 {
-    public static function getOptionsSection(): ?Section
+    public function getOptionsSection(array $type_options = [], array $validation_rules = []): ?Section
     {
         return Section::make(__('Options'))
             ->schema([
@@ -62,8 +62,8 @@ trait OptionsSection
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200'])
             ])
             ->visible(fn (Get $get) => 
-                in_array($get('filter_layout.type'), array_keys(self::$type_options['fields_with_options'])) 
-                OR in_array($get('create_layout.type'), array_keys(self::$type_options['fields_with_options']))
+                in_array($get('filter_layout.type'), array_keys($type_options['fields_with_options'])) 
+                OR in_array($get('create_layout.type'), array_keys($type_options['fields_with_options']))
             );
     }
 }

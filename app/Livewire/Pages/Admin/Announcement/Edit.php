@@ -9,6 +9,7 @@ use App\Livewire\Traits\AnnouncementCrud;
 use App\Models\Announcement;
 use App\Models\Category;
 use App\Services\Actions\CategoryAttributeService;
+use App\Services\AnnouncementService;
 use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
@@ -24,8 +25,6 @@ use Illuminate\Support\HtmlString;
 
 class Edit extends AdminEditFormLayout
 {
-    use AnnouncementCrud;
-
     public ?array $data = [
     ];
 
@@ -105,9 +104,9 @@ class Edit extends AdminEditFormLayout
     {
         $this->validate();
 
-        $this->updateAnnouncement($this->announcement, (object) $this->form->getState());
+        $announcement = AnnouncementService::update($this->announcement, (object) $this->form->getState());
 
-        $this->form->model($this->announcement)->saveRelationships();
+        $this->form->model($announcement)->saveRelationships();
 
         $this->afterUpdating();
     }
