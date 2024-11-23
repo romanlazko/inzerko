@@ -58,14 +58,26 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
             array('text' => "Посмотреть объявление", 'url' => route('announcement.show', $announcement)),
         );
 
-        return Inzerko::sendPhoto([
-            'caption'                   => view('inzerko_bot::announcement.show', ['announcement' => $announcement])->render(),
+        if ($announcement->media->isNotEmpty()) {
+            return Inzerko::sendPhoto([
+                'caption'                   => view('inzerko_bot::announcement.show', ['announcement' => $announcement])->render(),
+                'chat_id'                   => $chat->chat_id,
+                'photo'                     => $announcement->getFirstMediaUrl('announcements'),
+                'parse_mode'                => 'HTML',
+                'disable_web_page_preview'  => 'true',
+                'reply_markup'              => $buttons,
+            ]);
+        }
+
+        return Inzerko::sendMessage([
+            'text'                   => view('inzerko_bot::announcement.show', ['announcement' => $announcement])->render(),
             'chat_id'                   => $chat->chat_id,
-            'photo'                     => $announcement->getFirstMediaUrl('announcements'),
             'parse_mode'                => 'HTML',
             'disable_web_page_preview'  => 'true',
             'reply_markup'              => $buttons,
         ]);
+
+        
     }
 
     public function failed(array|\Error|\Throwable|\Exception $exception): void
