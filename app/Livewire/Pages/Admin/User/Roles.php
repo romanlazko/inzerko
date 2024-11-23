@@ -37,7 +37,7 @@ class Roles extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('permissions')
-                    ->state(fn (Role $role) => $role->permissions->map(fn (Permission $permission) => "{$permission->name}_{$permission->guard_name}"))
+                    ->state(fn (Role $role) => $role->permissions->sortBy('guard_name')->map(fn (Permission $permission) => "{$permission->name}_{$permission->guard_name}"))
                     ->badge(),
                 TextColumn::make('guard_name')
                     ->searchable(),
