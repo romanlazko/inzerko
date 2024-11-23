@@ -11,6 +11,7 @@ use App\Jobs\PublishAnnouncementOnTelegramChannelJob;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Status as StatusModel;
 
 class AnnouncementChannel extends Model
 {
@@ -35,7 +36,7 @@ class AnnouncementChannel extends Model
         return $this->belongsTo(TelegramChat::class, 'telegram_chat_id', 'id');
     }
 
-    public function publish($dispatch = 'dispatch'): bool
+    public function publish($dispatch = 'dispatch'): StatusModel
     {
         $result = $this->updateStatus(Status::await_publication);
 
@@ -46,12 +47,12 @@ class AnnouncementChannel extends Model
         return $result;
     }
 
-    public function published(array|\Throwable|\Error $info = []): bool
+    public function published(array|\Throwable|\Error $info = []): StatusModel
     {
         return $this->updateStatus(Status::published, $info);
     }
 
-    public function publishingFailed(array|\Throwable|\Error $info = []): bool
+    public function publishingFailed(array|\Throwable|\Error $info = []): StatusModel
     {
         return $this->updateStatus(Status::publishing_failed, $info);
     }
