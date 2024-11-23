@@ -6,11 +6,11 @@ use App\Bots\inzerko_bot\Facades\Inzerko;
 
 class TelegramCreate extends Create
 {
-    public function afterCreating()
+    public function afterCreating(): void
     {
         $this->dispatch('announcement-created');
         
-        return Inzerko::sendMessage([
+        Inzerko::sendMessage([
             'text' => 'Объявление успешно создано!',
             'chat_id' => auth()->user()->chat?->chat_id
         ]);
