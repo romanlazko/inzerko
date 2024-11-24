@@ -4,26 +4,28 @@ namespace App\Models\Traits;
 
 use App\Enums\Status as StatusEnum;
 use App\Models\Status as StatusModel;
-
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Builder;
 
 trait Statusable
 {
-    public function statuses()
+    public function statuses(): MorphMany
     {
         return $this->morphMany(StatusModel::class, 'statusable');
     }
 
-    public function currentStatus()
+    public function currentStatus(): MorphOne
     {
         return $this->morphOne(StatusModel::class, 'statusable')->orderBy('id', 'desc')->latestOfMany();
     }
 
-    public function getStatusAttribute(): StatusEnum
+    public function getStatusAttribute(): ?StatusEnum
     {
         return $this->current_status;
     }
 
-    public function scopeStatus($query, StatusEnum $status)
+    public function scopeStatus($query, StatusEnum $status): Builder
     {
         return $query->where('current_status', $status);
     }
