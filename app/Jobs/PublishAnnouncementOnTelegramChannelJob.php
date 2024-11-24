@@ -60,9 +60,7 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
             array('text' => "Посмотреть объявление", 'url' => route('announcement.show', $announcement)),
         );
 
-        $text = new HtmlString(Blade::render(<<<BLADE
-            $chat->html_layout
-        BLADE, compact('announcement')));
+        $text = $chat->layout->renderBlade(['announcement', $announcement]);
 
         if ($announcement->media->isNotEmpty()) {
             return Inzerko::sendPhoto([
