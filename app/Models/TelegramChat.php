@@ -45,6 +45,11 @@ class TelegramChat extends Model implements HasMedia
         return $this->morphToMany(HtmlLayout::class, 'html_layoutable');
     }
 
+    public function getLayoutAttribute()
+    {
+        return $this->layouts()->first();
+    }
+
     public function latestMessage(): HasOne
     {
         return $this->hasOne(TelegramMessage::class, 'chat', 'id')->latestOfMany();
