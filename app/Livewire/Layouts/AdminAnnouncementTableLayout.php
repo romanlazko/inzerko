@@ -20,6 +20,7 @@ use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\DB;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Toggle;
+use App\Enums\Status;
 
 abstract class AdminAnnouncementTableLayout extends AdminTableLayout
 {
@@ -253,6 +254,13 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ])
                 ->query(function ($query, array $data) {
                     return $query->when($data['current_status'], fn ($query) => $query->where('current_status', $data['current_status']));
+                })
+                ->indicateUsing(function (array $data): ?string {
+                    if (! $data['current_status']) {
+                        return null;
+                    }
+             
+                    return 'Status: ' . Status::from($data['current_status'])->getLabel();
                 }),
 
             Filter::make('category')
@@ -269,6 +277,13 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ])
                 ->query(function ($query, array $data) {
                     return $query->when($data['category'], fn ($query) => $query->category(Category::find($data['category'])));
+                })
+                ->indicateUsing(function (array $data): ?string {
+                    if (! $data['category']) {
+                        return null;
+                    }
+             
+                    return 'Category: ' . Category::find($data['category'])->name;
                 }),
 
             Filter::make('reported')
@@ -277,6 +292,13 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ])
                 ->query(function ($query, array $data) {
                     $query->when($data['reported'], fn ($query) => $query->whereHas('reports'));
+                })
+                ->indicateUsing(function (array $data): ?string {
+                    if (! $data['reported']) {
+                        return null;
+                    }
+             
+                    return 'Reported';
                 }),
 
             SelectFilter::make('user')

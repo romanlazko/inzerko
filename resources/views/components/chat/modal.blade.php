@@ -154,7 +154,7 @@
                     }}
                 >
                     @if ($heading)
-                        <div class="fi-modal-header flex p-3 items-center fi-sticky sticky top-0 z-10 border-b border-gray-200 bg-white dark:border-white/10 dark:bg-gray-900">
+                        <div class="fi-modal-header flex p-3 items-center fi-sticky sticky top-0 z-10 border-b border-gray-200 bg-white dark:border-white/10 dark:bg-gray-900 justify-between">
                             <x-filament::modal.heading>
                                 {{ $heading }}
                             </x-filament::modal.heading>
