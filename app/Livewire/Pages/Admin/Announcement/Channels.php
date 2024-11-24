@@ -55,6 +55,7 @@ class Channels extends AdminTableLayout implements HasForms, HasTable
                         dump($announcement_channel->currentStatus?->info)
                     )
                     ->badge()
+                    ->color(fn (AnnouncementChannel $announcement_channel) => $announcement_channel->current_status?->filamentColor())
             ])
             ->actions([
                 DeleteAction::make()

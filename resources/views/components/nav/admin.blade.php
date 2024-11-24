@@ -109,6 +109,9 @@
                 <x-nav.responsive-link href="{{ route('admin.setting.report_options') }}" :active="request()->routeIs('admin.setting.report_options')">
                     {{ __('components.navigation.report_options') }}
                 </x-nav.responsive-link>
+                <x-nav.responsive-link href="{{ route('admin.setting.html_layouts') }}" :active="request()->routeIs('admin.setting.html_layouts')">
+                    {{ __('components.navigation.html_layouts') }}
+                </x-nav.responsive-link>
             </x-nav.dropdown>
         @endcan
     {{-- SETTINGS --}}

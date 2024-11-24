@@ -38,6 +38,7 @@ return [
         'security' => 'Безопасность',
         'archive' => 'Архив',
         'report_options' => 'Опции жалобы',
+        'html_layouts' => 'Html шаблоны',
     ],
 
     'livewire' => [

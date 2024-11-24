@@ -72,7 +72,8 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                             ])
                             ->columns(2),
                     ])
-                    ->visible($this->roleOrPermission(['create', 'manage'], 'section')),
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'section'))
+                    ->slideOver(),
             ])
             ->columns([
                 TextColumn::make('order_number')
@@ -121,7 +122,8 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                     ])
                     ->hiddenLabel()
                     ->button()
-                    ->visible($this->roleOrPermission(['update', 'manage'], 'section')),
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'section'))
+                    ->slideOver(),
 
                 DeleteAction::make()
                     ->hiddenLabel()

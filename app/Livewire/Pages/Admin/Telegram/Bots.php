@@ -39,11 +39,19 @@ class Bots extends AdminTableLayout implements HasForms, HasTable
             ->columns([
                 SpatieMediaLibraryImageColumn::make('avatar')
                     ->collection('bots')
-                    ->conversion('thumb'),
+                    ->conversion('thumb')
+                    ->rounded()
+                    ->grow(false),
                 TextColumn::make('first_name')
                     ->sortable()
-                    ->grow()
-                    ->description(fn ($record) => $record->username),
+                    ->description(fn (TelegramBot $record) => $record->username)
+                    ->url(fn (TelegramBot $record) => 'https://t.me/'.$record->username)
+                    ->openUrlInNewTab()
+                    ->grow(),
+                TextColumn::make('created_at')
+                    ->sortable()
+                    ->dateTime()
+                    ->grow(),   
             ])
             ->headerActions([
                 CreateAction::make()
@@ -79,7 +87,7 @@ class Bots extends AdminTableLayout implements HasForms, HasTable
                         }
 
                         return $response->getDescription();
-                    })  
+                    })
                     ->slideOver()
                     ->closeModalByClickingAway(false)
                     ->visible($this->roleOrPermission(['create', 'manage'], 'telegram')),
@@ -104,7 +112,8 @@ class Bots extends AdminTableLayout implements HasForms, HasTable
                                 return json_encode($bot->getAllCommandsList());
                             }),
                     ])
-                    ->visible($this->roleOrPermission(['view', 'manage'], 'telegram')),
+                    ->visible($this->roleOrPermission(['view', 'manage'], 'telegram'))
+                    ->slideOver(),
                 DeleteAction::make()
                     ->visible($this->roleOrPermission(['delete', 'manage'], 'telegram'))
                     ->hiddenLabel()

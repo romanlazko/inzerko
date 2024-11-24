@@ -80,7 +80,8 @@ class Permissions extends AdminTableLayout implements HasForms, HasTable
                             ->preload()
                             ->relationship('roles', 'name'),
                     ])
-                    ->visible($this->roleOrPermission(['create', 'manage'], 'permission')),
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'permission'))
+                    ->slideOver(),
             ])
             ->actions([
                 EditAction::make()
@@ -102,7 +103,8 @@ class Permissions extends AdminTableLayout implements HasForms, HasTable
                             ->preload()
                             ->relationship('roles', 'name'),
                     ])
-                    ->visible($this->roleOrPermission(['update', 'manage'], 'permission')),
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'permission'))
+                    ->slideOver(),
                 DeleteAction::make()
                     ->button()
                     ->hiddenLabel()

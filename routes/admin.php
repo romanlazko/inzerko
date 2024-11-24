@@ -11,6 +11,7 @@ use App\Livewire\Pages\Admin\Announcement\Moderation;
 use App\Livewire\Pages\Admin\CMS\Pages;
 use App\Livewire\Pages\Admin\Settings\Attributes;
 use App\Livewire\Pages\Admin\Settings\Categories;
+use App\Livewire\Pages\Admin\Settings\HtmlLayouts;
 use App\Livewire\Pages\Admin\Settings\ReportOptions;
 use App\Livewire\Pages\Admin\Settings\Reports;
 use App\Livewire\Pages\Admin\Settings\Sections;
@@ -62,6 +63,7 @@ Route::name('setting.')
         Route::get('sections', Sections::class)->name('sections');
         Route::get('sortings', Sortings::class)->name('sortings');
         Route::get('report_options', ReportOptions::class)->name('report_options');
+        Route::get('html_layouts', HtmlLayouts::class)->name('html_layouts');
     });
 
 Route::name('users.')

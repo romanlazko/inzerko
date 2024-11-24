@@ -15,6 +15,8 @@ use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Entities\Response;
 use App\Models\AnnouncementChannel;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
 
 class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
 {
@@ -45,7 +47,7 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
             $announcement_channel->published([
                 'channel' => $announcement_channel->telegram_chat->title,
                 'response' => $response->getOk(),
-                'message'  => $response->getMessage(),
+                'message'  => 'Message sent successfully',
             ]);
         }
     }
@@ -58,9 +60,13 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
             array('text' => "Посмотреть объявление", 'url' => route('announcement.show', $announcement)),
         );
 
+        $text = new HtmlString(Blade::render(<<<BLADE
+            $chat->html_layout
+        BLADE, compact('announcement')));
+
         if ($announcement->media->isNotEmpty()) {
             return Inzerko::sendPhoto([
-                'caption'                   => view('inzerko_bot::announcement.show', ['announcement' => $announcement])->render(),
+                'caption'                   => $text,
                 'chat_id'                   => $chat->chat_id,
                 'photo'                     => $announcement->getFirstMediaUrl('announcements'),
                 'parse_mode'                => 'HTML',
@@ -70,14 +76,12 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
         }
 
         return Inzerko::sendMessage([
-            'text'                   => view('inzerko_bot::announcement.show', ['announcement' => $announcement])->render(),
+            'text'                      => $text,
             'chat_id'                   => $chat->chat_id,
             'parse_mode'                => 'HTML',
             'disable_web_page_preview'  => 'true',
             'reply_markup'              => $buttons,
         ]);
-
-        
     }
 
     public function failed(array|\Error|\Throwable|\Exception $exception): void
