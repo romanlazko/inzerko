@@ -64,7 +64,8 @@ class Logs extends AdminTableLayout implements HasForms, HasTable
                     ])
                     ->hiddenLabel()
                     ->button()
-                    ->color('warning'),
+                    ->color('warning')
+                    ->slideOver(),
             ])
             ->poll('2s');
     }

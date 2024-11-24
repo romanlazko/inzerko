@@ -20,6 +20,8 @@ class TelegramChat extends Model implements HasMedia
     use InteractsWithMedia; 
     use Geoly;
 
+    // protected $guarded = ['layouts'];
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
@@ -36,6 +38,11 @@ class TelegramChat extends Model implements HasMedia
     public function messages(): HasMany
     {
         return $this->hasMany(TelegramMessage::class, 'chat', 'id');
+    }
+
+    public function layouts()
+    {
+        return $this->morphToMany(HtmlLayout::class, 'html_layoutable');
     }
 
     public function latestMessage(): HasOne

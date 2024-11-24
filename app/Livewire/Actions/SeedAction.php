@@ -44,6 +44,10 @@ class SeedAction extends Action
         // Get a app/database/seeds path
         $seedsPath = Iseed::getPath($className, $seedPath);
 
+        if (!file_exists($seedsPath)) {
+            return null;
+        }
+
         $creationTime = filectime($seedsPath);
     
         // Проверка и форматирование даты

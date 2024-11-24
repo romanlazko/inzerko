@@ -198,7 +198,8 @@ class Sortings extends AdminTableLayout implements HasForms, HasTable
                     ])
                     ->hiddenLabel()
                     ->button()
-                    ->visible($this->roleOrPermission(['update', 'manage'], 'sorting')),
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'sorting'))
+                    ->slideOver(),
                 DeleteAction::make()
                     ->hiddenLabel()
                     ->button()

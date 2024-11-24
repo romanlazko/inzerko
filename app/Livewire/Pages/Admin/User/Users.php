@@ -116,7 +116,8 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ])
                     ->button()
                     ->hiddenLabel()
-                    ->visible($this->roleOrPermission(['update', 'manage'], 'user')),
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'user'))
+                    ->slideOver(),
 
                 DeleteAction::make()
                     ->button()

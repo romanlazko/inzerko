@@ -23,6 +23,7 @@ use Filament\Tables\Actions\Action;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Orangehill\Iseed\Facades\Iseed;
@@ -89,6 +90,10 @@ class Pages extends AdminTableLayout implements HasForms, HasTable
             ])
             ->recordAction('edit')
             ->paginated(false)
+            ->bulkActions([
+                ForceDeleteBulkAction::make('forceDelete')
+                    ->visible($this->roleOrPermission(['forceDelete', 'manage'], 'page'))
+            ])
             ->actions([
                 EditAction::make()
                     ->form([
@@ -127,13 +132,7 @@ class Pages extends AdminTableLayout implements HasForms, HasTable
                 DeleteAction::make('delete')
                     ->hiddenLabel()
                     ->button()
-                    ->action(fn (Page $record) => $record->delete())
                     ->visible($this->roleOrPermission(['delete', 'manage'], 'page')),
-                DeleteAction::make('forceDelete')
-                    ->hiddenLabel()
-                    ->button()
-                    ->action(fn (Page $record) => $record->forceDelete())
-                    ->visible($this->roleOrPermission(['force_delete', 'manage'], 'page'))
             ]);
     }
 }

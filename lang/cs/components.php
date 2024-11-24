@@ -38,6 +38,7 @@ return [
         'security' => 'Bezpečnost',
         'archive' => 'Archiv',
         'report_options' => 'Možnosti hlášení',
+        'html_layouts' => 'Html layouty',
     ],
 
     'user' => [

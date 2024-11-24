@@ -75,7 +75,8 @@ class ReportOptions extends AdminTableLayout implements HasForms, HasTable
                             ])
                             ->columns(2),
                     ])
-                    ->visible($this->roleOrPermission(['create', 'manage'], 'report')),
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'report'))
+                    ->slideOver(),
             ])
             ->columns([
                 TextColumn::make('order_number')
@@ -125,7 +126,8 @@ class ReportOptions extends AdminTableLayout implements HasForms, HasTable
                     ])
                     ->hiddenLabel()
                     ->button()
-                    ->visible($this->roleOrPermission(['update', 'manage'], 'report')),
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'report'))
+                    ->slideOver(),
 
                 DeleteAction::make()
                     ->hiddenLabel()

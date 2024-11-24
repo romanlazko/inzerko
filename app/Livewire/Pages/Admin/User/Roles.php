@@ -75,7 +75,8 @@ class Roles extends AdminTableLayout implements HasForms, HasTable
                             ->relationship('permissions', 'name'),
                     ])
                     ->icon('heroicon-o-plus-circle')
-                    ->visible($this->roleOrPermission(['create', 'manage'], 'role')),
+                    ->visible($this->roleOrPermission(['create', 'manage'], 'role'))
+                    ->slideOver(),
             ])
             ->actions([
                 EditAction::make('edit')
@@ -98,7 +99,8 @@ class Roles extends AdminTableLayout implements HasForms, HasTable
                             ->getOptionLabelFromRecordUsing(fn (Permission $permission) => "{$permission->name}_{$permission->guard_name}")
                             ->relationship('permissions', 'name'),
                     ])
-                    ->visible($this->roleOrPermission(['update', 'manage'], 'role')),
+                    ->visible($this->roleOrPermission(['update', 'manage'], 'role'))
+                    ->slideOver(),
                 DeleteAction::make()
                     ->button()
                     ->hiddenLabel()

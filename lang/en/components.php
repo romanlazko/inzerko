@@ -39,6 +39,7 @@ return [
         'security' => 'Security',
         'archive' => 'Archive',
         'report_options' => 'Report options',
+        'html_layouts' => 'Html layouts',
     ],
 
     'user' => [
