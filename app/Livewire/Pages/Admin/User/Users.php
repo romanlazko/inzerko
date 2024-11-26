@@ -60,7 +60,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->badge()
                     ->color('gray'),
                 TextColumn::make('languages')
-                    ->state(fn (User $user) => $user->communication_settings?->languages ?? null)
+                    ->state(fn (User $user) => $user->languages)
                     ->badge()
                     ->wrap(true),
                 TextColumn::make('locale')
