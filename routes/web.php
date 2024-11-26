@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-// Route::get('/map', OpsMap::class)->name('map');
-
 Route::get('/locale', [Controller::class, 'locale'])->name('locale');
 
 Route::get('/', function (SearchRequest $request) {
@@ -50,8 +48,6 @@ Route::get('page/{page:slug}', function (Page $page) {
     ]);
 })->name('page');
 
-Route::get('user/{user}', [ProfileController::class, 'show'])->name('profile.show');
-
 Route::controller(AnnouncementController::class)
     ->name('announcement.')
     ->group(function () {
@@ -61,22 +57,29 @@ Route::controller(AnnouncementController::class)
         Route::get('/create', 'create')->middleware(['auth', 'verified', 'profile_filled'])->name('create');
     });
 
-Route::middleware(['auth'])->name('profile.')->prefix('profile')->group(function () {
-    Route::get('/', [ProfileController::class, 'edit'])->name('edit');
-    Route::patch('update', [ProfileController::class, 'update'])->name('update');
-    Route::patch('update-avatar', [ProfileController::class, 'updateAvatar'])->name('update-avatar');
-    Route::patch('update-communication', [ProfileController::class, 'updateCommunication'])->name('update-communication');
+Route::controller(ProfileController::class)
+    ->name('profile.')
+    ->prefix('profile')
+    ->group(function () {
+        Route::get('user/{user}', 'show')->name('show');
 
-    Route::get('security', [ProfileController::class, 'security'])->name('security');
-    Route::put('update-password', [ProfileController::class, 'updatePassword'])->name('update-password');
-    Route::delete('destroy', [ProfileController::class, 'destroy'])->name('destroy');
+        Route::middleware(['auth'])->group(function () {
+            Route::get('/', 'edit')->name('edit');
+            Route::patch('update', 'update')->name('update');
+            Route::patch('update-avatar', 'updateAvatar')->name('update-avatar');
+            Route::patch('update-communication', 'updateCommunication')->name('update-communication');
 
-    Route::get('notifications', [ProfileController::class, 'notifications'])->name('notifications');
-    Route::patch('update-notifications', [ProfileController::class, 'updateNotifications'])->name('update-notifications');
+            Route::get('security', 'security')->name('security');
+            Route::put('update-password', 'updatePassword')->name('update-password');
+            Route::delete('destroy', 'destroy')->name('destroy');
 
-    Route::get('wishlist', [ProfileController::class, 'wishlist'])->name('wishlist');
-    Route::get('my-announcements', [ProfileController::class, 'my_announcements'])->name('my-announcements');
-});
+            Route::get('notifications', 'notifications')->name('notifications');
+            Route::patch('update-notifications', 'updateNotifications')->name('update-notifications');
+
+            Route::get('wishlist', 'wishlist')->name('wishlist');
+            Route::get('my-announcements', 'myAnnouncements')->name('my-announcements');
+        });
+    });
 
 Route::get('run-schedule', function () {
     Artisan::call('schedule:run');

@@ -14,20 +14,24 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('slug')->nullable();
-            $table->foreignIdFor(TelegramChat::class)
-                ->unique()
-                ->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+
+            $table->foreignIdFor(TelegramChat::class)
+                ->unique()
+                ->nullable();
             $table->string('telegram_token')->nullable();
-            $table->json('lang')->nullable();
-            $table->json('notification_settings')->nullable();
-            $table->json('communication')->nullable();
+
             $table->string('locale')->default('cs')->nullable();
+
+            $table->json('communication_settings')->nullable();
+            $table->json('notification_settings')->nullable();
+
             $table->rememberToken();
+
             $table->timestamps();
             $table->softDeletes();
         });

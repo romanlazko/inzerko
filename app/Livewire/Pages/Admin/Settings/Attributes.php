@@ -22,6 +22,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 
@@ -73,6 +74,8 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('label')
                     ->description(fn (Attribute $attribute): string =>  $attribute?->name . ($attribute?->suffix ? " ({$attribute?->suffix})" : '')),
 
+                ToggleColumn::make('is_active'),
+
                 TextColumn::make('Layout')
                     ->state(fn (Attribute $attribute) => 
                         collect(['filter', 'create', 'show'])
@@ -80,7 +83,7 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                                 $layout = $attribute->{$section . '_layout'} ?? [];
                                 $type = $layout['type'] ?? null;
                                 $order_number = $layout['order_number'] ?? null;
-                                return "#{$order_number} - {$section}Section: {$type}";
+                                return "#{$order_number} - {$section}: {$type}";
                             })
                             ->toArray()
                     )
@@ -98,7 +101,13 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                     ->color('danger'),
 
                 TextColumn::make('attribute_options')
-                    ->state(fn (Attribute $record) => $record->attribute_options->pluck('name'))
+                    ->state(fn (Attribute $record) => $record->attribute_options->map(function ($option) {
+                        $params = implode(', ', array_filter([
+                            ($option->is_default ? 'Default' : null),
+                            ($option->is_null ? 'Null' : null),
+                        ]));
+                        return $option->name . ($params ? " ({$params})" : '');
+                    }))
                     ->badge()
                     ->grow(false),
 
@@ -132,6 +141,7 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                     ->visible($this->roleOrPermission(['forceDelete', 'manage'], 'attribute'))
             ])
             ->paginated(false)
+            ->persistFiltersInSession()
             ->filters([
                 SelectFilter::make('category')
                     ->options(Category::all()->groupBy('parent.name')->map->pluck('name', 'id'))

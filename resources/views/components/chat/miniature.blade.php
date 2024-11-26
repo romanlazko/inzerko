@@ -14,15 +14,15 @@
                 {{ $user?->name }}
             </span>
         </a>
-        @if ($user?->lang)
+        @if ($user?->communication_settings?->languages)
             <label class="text-gray-500 flex text-xs items-center space-x-1">
                 <x-heroicon-o-language class="size-4"/>
                 <span>
                     {{ __('components.user.languages') }}
                 </span>
-                @foreach ($user?->lang ?? [] as $item)
+                @foreach ($user?->communication_settings?->languages ?? [] as $language)
                     <span class="text-xs text-gray-900 uppercase">
-                        {{ $item }}@if (!$loop->last),@endif
+                        {{ $language }}@if (!$loop->last),@endif
                     </span>
                 @endforeach
             </label>

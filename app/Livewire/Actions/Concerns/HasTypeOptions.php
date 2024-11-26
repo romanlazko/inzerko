@@ -11,6 +11,7 @@ trait HasTypeOptions
             'toggle_buttons' => 'TOGGLE BUTTONS (выбор переключателей)',
             'checkbox_list'   => 'CHECKBOX LIST (список чекбоксов)',
             'price' => 'PRICE (цена)',
+            'price_from_to' => 'PRICE FROM TO (цена от-до)',
         ],
         'text_fields' => [
             'text_input' => 'Текстовое поле',

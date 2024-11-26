@@ -25,8 +25,12 @@ class AttributeFactory
      * @param Attribute $attribute
      * @return ?ViewComponent
      */
-    public static function getCreateComponent(Attribute $attribute) : ?ViewComponent
+    public static function getCreateComponent(?Attribute $attribute) : ?ViewComponent
     {
+        if (!$attribute OR !$attribute->is_active) {
+            return null;
+        }
+        
         return self::getCreateClass($attribute)?->getCreateComponent();
     }
 
@@ -35,8 +39,12 @@ class AttributeFactory
      * @param array|null $data
      * @return array
      */
-    public static function getCreateSchema(Attribute $attribute, ?array $data = []) : ?array
+    public static function getCreateSchema(?Attribute $attribute, ?array $data = []) : ?array
     {
+        if (!$attribute OR !$attribute->is_active) {
+            return null;
+        }
+        
         return self::getCreateClass($attribute, $data)?->getCreateSchema();
     }
 
@@ -45,8 +53,12 @@ class AttributeFactory
      * @param array|null $data
      * @return array
      */
-    public static function getFakeData(Attribute $attribute, ?array  $data = []) : ?array
+    public static function getFakeData(?Attribute $attribute, ?array $data = []) : ?array
     {
+        if (!$attribute OR !$attribute->is_active) {
+            return null;
+        }
+        
         return self::getCreateClass($attribute, $data)?->getFakeData();
     }
 
@@ -54,8 +66,12 @@ class AttributeFactory
      * @param Attribute $attribute
      * @return ?ViewComponent
      */
-    public static function getFilterComponent(Attribute $attribute) : ?ViewComponent
+    public static function getFilterComponent(?Attribute $attribute) : ?ViewComponent
     {
+        if (!$attribute OR !$attribute->is_active) {
+            return null;
+        }
+        
         return self::getFilterClass($attribute)?->getFilterComponent();
     }
 
@@ -65,8 +81,12 @@ class AttributeFactory
      * @param Builder|null $query
      * @return ?Builder
      */
-    public static function applyFilterQuery(Attribute $attribute, ?array $data = [], Builder $query = null) : ?Builder
+    public static function applyFilterQuery(?Attribute $attribute, ?array $data = [], Builder $query = null) : ?Builder
     {
+        if (!$attribute OR !$attribute->is_active) {
+            return $query;
+        }
+
         return self::getFilterClass($attribute, $data)?->applyFilterQuery($query);
     }
 
@@ -76,9 +96,13 @@ class AttributeFactory
      * @param Builder|null $query
      * @return ?Builder
      */
-    public static function applySortQuery(Attribute $attribute, Builder $query = null, string $direction = 'asc') : ?Builder
+    public static function applySortQuery(?Attribute $attribute, Builder $query = null, string $direction = 'asc') : ?Builder
     {
-        return self::getCreateClass($attribute)?->applySortQuery($query, $direction) ?? $query;
+        if (!$attribute OR !$attribute->is_active) {
+            return $query;
+        }
+        
+        return self::getFilterClass($attribute)?->applySortQuery($query, $direction);
     }
 
     /**
@@ -86,8 +110,12 @@ class AttributeFactory
      * @param Feature|null $feature
      * @return ?string
      */
-    public static function getValueByFeature(Attribute $attribute, Feature $feature = null) : ?string
+    public static function getValueByFeature(?Attribute $attribute, Feature $feature = null) : ?string
     {
+        if (!$attribute OR !$attribute->is_active) {
+            return null;
+        }
+        
         return self::getShowClass($attribute)?->getValueByFeature($feature);
     }
 
@@ -95,9 +123,13 @@ class AttributeFactory
      * @param Attribute $attribute
      * @return ?ViewComponent
      */
-    public static function getOriginalByFeature(Attribute $attribute, Feature $feature = null) : mixed
+    public static function getOriginalByFeature(?Attribute $attribute, Feature $feature = null) : mixed
     {
-        return self::getCreateClass($attribute)?->getOriginalByFeature($feature);
+        if (!$attribute OR !$attribute->is_active) {
+            return null;
+        }
+        
+        return self::getShowClass($attribute)?->getOriginalByFeature($feature);
     }
 
     /**

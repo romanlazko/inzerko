@@ -20,24 +20,13 @@ return new class extends Migration
             $table->json('alternames')->nullable();
             $table->integer('order_number')->nullable();
             $table->string('direction')->nullable();
-            $table->boolean('is_default')->default(false);
-            $table->foreignIdFor(Attribute::class)->constrained()->cascadeOnDelete();
+            $table->boolean('is_default')->default(false)->nullable();
+            $table->boolean('is_active')->default(false)->nullable();
+            $table->foreignIdFor(Attribute::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
-        });
-
-        Schema::create('category_sorting', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignIdFor(Sorting::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->foreignIdFor(Category::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
         });
     }
 

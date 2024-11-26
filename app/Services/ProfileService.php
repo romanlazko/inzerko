@@ -13,9 +13,8 @@ class ProfileService
         string $password = null,
         int $telegram_chat_id = null,
         string $telegram_token = null,
-        array $lang = null,
         string $locale = null,
-        array $communication = null,
+        array $communication_settings = null,
         array $notification_settings = null
     )
     {
@@ -25,9 +24,8 @@ class ProfileService
             'password' => $password ? Hash::make($password) : null,
             'telegram_chat_id' => $telegram_chat_id,
             'telegram_token' => $telegram_token,
-            'lang'  => $lang,
             'locale' => $locale,
-            'communication' => $communication,
+            'communication_settings' => $communication_settings,
             'notification_settings' => $notification_settings
         ], function ($value) {
             return !is_null($value) && $value !== '';
@@ -51,9 +49,8 @@ class ProfileService
         string $password = null,
         int $telegram_chat_id = null,
         string $telegram_token = null,
-        array $lang = null,
         string $locale = null,
-        array $communication = null,
+        array $communication_settings = null,
         array $notification_settings = null
     ) {
         $user->fill(array_filter([
@@ -62,9 +59,8 @@ class ProfileService
             'password' => $password ? Hash::make($password) : null,
             'telegram_chat_id' => $telegram_chat_id,
             'telegram_token' => $telegram_token,
-            'lang'  => $lang,
             'locale' => $locale,
-            'communication' => $communication,
+            'communication_settings' => $communication_settings,
             'notification_settings' => $notification_settings
         ], function ($value) {
             return !is_null($value) && $value !== '';
@@ -72,6 +68,10 @@ class ProfileService
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+        }
+
+        if (is_null($notification_settings)) {
+            $user->notification_settings = null;
         }
         
         $user->save();

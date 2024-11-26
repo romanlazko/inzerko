@@ -34,6 +34,7 @@ class HomeViewModel
             ])
             ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at', 'announcements.category_id')
             ->isPublished()
+            ->isActive()
             ->orderByDesc('announcements.created_at')
             ->paginate(30)
             ->withQueryString();

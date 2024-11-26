@@ -22,8 +22,8 @@ class HtmlLayoutsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'slug' => 'sablon-telegram',
-                'name' => 'Шаблон телеграм',
+                'slug' => 'sablon-dlia-bota-raboty',
+                'name' => 'Шаблон для бота работы',
                 'blade' => '<b>{{ 
 $announcement->title
 }}</b>
@@ -45,9 +45,9 @@ $announcement->categories
 )
 ?->implode(\' \')
 }}</b>',
-            'is_active' => NULL,
+            'is_active' => 1,
             'created_at' => '2024-11-24 12:50:32',
-            'updated_at' => '2024-11-24 13:15:16',
+            'updated_at' => '2024-11-25 16:57:01',
             'deleted_at' => NULL,
         ),
         1 => 

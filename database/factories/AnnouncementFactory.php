@@ -11,7 +11,7 @@ use App\Models\TelegramChat;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
-use App\Services\Actions\CategoryAttributeService;
+use App\Services\Actions\AttributesByCategoryService;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Announcement>
@@ -55,7 +55,7 @@ class AnnouncementFactory extends Factory
 
     private function getFeatures(Category $category) : array
     {   
-        return CategoryAttributeService::forCreate($category)
+        return AttributesByCategoryService::forCreate($category)
             ->map(fn ($attribute) => 
                 AttributeFactory::getFakeData($attribute)
             )

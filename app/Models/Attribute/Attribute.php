@@ -139,4 +139,11 @@ class Attribute extends Model
     {
         return $this->altersuffixes[app()->getLocale()] ?? $this->altersuffixes['en'] ?? null;
     }
+
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

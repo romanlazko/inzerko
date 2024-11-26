@@ -15,6 +15,7 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
@@ -53,6 +54,8 @@ class MyAnnouncements extends Component implements HasForms, HasTable
 
                 TextColumn::make('price')
                     ->state(fn (Announcement $announcement) => $announcement->price),
+
+                ToggleColumn::make('is_active'),
 
                 TextColumn::make('status')
                     ->label('Status')

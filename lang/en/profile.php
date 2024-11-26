@@ -7,6 +7,7 @@ return [
     'saved' => 'Saved',
     'logout' => 'Logout',
     'fill_your_profile' => 'Fill your profile',
+    'are_you_sure' => 'Are you sure?',
 
     'update_passport_form' => [
         'title' =>'Update Password',

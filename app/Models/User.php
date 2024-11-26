@@ -48,11 +48,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'name',
         'avatar',
         'email',
-        'communication',
+        'communication_settings',
         'password',
-        'phone',
         'telegram_chat_id',
-        'lang',
         'notification_settings',
         'locale',
         'telegram_token'
@@ -76,9 +74,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'lang' => 'array',
         'notification_settings' => 'object',
-        'communication' => 'object',
+        'communication_settings' => 'object',
     ];
 
     protected static function booted(): void
@@ -181,7 +178,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function isProfileFilled(): bool
     {
-        return ! is_null($this->communication) AND ! is_null($this->lang) AND ! is_null($this->name); 
+        return ! is_null($this->communication_settings) AND ! is_null($this->communication_settings?->languages) AND ! is_null($this->name); 
     }
 
     public function isSuperAdmin(): bool

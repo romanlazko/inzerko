@@ -21,4 +21,11 @@ class ReportOption extends Model
     {
         return $this->alternames[app()->getLocale()] ?? $this->alternames['en'] ?? null;
     }
+    
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

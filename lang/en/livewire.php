@@ -36,6 +36,7 @@ return [
         'month' => 'Month',
         'day' => 'Day',
         'report_description' => 'Please describe the reason why you believe the ad violates our site rules.',
+        'select_category' => 'Select category',
     ],
 
     'labels' => [

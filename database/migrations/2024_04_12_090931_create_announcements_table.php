@@ -2,6 +2,7 @@
 
 use App\Enums\Status;
 use App\Models\Category;
+use App\Models\User;
 use Igaster\LaravelCities\Geo;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,18 +18,21 @@ return new class extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('user_id')->nullable();
             $table->string('slug')->nullable();
-            $table->foreignIdFor(Category::class);
+
+            $table->foreignIdFor(User::class)->nullable();
+            $table->foreignIdFor(Category::class)->nullable();
             $table->foreignIdFor(Geo::class)->nullable();
-            $table->integer('current_status')->nullable()->default(Status::created);
+
+            $table->integer('current_status')->default(Status::created)->nullable();
+            $table->boolean('is_active')->default(true)->nullable();
 
             $table->timestamps();
             $table->softDeletes();
 
             $table->index('current_status');
             $table->index('category_id');
-            $table->index('deleted_at');
+            $table->index(['deleted_at', 'is_active', 'current_status']);
         });
     }
 

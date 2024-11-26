@@ -18,4 +18,11 @@ class AttributeGroup extends Model
     {
         return $this->hasMany(Attribute::class);
     }
+    
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

@@ -55,4 +55,11 @@ class Page extends Model
     {
         return $this->hasMany(Block::class);
     }
+    
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

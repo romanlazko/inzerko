@@ -28,9 +28,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $pages = Cache::remember('pages', config('cache.ttl'), function () {
-                return Page::where([
-                    'is_active' => true,
-                ])->get();
+                return Page::isActive()->get();
             });
 
             $view->with([

@@ -7,6 +7,7 @@ return [
     'saved' => 'Сохранено',
     'logout' => 'Выйти',
     'fill_your_profile' => 'Заполните свой профиль',
+    'are_you_sure' => 'Вы уверены?',
 
     'update_passport_form' => [
         'title' =>'Обновить пароль',

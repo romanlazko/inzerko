@@ -36,9 +36,9 @@ class ReportOptions extends AdminTableLayout implements HasForms, HasTable
         return $table
             ->query(ReportOption::query())
             ->headerActions([
-                SeedAction::make('reports')
+                SeedAction::make('report_options')
                     ->seedTables([
-                        'reports',
+                        'report_options',
                     ]),
                 CreateAction::make()
                     ->icon('heroicon-o-plus-circle')

@@ -26,10 +26,10 @@
                     </div>
                     
                     <x-form.checkbox 
-                        name="communication[contact_phone][visible]" 
+                        name="communication_settings[contact_phone][visible]" 
                         class="peer/phone ml-auto col-span-1" 
                         value="1" 
-                        :checked="old('communication.contact_phone.visible', $user->communication?->contact_phone?->visible ?? false)"
+                        :checked="old('communication_settings.contact_phone.visible', $user->communication_settings?->contact_phone?->visible ?? false)"
                     />
     
                     <div class="hidden peer-checked/phone:block col-span-full space-y-2">
@@ -42,16 +42,16 @@
 
                         <x-form.input 
                             id="contact_phone" 
-                            name="communication[contact_phone][phone]"
+                            name="communication_settings[contact_phone][phone]"
                             type="tel" 
                             class="block w-full font-normal text-sm phone" 
-                            :value="old('communication.contact_phone.phone', $user->communication?->contact_phone?->phone)" 
+                            :value="old('communication_settings.contact_phone.phone', $user->communication_settings?->contact_phone?->phone)" 
                             autofocus
                         />
 
                         <x-form.error 
                             class="mt-2" 
-                            :messages="$errors->get('communication.contact_phone.phone')"
+                            :messages="$errors->get('communication_settings.contact_phone.phone')"
                         />
                     </div>
                 </x-form.label>
@@ -67,10 +67,10 @@
                     </div>
     
                     <x-form.checkbox
-                        name="communication[telegram][visible]" 
+                        name="communication_settings[telegram][visible]" 
                         class="peer/telegram ml-auto col-span-1" 
                         value="1" 
-                        :checked="old('communication.telegram.visible', $user->communication?->telegram?->visible ?? false)"
+                        :checked="old('communication_settings.telegram.visible', $user->communication_settings?->telegram?->visible ?? false)"
                     />
     
                     <div class="hidden peer-checked/telegram:block col-span-full space-y-2">
@@ -83,16 +83,16 @@
 
                         <x-form.input 
                             id="telegram" 
-                            name="communication[telegram][phone]" 
+                            name="communication_settings[telegram][phone]" 
                             type="tel" 
                             class="block w-full font-normal text-sm phone" 
-                            :value="old('communication.telegram.phone', $user->communication?->telegram?->phone)" 
+                            :value="old('communication_settings.telegram.phone', $user->communication_settings?->telegram?->phone)" 
                             autofocus
                         />
 
                         <x-form.error 
                             class="mt-2" 
-                            :messages="$errors->get('communication.telegram.phone')" 
+                            :messages="$errors->get('communication_settings.telegram.phone')" 
                         />
                     </div>
                 </x-form.label>
@@ -108,10 +108,10 @@
                     </div>
     
                     <x-form.checkbox
-                        name="communication[whatsapp][visible]" 
+                        name="communication_settings[whatsapp][visible]" 
                         class="peer/whatsapp ml-auto col-span-1" 
                         value="1" 
-                        :checked="old('communication.whatsapp.visible', $user->communication?->whatsapp?->visible ?? false)"
+                        :checked="old('communication_settings.whatsapp.visible', $user->communication_settings?->whatsapp?->visible ?? false)"
                     />
     
                     <div class="hidden peer-checked/whatsapp:block col-span-full space-y-2">
@@ -124,23 +124,23 @@
 
                         <x-form.input 
                             id="whatsapp" 
-                            name="communication[whatsapp][phone]" 
+                            name="communication_settings[whatsapp][phone]" 
                             type="text" 
                             class="block w-full font-normal text-sm phone" 
-                            :value="old('communication.whatsapp.phone', $user->communication?->whatsapp?->phone)" 
+                            :value="old('communication_settings.whatsapp.phone', $user->communication_settings?->whatsapp?->phone)" 
                             autofocus
                         />
 
                         <x-form.error 
                             class="mt-2" 
-                            :messages="$errors->get('communication.whatsapp.phone')" 
+                            :messages="$errors->get('communication_settings.whatsapp.phone')" 
                         />
                     </div>
                 </x-form.label>
             </div>
 
-            <x-form.error class="mt-2" :messages="$errors->get('communication')" />
-            <x-form.error class="mt-2" :messages="$errors->get('communication.*.visible')" />
+            <x-form.error class="mt-2" :messages="$errors->get('communication_settings')" />
+            <x-form.error class="mt-2" :messages="$errors->get('communication_settings.*.visible')" />
         </div>
 
         <div>
@@ -151,7 +151,7 @@
                     <span class="font-normal">
                         🇺🇸 {{ __('profile.update_communication_information_form.english') }}
                     </span>
-                    <x-form.checkbox id="en" name="lang[]" value="en" :checked="in_array('en', old('lang', $user->lang ?? []))"/>
+                    <x-form.checkbox id="en" name="communication_settings[languages][]" value="en" :checked="in_array('en', old('lang', $user->communication_settings->languages ?? []))"/>
                 </x-form.label>
 
                 <hr class="mx-2">
@@ -160,7 +160,7 @@
                     <span class="font-normal">
                         🇷🇺 {{ __('profile.update_communication_information_form.russian') }}
                     </span>
-                    <x-form.checkbox id="ru" name="lang[]" value="ru" :checked="in_array('ru', old('lang', $user->lang ?? []))"/>
+                    <x-form.checkbox id="ru" name="communication_settings[languages][]" value="ru" :checked="in_array('ru', old('lang', $user->communication_settings->languages ?? []))"/>
                 </x-form.label>
 
                 <hr class="mx-2">
@@ -169,11 +169,11 @@
                     <span class="font-normal">
                         🇨🇿 {{ __('profile.update_communication_information_form.czech') }}
                     </span>
-                    <x-form.checkbox id="cz" name="lang[]" value="cz" :checked="in_array('cz', old('lang', $user->lang ?? []))"/>
+                    <x-form.checkbox id="cz" name="communication_settings[languages][]" value="cz" :checked="in_array('cz', old('lang', $user->communication_settings->languages ?? []))"/>
                 </x-form.label>
             </div>
             
-            <x-form.error class="mt-2" :messages="$errors->get('lang')" />
+            <x-form.error class="mt-2" :messages="$errors->get('communication_settings.languages')" />
         </div>
         
         <div class="flex items-center gap-4">
@@ -192,7 +192,7 @@
                             geoIpLookup: null,
                             strictMode: true,
                             separateDialCode: true,
-                            hiddenInput: () => ({ phone: "communication[" + input.getAttribute('id') + "][phone]"}),
+                            hiddenInput: () => ({ phone: "communication_settings[" + input.getAttribute('id') + "][phone]"}),
                             loadUtilsOnInit: 'https://cdn.jsdelivr.net/npm/intl-tel-input/build/js/utils.js', // для форматирования
                         });
 

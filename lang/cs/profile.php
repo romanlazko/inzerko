@@ -7,6 +7,7 @@ return [
     'saved' => 'Uloženo',
     'logout' => 'Odhlásit se',
     'fill_your_profile' => 'Vyplňte svůj profil',
+    'are_you_sure' => 'Jste si jisti?',
 
     'update_passport_form' => [
         'title' => 'Aktualizace hesla',

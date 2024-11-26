@@ -14,7 +14,7 @@ use Filament\Forms\Set;
 
 trait VisibleHiddenSection 
 {
-    public function getVisibleHiddenSection(array $type_options = [], array $validation_rules = []): ?Section
+    public function getVisibleHiddenSection(): ?Section
     {
         return Section::make(__('Visible/Hidden'))
             ->schema([

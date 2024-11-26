@@ -85,21 +85,22 @@ class Sortings extends AdminTableLayout implements HasForms, HasTable
                                 
                             ])
                             ->columns(2),
-                        Section::make()
-                            ->schema([
-                                Select::make('categories')
-                                    ->helperText("Категории к которым принадлежит сортировка. (можно выбрать несколько)")
-                                    ->relationship('categories')
-                                    ->multiple()
-                                    ->options(Category::all()->groupBy('parent.name')->map->pluck('name', 'id'))
-                                    ->columnSpanFull()
-                                    ->live(),
-                            ]),
+                        // Section::make()
+                        //     ->schema([
+                        //         Select::make('categories')
+                        //             ->helperText("Категории к которым принадлежит сортировка. (можно выбрать несколько)")
+                        //             ->relationship('categories')
+                        //             ->multiple()
+                        //             ->options(Category::all()->groupBy('parent.name')->map->pluck('name', 'id'))
+                        //             ->columnSpanFull()
+                        //             ->live(),
+                        //     ]),
                         Section::make()
                             ->schema([
                                 Select::make('attribute_id')
                                     ->relationship('attribute')
-                                    ->options(fn (Get $get) => Attribute::whereHas('categories', fn ($query) => $query->whereIn('category_id', $get('categories') ?? []))->pluck('name', 'id')),
+                                    ->getOptionLabelFromRecordUsing(fn (Attribute $record) => "{$record->label} ({$record->name})"),
+                                    // ->options(fn (Get $get) => Attribute::whereHas('categories', fn ($query) => $query->whereIn('category_id', $get('categories') ?? []))->pluck('name', 'id')),
                                 Select::make('direction')
                                     ->options([
                                         'asc' => 'ASC',
@@ -122,14 +123,14 @@ class Sortings extends AdminTableLayout implements HasForms, HasTable
                             Sorting::query()->where('is_default', 1)->update(['is_default' => 0]);
                         }
                     }),
+                ToggleColumn::make('is_active'),
                 TextColumn::make('attribute.label')
                     ->badge()
                     ->color('info'),
-                TextColumn::make('categories')
-                    ->state(fn (Sorting $record) => $record->categories->pluck('name'))
+                TextColumn::make('attribute.categories.name')
+                    ->state(fn (Sorting $record) => $record->attribute->categories->pluck('name'))
                     ->badge()
-                    ->color('success')
-                    ->grow(false),
+                    ->color('success'),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
@@ -174,21 +175,22 @@ class Sortings extends AdminTableLayout implements HasForms, HasTable
                                 
                             ])
                             ->columns(2),
-                        Section::make()
-                            ->schema([
-                                Select::make('categories')
-                                    ->helperText("Категории к которым принадлежит сортировка. (можно выбрать несколько)")
-                                    ->relationship('categories')
-                                    ->multiple()
-                                    ->options(Category::all()->groupBy('parent.name')->map->pluck('name', 'id'))
-                                    ->columnSpanFull()
-                                    ->live(),
-                            ]),
+                        // Section::make()
+                        //     ->schema([
+                        //         Select::make('categories')
+                        //             ->helperText("Категории к которым принадлежит сортировка. (можно выбрать несколько)")
+                        //             ->relationship('categories')
+                        //             ->multiple()
+                        //             ->options(Category::all()->groupBy('parent.name')->map->pluck('name', 'id'))
+                        //             ->columnSpanFull()
+                        //             ->live(),
+                        //     ]),
                         Section::make()
                             ->schema([
                                 Select::make('attribute_id')
                                     ->relationship('attribute')
-                                    ->options(fn (Get $get) => Attribute::whereHas('categories', fn ($query) => $query->whereIn('category_id', $get('categories') ?? []))->pluck('name', 'id')),
+                                    ->getOptionLabelFromRecordUsing(fn (Attribute $record) => "{$record->label} ({$record->name})"),
+                                    // ->options(fn (Get $get) => Attribute::whereHas('categories', fn ($query) => $query->whereIn('category_id', $get('categories') ?? []))->pluck('name', 'id')),
                                 Select::make('direction')
                                     ->options([
                                         'asc' => 'ASC',

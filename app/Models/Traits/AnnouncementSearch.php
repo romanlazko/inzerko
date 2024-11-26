@@ -7,12 +7,19 @@ use App\Models\Sorting;
 use App\Enums\Status;
 use App\Models\Category;
 
-use App\Services\Actions\CategoryAttributeService;
+use App\Services\Actions\AttributesByCategoryService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 
 trait AnnouncementSearch
 {
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+    
     public function scopeCategory($query, ?Category $category = null)
     {
         if (!$category) {
@@ -36,7 +43,7 @@ trait AnnouncementSearch
     public function scopeFilter($query, ?array $filters = null, ?Category $category = null)
     {
         return $query->where(function ($query) use ($filters, $category) {
-            $filterAttributes = CategoryAttributeService::forFilter($category);
+            $filterAttributes = AttributesByCategoryService::forFilter($category);
 
             foreach ($filterAttributes as $attribute) {
                 $query->where(function($query) use ($attribute, $filters) {

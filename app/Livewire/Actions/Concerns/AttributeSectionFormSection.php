@@ -5,11 +5,14 @@ namespace App\Livewire\Actions\Concerns;
 use Closure;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 
 trait AttributeSectionFormSection
 {
-    public function getAttributeSectionFormSection(array $type_options = [], array $validation_rules = []): ?Section
+    use HasValidationRulles;
+    
+    public function getAttributeSectionFormSection(): ?Section
     {
         return Section::make()
             ->schema([
@@ -24,17 +27,19 @@ trait AttributeSectionFormSection
                         'cs' => '',
                         'ru' => '',
                     ])
-                    ->rules([
-                        fn (): Closure => function (string $attribute, $value, Closure $fail) {
-                            if (!isset($value['en']) OR $value['en'] == '') 
-                                $fail('The :attribute must contain english translation.');
-                        },
-                    ])
+                    ->rules($this->getValidationRules())
                     ->required()
                     ->afterStateUpdated(fn ($state, callable $set) => $set('slug', str()->snake($state['en']))),
 
                 TextInput::make('slug')
                     ->required(),
+                
+                Select::make('type')
+                    ->options([
+                        'filter' => 'Filter',
+                        'create' => 'Create',
+                        'show' => 'Show',
+                    ]),
 
                 TextInput::make('order_number')
                     ->helperText(__('Порядковый номер секции внутри формы.'))

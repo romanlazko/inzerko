@@ -6,7 +6,7 @@ use App\Http\Requests\SearchRequest;
 use App\Models\Category;
 use App\Models\Feature;
 use App\Models\Announcement;
-use App\Services\Actions\CategoryAttributeService;
+use App\Services\Actions\AttributesByCategoryService;
 use Illuminate\Support\Facades\Cache;
 
 class ShowViewModel
@@ -24,7 +24,7 @@ class ShowViewModel
 
     private function announcement($announcement)
     {
-        if (!$announcement->status->isPublished() AND $announcement->user?->id != auth()->id()) {
+        if ((!$announcement->status->isPublished() || !$announcement->is_active) AND $announcement->user?->id != auth()->id()) {
             abort(404, __('Announcement not found'));
         }
 
@@ -33,7 +33,7 @@ class ShowViewModel
             'media',
             'geo',
             'features:announcement_id,attribute_id,attribute_option_id,translated_value', 
-            'features.attribute:id,name,alterlabels,is_feature,altersuffixes,alterprefixes,show_layout,group_layout',
+            'features.attribute:id,name,alterlabels,is_feature,altersuffixes,alterprefixes,show_layout,group_layout,is_active',
             'features.attribute_option:id,alternames',
             'features.attribute.showSection:id,alternames,order_number,slug',
             'features.attribute.group:id,slug,separator',
@@ -50,9 +50,10 @@ class ShowViewModel
                 'userVotes',
             ])
             ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at')
-            ->isPublished()
             ->where('announcements.id', '!=', $this->announcement->id)
             ->whereHas('categories', fn ($query) => $query->whereIn('categories.slug', $this->announcement->categories->pluck('slug')->toArray()))
+            ->isPublished()
+            ->isActive()
             ->orderByDesc('announcements.created_at')
             ->limit(10)
             ->get();
@@ -67,9 +68,10 @@ class ShowViewModel
                 'userVotes',
             ])
             ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at')
-            ->isPublished()
             ->where('announcements.id', '!=', $this->announcement->id)
             ->where('announcements.user_id', auth()->id())
+            ->isPublished()
+            ->isActive()
             ->orderByDesc('announcements.created_at')
             ->limit(10)
             ->get();

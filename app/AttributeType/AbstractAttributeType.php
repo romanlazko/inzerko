@@ -25,7 +25,8 @@ abstract class AbstractAttributeType
             ?->columnSpan(['default' => 'full', 'sm' => $this->attribute->create_layout['column_span'] ?? 'full'])
             ?->columnStart(['default' => '1', 'sm' => $this->attribute->create_layout['column_start'] ?? '1'])
             ?->visible(fn (Get $get) => $this->isVisible($get))
-            ?->hidden(fn (Get $get) => $this->isHidden($get));
+            ?->hidden(fn (Get $get) => $this->isHidden($get))
+            ?->hiddenLabel(! isset($this->attribute->create_layout['has_label']) OR $this->attribute->create_layout['has_label'] == false);
     }
 
     public function getCreateSchema(): ?array
@@ -52,7 +53,8 @@ abstract class AbstractAttributeType
             ?->columnSpan(['default' => 'full', 'sm' => $this->attribute->filter_layout['column_span'] ?? 'full'])
             ?->columnStart(['default' => '1', 'sm' => $this->attribute->filter_layout['column_start'] ?? '1'])
             ?->visible(fn (Get $get) => $this->isVisible($get))
-            ?->hidden(fn (Get $get) => $this->isHidden($get));
+            ?->hidden(fn (Get $get) => $this->isHidden($get))
+            ?->hiddenLabel(! isset($this->attribute->filter_layout['has_label']) OR $this->attribute->filter_layout['has_label'] == false);
     }
 
     public function applyFilterQuery(Builder $query) : Builder

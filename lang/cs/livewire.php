@@ -35,6 +35,7 @@ return [
         'month' => 'Měsíc',
         'day' => 'Den',
         'report_description' => 'Popište prosím důvod, proč se domníváte, že inzerát porušuje pravidla našich webových stránek.',
+        'select_category' => 'Vyberte kategorii',
     ],
 
     'labels' => [

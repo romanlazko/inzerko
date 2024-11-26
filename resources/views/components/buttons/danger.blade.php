@@ -6,7 +6,7 @@
         ]) 
     }} 
     
-    onclick="return confirm('{{ __('Are you shure?')}}')"
+    onclick="return confirm('{{ __('profile.are_you_sure') }}')"
 >
     {{ $slot }}
 </button>

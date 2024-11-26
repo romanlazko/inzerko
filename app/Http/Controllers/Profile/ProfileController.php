@@ -93,16 +93,15 @@ class ProfileController extends Controller
     public function updateCommunication(Request $request): RedirectResponse
     {
         $request->validate([
-            'communication' => ['required', 'array', new AtLeastOneSelected('visible')],
-            'communication.*.phone' => ['required_if_accepted:communication.*.visible', 'nullable', 'phone:CZ'],
-            'lang' => ['required', 'array'],
-            'lang.*' => ['string', 'in:en,ru,cz'],
+            'communication_settings' => ['required', 'array', new AtLeastOneSelected('visible')],
+            'communication_settings.*.phone' => ['required_if_accepted:communication_settings.*.visible', 'nullable', 'phone:CZ'],
+            'communication_settings.languages' => ['required', 'array'],
+            'communication_settings.languages.*' => ['string', 'in:en,ru,cz'],
         ]);
         
         ProfileService::update(
             user: $request->user(),
-            communication:$request->communication,
-            lang: $request->lang
+            communication_settings: $request->communication_settings,
         );
 
         return Redirect::route('profile.edit')->with([
@@ -166,7 +165,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function my_announcements(): View
+    public function myAnnouncements(): View
     {
         return view('profile.my-announcements');
     }
@@ -180,6 +179,10 @@ class ProfileController extends Controller
 
     public function updateNotifications(Request $request): RedirectResponse
     {
+        $request->validate([
+            'notification_settings' => ['array'],
+        ]);
+
         ProfileService::update(
             user: $request->user(),
             notification_settings: $request->notification_settings

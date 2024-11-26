@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->json('alternames')->nullable();
             $table->integer('order_number')->nullable();
-            $table->boolean('is_visible')->default(true);
+            $table->boolean('is_active')->default(false)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,15 +15,16 @@ use Illuminate\Database\Eloquent\Builder;
 trait CreateLayoutSection 
 {
     use AttributeSectionFormSection;
+    
 
-    public function getCreateLayoutSection(array $type_options = [], array $validation_rules = []): ?Section
+    public function getCreateLayoutSection(): ?Section
     {
         return Section::make(__("Create layout"))
             ->schema([
                 Grid::make(3)
                     ->schema([
                         Select::make('create_layout.type')
-                            ->options($type_options)
+                            ->options($this->type_options)
                             ->required()
                             ->helperText("Тип атрибута при создании объявления.")
                             ->afterStateUpdated(function (Get $get, Set $set, $state) { 
@@ -44,8 +45,8 @@ trait CreateLayoutSection
                             ->multiple()
                             ->required()
                             ->columnSpanFull()
-                            ->options($validation_rules)
-                            ->visible(fn (Get $get) => in_array($get('create_layout.type'), array_keys($type_options['text_fields']))),
+                            ->options($this->validation_rules)
+                            ->visible(fn (Get $get) => in_array($get('create_layout.type'), array_keys($this->type_options['text_fields']))),
                     ])
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),
                 
@@ -54,21 +55,21 @@ trait CreateLayoutSection
                         Select::make('create_layout.section_id')
                             ->label('Section')
                             ->helperText(__('Секция в которой будет находится этот атрибут'))
-                            ->relationship(name: 'createSection', modifyQueryUsing: fn (Builder $query) => $query->orderBy('order_number'))
+                            ->relationship(name: 'createSection', modifyQueryUsing: fn (Builder $query) => $query->orderBy('order_number')->where('type', 'create'))
                             ->getOptionLabelFromRecordUsing(fn (AttributeSection $record) => "#{$record->order_number} - {$record->name} ({$record->slug})")
                             ->columnSpanFull()
                             ->required()
-                            ->editOptionForm([
-                                $this->getAttributeSectionFormSection()
-                            ])
+                            // ->editOptionForm([
+                            //     $this->getAttributeSectionFormSection()
+                            // ])
                             ->createOptionForm([
                                 $this->getAttributeSectionFormSection()
                             ])
-                            ->afterStateUpdated(fn (Get $get, Set $set) => 
-                                !$get('filter_layout.section_id')
-                                    ? $set('filter_layout.section_id', $get('create_layout.section_id')) 
-                                    : null
-                            )
+                            // ->afterStateUpdated(fn (Get $get, Set $set) => 
+                            //     !$get('filter_layout.section_id')
+                            //         ? $set('filter_layout.section_id', $get('create_layout.section_id')) 
+                            //         : null
+                            // )
                             ->live(),
 
                         TextInput::make('create_layout.column_span')
@@ -110,10 +111,13 @@ trait CreateLayoutSection
 
                         Toggle::make('is_translatable')
                             ->helperText(__("Будет ли переводится этот атрибут автоматически"))
-                            ->visible(fn (Get $get) => in_array($get('create_layout.type'), array_keys($type_options['text_fields']))),
+                            ->visible(fn (Get $get) => in_array($get('create_layout.type'), array_keys($this->type_options['text_fields']))),
 
                         Toggle::make('is_required')
                             ->helperText(__("Является ли этот атрибут обязательным при создании объявления")),
+
+                        Toggle::make('create_layout.has_label')
+                            ->helperText(__("Будет ли отображаться имя этого атрибута внутри секции")),
                     ])
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),
 
