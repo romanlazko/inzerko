@@ -38,7 +38,7 @@ class UpdateProfile extends Command
             user: $user,
             name: $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
             email: $notes['email'] ?? null,
-            communication: $notes['phone'] ? [
+            communication_settings: $notes['phone'] ? [
                 'telegram' => [
                     'phone' => $notes['phone'],
                     'visible' => true,
