@@ -53,7 +53,7 @@ class StoreProfile extends Command
             locale: $updates->getFrom()->getLanguageCode(),
             telegram_chat_id: $telegram_chat->id,
             telegram_token: Str::random(8),
-            communication: [
+            communication_settings: [
                 'telegram' => [
                     'phone' => $notes['phone'],
                     'visible' => true,
