@@ -176,9 +176,14 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $unreadMessagesCount;
     }
 
+    public function getLanguagesAttribute(): array
+    {
+        return $this->communication_settings?->languages ?? [];
+    }
+
     public function isProfileFilled(): bool
     {
-        return ! is_null($this->communication_settings) AND ! is_null($this->communication_settings?->languages) AND ! is_null($this->name); 
+        return ! is_null($this->communication_settings) AND ! empty($this->languages) AND ! is_null($this->name); 
     }
 
     public function isSuperAdmin(): bool
