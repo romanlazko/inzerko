@@ -123,6 +123,7 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                         'attributes',
                         'attribute_groups',
                         'attribute_options',
+                        'attribute_category',
                     ]),
                 CreateAttributeAction::make()
                     ->visible($this->roleOrPermission(['create', 'manage'], 'attribute')),
