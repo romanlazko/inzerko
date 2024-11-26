@@ -13,7 +13,7 @@ use Filament\Forms\Set;
 
 trait NameSection
 {
-    public function getNameSection(array $type_options = [], array $validation_rules = []): ?Section
+    public function getNameSection(): ?Section
     {
         return Section::make(__('Name'))
             ->schema([

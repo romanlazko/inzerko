@@ -22,9 +22,11 @@ class AttributeSection extends Model
     {
         return $this->alternames[app()->getLocale()] ?? $this->alternames['en'] ?? null;
     }
+    
+    //SCOPES
 
-    public function attributes(): HasMany
+    public function scopeIsActive($query)
     {
-        return $this->hasMany(Attribute::class);
+        return $query->where('is_active', true);
     }
 }

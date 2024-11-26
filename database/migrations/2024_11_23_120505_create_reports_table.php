@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->nullable();
             $table->json('alternames')->nullable();
-            $table->boolean('is_active')->nullable();
+            $table->boolean('is_active')->default(false)->nullable();
             $table->integer('order_number')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,7 +30,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'reporter_id');
             $table->foreignIdFor(ReportOption::class);
             $table->text('description')->nullable();
-            $table->boolean('is_active')->nullable();
+            $table->boolean('is_active')->default(false)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

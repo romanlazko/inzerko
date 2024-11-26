@@ -9,7 +9,7 @@ use Filament\Forms\Components\Select;
 
 trait CategorySection
 {
-    public function getCategorySection(array $type_options = [], array $validation_rules = []): ?Section
+    public function getCategorySection(): ?Section
     {
         return Section::make(__('Categories'))
             ->schema([

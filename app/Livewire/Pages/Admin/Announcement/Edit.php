@@ -8,7 +8,7 @@ use App\Livewire\Layouts\AdminEditFormLayout;
 use App\Livewire\Traits\AnnouncementCrud;
 use App\Models\Announcement;
 use App\Models\Category;
-use App\Services\Actions\CategoryAttributeService;
+use App\Services\Actions\AttributesByCategoryService;
 use App\Services\AnnouncementService;
 use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components\Actions;
@@ -118,7 +118,7 @@ class Edit extends AdminEditFormLayout
 
     public function getSections($category_id): array
     {
-        return CategoryAttributeService::forUpdate($this->categories->find($category_id))
+        return AttributesByCategoryService::forUpdate($this->categories->find($category_id))
             ?->sortBy('createSection.order_number')
             ?->groupBy('createSection.name')
             ?->map(function ($section, $section_name) {

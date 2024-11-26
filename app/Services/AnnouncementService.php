@@ -6,7 +6,7 @@ use App\AttributeType\AttributeFactory;
 use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\TelegramChat;
-use App\Services\Actions\CategoryAttributeService;
+use App\Services\Actions\AttributesByCategoryService;
 use Illuminate\Support\Facades\DB;
 
 class AnnouncementService
@@ -54,7 +54,7 @@ class AnnouncementService
 
     private static function getFeatures(Category $category, array $attributes) : array
     {
-        return CategoryAttributeService::forCreate($category)
+        return AttributesByCategoryService::forCreate($category)
             ->map(fn ($attribute) => 
                 AttributeFactory::getCreateSchema($attribute, $attributes)
             )
@@ -77,6 +77,4 @@ class AnnouncementService
 
         return $locationChannels->map(fn ($channel) => ['telegram_chat_id' => $channel->id])->all();
     }
-
-    
 }

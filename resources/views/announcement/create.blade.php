@@ -1,4 +1,4 @@
-<x-app-layout class="w-full max-w-7xl m-auto pb-48">
+<x-app-layout class="w-full max-w-7xl m-auto">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('announcement.create') }}

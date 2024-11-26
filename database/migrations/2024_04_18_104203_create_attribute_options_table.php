@@ -18,9 +18,12 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+
             $table->json('alternames')->nullable();
+            
             $table->boolean('is_default')->default(false)->nullable();
             $table->boolean('is_null')->default(false)->nullable();
+
             $table->timestamps();
             $table->softDeletes();
 

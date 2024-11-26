@@ -61,4 +61,11 @@ class AnnouncementChannel extends Model
     {
         return $query->where('current_status', '!=', Status::published);
     }
+    
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

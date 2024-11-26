@@ -18,6 +18,7 @@ use App\Livewire\Layouts\AdminAnnouncementTableLayout;
 use App\Models\Feature;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Columns\ToggleColumn;
 
 class Announcements extends AdminAnnouncementTableLayout implements HasForms, HasTable
 {
@@ -121,6 +122,8 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
                             }),
                         ],
                     )),
+
+                ToggleColumn::make('is_active'),
 
                 StatusSwitcher::make('current_status')
                     ->options(Status::class)

@@ -15,12 +15,10 @@ class Location extends BaseAttributeType
 {
     protected function getFilamentCreateComponent(): ?ViewComponent
     {
-        return Grid::make(2)
-            ->schema([
-                ComponentsSelect::make('geo_id')
+        return ComponentsSelect::make('geo_id')
                     ->label(__('livewire.labels.city'))
                     ->placeholder(__('livewire.labels.city'))
-                    ->options(fn (Get $get) => Geo::orderBy('level')->where('country', 'CZ')->limit(10)->get()?->pluck('name', 'id'))
+                    ->options(Geo::orderBy('level')->where('country', 'CZ')->limit(10)->get()?->pluck('name', 'id'))
                     ->searchable()
                     ->getSearchResultsUsing(function (string $search) {
                         return Geo::whereRaw('LOWER(alternames) LIKE ?', ['%' . mb_strtolower($search) . '%'])
@@ -32,7 +30,6 @@ class Location extends BaseAttributeType
                     ->getOptionLabelUsing(fn ($value): ?string => Geo::find($value)?->name)
                     ->preload()
                     ->live()
-                    ->required()
-            ]);
+                    ->required($this->attribute->is_required);
     }
 }

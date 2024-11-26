@@ -9,9 +9,12 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
 
-trait OptionsSection 
+trait AttributeOptionsSection 
 {
-    public function getOptionsSection(array $type_options = [], array $validation_rules = []): ?Section
+    use HasTypeOptions;
+    use HasValidationRulles;
+
+    public function getAttributeOptionsSection(): ?Section
     {
         return Section::make(__('Options'))
             ->schema([
@@ -27,25 +30,20 @@ trait OptionsSection
                                 'cs' => '',
                                 'ru' => '',
                             ])
-                            ->rules([
-                                fn (): Closure => function (string $attribute, $value, Closure $fail) {
-                                    if (!isset($value['en']) OR $value['en'] == '') 
-                                        $fail('The :attribute must contain english translation.');
-                                },
-                            ])
+                            ->rules($this->getValidationRules())
                             ->live(debounce: 500),
 
                         Toggle::make('is_default')
                             ->fixIndistinctState()
                             ->helperText(__('Опция будет выбрана по умолчанию при создании объявления и при фильтрации.'))
-                            ->visible(fn (Get $get) => in_array($get('../../create_type'), [
+                            ->visible(fn (Get $get) => in_array($get('../../create_layout.type'), [
                                 'toggle_buttons',
                             ])),
 
                         Toggle::make('is_null')
                             ->helperText(__('Опция не будет отображаться при создании объявления и не будет учавствовать в фильтрации объявлений.'))
                             ->live()
-                            ->visible(fn (Get $get) => in_array($get('../../create_type'), [
+                            ->visible(fn (Get $get) => in_array($get('../../create_layout.type'), [
                                 'toggle_buttons',
                             ])),
                     ])
@@ -62,8 +60,8 @@ trait OptionsSection
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200'])
             ])
             ->visible(fn (Get $get) => 
-                in_array($get('filter_layout.type'), array_keys($type_options['fields_with_options'])) 
-                OR in_array($get('create_layout.type'), array_keys($type_options['fields_with_options']))
+                in_array($get('filter_layout.type'), array_keys($this->type_options['fields_with_options'])) 
+                OR in_array($get('create_layout.type'), array_keys($this->type_options['fields_with_options']))
             );
     }
 }

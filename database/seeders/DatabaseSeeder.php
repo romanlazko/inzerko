@@ -37,5 +37,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ModelHasPermissionsTableSeeder::class);
         $this->call(ReportsTableSeeder::class);
         $this->call(HtmlLayoutsTableSeeder::class);
+        $this->call(ReportOptionsTableSeeder::class);
     }
 }

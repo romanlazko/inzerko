@@ -6,7 +6,7 @@ use App\AttributeType\AttributeFactory;
 use App\Livewire\Components\Forms\Fields\Wizard;
 use App\Models\Announcement;
 use App\Models\Category;
-use App\Services\Actions\CategoryAttributeService;
+use App\Services\Actions\AttributesByCategoryService;
 use App\Services\AnnouncementService;
 use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components\Actions;
@@ -73,8 +73,8 @@ class Create extends Component implements HasForms
                                 ->schema([
                                     SelectTree::make('category_id')
                                         ->label(__('livewire.category'))
-                                        ->relationship('category', 'name', 'parent_id')
-                                        ->placeholder(__('Please select a category'))
+                                        ->relationship('category', 'name', 'parent_id', fn ($query) => $query->isActive(), fn ($query) => $query->isActive())
+                                        ->placeholder(__('livewire.placeholders.select_category'))
                                         ->required()
                                         ->live()
                                 ]),
@@ -131,7 +131,7 @@ class Create extends Component implements HasForms
 
     public function getSections($category_id): array
     {
-        return CategoryAttributeService::forCreate($this->categories->find($category_id))
+        return AttributesByCategoryService::forCreate($this->categories->find($category_id))
             ?->sortBy('createSection.order_number')
             ?->groupBy('createSection.name')
             ?->map(function ($section, $section_name) {

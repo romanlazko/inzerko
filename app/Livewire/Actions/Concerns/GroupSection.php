@@ -10,7 +10,7 @@ use Filament\Forms\Components\TextInput;
 
 trait GroupSection 
 {
-    public function getGroupSection(array $type_options = [], array $validation_rules = []): ?Section
+    public function getGroupSection(): ?Section
     {
         return Section::make(__("Group"))
             ->schema([

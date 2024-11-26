@@ -222,6 +222,13 @@ class Announcement extends Model implements HasMedia, Auditable
 
         return str($group?->pluck('value')->implode(' '))->sanitizeHtml();
     }
+    
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 
     //SEO
 

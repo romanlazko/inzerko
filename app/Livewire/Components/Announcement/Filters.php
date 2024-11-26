@@ -12,7 +12,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Livewire\Component;
 use App\Models\Category;
-use App\Services\Actions\CategoryAttributeService;
+use App\Services\Actions\AttributesByCategoryService;
 use Filament\Forms\Components\Fieldset;
 
 class Filters extends Component implements HasForms
@@ -63,7 +63,7 @@ class Filters extends Component implements HasForms
 
     public function getFormSchema(): array
     {
-        return CategoryAttributeService::forFilter($this->category)
+        return AttributesByCategoryService::forFilter($this->category)
             ?->sortBy('filterSection.order_number')
             ?->groupBy('filterSection.name')
             ?->map(function ($section, $section_name) {

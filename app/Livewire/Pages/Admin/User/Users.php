@@ -52,11 +52,15 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('roles.name')
                     ->badge()
                     ->color('warning'),
-                TextColumn::make('communication.phone')
-                    ->state(fn (User $user) => collect((array) $user->communication)->map(fn ($communication) => $communication->phone))
+                TextColumn::make('phones')
+                    ->state(fn (User $user) => collect((array) $user->communication_settings)
+                        ->filter(fn ($communication_setting) => !is_array($communication_setting) AND $communication_setting?->phone)
+                        ->map(fn ($value, $communication_setting) => str($communication_setting)->ucfirst()->replace('_', ' ')->append(": {$value?->phone}"))
+                    )
                     ->badge()
                     ->color('gray'),
-                TextColumn::make('lang')
+                TextColumn::make('languages')
+                    ->state(fn (User $user) => $user->communication_settings?->languages)
                     ->badge()
                     ->wrap(true),
                 TextColumn::make('locale')
@@ -89,6 +93,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                         TextInput::make('name'),
                         TextInput::make('email')
                             ->email(),
+                            
                         Select::make('roles')
                             ->relationship('roles', 'name')
                             ->multiple()
@@ -96,8 +101,10 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                             ->preload()
                             ->required()
                             ->visible($this->roleOrPermission(['manage'], 'role')),
+
                         Select::make('locale')
                             ->options(config('translate.languages')),
+
                         Select::make('telegram_chat_id')
                             ->options(TelegramChat::all()->map(fn (TelegramChat $telegram_chat) => [
                                 'id' => $telegram_chat->id,
@@ -105,6 +112,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                             ])->pluck('username', 'id')) 
                             ->searchable()
                             ->unique(ignoreRecord: true),
+
                         TextInput::make('telegram_token')
                             ->hidden(fn (Get $get) => is_null($get('telegram_chat_id')))
                             ->suffixAction(

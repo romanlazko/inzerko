@@ -31,4 +31,11 @@ class HtmlLayout extends Model
             $this->blade
         BLADE, $data));
     }
+    
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

@@ -18,22 +18,25 @@ return new class extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+
             $table->json('alterlabels')->nullable();
             $table->json('alterprefixes')->nullable();
             $table->json('altersuffixes')->nullable();
+
             $table->json('visible')->nullable();
             $table->json('hidden')->nullable();
+
             $table->json('create_layout')->nullable();
             $table->json('filter_layout')->nullable();
             $table->json('show_layout')->nullable();
             $table->json('group_layout')->nullable();
-            $table->string('default')->nullable();
-            $table->boolean('is_translatable')->default(false);
-            $table->boolean('is_feature')->default(false);
-            $table->boolean('is_required')->default(false);
-            $table->boolean('is_always_required')->default(false);
-            $table->boolean('is_readonly')->default(false);
-            $table->boolean('is_sortable')->default(false);
+
+            $table->boolean('is_translatable')->default(false)->nullable();
+            $table->boolean('is_feature')->default(false)->nullable();
+            $table->boolean('is_required')->default(false)->nullable();
+            $table->boolean('is_always_required')->default(false)->nullable();
+            $table->boolean('is_active')->default(false)->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

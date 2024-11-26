@@ -6,7 +6,7 @@ use App\Http\Requests\SearchRequest;
 use App\Models\Category;
 use App\Models\Feature;
 use App\Models\Announcement;
-use App\Services\Actions\CategoryAttributeService;
+use App\Services\Actions\AttributesByCategoryService;
 use Illuminate\Support\Facades\Cache;
 
 class IndexViewModel
@@ -74,13 +74,14 @@ class IndexViewModel
             ->filter($this->request->filters['attributes'] ?? [], $this->category)
             ->search($this->request->search)
             ->isPublished()
+            ->isActive()
             ->paginate(30)
             ->withQueryString();
     }
 
     private function sortings()
     {
-        return CategoryAttributeService::forSorting($this->category);
+        return AttributesByCategoryService::forSorting($this->category);
     }
 
     public function getCategory()

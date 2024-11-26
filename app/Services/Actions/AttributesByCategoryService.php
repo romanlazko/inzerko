@@ -4,12 +4,10 @@ namespace App\Services\Actions;
 
 use App\Models\Attribute\Attribute;
 use App\Models\Category;
-use App\Models\Sorting;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CategoryAttributeService
+class AttributesByCategoryService
 {
     public static function forFilter(Category|null $category)
     {
@@ -21,6 +19,7 @@ class CategoryAttributeService
         return self::getAttributesByCategory($category)
             ->pluck('sortings')
             ->flatten()
+            ->where('is_active', true)
             ->sortBy('order_number');
     }
 
@@ -36,18 +35,22 @@ class CategoryAttributeService
 
     public static function getAttributesByCategory(Category|null $category)
     {
-        $categories = $category?->parentsAndSelf?->pluck('id')->toArray();
+        $categories = $category
+            ?->parentsAndSelf
+            ?->where('is_active', true)
+            ?->pluck('id')
+            ?->toArray();
 
         $cacheKey = ($category?->slug ?? 'default') . '_category_attributes';
 
         return Cache::remember($cacheKey, config('cache.ttl'), function () use ($categories) {
-            return Attribute::with('attribute_options:id,alternames,attribute_id,is_default,is_null')
-                ->when(!$categories, fn ($query) => $query->where('is_always_required', true))
+            return Attribute::when(!$categories, fn ($query) => $query->where('is_always_required', true))
                 ->when($categories, fn ($query) => 
                     $query->whereHas('categories', fn (Builder $query) => 
                         $query->whereIn('category_id', $categories)
                     )
                 )
+                ->isActive()
                 ->get();
         });
     }

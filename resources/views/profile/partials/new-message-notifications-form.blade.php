@@ -20,7 +20,7 @@
                 <span class="font-normal">
                     {{ __('profile.new_message_notifications_form.telegram') }}
                 </span>
-                <x-form.checkbox id="telegram" name="notification_settings[telegram]" value="1" :checked="$user->notification_settings?->telegram ?? false" :disabled="!$user->chat"/>
+                <x-form.checkbox id="telegram" name="notification_settings[telegram]" :checked="$user->notification_settings?->telegram ?? false" :disabled="!$user->chat"/>
             </x-form.label>
 
             <hr class="mx-2">
@@ -29,7 +29,7 @@
                 <span class="text-black font-normal">
                     {{ __('profile.new_message_notifications_form.email') }}
                 </span>
-                <x-form.checkbox id="email" name="notification_settings[email]" value="1" :checked="$user->notification_settings?->email ?? false" />
+                <x-form.checkbox id="email" name="notification_settings[email]" :checked="$user->notification_settings?->email ?? false" />
             </x-form.label>
         </div>
 

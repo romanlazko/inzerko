@@ -153,7 +153,7 @@ class Category extends Model implements HasMedia
 
     //SCOPES
 
-    public function scopeIsActive($query): Builder
+    public function scopeIsActive($query)
     {
         return $query->where('is_active', true);
     }

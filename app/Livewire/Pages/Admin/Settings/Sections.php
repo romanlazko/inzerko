@@ -20,6 +20,9 @@ use Filament\Tables\Table;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ReplicateAction;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 
@@ -32,6 +35,11 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
     {
         return $table
             ->query(AttributeSection::query())
+            ->groups([
+                'type'
+            ])
+            ->defaultSort('order_number')
+            ->defaultGroup('type')
             ->headerActions([
                 SeedAction::make('attribute_sections')
                     ->seedTables([
@@ -79,7 +87,15 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('order_number')
                     ->label('#Order'),
                 TextColumn::make('name')
-                    ->description(fn (AttributeSection $attribute_section): string =>  $attribute_section?->slug),
+                    ->description(fn (AttributeSection $attribute_section): string =>  $attribute_section?->slug)
+                    ->sortable(query: fn ($query, $direction) => $query->orderBy('slug', $direction)),
+                SelectColumn::make('type')
+                    ->options([
+                        'filter' => 'Filter',
+                        'create' => 'Create',
+                        'show' => 'Show',
+                    ]),
+                ToggleColumn::make('is_active'),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
@@ -124,6 +140,10 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                     ->button()
                     ->visible($this->roleOrPermission(['update', 'manage'], 'section'))
                     ->slideOver(),
+
+                ReplicateAction::make()
+                    ->hiddenLabel()
+                    ->button(),
 
                 DeleteAction::make()
                     ->hiddenLabel()

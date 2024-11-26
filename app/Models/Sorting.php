@@ -55,4 +55,11 @@ class Sorting extends Model
             static::firstWhere('is_default', true)
         ) ?? null;
     }
+    
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

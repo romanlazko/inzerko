@@ -30,4 +30,11 @@ class TelegramBot extends Model implements HasMedia
     {
         return $this->hasMany(TelegramChat::class);
     }
+    
+    //SCOPES
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }
