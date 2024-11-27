@@ -61,7 +61,7 @@ class ConnectCommand extends Command
         $validator = Validator::make(
             $request, 
             [
-                'telegram_token' => 'exists:access_tokens,token|unique:access_tokens,token',
+                'telegram_token' => 'exists:access_tokens,token',
                 'telegram_chat_id' => 'exists:telegram_chats,id|unique:users,telegram_chat_id',
             ], 
             [
