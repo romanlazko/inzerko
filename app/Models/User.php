@@ -217,7 +217,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         return $this->tokens()->create([
             'name' => $name,
-            'token' => Hash::make(str()->random(60)),
+            'token' => str()->random(60),
             'expires_at' => now()->addMinutes(60),
         ]);
     }
@@ -225,7 +225,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public static function findByToken(string $token): ?User
     {
         return static::whereHas('tokens', function (Builder $query) use ($token) {
-            $query->where('token', Hash::make($token))->where('expires_at', '>=', now());
+            $query->where('token', $token)->where('expires_at', '>=', now());
         })->first();
     }
 }
