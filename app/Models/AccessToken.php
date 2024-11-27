@@ -17,13 +17,13 @@ class AccessToken extends Model
         'expires_at' => 'datetime',
     ];
 
-    public function statusable(): MorphTo
+    public function tokenable(): MorphTo
     {
         return $this->morphTo();
     }
 
     public static function findByToken($token): ?AccessToken
     {
-        return static::where('token', Hash::make($token))->where('expires_at', '>=', now())->first();
+        return static::where('token', $token)->where('expires_at', '>=', now())->first();
     }
 }
