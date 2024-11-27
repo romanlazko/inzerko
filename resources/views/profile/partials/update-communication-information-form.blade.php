@@ -45,7 +45,7 @@
                             name="communication_settings[contact_phone][phone]"
                             type="tel" 
                             class="block w-full font-normal text-sm phone" 
-                            :value="old('communication_settings.contact_phone.phone', $user->communication_settings?->contact_phone?->phone)" 
+                            :value="old('communication_settings.contact_phone.phone', $user->communication_settings?->contact_phone?->phone ?? '')" 
                             autofocus
                         />
 
@@ -86,7 +86,7 @@
                             name="communication_settings[telegram][phone]" 
                             type="tel" 
                             class="block w-full font-normal text-sm phone" 
-                            :value="old('communication_settings.telegram.phone', $user->communication_settings?->telegram?->phone)" 
+                            :value="old('communication_settings.telegram.phone', $user->communication_settings?->telegram?->phone ?? '')" 
                             autofocus
                         />
 
@@ -127,7 +127,7 @@
                             name="communication_settings[whatsapp][phone]" 
                             type="text" 
                             class="block w-full font-normal text-sm phone" 
-                            :value="old('communication_settings.whatsapp.phone', $user->communication_settings?->whatsapp?->phone)" 
+                            :value="old('communication_settings.whatsapp.phone', $user->communication_settings?->whatsapp?->phone ?? '')" 
                             autofocus
                         />
 
@@ -151,7 +151,7 @@
                     <span class="font-normal">
                         🇺🇸 {{ __('profile.update_communication_information_form.english') }}
                     </span>
-                    <x-form.checkbox id="en" name="communication_settings[languages][]" value="en" :checked="in_array('en', old('lang', $user->communication_settings->languages ?? []))"/>
+                    <x-form.checkbox id="en" name="communication_settings[languages][]" value="en" :checked="in_array('en', old('lang', $user->languages ?? []))"/>
                 </x-form.label>
 
                 <hr class="mx-2">
@@ -160,7 +160,7 @@
                     <span class="font-normal">
                         🇷🇺 {{ __('profile.update_communication_information_form.russian') }}
                     </span>
-                    <x-form.checkbox id="ru" name="communication_settings[languages][]" value="ru" :checked="in_array('ru', old('lang', $user->communication_settings->languages ?? []))"/>
+                    <x-form.checkbox id="ru" name="communication_settings[languages][]" value="ru" :checked="in_array('ru', old('lang', $user->languages ?? []))"/>
                 </x-form.label>
 
                 <hr class="mx-2">
@@ -169,7 +169,7 @@
                     <span class="font-normal">
                         🇨🇿 {{ __('profile.update_communication_information_form.czech') }}
                     </span>
-                    <x-form.checkbox id="cz" name="communication_settings[languages][]" value="cz" :checked="in_array('cz', old('lang', $user->communication_settings->languages ?? []))"/>
+                    <x-form.checkbox id="cz" name="communication_settings[languages][]" value="cz" :checked="in_array('cz', old('lang', $user->languages ?? []))"/>
                 </x-form.label>
             </div>
             
