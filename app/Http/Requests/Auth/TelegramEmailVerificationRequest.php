@@ -8,16 +8,14 @@ use Romanlazko\Telegram\Models\TelegramChat;
 
 class TelegramEmailVerificationRequest extends FormRequest
 {
+
+    private $userByToken;
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize()
     {
-        if (is_null($user = User::firstWhere(['email' => $this->email, 'telegram_chat_id' => $this->telegram_chat_id, 'telegram_token' => $this->telegram_token]))) {
-            return false;
-        }
-
-        if (! hash_equals(sha1($user->getEmailForVerification()), (string) $this->hash)) {
+        if (! hash_equals(sha1($this->user()->getEmailForVerification()), (string) $this->hash)) {
             return false;
         }
 
@@ -32,11 +30,16 @@ class TelegramEmailVerificationRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email', 'exists:users,email'],
-            'telegram_chat_id' => ['required', 'string', 'exists:telegram_chats,id'],
-            'telegram_token' => ['required', 'string', 'exists:users,telegram_token'],
             'token' => 'required',
             'hash' => 'required',
         ];
+    }
+
+    public function user($guard = null): User
+    {
+        if ($this->userByToken) {
+            $this->userByToken = User::findByTokenOrFail($this->token);
+        }
+        return $this->userByToken;
     }
 }

@@ -62,23 +62,10 @@ class TelegramEmailVerification extends Notification implements ShouldQueue
         return URL::temporarySignedRoute(
             'inzerko_bot.verify', 
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)), 
-            $this->prepareParameters($notifiable)
+            [
+                'token' => $notifiable->createAccessToken('telegram-email-verification')->token,
+                'hash' => sha1($notifiable->getEmailForVerification()),
+            ]
         );
-    }
-
-    protected function prepareParameters($notifiable)
-    {
-        return [
-            'email' => $notifiable->getEmailForVerification(),
-            'telegram_chat_id' => $notifiable->telegram_chat_id,
-            'telegram_token' => $notifiable->telegram_token,
-            'token' => $this->getToken($notifiable),
-            'hash' => sha1($notifiable->getEmailForVerification()),
-        ];
-    }
-
-    protected function getToken($notifiable)
-    {
-        return Password::createToken($notifiable);
     }
 }

@@ -28,7 +28,7 @@ class SendVerifyTelegramConnection extends Command
     public function execute(Update $updates): Response
     {
         $telegram_chat      = DB::getChat($updates->getChat()->getId());
-        $user               = User::firstWhere('telegram_token', $this->getConversation()->notes['telegram_token']);
+        $user               = User::findByToken($this->getConversation()->notes['telegram_token']);
 
         if ($this->hasPrivateForwards()) {
             return $this->sendPrivacyInstructions(
@@ -49,7 +49,7 @@ class SendVerifyTelegramConnection extends Command
 
         Inzerko::answerCallbackQuery([
             'callback_query_id' => $updates->getCallbackQuery()->getId(),
-            'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке на письме.',
+            'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке в письме.',
             'show_alert' => true
         ]);
 
@@ -59,7 +59,7 @@ class SendVerifyTelegramConnection extends Command
         ]);
 
         $text = implode("\n", [
-            "*Прежде чем продолжить, пожалуйста, подтвердите свой e-mail*"."\n",
+            "*Подтверждение связи с ботом*"."\n",
             "На e-mail: *{$user->email}* было отправлено письмо для подтверждения связи с ботом. Пожалуйста, подтвердите связь с ботом, нажав на кнопку в письме."."\n",
             "_Письмо обычно приходит через несколько минут._"
         ]);

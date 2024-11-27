@@ -24,6 +24,16 @@ class AccessToken extends Model
 
     public static function findByToken($token): ?AccessToken
     {
-        return static::where('token', $token)->where('expires_at', '>=', now())->first();
+        return static::hasToken($token)->first();
+    }
+
+    public function isExpired(): bool
+    {
+        return $this->expires_at < now();
+    }
+
+    public function scopeHasToken($query, $token)
+    {
+        return $query->where('token', $token)->where('expires_at', '>=', now());
     }
 }

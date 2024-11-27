@@ -61,12 +61,12 @@ class ConnectCommand extends Command
         $validator = Validator::make(
             $request, 
             [
-                'telegram_token' => 'exists:users,telegram_token|unique:users,telegram_token',
+                'telegram_token' => 'exists:access_tokens,token|unique:access_tokens,token',
                 'telegram_chat_id' => 'exists:telegram_chats,id|unique:users,telegram_chat_id',
             ], 
             [
                 'telegram_token.exists' => 'Пользователь не найден',
-                'telegram_token.unique' => 'Этот телеграм аккаунт уже подключен к аккаунту на сайте',
+                'telegram_token.unique' => 'Ошибка токена, попробуйте еще раз',
                 'telegram_chat_id.exists' => 'Телеграм аккаунт не найден',
                 'telegram_chat_id.unique' => 'Этот телеграм аккаунт уже подключен к аккаунту на сайте',
             ]

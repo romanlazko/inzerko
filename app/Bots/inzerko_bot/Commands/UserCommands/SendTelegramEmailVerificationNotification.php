@@ -42,7 +42,7 @@ class SendTelegramEmailVerificationNotification extends Command
 
         Inzerko::answerCallbackQuery([
             'callback_query_id' => $updates->getCallbackQuery()->getId(),
-            'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке на письме.',
+            'text' => 'Письмо было отправлено. Пожалуйста, подтвердите свой e-mail, перейдя по ссылке в письме.',
             'show_alert' => true
         ]);
 
