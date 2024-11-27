@@ -28,7 +28,7 @@ trait Tokenable
     public static function findByToken(string $token): ?User
     {
         return static::whereHas('accessTokens', function (Builder $query) use ($token) {
-            $query->hasToken($token);
+            $query->where('token', $token)->where('expires_at', '>=', now());
         })->first();
     }
 
