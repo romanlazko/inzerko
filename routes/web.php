@@ -7,6 +7,7 @@ use App\Http\Controllers\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\SearchRequest;
 use App\Models\Page;
+use App\Models\User;
 use App\View\Models\HomeViewModel;
 use Illuminate\Support\Facades\Artisan;
 

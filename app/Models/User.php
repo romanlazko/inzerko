@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Romanlazko\Telegram\Traits\HasBots;
 use Spatie\MediaLibrary\HasMedia;
@@ -159,6 +160,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $this->belongsToMany(Announcement::class, 'votes')->where('vote', true);
     }
 
+    public function tokens()
+    {
+        return $this->morphMany(AccessToken::class, 'tokenable');
+    }
+
     //ATTRIBUTES
 
     public function getUnreadMessagesCountAttribute(): int
@@ -203,5 +209,23 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    //METHODS
+
+    public function createAccessToken(string $name): AccessToken
+    {
+        return $this->tokens()->create([
+            'name' => $name,
+            'token' => Hash::make(str()->random(60)),
+            'expires_at' => now()->addMinutes(60),
+        ]);
+    }
+
+    public static function findByToken(string $token): ?User
+    {
+        return static::whereHas('tokens', function (Builder $query) use ($token) {
+            $query->where('token', Hash::make($token))->where('expires_at', '>=', now());
+        })->first();
     }
 }
