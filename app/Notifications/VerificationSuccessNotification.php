@@ -2,13 +2,13 @@
 
 namespace App\Notifications;
 
-use App\Bots\pozorbottestbot\Commands\UserCommands\CreateAnnouncement;
+use App\Bots\inzerko_bot\Channels\InzerkoChannel;
+use App\Bots\inzerko_bot\Facades\Inzerko;
+use App\Bots\inzerko_bot\Commands\UserCommands\CreateAnnouncement;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Romanlazko\Telegram\App\BotApi;
-use Romanlazko\Telegram\Channels\TelegramChannel;
 use Romanlazko\Telegram\Models\TelegramChat;
 
 class VerificationSuccessNotification extends Notification implements ShouldQueue
@@ -31,7 +31,7 @@ class VerificationSuccessNotification extends Notification implements ShouldQueu
     {
         $this->locale($notifiable->locale);
 
-        return $notifiable->chat ? ['mail', TelegramChannel::class] : ['mail'];
+        return $notifiable->chat ? ['mail', InzerkoChannel::class] : ['mail'];
     }
 
     /**
@@ -48,23 +48,23 @@ class VerificationSuccessNotification extends Notification implements ShouldQueu
             ->line(__('notification.verification_success.line_2'));
     }
 
-    public function toTelegram(TelegramChat $telegram_chat)
+    public function toTelegram(TelegramChat $notifiable)
     {
         $text = implode("\n", [
-            __('notification.verification_success.line_1'),
+            __('notification.verification_success.line_1')
         ]);
-
-        $buttons = BotApi::inlineKeyboard([
+        
+        $buttons = Inzerko::inlineKeyboard([
             [array(CreateAnnouncement::getTitle('ru'), CreateAnnouncement::$command, '')],
         ]);
 
-        return [
+        return Inzerko::sendMessage([
             'text'                      => $text,
-            'chat_id'                   => $telegram_chat->chat_id,
+            'chat_id'                   => $notifiable?->chat_id,
             'reply_markup'              => $buttons,
             'parse_mode'                => 'HTML',
             'disable_web_page_preview'  => 'true',
             'parse_mode'                => 'Markdown',
-        ];
+        ]);
     }
 }

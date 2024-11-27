@@ -13,18 +13,19 @@ class AuthenticatedSessionController extends Controller
 {
     public function auth(Request $request)
     {
-        $user = User::where([
-            'email' => $request->email,
-            'telegram_chat_id' => $request->telegram_chat_id
-        ])->first();
+        // $user = User::where([
+        //     'telegram_token' => $request->get('telegram_token')
+        // ])->first();
 
-        if (!$user) {
+        $user = User::findByToken($request->get('token'));
+
+        if (! $user) {
             abort(403, 'Invalid credentials. User not found.');
         }
 
         Auth::login($user);
         
-        return redirect()->route($request->to_route);
+        return redirect()->route('inzerko_bot.announcement.create');
     }
     
     public function destroy(Request $request): RedirectResponse

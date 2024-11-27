@@ -5,12 +5,14 @@ namespace App\Bots\inzerko_bot\Commands\UserCommands;
 use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 use Romanlazko\Telegram\Exceptions\TelegramException;
+use Romanlazko\Telegram\Exceptions\TelegramUserException;
 
 class ConnectCommand extends Command
 {
@@ -28,14 +30,19 @@ class ConnectCommand extends Command
 
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        if (User::where('telegram_chat_id', $telegram_chat->id)->first()) {
-            return $this->handleError("Этот телеграм аккаунт уже подключен к аккаунту на сайте.");
-        }
+        $validated = $this->validateRequest([
+            'telegram_token' => $matches[3],
+            'telegram_chat_id' => $telegram_chat->id
+        ]);
+
+        $this->getConversation()->update([
+            'telegram_token' => $validated['telegram_token']
+        ]);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("Да подключить", SendVerifyTelegramConnection::$command, $matches[3])],
+            [array("Да подключить", SendVerifyTelegramConnection::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
-        ], 'telegram_token');
+        ]);
 
         return Inzerko::returnInline([
             'chat_id' => $updates->getChat()->getId(),
@@ -47,5 +54,28 @@ class ConnectCommand extends Command
             'reply_markup'  => $buttons,
             'message_id'    => $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
+    }
+
+    protected function validateRequest(array $request): array
+    {
+        $validator = Validator::make(
+            $request, 
+            [
+                'telegram_token' => 'exists:users,telegram_token|unique:users,telegram_token',
+                'telegram_chat_id' => 'exists:telegram_chats,id|unique:users,telegram_chat_id',
+            ], 
+            [
+                'telegram_token.exists' => 'Пользователь не найден',
+                'telegram_token.unique' => 'Этот телеграм аккаунт уже подключен к аккаунту на сайте',
+                'telegram_chat_id.exists' => 'Телеграм аккаунт не найден',
+                'telegram_chat_id.unique' => 'Этот телеграм аккаунт уже подключен к аккаунту на сайте',
+            ]
+        );
+
+        if ($validator->stopOnFirstFailure()->fails()) {
+            throw new TelegramUserException($validator->errors()->first());
+        }
+
+        return $validator->validated();
     }
 }

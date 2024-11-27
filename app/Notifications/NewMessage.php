@@ -44,12 +44,12 @@ class NewMessage extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject(__('notification.new_message.subject'))
-                    ->line(__('notification.new_message.line_1'))
-                    ->line("**{$this->announcement->title}**")
-                    ->line($this->message)
-                    ->action(__('notification.new_message.action'), route('home'))
-                    ->line(__('notification.new_message.line_2'));
+            ->subject(__('notification.new_message.subject'))
+            ->line(__('notification.new_message.line_1'))
+            ->line("**{$this->announcement->title}**")
+            ->line($this->message)
+            ->action(__('notification.new_message.action'), route('home'))
+            ->line(__('notification.new_message.line_2'));
     }
 
     public function toTelegram(TelegramChat $notifiable)
@@ -85,9 +85,9 @@ class NewMessage extends Notification implements ShouldQueue
     public function unreadMessagesCount(object $notifiable)
     {
         $unreadMessagesCount = $this->thread->messages()
-        ->where('read_at', null)
-        ->where('user_id', '!=', $notifiable->id)
-        ->count();
+            ->where('read_at', null)
+            ->where('user_id', '!=', $notifiable->id)
+            ->count();
 
         return $unreadMessagesCount > 0;
     }

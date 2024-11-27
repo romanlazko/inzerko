@@ -39,12 +39,8 @@ class CreateAnnouncement extends Command
             return $this->bot->executeCommand(SendTelegramEmailVerificationNotification::$command);
         }
 
-        app()->setLocale($updates->getFrom()->getLanguageCode());
-
         $url = URL::temporarySignedRoute('inzerko_bot.auth', 600, [
-            'email' => $user->email, 
-            'telegram_chat_id' => $telegram_chat->id, 
-            'to_route' => 'inzerko_bot.announcement.create'
+            'token' => $user->createAccessToken('create-announcement')->token,
         ]);
 
         $buttons = Inzerko::inlineKeyboardWithLink(
