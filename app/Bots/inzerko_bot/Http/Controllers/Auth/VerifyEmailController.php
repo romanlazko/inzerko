@@ -13,10 +13,12 @@ class VerifyEmailController extends Controller
 {
     public function veryfyEmail(TelegramEmailVerificationRequest $request): RedirectResponse
     {
-        if (! $request->user()->hasVerifiedEmail() AND $request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        $user = $request->user();
+
+        if (! $user->hasVerifiedEmail() AND $user->markEmailAsVerified()) {
+            event(new Verified($user));
         }
 
-        return redirect('https://t.me/'.$request->user()->chat?->bot?->username);
+        return redirect('https://t.me/'.$user->chat?->bot?->username);
     }
 }

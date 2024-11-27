@@ -8,8 +8,6 @@ use Romanlazko\Telegram\Models\TelegramChat;
 
 class TelegramEmailVerificationRequest extends FormRequest
 {
-
-    private $userByToken;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -37,9 +35,6 @@ class TelegramEmailVerificationRequest extends FormRequest
 
     public function user($guard = null): User
     {
-        if ($this->userByToken) {
-            $this->userByToken = User::findByTokenOrFail($this->token);
-        }
-        return $this->userByToken;
+        return User::findByTokenOrFail($this->token);
     }
 }
