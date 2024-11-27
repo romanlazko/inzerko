@@ -60,8 +60,13 @@ class VerifyTelegramConnection extends Notification implements ShouldQueue
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
                 'telegram_chat_id' => $this->telegram_chat_id,
-                'telegram_token' => sha1($notifiable->telegram_token),
+                'token' => sha1($this->getAccessToken($notifiable)),
             ]
         );
+    }
+
+    protected function getAccessToken($notifiable)
+    {
+        return $notifiable->createAccessToken('verify-telegram-connection')->token;
     }
 }

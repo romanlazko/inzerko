@@ -5,6 +5,7 @@ namespace App\Bots\inzerko_bot\Http\Controllers\Auth;
 use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\TelegramVerificationRequest;
+use App\Models\AccessToken;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
@@ -17,15 +18,11 @@ class ConnectTelegramController extends Controller
      */
     public function connectTelegram()
     {
-        $telegram_token = Str::random(10);
-
-        auth()->user()->update([
-            'telegram_token' => $telegram_token,
-        ]);
+        $token = auth()->user()->createAccessToken('connect-telegram', null, 10)->token;
 
         $bot_username = Inzerko::getBotChat()->username;
 
-        return redirect("https://t.me/{$bot_username}?start=connect-{$telegram_token}");
+        return redirect("https://t.me/{$bot_username}?start=connect-{$token}");
     }
 
     public function disconnectTelegram(): RedirectResponse
@@ -47,7 +44,7 @@ class ConnectTelegramController extends Controller
             'telegram_chat_id' => $request->telegram_chat_id,
         ]);
 
-        if (!$request->user()->hasVerifiedEmail() AND $request->user()->markEmailAsVerified()) {
+        if (! $request->user()->hasVerifiedEmail() AND $request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 

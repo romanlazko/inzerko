@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Laravolt\Avatar\Facade as Avatar;
 
 class ProfileService 
 {
@@ -15,10 +16,11 @@ class ProfileService
         string $telegram_token = null,
         string $locale = null,
         array $communication_settings = null,
-        array $notification_settings = null
+        array $notification_settings = null,
+        string|\Illuminate\Http\UploadedFile $avatar = null
     )
     {
-        return User::create(array_filter([
+        $user = User::create(array_filter([
             'name' => $name,
             'email' => $email,
             'password' => $password ? Hash::make($password) : null,
@@ -30,16 +32,29 @@ class ProfileService
         ], function ($value) {
             return !is_null($value) && $value !== '';
         }));
+
+        self::addMedia($user, $avatar);
+
+        return $user;
     }
 
-    public static function addMediaFromBase64(User $user, string $base64)
+    public static function addMedia(User $user, $avatar)
     {
-        return $user->addMediaFromBase64($base64)->toMediaCollection('avatar');
-    }
+        if (filter_var($avatar, FILTER_VALIDATE_URL)) {
+            return tap($user, function (User $user) use ($avatar) {
+                $user->addMediaFromUrl($avatar)->toMediaCollection('avatar');
+            });
+        }
 
-    public static function addMediaFromUrl(User $user, string $url)
-    {
-        return $user->addMediaFromUrl($url)->toMediaCollection('avatar');
+        if ($avatar instanceof \Illuminate\Http\UploadedFile) {
+            return tap($user, function (User $user) use ($avatar) {
+                $user->addMedia($avatar)->toMediaCollection('avatar');
+            });
+        }
+
+        return tap($user, function (User $user) {
+            $user->addMediaFromBase64(Avatar::create($user->name))->toMediaCollection('avatar');
+        });
     }
 
     public static function update(

@@ -81,7 +81,7 @@ class ProfileController extends Controller
         ]);
 
         if ($request->hasFile('avatar')) {
-            $request->user()->addMediaFromRequest('avatar')->toMediaCollection('avatar');
+            ProfileService::addMedia($request->user(), $request->file('avatar'));
         }
 
         return Redirect::route('profile.edit')->with([

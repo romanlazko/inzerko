@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Messanger\Thread;
+use App\Models\Traits\Tokenable;
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +18,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Romanlazko\Telegram\Traits\HasBots;
 use Spatie\MediaLibrary\HasMedia;
@@ -39,6 +39,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     use HasSlug; 
     use SoftDeletes;
     use Prunable;
+    use Tokenable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,12 +50,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'name',
         'avatar',
         'email',
-        'communication_settings',
         'password',
         'telegram_chat_id',
         'notification_settings',
+        'communication_settings',
         'locale',
-        'telegram_token'
     ];
 
     /**
@@ -160,11 +160,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $this->belongsToMany(Announcement::class, 'votes')->where('vote', true);
     }
 
-    public function tokens()
-    {
-        return $this->morphMany(AccessToken::class, 'tokenable');
-    }
-
     //ATTRIBUTES
 
     public function getUnreadMessagesCountAttribute(): int
@@ -209,23 +204,5 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));
-    }
-
-    //METHODS
-
-    public function createAccessToken(string $name): AccessToken
-    {
-        return $this->tokens()->create([
-            'name' => $name,
-            'token' => str()->random(60),
-            'expires_at' => now()->addMinutes(60),
-        ]);
-    }
-
-    public static function findByToken(string $token): ?User
-    {
-        return static::whereHas('tokens', function (Builder $query) use ($token) {
-            $query->where('token', $token)->where('expires_at', '>=', now());
-        })->first();
     }
 }

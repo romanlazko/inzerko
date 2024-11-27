@@ -52,7 +52,6 @@ class StoreProfile extends Command
             email: $validated['email'],
             locale: $updates->getFrom()->getLanguageCode(),
             telegram_chat_id: $telegram_chat->id,
-            telegram_token: Str::random(8),
             communication_settings: [
                 'telegram' => [
                     'phone' => $notes['phone'],
@@ -61,14 +60,7 @@ class StoreProfile extends Command
             ]
         );
 
-        if ($telegram_chat->photo) {
-            $photo_url = Inzerko::getPhoto(['file_id' => $telegram_chat->photo]);
-
-            $user->addMediaFromUrl($photo_url)->toMediaCollection('avatar');
-        }
-        else {
-            $user->addMediaFromBase64(Avatar::create("$telegram_chat->first_name $telegram_chat->last_name"))->toMediaCollection('avatar');
-        }
+        ProfileService::addMedia($user, Inzerko::getPhoto(['file_id' => $telegram_chat->photo]));
 
         return $this->bot->executeCommand(CreateAnnouncement::$command);
     }

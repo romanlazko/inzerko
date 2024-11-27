@@ -13,27 +13,15 @@ class TelegramVerificationRequest extends FormRequest
      */
     public function authorize()
     {
-        // if (! hash_equals((string) $this->user()->getKey(), (string) $this->route('id'))) {
-        //     return false;
-        // }
-
-        // if (! hash_equals(sha1($this->user()->getEmailForVerification()), (string) $this->route('hash'))) {
-        //     return false;
-        // }
-
-        // if ($this->user()->telegram_token !== $this->route('token')) {
-        //     return false;
-        // }
-
-        if (! hash_equals(sha1($this->user()->telegram_token), $this->route('telegram_token'))) {
+        if (! hash_equals(sha1($this->user()->tokenByName('verify-telegram-connection')->token), $this->token)) {
             return false;
         }
 
-        if (! TelegramChat::find((int) $this->route('telegram_chat_id'))) {
+        if (! TelegramChat::find((int) $this->telegram_chat_id)) {
             return false;
         }
 
-        if (User::where('telegram_chat_id', $this->route('telegram_chat_id'))->first()) {
+        if (User::where('telegram_chat_id', (int) $this->telegram_chat_id)->first()) {
             return false;
         }
 
