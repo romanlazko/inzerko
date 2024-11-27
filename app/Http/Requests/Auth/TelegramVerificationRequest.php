@@ -17,7 +17,7 @@ class TelegramVerificationRequest extends FormRequest
             return false;
         }
 
-        if (! TelegramChat::find((int) $this->route('telegram_chat_id'))) {
+        if (! TelegramChat::find((int) $this->telegram_chat_id)) {
             return false;
         }
 
