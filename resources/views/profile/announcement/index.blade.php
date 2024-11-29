@@ -4,6 +4,7 @@
             {{ __('components.navigation.my_announcements') }}
         </h2>
     </x-slot>
+    
     <x-slot name="sidebar">
         <x-nav.profile/>
     </x-slot>

@@ -3,11 +3,11 @@
         <x-heroicon-s-shopping-bag class="size-5 m-auto"/>
     </x-nav.footer-link>
 
-    <x-nav.footer-link href="{{ route('profile.wishlist') }}" :active="request()->routeIs('profile.wishlist')" :text="__('components.navigation.wishlist')">
+    <x-nav.footer-link href="{{ route('profile.announcement.wishlist') }}" :active="request()->routeIs('profile.announcement.wishlist')" :text="__('components.navigation.wishlist')">
         <x-heroicon-s-heart class="size-5 m-auto"/>
     </x-nav.footer-link>
 
-    <x-nav.footer-link href="{{ route('announcement.create') }}" :active="request()->routeIs('announcement.create')" :text="__('components.navigation.create_new')">
+    <x-nav.footer-link href="{{ route('profile.announcement.create') }}" :active="request()->routeIs('profile.announcement.create')" :text="__('components.navigation.create_new')">
         <x-heroicon-c-plus-circle class="size-5 m-auto"/>
     </x-nav.footer-link>
 

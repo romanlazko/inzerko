@@ -47,11 +47,4 @@ class AnnouncementController extends Controller
             ])
             ->header('Cache-Control', 'private, max-age=0, must-revalidate');
     }
-
-    public function create()
-    {
-        return response()
-            ->view('announcement.create')
-            ->header('Cache-Control', 'private, max-age=0, must-revalidate');
-    }
 }

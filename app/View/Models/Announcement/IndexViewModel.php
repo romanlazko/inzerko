@@ -65,7 +65,6 @@ class IndexViewModel
                 'media',
                 'features' => fn ($query) => $query->forAnnouncementCard(),
                 'geo',
-                'votes' =>  fn ($query) => $query->where('user_id', auth()->id()),
                 'category.media'
             ])
             ->category($this->category)

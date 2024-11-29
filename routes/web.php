@@ -3,7 +3,10 @@
 use App\Bots\pozor_baraholka_bot\Models\BaraholkaAnnouncement;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Profile\AnnouncementController as ProfileAnnouncementController;
+use App\Http\Controllers\Profile\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Profile\SecurityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\SearchRequest;
 use App\Models\Page;
@@ -49,38 +52,40 @@ Route::get('page/{page:slug}', function (Page $page) {
     ]);
 })->name('page');
 
-Route::controller(AnnouncementController::class)
-    ->name('announcement.')
+Route::name('announcement.')
     ->group(function () {
-        Route::get('/all/{category:slug?}', 'index')->name('index');
-        Route::get('/search/{category:slug?}', 'search')->name('search');
-        Route::get('/show/{announcement:slug}', 'show')->name('show');
-        Route::get('/create', 'create')->middleware(['auth', 'verified', 'profile_filled'])->name('create');
+        Route::get('/all/{category:slug?}', [AnnouncementController::class, 'index'])->name('index');
+        Route::get('/search/{category:slug?}', [AnnouncementController::class, 'search'])->name('search');
+        Route::get('/show/{announcement:slug}', [AnnouncementController::class, 'show'])->name('show');
     });
 
-Route::controller(ProfileController::class)
-    ->name('profile.')
-    ->prefix('profile')
-    ->group(function () {
-        Route::get('user/{user}', 'show')->name('show');
+Route::name('profile.')->prefix('profile')->group(function () {
+    Route::get('show/{user:slug}', [ProfileController::class, 'show'])->name('show');
 
-        Route::middleware(['auth'])->group(function () {
-            Route::get('/', 'edit')->name('edit');
-            Route::patch('update', 'update')->name('update');
-            Route::patch('update-avatar', 'updateAvatar')->name('update-avatar');
-            Route::patch('update-communication', 'updateCommunication')->name('update-communication');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('update', [ProfileController::class, 'update'])->name('update');
+        Route::patch('update-avatar', [ProfileController::class, 'updateAvatar'])->name('update-avatar');
+        Route::patch('update-communication', [ProfileController::class, 'updateCommunication'])->name('update-communication');
 
-            Route::get('security', 'security')->name('security');
-            Route::put('update-password', 'updatePassword')->name('update-password');
-            Route::delete('destroy', 'destroy')->name('destroy');
+        Route::name('security.')->prefix('security')->group(function () {
+            Route::get('/', [SecurityController::class, 'edit'])->name('edit');
+            Route::patch('update', [SecurityController::class, 'update'])->name('update');
+            Route::delete('destroy', [SecurityController::class, 'destroy'])->name('destroy');
+        });
 
-            Route::get('notifications', 'notifications')->name('notifications');
-            Route::patch('update-notifications', 'updateNotifications')->name('update-notifications');
+        Route::name('notification.')->prefix('notification')->group(function () {
+            Route::get('/', [NotificationController::class, 'edit'])->name('edit');
+            Route::patch('update', [NotificationController::class, 'update'])->name('update');
+        });
 
-            Route::get('wishlist', 'wishlist')->name('wishlist');
-            Route::get('my-announcements', 'myAnnouncements')->name('my-announcements');
+        Route::name('announcement.')->prefix('announcement')->group(function () {
+            Route::get('index', [ProfileAnnouncementController::class, 'index'])->name('index');
+            Route::get('create', [ProfileAnnouncementController::class, 'create'])->name('create');
+            Route::get('wishlist', [ProfileAnnouncementController::class, 'wishlist'])->name('wishlist');
         });
     });
+});
 
 Route::get('run-schedule', function () {
     Artisan::call('schedule:run');

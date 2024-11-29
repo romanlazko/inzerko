@@ -49,7 +49,7 @@
                             </span>
                             <div class="flex items-center space-x-2">
                                 <livewire:actions.send-report :announcement_id="$announcement->id"/>
-                                <livewire:actions.like-dislike :announcement="$announcement"/>
+                                <livewire:actions.like-dislike :announcement_id="$announcement->id"/>
                             </div>
                         </div>
                     </div>

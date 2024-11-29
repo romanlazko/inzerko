@@ -10,7 +10,7 @@ class Config
     {
         return [
             'inline_data'       => [
-                'telegram_token'    => null,
+                'languages'    => null,
             ],
             'lang'              => 'ru',
             'admin_ids'         => [

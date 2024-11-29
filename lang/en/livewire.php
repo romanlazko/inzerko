@@ -21,6 +21,7 @@ return [
     'show_contact' => 'Contact',
     'should_be_loggined' => 'You must be logged in to perform this action',
     'you_cant_send_message_to_yourself' => 'You can\'t send message to yourself',
+    'you_cant_report_yourself' => 'You can\'t report yourself',
     'write_a_message' => 'Write a message...',
     'login' => 'Login',
     'report' => 'Report Announcement',

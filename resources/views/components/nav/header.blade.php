@@ -14,7 +14,7 @@
 
 		<div class="flex items-center space-x-6 text-white">
 			@auth
-				<x-nav.link href="{{ route('profile.wishlist') }}" aria-label="Wishlist">
+				<x-nav.link href="{{ route('profile.announcement.wishlist') }}" aria-label="Wishlist">
 					<x-heroicon-s-heart class="size-5"/>
 				</x-nav.link>
 
@@ -37,7 +37,7 @@
 				</a>
 			@endauth
 			
-			<x-a-buttons.create href="{{ route('announcement.create') }}" class="">
+			<x-a-buttons.create href="{{ route('profile.announcement.create') }}" class="">
 				{{ __("components.navigation.create_new") }}
 			</x-a-buttons.create>
 		</div>

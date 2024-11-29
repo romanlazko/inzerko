@@ -9,9 +9,9 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('profile.update-password') }}" class="mt-6 space-y-6 max-w-xl">
+    <form method="post" action="{{ route('profile.security.update') }}" class="mt-6 space-y-6 max-w-xl">
         @csrf
-        @method('put')
+        @method('patch')
 
         <div>
             <x-form.label for="update_password_current_password" :value="__('profile.update_passport_form.current_password')" />

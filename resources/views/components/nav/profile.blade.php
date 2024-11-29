@@ -4,12 +4,12 @@
         <span>{{ __("components.navigation.profile") }}</span>
     </x-nav.responsive-link>
 
-    <x-nav.responsive-link :href="route('profile.my-announcements')" :active="request()->routeIs('profile.my-announcements')">
+    <x-nav.responsive-link :href="route('profile.announcement.index')" :active="request()->routeIs('profile.announcement.index')">
         <x-heroicon-c-queue-list class="size-5"/>
         <span>{{ __("components.navigation.my_announcements") }}</span>
     </x-nav.responsive-link>
 
-    <x-nav.responsive-link :href="route('profile.wishlist')" :active="request()->routeIs('profile.wishlist')">
+    <x-nav.responsive-link :href="route('profile.announcement.wishlist')" :active="request()->routeIs('profile.announcement.wishlist')">
         <x-heroicon-s-heart class="size-5"/>
         <span>{{ __("components.navigation.wishlist") }}</span>
     </x-nav.responsive-link>
@@ -22,12 +22,12 @@
         <span>{{ __("components.navigation.messages") }}</span>
     </x-nav.responsive-link>
 
-    <x-nav.responsive-link :href="route('profile.notifications')" :active="request()->routeIs('profile.notifications')">
+    <x-nav.responsive-link :href="route('profile.notification.edit')" :active="request()->routeIs('profile.notification.edit')">
         <x-heroicon-m-bell-alert class="size-5"/>
         <span>{{ __("components.navigation.notifications") }}</span>
     </x-nav.responsive-link>
 
-    <x-nav.responsive-link :href="route('profile.security')" :active="request()->routeIs('profile.security')">
+    <x-nav.responsive-link :href="route('profile.security.edit')" :active="request()->routeIs('profile.security.edit')">
         <x-heroicon-c-shield-check class="size-5"/>
         <span>{{ __("components.navigation.security") }}</span>
     </x-nav.responsive-link>

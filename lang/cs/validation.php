@@ -175,7 +175,7 @@ return [
         'data.categories.*' => [
             'required' => 'Musíte vybrat alespoň jednu kategorii.',
         ],
-        'communication.*.phone.required_if_accepted' => 'Pole ":attribute" je povinné.',
+        'communication_settings.*.phone.required_if_accepted' => 'Pole ":attribute" je povinné.',
         'phone' => 'Neplatné telefonní číslo.',
     ],
 
@@ -191,7 +191,7 @@ return [
     */
 
     'attributes' => [
-        'communication.*.phone' => 'telefonní číslo',
+        'communication_settings.*.phone' => 'telefonní číslo',
         'lang' => 'jazyk',
     ],
 
