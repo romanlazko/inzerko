@@ -103,7 +103,7 @@ class SendMessage extends Component implements HasForms, HasActions
                     ->placeholder(__('livewire.write_a_message'))
                     ->rows(6),
             ])
-            ->action(function (array $data) use ($announcement){
+            ->action(function (array $data) use ($announcement) {
                 $thread = auth()->user()->threads()->where('announcement_id', $announcement->id)->first();
 
                 if (!$thread) {

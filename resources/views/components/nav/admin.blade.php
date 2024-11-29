@@ -23,6 +23,12 @@
                         {{ __('components.navigation.all_announcements') }}
                     </x-nav.responsive-link>
                 @endcan
+
+                @can('manage', 'announcement')
+                    <x-nav.responsive-link href="{{ route('admin.announcement.reports') }}" :active="request()->routeIs('admin.announcement.reports')">
+                        {{ __('components.navigation.reports') }}
+                    </x-nav.responsive-link>
+                @endcan
             </x-nav.dropdown>
         @endcan
     {{-- ANNOUNCEMENTS --}}

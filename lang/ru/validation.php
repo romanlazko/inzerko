@@ -152,7 +152,7 @@ return [
         'data.categories.*' => [
             'required' => 'Вы должны выбрать хотя бы одну категорию.',
         ],
-        'communication.*.phone.required_if_accepted' => 'Поле ":attribute" обязательно для заполнения.',
+        'communication_settings.*.phone.required_if_accepted' => 'Поле ":attribute" обязательно для заполнения.',
         'phone' => 'Недопустимый номер телефона.',
     ],
 
@@ -168,7 +168,7 @@ return [
     */
 
     'attributes' => [
-        'communication.*.phone' => 'телефон',
+        'communication_settings.*.phone' => 'телефон',
         'lang' => 'язык',
     ],
 ];

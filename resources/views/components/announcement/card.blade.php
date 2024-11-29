@@ -33,7 +33,7 @@
             <p class="font-bold text-lg w-full ">
                 {{ $announcement?->price }}
             </p>
-            <livewire:actions.like-dislike :announcement="$announcement"/>
+            <livewire:actions.like-dislike :announcement_id="$announcement->id"/>
         </div>
     </a>
 </div>

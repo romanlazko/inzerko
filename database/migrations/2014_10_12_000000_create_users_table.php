@@ -23,7 +23,6 @@ return new class extends Migration
             $table->foreignIdFor(TelegramChat::class)
                 ->unique()
                 ->nullable();
-            $table->string('telegram_token')->nullable();
 
             $table->string('locale')->default('cs')->nullable();
 

@@ -8,12 +8,12 @@ use App\Livewire\Pages\Admin\Announcement\Announcements;
 use App\Livewire\Pages\Admin\Announcement\Archive as AnnouncementArchive;
 use App\Livewire\Pages\Admin\Announcement\Edit;
 use App\Livewire\Pages\Admin\Announcement\Moderation;
+use App\Livewire\Pages\Admin\Announcement\Reports;
 use App\Livewire\Pages\Admin\CMS\Pages;
 use App\Livewire\Pages\Admin\Settings\Attributes;
 use App\Livewire\Pages\Admin\Settings\Categories;
 use App\Livewire\Pages\Admin\Settings\HtmlLayouts;
 use App\Livewire\Pages\Admin\Settings\ReportOptions;
-use App\Livewire\Pages\Admin\Settings\Reports;
 use App\Livewire\Pages\Admin\Settings\Sections;
 use App\Livewire\Pages\Admin\Settings\Sortings;
 use App\Livewire\Pages\Admin\Telegram\Bots;
@@ -52,6 +52,9 @@ Route::name('announcement.')
         Route::get('edit/{announcement}', Edit::class)
             ->middleware('has_permission_to:update|manage,announcement')
             ->name('edit');
+        Route::get('reports/{announcement?}', Reports::class)
+            ->middleware('has_permission_to:moderate|manage,announcement')
+            ->name('reports');
     });
 
 Route::name('setting.')

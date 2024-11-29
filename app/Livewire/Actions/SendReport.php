@@ -31,6 +31,14 @@ class SendReport extends Component implements HasForms, HasActions
 
     public function sendReport()
     {
+        if (! $announcement = Announcement::find($this->announcement_id)) {
+            return Action::make('sendMessage')
+                ->hidden()
+                ->extraAttributes([
+                    'class' => 'hidden',
+                ]);
+        }
+
         $action = Action::make('sendReport')
             ->color('warning')
             ->modalHeading(__('livewire.report'))
@@ -54,6 +62,14 @@ class SendReport extends Component implements HasForms, HasActions
                 ->modalCancelAction(false);
         }
 
+        if ($announcement->user->id == auth()->id()) {
+            return $action
+                ->modalHeading(__('livewire.you_cant_report_yourself'))
+                ->requiresConfirmation()
+                ->modalDescription('')
+                ->modalSubmitAction(false);
+        }
+
         return $action
             ->form([
                 ToggleButtons::make('report_option_id')
@@ -68,11 +84,7 @@ class SendReport extends Component implements HasForms, HasActions
                     ->rules(['max:255'])
                     ->rows(5),
             ])
-            ->action(function (array $data) {
-                if (! $announcement = Announcement::find($this->announcement_id)) {
-                    return;
-                }
-
+            ->action(function (array $data) use ($announcement) {
                 $announcement->reports()->create([
                     'reporter_id' => auth()->user()->id,
                     'report_option_id' => $data['report_option_id'],

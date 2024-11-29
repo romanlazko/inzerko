@@ -12,14 +12,14 @@
         <meta data-rh="true" property="og:locale" content="{{ app()->getLocale() }}">
 
         {!! seo($meta ?? new \RalphJSmit\Laravel\SEO\Support\SEOData(
-                title: config('seo.title.homepage_title'),
-                description: config('seo.description.homepage_description'),
-                image: config('seo.image.logo'),
-                url: url()->current(),
-                enableTitleSuffix: true,
-                site_name: config('seo.site_name'),
-                locale: app()->getLocale(),
-            )) !!}
+            title: config('seo.title.homepage_title'),
+            description: config('seo.description.homepage_description'),
+            image: config('seo.image.logo'),
+            url: url()->current(),
+            enableTitleSuffix: true,
+            site_name: config('seo.site_name'),
+            locale: app()->getLocale(),
+        )) !!}
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

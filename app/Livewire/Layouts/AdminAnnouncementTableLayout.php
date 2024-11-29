@@ -224,7 +224,24 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                 ->size(ActionSize::ExtraSmall)
                 ->badge(fn (Announcement $announcement) => $announcement->reports->count())
                 ->badgeColor('danger')
-                ->visible(fn (Announcement $announcement) => $announcement->reports->isNotEmpty()),
+                ->visible(fn (Announcement $announcement) => $announcement->reports->isNotEmpty())
+                ->action(fn (Announcement $announcement) => $announcement->delete())
+                ->modalSubmitAction(fn ($action) => $action
+                    ->color('danger')
+                    ->icon('heroicon-c-trash')
+                    ->label(__('Delete announcement'))
+                )
+                ->extraModalFooterActions([
+                    // Action::make('delete')
+                    //     ->label(__('Delete announcement'))
+                    //     ->color('danger')
+                    //     ->icon('heroicon-c-trash')
+                    //     ->action(function (Announcement $announcement, Action $action) {
+                    //         $announcement->delete();
+                    //         $action->success();
+                    //     })
+                    //     ->requiresConfirmation()
+                ]),
 
             DeleteAction::make()
                 ->hiddenLabel()

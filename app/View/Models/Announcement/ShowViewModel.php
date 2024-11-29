@@ -30,6 +30,7 @@ class ShowViewModel
 
         return $announcement->load([
             'user.media',
+            'user.votes',
             'media',
             'geo',
             'features:announcement_id,attribute_id,attribute_option_id,translated_value', 
@@ -47,7 +48,6 @@ class ShowViewModel
                 'media',
                 'features' => fn ($query) => $query->forAnnouncementCard(),
                 'geo',
-                'userVotes',
             ])
             ->select('announcements.id', 'announcements.slug', 'announcements.geo_id', 'announcements.created_at')
             ->where('announcements.id', '!=', $this->announcement->id)

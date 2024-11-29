@@ -176,7 +176,7 @@ return [
         'data.categories.*' => [
             'required' => 'You must select at least one category.',
         ],
-        'communication.*.phone.required_if_accepted' => 'The :attribute field is required.',
+        'communication_settings.*.phone.required_if_accepted' => 'The :attribute field is required.',
         'phone' => 'Invalid phone number.',
     ],
 
@@ -192,7 +192,7 @@ return [
     */
 
     'attributes' => [
-        'communication.*.phone' => 'phone',
+        'communication_settings.*.phone' => 'phone',
         'lang' => 'language',
     ],
 ];

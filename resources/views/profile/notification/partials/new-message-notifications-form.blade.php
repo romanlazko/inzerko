@@ -11,7 +11,7 @@
         </div>
     </header>
 
-    <form action="{{ route('profile.update-notifications') }}" method="post" class="mt-6 space-y-6 max-w-xl">
+    <form action="{{ route('profile.notification.update') }}" method="post" class="mt-6 space-y-6 max-w-xl">
         @csrf
         @method('patch')
 

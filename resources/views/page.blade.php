@@ -18,6 +18,5 @@
                 </div>
             </x-ux.white-block>
         @endforeach
-        
     </div>
 </x-app-layout>

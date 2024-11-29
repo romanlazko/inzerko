@@ -13,10 +13,6 @@ class AuthenticatedSessionController extends Controller
 {
     public function auth(Request $request)
     {
-        // $user = User::where([
-        //     'telegram_token' => $request->get('telegram_token')
-        // ])->first();
-
         $user = User::findByToken($request->get('token'));
 
         if (! $user) {
@@ -25,7 +21,7 @@ class AuthenticatedSessionController extends Controller
 
         Auth::login($user);
         
-        return redirect()->route('inzerko_bot.announcement.create');
+        return redirect()->route('profile.announcement.create');
     }
     
     public function destroy(Request $request): RedirectResponse

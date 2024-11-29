@@ -20,6 +20,7 @@ return [
     'show_contact' => 'Kontakt',
     'should_be_loggined' => 'Pro provedení této akce musíte být přihlášeni.',
     'you_cant_send_message_to_yourself' => 'Nemůžete poslat zprávu sami sobě.',
+    'you_cant_report_yourself' => 'Nemůžete stíjit sami sobě.',
     'write_a_message' => 'Napsat zprávu...',
     'login' => 'Přihlásit se',
     'report' => 'Stížnost na inzerát',

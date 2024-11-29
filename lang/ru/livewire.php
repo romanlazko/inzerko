@@ -21,6 +21,7 @@ return [
     'show_contact' => 'Контакты',
     'should_be_loggined' => 'Вам необходимо войти, чтобы выполнить это действие',
     'you_cant_send_message_to_yourself' => 'Вы не можете отправить сообщение самому себе',
+    'you_cant_report_yourself' => 'Вы не можете жаловаться на себя',
     'write_a_message' => 'Напишите сообщение...',
     'login' => 'Войти',
     'report' => 'Пожаловаться на объявление',

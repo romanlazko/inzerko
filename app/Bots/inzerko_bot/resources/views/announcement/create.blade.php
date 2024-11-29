@@ -1,4 +1,4 @@
-<x-body-layout>
+{{-- <x-body-layout>
     @push('headerScripts')
         <script src="https://telegram.org/js/telegram-web-app.js"></script>
     @endpush
@@ -15,4 +15,4 @@
             });
         });
     </script>
-</x-body-layout>
+</x-body-layout> --}}

@@ -1,4 +1,4 @@
-<x-app-layout :title="$user->name" class="w-full max-w-7xl m-auto">
+<x-app-layout class="w-full max-w-7xl m-auto">
     <div class="w-full max-w-7xl m-auto lg:flex">
         <div class="px-3 py-5 w-full lg:w-1/3 ">
             <x-ux.white-block class="p-3 py-6 space-y-6 h-min">
