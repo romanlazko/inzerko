@@ -18,19 +18,20 @@
             @endif
         </div>
         
-        <p class="text-lg font-semibold text-gray-900 line-clamp-1 group-hover:underline">
+        <p class="text-md md:text-lg font-semibold text-indigo-900 md:text-gray-900 line-clamp-1 group-hover:underline">
             {{ $announcement?->title }}
         </p>
 
-        <p class="text-xs text-gray-600">
+        <p class="text-xs text-gray-600 hidden md:block">
             {{ $announcement?->geo?->name }}
         </p>
 
-        <p class="text-xs text-blue-600">
+        <p class="text-xs text-blue-600 hidden md:block">
             {{ $announcement?->created_at?->diffForHumans() }}
         </p>
-        <div class="flex items-center space-x-2 z-30">
-            <p class="font-bold text-lg w-full ">
+
+        <div class="flex items-center space-x-1 z-30">
+            <p class="font-semibold text-sm md:text-base w-full line-clamp-1 ">
                 {{ $announcement?->price }}
             </p>
             <livewire:actions.like-dislike :announcement_id="$announcement->id"/>
