@@ -40,6 +40,7 @@ return [
         'archive' => 'Archive',
         'report_options' => 'Report options',
         'html_layouts' => 'Html layouts',
+        'reports' => 'Reports',
     ],
 
     'user' => [

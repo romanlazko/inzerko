@@ -39,6 +39,7 @@ return [
         'archive' => 'Archiv',
         'report_options' => 'Možnosti hlášení',
         'html_layouts' => 'Html layouty',
+        'reports' => 'Reports',
     ],
 
     'user' => [
