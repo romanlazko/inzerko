@@ -75,4 +75,19 @@ return [
         'modal_title' => 'Opravdu chcete smazat svůj účet?',
         'modal_description' => 'Po smazání vašeho účtu budou všechny jeho zdroje a data trvale odstraněny. Zadejte prosím své heslo pro potvrzení trvalého smazání účtu.',
     ],
+
+    'penalty' => [
+        'banned' => 'Váš účet byl zablokován',
+        'reason' => 'Přičina',
+        'reasons' => [
+            'spam' => 'Spam',
+            'bot' => 'Bot',
+            'abuse' => 'Narusování pravil',
+            'fraud' => 'Podvod',
+            'scam' => 'Scam',
+            'illegal' => 'Narusování zakonu',
+            'other' => 'Ostatní',
+        ],
+        'expired' => 'Vyprsí',
+    ],
 ];

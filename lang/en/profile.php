@@ -89,6 +89,5 @@ return [
             'other' => 'Other',
         ],
         'expired' => 'Expired',
-        'expired_at' => 'Expired at',
     ],
 ];
