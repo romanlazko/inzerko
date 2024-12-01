@@ -55,7 +55,8 @@ class MyAnnouncements extends Component implements HasForms, HasTable
                 TextColumn::make('price')
                     ->state(fn (Announcement $announcement) => $announcement->price),
 
-                ToggleColumn::make('is_active'),
+                ToggleColumn::make('is_active')
+                    ->disabled(auth()->user()->isBanned()),
 
                 TextColumn::make('status')
                     ->label('Status')

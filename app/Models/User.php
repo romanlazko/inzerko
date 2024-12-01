@@ -26,9 +26,12 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Cog\Contracts\Ban\Bannable as BannableInterface;
+use Cog\Laravel\Ban\Traits\Bannable;
+use Cog\Laravel\Ban\Models\Ban;
 
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail
+class User extends Authenticatable implements HasMedia, MustVerifyEmail, BannableInterface
 {
     use HasApiTokens; 
     use HasFactory; 
@@ -40,6 +43,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     use SoftDeletes;
     use Prunable;
     use Tokenable;
+    use Bannable;
 
     /**
      * The attributes that are mass assignable.
@@ -160,6 +164,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $this->belongsToMany(Announcement::class, 'votes')->where('vote', true);
     }
 
+    public function latestBan()
+    {
+        return $this->morphOne(Ban::class, 'bannable')->latestOfMany();
+    }
+
     //ATTRIBUTES
 
     public function getUnreadMessagesCountAttribute(): int
@@ -204,5 +213,12 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    //METHODS
+
+    public function disableAnnouncements()
+    {
+        return $this->announcements()->update(['is_active' => false]);
     }
 }
