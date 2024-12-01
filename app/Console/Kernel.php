@@ -15,9 +15,11 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->command('queue:work --stop-when-empty --tries=2 --max-time=60')->everyMinute();
+        
         $schedule->command('backup:clean')->daily()->at('01:00');
         $schedule->command('backup:run --only-db')->daily()->at('01:30');
         $schedule->command('model:prune')->daily()->at('02:00');
+        $schedule->command('ban:delete-expired')->daily()->at('02:30');
     }
 
     /**

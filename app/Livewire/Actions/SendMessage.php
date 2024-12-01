@@ -86,6 +86,11 @@ class SendMessage extends Component implements HasForms, HasActions
                 ->modalCancelAction(false);
         }
 
+        if (auth()->user()->isBanned()) {
+            return $action
+                ->action(fn () => redirect(route('profile.banned')));
+        }
+
         if ($announcement->user->id == auth()->id()) {
             return $action
                 ->modalHeading(__('livewire.you_cant_send_message_to_yourself'))
@@ -95,7 +100,6 @@ class SendMessage extends Component implements HasForms, HasActions
         }
 
         return $action
-            ->modalHeading(false)
             ->form([
                 Textarea::make('message')
                     ->required()

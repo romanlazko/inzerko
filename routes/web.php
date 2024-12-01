@@ -1,17 +1,13 @@
 <?php
 
-use App\Bots\pozor_baraholka_bot\Models\BaraholkaAnnouncement;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\Profile\AnnouncementController as ProfileAnnouncementController;
 use App\Http\Controllers\Profile\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\SecurityController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Requests\SearchRequest;
-use App\Models\Page;
-use App\Models\User;
-use App\View\Models\HomeViewModel;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -27,30 +23,9 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::get('/locale', [Controller::class, 'locale'])->name('locale');
 
-Route::get('/', function (SearchRequest $request) {
-    session()->forget('filters');
-    session()->forget('search');
-    session()->forget('sort');
+Route::get('/', [Controller::class, 'home'])->name('home');
 
-    $viewModel = new HomeViewModel();
-
-    return response()->view('home', [
-        'announcements' => $viewModel->getAnnouncements(),
-        'categories' => $viewModel->getCategories(),
-        'request' => $request,
-    ])
-    ->header('Cache-Control', 'private, max-age=0, must-revalidate');
-})->name('home');
-
-Route::get('page/{page:slug}', function (Page $page) {
-    if (! $page->is_active) {
-        abort(404);
-    }
-
-    return view('page', [
-        'page' => $page
-    ]);
-})->name('page');
+Route::get('page/{page:slug}', [PageController::class, 'show'])->name('page');
 
 Route::name('announcement.')
     ->group(function () {
@@ -67,6 +42,7 @@ Route::name('profile.')->prefix('profile')->group(function () {
         Route::patch('update', [ProfileController::class, 'update'])->name('update');
         Route::patch('update-avatar', [ProfileController::class, 'updateAvatar'])->name('update-avatar');
         Route::patch('update-communication', [ProfileController::class, 'updateCommunication'])->name('update-communication');
+        Route::view('banned', 'profile.penalty.banned')->middleware(['banned'])->name('banned');
 
         Route::name('security.')->prefix('security')->group(function () {
             Route::get('/', [SecurityController::class, 'edit'])->name('edit');
@@ -81,7 +57,7 @@ Route::name('profile.')->prefix('profile')->group(function () {
 
         Route::name('announcement.')->prefix('announcement')->group(function () {
             Route::get('index', [ProfileAnnouncementController::class, 'index'])->name('index');
-            Route::get('create', [ProfileAnnouncementController::class, 'create'])->name('create');
+            Route::get('create', [ProfileAnnouncementController::class, 'create'])->middleware(['profile_filled', 'banned', 'verified'])->name('create');
             Route::get('wishlist', [ProfileAnnouncementController::class, 'wishlist'])->name('wishlist');
         });
     });
@@ -93,9 +69,5 @@ Route::get('run-schedule', function () {
 });
 
 require __DIR__.'/auth.php';
-
-// Route::get('/test', function () {
-//     dump(BaraholkaAnnouncement::with('chat')->latest()->limit(10)->get());
-// });
 
 

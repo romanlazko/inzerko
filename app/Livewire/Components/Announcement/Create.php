@@ -126,7 +126,7 @@ class Create extends Component implements HasForms
 
     public function afterCreating(): void
     {
-        $this->redirectRoute('profile.my-announcements');
+        $this->redirectRoute('profile.announcement.index');
     }
 
     public function getSections($category_id): array

@@ -75,4 +75,20 @@ return [
         'modal_title' => 'Are you sure you want to delete your account?',
         'modal_description' => 'Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
     ],
+
+    'penalty' => [
+        'banned' => 'Your account has been banned',
+        'reason' => 'Reason',
+        'reasons' => [
+            'spam' => 'Spam',
+            'bot' => 'Bot',
+            'abuse' => 'Abuse',
+            'fraud' => 'Fraud',
+            'scam' => 'Scam',
+            'illegal' => 'Illegal',
+            'other' => 'Other',
+        ],
+        'expired' => 'Expired',
+        'expired_at' => 'Expired at',
+    ],
 ];

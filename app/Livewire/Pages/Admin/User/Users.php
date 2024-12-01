@@ -24,6 +24,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action as ActionsAction;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Forms\Components\ToggleButtons;
 
 class Users extends AdminTableLayout implements HasForms, HasTable
 {
@@ -78,6 +79,10 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->sortable(),
                 TextColumn::make('await_moderation_count')
                     ->sortable(),
+                TextColumn::make('Ban')
+                    ->color('danger')
+                    ->state(fn (User $record) => $record?->latestBan ? __('profile.penalty.reasons.' . $record?->latestBan?->comment) : '')
+                    ->description(fn (User $record) => $record?->latestBan?->expired_at?->format('d M y')),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])
@@ -126,6 +131,47 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->hiddenLabel()
                     ->visible($this->roleOrPermission(['update', 'manage'], 'user'))
                     ->slideOver(),
+
+                ActionsAction::make('ban')
+                    ->color('warning')
+                    ->form([
+                        ToggleButtons::make('comment')
+                            ->options([
+                                'spam' => __('profile.penalty.reasons.spam'),
+                                'bot' => __('profile.penalty.reasons.bot'),
+                                'fraud' => __('profile.penalty.reasons.fraud'),
+                                'abuse' => __('profile.penalty.reasons.abuse'),
+                                'scam' => __('profile.penalty.reasons.scam'),
+                                'illegal' => __('profile.penalty.reasons.illegal'),
+                                'other' => __('profile.penalty.reasons.other'),
+                            ])
+                            ->inline()
+                            ->required(),
+                        TextInput::make('expired_at')
+                            ->type('date'),
+                    ])
+                    ->icon('heroicon-s-lock-closed')
+                    ->action(function (User $user, array $data) {
+                        $user->ban([
+                            'comment' => $data['comment'],
+                            'expired_at' => $data['expired_at'],
+                        ]);
+
+                        $user->disableAnnouncements();
+                    })
+                    ->button()
+                    ->hiddenLabel()
+                    ->visible(fn (User $user) => $this->roleOrPermission(['manage'], 'user') AND $user->isNotBanned()),
+
+                ActionsAction::make('unban')
+                    ->color('success')
+                    ->action(function (User $user, array $data) {
+                        $user->unban();
+                    })
+                    ->icon('heroicon-s-lock-open')
+                    ->button()
+                    ->hiddenLabel()
+                    ->visible(fn (User $user) => $this->roleOrPermission(['manage'], 'user') AND $user->isBanned()),
 
                 DeleteAction::make()
                     ->button()

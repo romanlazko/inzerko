@@ -157,9 +157,24 @@ class OpenChat extends Component implements HasForms, HasActions, HasTable
             ->label(__('livewire.messages'))
             ->modalWidth('md');
 
-        if (! auth()->user()) {
+        if (auth()->guest()) {
             return $action
-                ->action(fn () => redirect(route('login')));
+                ->requiresConfirmation()
+                ->modalHeading(__('livewire.should_be_loggined'))
+                ->modalDescription('')
+                ->extraModalFooterActions([
+                    Action::make('login')
+                        ->label(__('livewire.login'))
+                        ->color('primary')
+                        ->action(fn () => redirect(route('login')))
+                ])
+                ->modalSubmitAction(false)
+                ->modalCancelAction(false);
+        }
+
+        if (auth()->user()->isBanned()) {
+            return $action
+                ->action(fn () => redirect(route('profile.banned')));
         }
 
         return $action
