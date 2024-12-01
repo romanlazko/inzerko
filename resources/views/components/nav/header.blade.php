@@ -29,12 +29,15 @@
 					<x-heroicon-s-user class="size-5"/>
 				</x-nav.link>
 			@else
-				<a href="{{ route('register') }}" class="hover:text-indigo-700">
+				{{-- <a href="{{ route('register') }}" class="hover:text-indigo-700">
 					{{ __("components.navigation.register") }}
 				</a>
 				<a href="{{ route('login') }}" class="hover:text-indigo-700">
 					{{ __("components.navigation.login") }}
-				</a>
+				</a> --}}
+				<x-nav.link href="{{ route('login') }}" aria-label="Profile">
+					<x-heroicon-m-arrow-right-end-on-rectangle class="size-7"/>
+				</x-nav.link>
 			@endauth
 			
 			<x-a-buttons.create href="{{ route('profile.announcement.create') }}" class="">
