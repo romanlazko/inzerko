@@ -51,7 +51,7 @@ class CreateAnnouncement extends Command
         );
 
         return Inzerko::returnInline([
-            'text'          => "Правила публикации: [](тут будет ссылка на правила публикации)",
+            'text'          => "Правила публикации: [https://inzerko.cz/page/podminky-vyuzivani-sluzeb-serveru-inzerkocz](тут)",
             'chat_id'       => $updates->getChat()->getId(),
             'parse_mode'    => "Markdown",
             'reply_markup'  => $buttons,

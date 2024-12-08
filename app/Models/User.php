@@ -89,21 +89,18 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
             $user->announcements()->delete();
             $user->threads()->delete();
             $user->votes()->delete();
-            $user->chat()->delete();
         });
 
         static::forceDeleted(function (User $user) {
             $user->announcements()->forceDelete();
             $user->threads()->forceDelete();
             $user->votes()->forceDelete();
-            $user->chat()->forceDelete();
         });
 
         static::restored(function (User $user) {
             $user->announcements()->restore();
             $user->threads()->restore();
             $user->votes()->restore();
-            $user->chat()->restore();
         });
     }
 
