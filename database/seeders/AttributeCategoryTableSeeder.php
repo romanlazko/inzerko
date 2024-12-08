@@ -955,6 +955,12 @@ class AttributeCategoryTableSeeder extends Seeder
                 'attribute_id' => 74,
                 'category_id' => 64,
             ),
+            156 => 
+            array (
+                'id' => 228,
+                'attribute_id' => 75,
+                'category_id' => 63,
+            ),
         ));
         
         
