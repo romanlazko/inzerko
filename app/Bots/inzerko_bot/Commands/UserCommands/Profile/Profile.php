@@ -43,7 +43,11 @@ class Profile extends Command
         $buttons = BotApi::inlineKeyboard([
             [array($conversation->notes['email'] ?? 'Email:', Email::$command, '')],
             [array($conversation->notes['phone'] ?? 'Phone:', Phone::$command, '')],
-            [array(implode(', ', $conversation->notes['languages']) ?? 'Languages:', Languages::$command, implode(':', $conversation->notes['languages']) ?? '')],
+            [array(
+                $conversation->notes['languages'] ? implode(', ', $conversation->notes['languages']) : 'Languages:',
+                Languages::$command,
+                $conversation->notes['languages'] ? implode(':', $conversation->notes['languages']) : '',
+            )],
             [array($saveProfileCommand::getTitle('ru'), $saveProfileCommand::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ], 'languages');
