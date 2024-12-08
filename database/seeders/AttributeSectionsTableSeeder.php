@@ -739,6 +739,42 @@ class AttributeSectionsTableSeeder extends Seeder
                 'updated_at' => '2024-12-03 12:27:15',
                 'deleted_at' => NULL,
             ),
+            60 => 
+            array (
+                'id' => 61,
+                'slug' => 'about_the_employer',
+                'alternames' => '{"cs": "O zaměstnavateli", "en": "About the employer", "ru": "О работодателе"}',
+                'type' => 'filter',
+                'order_number' => 2,
+                'is_active' => 1,
+                'created_at' => '2024-12-08 16:34:26',
+                'updated_at' => '2024-12-08 16:34:39',
+                'deleted_at' => NULL,
+            ),
+            61 => 
+            array (
+                'id' => 62,
+                'slug' => 'about_the_employer',
+                'alternames' => '{"cs": "O zaměstnavateli", "en": "About the employer", "ru": "О работодателе"}',
+                'type' => 'create',
+                'order_number' => 2,
+                'is_active' => 1,
+                'created_at' => '2024-12-08 16:34:31',
+                'updated_at' => '2024-12-08 16:34:41',
+                'deleted_at' => NULL,
+            ),
+            62 => 
+            array (
+                'id' => 63,
+                'slug' => 'about_the_employer',
+                'alternames' => '{"cs": "O zaměstnavateli", "en": "About the employer", "ru": "О работодателе"}',
+                'type' => 'show',
+                'order_number' => 2,
+                'is_active' => 1,
+                'created_at' => '2024-12-08 16:34:33',
+                'updated_at' => '2024-12-08 16:34:44',
+                'deleted_at' => NULL,
+            ),
         ));
         
         
