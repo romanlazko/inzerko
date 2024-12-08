@@ -7,6 +7,7 @@ use App\Models\Feature;
 use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * @method static ?ViewComponent getCreateComponent(Attribute $attribute)
@@ -39,7 +40,7 @@ class AttributeFactory
      * @param array|null $data
      * @return array
      */
-    public static function getCreateSchema(?Attribute $attribute, ?array $data = []) : ?array
+    public static function getCreateSchema(?Attribute $attribute, ?array $data = []) : null|Collection|array
     {
         if (!$attribute OR !$attribute->is_active) {
             return null;
@@ -53,7 +54,7 @@ class AttributeFactory
      * @param array|null $data
      * @return array
      */
-    public static function getFakeData(?Attribute $attribute, ?array $data = []) : ?array
+    public static function getFakeData(?Attribute $attribute, ?array $data = []) : null|Collection|array
     {
         if (!$attribute OR !$attribute->is_active) {
             return null;

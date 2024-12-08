@@ -18,7 +18,7 @@ trait GroupSection
                     ->schema([
                         Select::make('group_layout.group_id')
                             ->label('Group')
-                            ->helperText(__('Группа в которой будет находится этот атрибут'))
+                            ->helperText(__('ГРУППА в которой будет находится этот атрибут'))
                             ->relationship(name: 'group')
                             ->getOptionLabelFromRecordUsing(fn (AttributeGroup $record) => "#{$record->slug}")
                             ->columnSpanFull()
@@ -29,7 +29,7 @@ trait GroupSection
                                             ->required(),
 
                                         TextInput::make('separator')
-                                            ->helperText(__('Разделитель внутри группы.')),
+                                            ->helperText(__('РАЗДЕЛИТЕЛЬ внутри группы.')),
                                     ])
                                     ->columns(2),
                             ])
@@ -40,13 +40,13 @@ trait GroupSection
                                             ->required(),
 
                                         TextInput::make('separator')
-                                            ->helperText(__('Разделитель внутри группы.')),
+                                            ->helperText(__('РАЗДЕЛИТЕЛЬ внутри группы.')),
                                     ])
                                     ->columns(2)
                             ]),
 
                         TextInput::make('group_layout.order_number')
-                            ->helperText(__("Порядковый номер этого атрибута внутри группы"))
+                            ->helperText(__("ПОРЯДКОВЫЙ НОМЕР этого атрибута внутри группы"))
                             ->requiredWith('group_layout.group_id'),
                     ])
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),

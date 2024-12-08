@@ -8,6 +8,7 @@ use Guava\FilamentClusters\Forms\Cluster;
 use Filament\Forms\Components\TextInput as ComponentsTextInput;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class FromTo extends Between
 {
@@ -28,7 +29,7 @@ class FromTo extends Between
             );
     }
 
-    protected function getFakeSchema(): array
+    protected function getFakeSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,

@@ -99,807 +99,861 @@ class AttributeCategoryTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => 21,
-                'attribute_id' => 2,
-                'category_id' => 3,
-            ),
-            14 => 
-            array (
-                'id' => 25,
-                'attribute_id' => 21,
-                'category_id' => 3,
-            ),
-            15 => 
-            array (
                 'id' => 26,
                 'attribute_id' => 22,
                 'category_id' => 5,
             ),
-            16 => 
+            14 => 
             array (
                 'id' => 27,
                 'attribute_id' => 23,
                 'category_id' => 5,
             ),
-            17 => 
+            15 => 
             array (
                 'id' => 28,
                 'attribute_id' => 24,
                 'category_id' => 5,
             ),
-            18 => 
+            16 => 
             array (
                 'id' => 29,
                 'attribute_id' => 25,
                 'category_id' => 5,
             ),
-            19 => 
+            17 => 
             array (
                 'id' => 31,
                 'attribute_id' => 27,
                 'category_id' => 1,
             ),
-            20 => 
-            array (
-                'id' => 32,
-                'attribute_id' => 27,
-                'category_id' => 3,
-            ),
-            21 => 
+            18 => 
             array (
                 'id' => 33,
                 'attribute_id' => 27,
                 'category_id' => 4,
             ),
-            22 => 
+            19 => 
             array (
                 'id' => 34,
                 'attribute_id' => 6,
                 'category_id' => 6,
             ),
-            23 => 
-            array (
-                'id' => 44,
-                'attribute_id' => 28,
-                'category_id' => 3,
-            ),
-            24 => 
+            20 => 
             array (
                 'id' => 45,
                 'attribute_id' => 4,
                 'category_id' => 4,
             ),
-            25 => 
+            21 => 
             array (
                 'id' => 46,
                 'attribute_id' => 5,
                 'category_id' => 4,
             ),
-            26 => 
+            22 => 
             array (
                 'id' => 47,
                 'attribute_id' => 29,
                 'category_id' => 1,
             ),
-            27 => 
+            23 => 
             array (
                 'id' => 51,
                 'attribute_id' => 29,
                 'category_id' => 8,
             ),
-            28 => 
+            24 => 
             array (
                 'id' => 52,
                 'attribute_id' => 6,
                 'category_id' => 8,
             ),
-            29 => 
+            25 => 
             array (
                 'id' => 53,
                 'attribute_id' => 6,
                 'category_id' => 27,
             ),
-            30 => 
+            26 => 
             array (
                 'id' => 56,
                 'attribute_id' => 14,
                 'category_id' => 18,
             ),
-            31 => 
+            27 => 
             array (
                 'id' => 57,
                 'attribute_id' => 16,
                 'category_id' => 18,
             ),
-            32 => 
+            28 => 
             array (
                 'id' => 58,
                 'attribute_id' => 9,
                 'category_id' => 18,
             ),
-            33 => 
+            29 => 
             array (
                 'id' => 59,
                 'attribute_id' => 10,
                 'category_id' => 18,
             ),
-            34 => 
+            30 => 
             array (
                 'id' => 60,
                 'attribute_id' => 11,
                 'category_id' => 18,
             ),
-            35 => 
+            31 => 
             array (
                 'id' => 61,
                 'attribute_id' => 12,
                 'category_id' => 18,
             ),
-            36 => 
+            32 => 
             array (
                 'id' => 62,
                 'attribute_id' => 13,
                 'category_id' => 18,
             ),
-            37 => 
+            33 => 
             array (
                 'id' => 63,
                 'attribute_id' => 15,
                 'category_id' => 18,
             ),
-            38 => 
+            34 => 
             array (
                 'id' => 64,
                 'attribute_id' => 6,
                 'category_id' => 28,
             ),
-            39 => 
+            35 => 
             array (
                 'id' => 65,
                 'attribute_id' => 6,
                 'category_id' => 29,
             ),
-            40 => 
+            36 => 
             array (
                 'id' => 67,
                 'attribute_id' => 30,
                 'category_id' => 18,
             ),
-            41 => 
+            37 => 
             array (
                 'id' => 69,
                 'attribute_id' => 31,
                 'category_id' => 18,
             ),
-            42 => 
+            38 => 
             array (
                 'id' => 71,
                 'attribute_id' => 6,
                 'category_id' => 1,
             ),
-            43 => 
+            39 => 
             array (
                 'id' => 72,
                 'attribute_id' => 7,
                 'category_id' => 1,
             ),
-            44 => 
+            40 => 
             array (
                 'id' => 73,
                 'attribute_id' => 32,
                 'category_id' => 1,
             ),
-            45 => 
+            41 => 
             array (
                 'id' => 74,
                 'attribute_id' => 33,
                 'category_id' => 19,
             ),
-            46 => 
+            42 => 
             array (
                 'id' => 75,
                 'attribute_id' => 16,
                 'category_id' => 19,
             ),
-            47 => 
+            43 => 
             array (
                 'id' => 76,
                 'attribute_id' => 14,
                 'category_id' => 19,
             ),
-            48 => 
+            44 => 
             array (
                 'id' => 77,
                 'attribute_id' => 8,
                 'category_id' => 19,
             ),
-            49 => 
+            45 => 
             array (
                 'id' => 78,
                 'attribute_id' => 11,
                 'category_id' => 19,
             ),
-            50 => 
+            46 => 
             array (
                 'id' => 79,
                 'attribute_id' => 12,
                 'category_id' => 19,
             ),
-            51 => 
+            47 => 
             array (
                 'id' => 80,
                 'attribute_id' => 15,
                 'category_id' => 19,
             ),
-            52 => 
+            48 => 
             array (
                 'id' => 81,
                 'attribute_id' => 13,
                 'category_id' => 19,
             ),
-            53 => 
+            49 => 
             array (
                 'id' => 82,
                 'attribute_id' => 9,
                 'category_id' => 19,
             ),
-            54 => 
+            50 => 
             array (
                 'id' => 83,
                 'attribute_id' => 10,
                 'category_id' => 19,
             ),
-            55 => 
+            51 => 
             array (
                 'id' => 85,
                 'attribute_id' => 34,
                 'category_id' => 20,
             ),
-            56 => 
+            52 => 
             array (
                 'id' => 86,
                 'attribute_id' => 16,
                 'category_id' => 20,
             ),
-            57 => 
+            53 => 
             array (
                 'id' => 87,
                 'attribute_id' => 16,
                 'category_id' => 21,
             ),
-            58 => 
+            54 => 
             array (
                 'id' => 88,
                 'attribute_id' => 16,
                 'category_id' => 22,
             ),
-            59 => 
+            55 => 
             array (
                 'id' => 89,
                 'attribute_id' => 35,
                 'category_id' => 21,
             ),
-            60 => 
+            56 => 
             array (
                 'id' => 90,
                 'attribute_id' => 36,
                 'category_id' => 22,
             ),
-            61 => 
+            57 => 
             array (
                 'id' => 91,
                 'attribute_id' => 37,
                 'category_id' => 1,
             ),
-            62 => 
+            58 => 
             array (
                 'id' => 92,
                 'attribute_id' => 38,
                 'category_id' => 1,
             ),
-            63 => 
-            array (
-                'id' => 93,
-                'attribute_id' => 32,
-                'category_id' => 3,
-            ),
-            64 => 
+            59 => 
             array (
                 'id' => 106,
                 'attribute_id' => 42,
                 'category_id' => 3,
             ),
-            65 => 
+            60 => 
             array (
                 'id' => 107,
                 'attribute_id' => 32,
                 'category_id' => 4,
             ),
-            66 => 
+            61 => 
             array (
                 'id' => 109,
                 'attribute_id' => 32,
                 'category_id' => 10,
             ),
-            67 => 
+            62 => 
             array (
                 'id' => 110,
                 'attribute_id' => 32,
                 'category_id' => 11,
             ),
-            68 => 
+            63 => 
             array (
                 'id' => 111,
                 'attribute_id' => 32,
                 'category_id' => 12,
             ),
-            69 => 
+            64 => 
             array (
                 'id' => 112,
                 'attribute_id' => 32,
                 'category_id' => 13,
             ),
-            70 => 
+            65 => 
             array (
                 'id' => 113,
                 'attribute_id' => 32,
                 'category_id' => 14,
             ),
-            71 => 
+            66 => 
             array (
                 'id' => 114,
                 'attribute_id' => 32,
                 'category_id' => 15,
             ),
-            72 => 
+            67 => 
             array (
                 'id' => 115,
                 'attribute_id' => 32,
                 'category_id' => 16,
             ),
-            73 => 
+            68 => 
             array (
                 'id' => 116,
                 'attribute_id' => 32,
                 'category_id' => 17,
             ),
-            74 => 
+            69 => 
             array (
                 'id' => 117,
                 'attribute_id' => 2,
                 'category_id' => 9,
             ),
-            75 => 
+            70 => 
             array (
                 'id' => 118,
                 'attribute_id' => 2,
                 'category_id' => 10,
             ),
-            76 => 
+            71 => 
             array (
                 'id' => 119,
                 'attribute_id' => 2,
                 'category_id' => 11,
             ),
-            77 => 
+            72 => 
             array (
                 'id' => 120,
                 'attribute_id' => 2,
                 'category_id' => 12,
             ),
-            78 => 
+            73 => 
             array (
                 'id' => 121,
                 'attribute_id' => 2,
                 'category_id' => 13,
             ),
-            79 => 
+            74 => 
             array (
                 'id' => 122,
                 'attribute_id' => 2,
                 'category_id' => 14,
             ),
-            80 => 
+            75 => 
             array (
                 'id' => 123,
                 'attribute_id' => 2,
                 'category_id' => 15,
             ),
-            81 => 
+            76 => 
             array (
                 'id' => 124,
                 'attribute_id' => 2,
                 'category_id' => 16,
             ),
-            82 => 
+            77 => 
             array (
                 'id' => 125,
                 'attribute_id' => 2,
                 'category_id' => 17,
             ),
-            83 => 
+            78 => 
             array (
                 'id' => 127,
                 'attribute_id' => 4,
                 'category_id' => 9,
             ),
-            84 => 
+            79 => 
             array (
                 'id' => 128,
                 'attribute_id' => 4,
                 'category_id' => 10,
             ),
-            85 => 
+            80 => 
             array (
                 'id' => 129,
                 'attribute_id' => 4,
                 'category_id' => 11,
             ),
-            86 => 
+            81 => 
             array (
                 'id' => 130,
                 'attribute_id' => 4,
                 'category_id' => 12,
             ),
-            87 => 
+            82 => 
             array (
                 'id' => 131,
                 'attribute_id' => 4,
                 'category_id' => 13,
             ),
-            88 => 
+            83 => 
             array (
                 'id' => 132,
                 'attribute_id' => 4,
                 'category_id' => 14,
             ),
-            89 => 
+            84 => 
             array (
                 'id' => 133,
                 'attribute_id' => 4,
                 'category_id' => 15,
             ),
-            90 => 
+            85 => 
             array (
                 'id' => 134,
                 'attribute_id' => 4,
                 'category_id' => 16,
             ),
-            91 => 
+            86 => 
             array (
                 'id' => 135,
                 'attribute_id' => 4,
                 'category_id' => 17,
             ),
-            92 => 
+            87 => 
             array (
                 'id' => 147,
                 'attribute_id' => 27,
                 'category_id' => 9,
             ),
-            93 => 
+            88 => 
             array (
                 'id' => 148,
                 'attribute_id' => 27,
                 'category_id' => 10,
             ),
-            94 => 
+            89 => 
             array (
                 'id' => 149,
                 'attribute_id' => 27,
                 'category_id' => 11,
             ),
-            95 => 
+            90 => 
             array (
                 'id' => 150,
                 'attribute_id' => 27,
                 'category_id' => 12,
             ),
-            96 => 
+            91 => 
             array (
                 'id' => 151,
                 'attribute_id' => 27,
                 'category_id' => 13,
             ),
-            97 => 
+            92 => 
             array (
                 'id' => 152,
                 'attribute_id' => 27,
                 'category_id' => 14,
             ),
-            98 => 
+            93 => 
             array (
                 'id' => 153,
                 'attribute_id' => 27,
                 'category_id' => 15,
             ),
-            99 => 
+            94 => 
             array (
                 'id' => 154,
                 'attribute_id' => 27,
                 'category_id' => 16,
             ),
-            100 => 
+            95 => 
             array (
                 'id' => 155,
                 'attribute_id' => 27,
                 'category_id' => 17,
             ),
-            101 => 
+            96 => 
             array (
                 'id' => 156,
                 'attribute_id' => 43,
                 'category_id' => 9,
             ),
-            102 => 
+            97 => 
             array (
                 'id' => 160,
                 'attribute_id' => 46,
                 'category_id' => 46,
             ),
-            103 => 
+            98 => 
             array (
                 'id' => 161,
                 'attribute_id' => 44,
                 'category_id' => 46,
             ),
-            104 => 
+            99 => 
             array (
                 'id' => 162,
                 'attribute_id' => 45,
                 'category_id' => 46,
             ),
-            105 => 
+            100 => 
             array (
                 'id' => 163,
                 'attribute_id' => 47,
                 'category_id' => 9,
             ),
-            106 => 
+            101 => 
             array (
                 'id' => 164,
                 'attribute_id' => 48,
                 'category_id' => 46,
             ),
-            107 => 
+            102 => 
             array (
                 'id' => 165,
                 'attribute_id' => 49,
                 'category_id' => 46,
             ),
-            108 => 
+            103 => 
             array (
                 'id' => 166,
                 'attribute_id' => 50,
                 'category_id' => 46,
             ),
-            109 => 
+            104 => 
             array (
                 'id' => 167,
                 'attribute_id' => 51,
                 'category_id' => 9,
             ),
-            110 => 
+            105 => 
             array (
                 'id' => 168,
                 'attribute_id' => 52,
                 'category_id' => 9,
             ),
-            111 => 
+            106 => 
             array (
                 'id' => 169,
                 'attribute_id' => 53,
                 'category_id' => 9,
             ),
-            112 => 
+            107 => 
             array (
                 'id' => 170,
                 'attribute_id' => 54,
                 'category_id' => 9,
             ),
-            113 => 
+            108 => 
             array (
                 'id' => 171,
                 'attribute_id' => 55,
                 'category_id' => 9,
             ),
-            114 => 
+            109 => 
             array (
                 'id' => 172,
                 'attribute_id' => 56,
                 'category_id' => 9,
             ),
-            115 => 
+            110 => 
             array (
                 'id' => 173,
                 'attribute_id' => 57,
                 'category_id' => 9,
             ),
-            116 => 
+            111 => 
             array (
                 'id' => 174,
                 'attribute_id' => 58,
                 'category_id' => 1,
             ),
-            117 => 
+            112 => 
             array (
                 'id' => 175,
                 'attribute_id' => 58,
                 'category_id' => 3,
             ),
-            118 => 
+            113 => 
             array (
                 'id' => 176,
                 'attribute_id' => 58,
                 'category_id' => 4,
             ),
-            119 => 
+            114 => 
             array (
                 'id' => 177,
                 'attribute_id' => 58,
                 'category_id' => 9,
             ),
-            120 => 
+            115 => 
             array (
                 'id' => 178,
                 'attribute_id' => 58,
                 'category_id' => 10,
             ),
-            121 => 
+            116 => 
             array (
                 'id' => 179,
                 'attribute_id' => 58,
                 'category_id' => 11,
             ),
-            122 => 
+            117 => 
             array (
                 'id' => 180,
                 'attribute_id' => 58,
                 'category_id' => 12,
             ),
-            123 => 
+            118 => 
             array (
                 'id' => 181,
                 'attribute_id' => 58,
                 'category_id' => 13,
             ),
-            124 => 
+            119 => 
             array (
                 'id' => 182,
                 'attribute_id' => 58,
                 'category_id' => 14,
             ),
-            125 => 
+            120 => 
             array (
                 'id' => 183,
                 'attribute_id' => 58,
                 'category_id' => 15,
             ),
-            126 => 
+            121 => 
             array (
                 'id' => 184,
                 'attribute_id' => 58,
                 'category_id' => 16,
             ),
-            127 => 
+            122 => 
             array (
                 'id' => 185,
                 'attribute_id' => 58,
                 'category_id' => 17,
             ),
-            128 => 
+            123 => 
             array (
                 'id' => 186,
                 'attribute_id' => 5,
                 'category_id' => 53,
             ),
-            129 => 
+            124 => 
             array (
                 'id' => 187,
                 'attribute_id' => 6,
                 'category_id' => 54,
             ),
-            130 => 
+            125 => 
             array (
                 'id' => 188,
                 'attribute_id' => 38,
                 'category_id' => 55,
             ),
-            131 => 
+            126 => 
             array (
                 'id' => 189,
                 'attribute_id' => 5,
                 'category_id' => 56,
             ),
-            132 => 
+            127 => 
             array (
                 'id' => 190,
                 'attribute_id' => 37,
                 'category_id' => 57,
             ),
-            133 => 
+            128 => 
             array (
                 'id' => 191,
                 'attribute_id' => 32,
                 'category_id' => 62,
             ),
-            134 => 
+            129 => 
             array (
                 'id' => 192,
                 'attribute_id' => 27,
                 'category_id' => 62,
             ),
-            135 => 
-            array (
-                'id' => 193,
-                'attribute_id' => 60,
-                'category_id' => 3,
-            ),
-            136 => 
-            array (
-                'id' => 194,
-                'attribute_id' => 61,
-                'category_id' => 3,
-            ),
-            137 => 
+            130 => 
             array (
                 'id' => 195,
                 'attribute_id' => 62,
                 'category_id' => 63,
             ),
-            138 => 
-            array (
-                'id' => 196,
-                'attribute_id' => 62,
-                'category_id' => 3,
-            ),
-            139 => 
+            131 => 
             array (
                 'id' => 197,
                 'attribute_id' => 63,
                 'category_id' => 63,
             ),
-            140 => 
-            array (
-                'id' => 198,
-                'attribute_id' => 63,
-                'category_id' => 3,
-            ),
-            141 => 
-            array (
-                'id' => 199,
-                'attribute_id' => 64,
-                'category_id' => 3,
-            ),
-            142 => 
+            132 => 
             array (
                 'id' => 200,
                 'attribute_id' => 64,
                 'category_id' => 63,
             ),
-            143 => 
-            array (
-                'id' => 201,
-                'attribute_id' => 65,
-                'category_id' => 3,
-            ),
-            144 => 
+            133 => 
             array (
                 'id' => 202,
                 'attribute_id' => 65,
                 'category_id' => 63,
             ),
-            145 => 
-            array (
-                'id' => 203,
-                'attribute_id' => 59,
-                'category_id' => 3,
-            ),
-            146 => 
+            134 => 
             array (
                 'id' => 204,
                 'attribute_id' => 59,
                 'category_id' => 63,
+            ),
+            135 => 
+            array (
+                'id' => 205,
+                'attribute_id' => 32,
+                'category_id' => 63,
+            ),
+            136 => 
+            array (
+                'id' => 206,
+                'attribute_id' => 2,
+                'category_id' => 63,
+            ),
+            137 => 
+            array (
+                'id' => 207,
+                'attribute_id' => 21,
+                'category_id' => 63,
+            ),
+            138 => 
+            array (
+                'id' => 209,
+                'attribute_id' => 60,
+                'category_id' => 63,
+            ),
+            139 => 
+            array (
+                'id' => 210,
+                'attribute_id' => 27,
+                'category_id' => 63,
+            ),
+            140 => 
+            array (
+                'id' => 211,
+                'attribute_id' => 61,
+                'category_id' => 63,
+            ),
+            141 => 
+            array (
+                'id' => 212,
+                'attribute_id' => 66,
+                'category_id' => 63,
+            ),
+            142 => 
+            array (
+                'id' => 213,
+                'attribute_id' => 67,
+                'category_id' => 63,
+            ),
+            143 => 
+            array (
+                'id' => 214,
+                'attribute_id' => 69,
+                'category_id' => 63,
+            ),
+            144 => 
+            array (
+                'id' => 215,
+                'attribute_id' => 70,
+                'category_id' => 63,
+            ),
+            145 => 
+            array (
+                'id' => 217,
+                'attribute_id' => 71,
+                'category_id' => 63,
+            ),
+            146 => 
+            array (
+                'id' => 218,
+                'attribute_id' => 72,
+                'category_id' => 63,
+            ),
+            147 => 
+            array (
+                'id' => 219,
+                'attribute_id' => 28,
+                'category_id' => 3,
+            ),
+            148 => 
+            array (
+                'id' => 220,
+                'attribute_id' => 73,
+                'category_id' => 3,
+            ),
+            149 => 
+            array (
+                'id' => 221,
+                'attribute_id' => 27,
+                'category_id' => 64,
+            ),
+            150 => 
+            array (
+                'id' => 222,
+                'attribute_id' => 63,
+                'category_id' => 64,
+            ),
+            151 => 
+            array (
+                'id' => 223,
+                'attribute_id' => 65,
+                'category_id' => 64,
+            ),
+            152 => 
+            array (
+                'id' => 224,
+                'attribute_id' => 62,
+                'category_id' => 64,
+            ),
+            153 => 
+            array (
+                'id' => 225,
+                'attribute_id' => 61,
+                'category_id' => 64,
+            ),
+            154 => 
+            array (
+                'id' => 226,
+                'attribute_id' => 59,
+                'category_id' => 64,
+            ),
+            155 => 
+            array (
+                'id' => 227,
+                'attribute_id' => 74,
+                'category_id' => 64,
             ),
         ));
         

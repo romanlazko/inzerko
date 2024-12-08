@@ -7,7 +7,9 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput as ComponentsTextInput;
 use Filament\Support\Components\ViewComponent;
 use Filament\Forms\Components\Select as ComponentsSelect;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Number;
+
 
 class Price extends Between
 {
@@ -16,7 +18,7 @@ class Price extends Between
         return Number::format($feature->translated_value['original'], locale: 'cs')  . ' ' . $feature->attribute_option?->name;
     }
 
-    protected function getSchema(): array
+    protected function getSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -27,7 +29,7 @@ class Price extends Between
         ];
     }
 
-    protected function getFakeSchema(): array
+    protected function getFakeSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,

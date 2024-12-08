@@ -28,18 +28,25 @@ class Profile extends Command
     {
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        $notes = $this->getConversation()->notes;
+        $conversation = $this->getConversation();
 
         $user = User::firstWhere('telegram_chat_id', $telegram_chat->id);
 
+        $this->getConversation()->update([
+            'phone' => $conversation->notes['phone'] ?? $user?->communication_settings?->telegram?->phone,
+            'email' => $conversation->notes['email'] ?? $user?->email,
+            'languages' => $conversation->notes['languages'] ?? (array) $user?->languages
+        ]);
+
         $saveProfileCommand = $user ? UpdateProfile::class : StoreProfile::class;
 
-        $buttons = Inzerko::inlineKeyboard([
-            [array($notes['email'] ?? $user?->email ?? 'Email:', Email::$command, '')],
-            [array($notes['phone'] ?? $user?->communication?->telegram?->phone ?? 'Phone:', Phone::$command, '')],
+        $buttons = BotApi::inlineKeyboard([
+            [array($conversation->notes['email'] ?? 'Email:', Email::$command, '')],
+            [array($conversation->notes['phone'] ?? 'Phone:', Phone::$command, '')],
+            [array(implode(', ', $conversation->notes['languages']) ?? 'Languages:', Languages::$command, implode(':', $conversation->notes['languages']) ?? '')],
             [array($saveProfileCommand::getTitle('ru'), $saveProfileCommand::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
-        ]);
+        ], 'languages');
 
         $text = implode("\n", [
             "*Ваш профиль:*"."\n",

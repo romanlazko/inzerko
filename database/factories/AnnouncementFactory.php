@@ -54,7 +54,7 @@ class AnnouncementFactory extends Factory
     }
 
     private function getFeatures(Category $category) : array
-    {   
+    {
         return AttributesByCategoryService::forCreate($category)
             ->map(fn ($attribute) => 
                 AttributeFactory::getFakeData($attribute)

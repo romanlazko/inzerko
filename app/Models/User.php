@@ -188,7 +188,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
 
     public function getLanguagesAttribute(): array
     {
-        return $this->communication_settings?->languages ?? [];
+        return (array) $this->communication_settings?->languages ?? [];
     }
 
     public function isProfileFilled(): bool

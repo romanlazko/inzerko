@@ -54,9 +54,10 @@ class StoreProfile extends Command
             telegram_chat_id: $telegram_chat->id,
             communication_settings: [
                 'telegram' => [
-                    'phone' => $notes['phone'],
+                    'phone' => $validated['phone'],
                     'visible' => true,
-                ]
+                ],
+                'languages' => $validated['languages']
             ]
         );
 
@@ -72,10 +73,13 @@ class StoreProfile extends Command
             [
                 'email' => 'required|email|unique:users,email',
                 'phone' => 'required|phone:AUTO',
+                'languages' => ['required', 'array'],
+                'languages.*' => ['string', 'in:en,ru,cz'],
             ],
             [
                 'email.required' => 'Поле e-mail обязательно к заполнению',
                 'phone.required' => 'Поле телефона обязательно к заполнению',
+                'languages.required' => 'Поле языков обязательно к заполнению',
             ]
         );
     }

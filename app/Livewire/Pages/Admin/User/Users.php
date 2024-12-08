@@ -54,8 +54,8 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->badge()
                     ->color('warning'),
                 TextColumn::make('phones')
-                    ->state(fn (User $user) => collect((array) $user->communication_settings)
-                        ->filter(fn ($communication_setting) => !is_array($communication_setting) AND $communication_setting?->phone)
+                    ->state(fn (User $user) => collect($user->communication_settings)
+                        ->filter(fn ($communication_setting) => $communication_setting?->phone ?? false)
                         ->map(fn ($value, $communication_setting) => str($communication_setting)->ucfirst()->replace('_', ' ')->append(": {$value?->phone}"))
                     )
                     ->badge()

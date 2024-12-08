@@ -13,22 +13,23 @@ class Languages extends Command
 {
     public static $command = 'languages';
 
-    public static $title = '';
+    public static $title = ['ru' => 'Языки', 'en' => 'Languages'];
 
     public static $usage = ['languages'];
 
     protected $enabled = true;
 
     public function execute(Update $updates): Response
-    {
-        $updates->getFrom()->setExpectation(AwaitEmail::$expectation);
-        
-        $buttons = Inzerko::inlineCheckbox([
+    {   
+        $buttons = BotApi::inlineCheckbox([
             [array('Русский', Languages::$command, 'ru')],
             [array('Английский', Languages::$command, 'en')],
             [array('Чешский', Languages::$command, 'cz')],
             [array('Продолжить', AwaitLanguages::$command, '')],
-            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
+            [
+                array("👈 Назад", Profile::$command, ''),
+                array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
+            ]
         ], 'languages');
 
         $data = [

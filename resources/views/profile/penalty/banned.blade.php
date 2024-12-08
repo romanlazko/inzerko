@@ -13,7 +13,7 @@
         $ban = auth()->user()->latestBan;
     @endphp
 
-    <div class="w-full max-w-5xl m-auto py-5 space-y-6">
+    <div class="py-5 space-y-4 px-3">
         <div class="p-4 bg-red-600 text-white rounded-2xl max-w-xl">
             <div class="text-sm">
                 {{ __('profile.penalty.banned') }} 

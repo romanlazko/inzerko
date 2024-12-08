@@ -65,6 +65,11 @@ class Feature extends Model
         return $this->attribute?->label;
     }
 
+    public function getAttributeOptionsAttribute(): array
+    {
+        return $this->translated_value['attribute_option_ids'] ?? [];
+    }
+
     //SCOPES
 
     public function scopeForAnnouncementCard($query): Builder
