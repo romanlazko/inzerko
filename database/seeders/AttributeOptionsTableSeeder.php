@@ -2956,6 +2956,39 @@ class AttributeOptionsTableSeeder extends Seeder
                 'updated_at' => '2024-12-08 16:09:25',
                 'deleted_at' => '2024-12-08 16:09:25',
             ),
+            267 => 
+            array (
+                'id' => 309,
+                'attribute_id' => 75,
+                'alternames' => '{"cs": "Soukromá osoba", "en": "Private citizen", "ru": "Частник"}',
+                'is_default' => 0,
+                'is_null' => 0,
+                'created_at' => '2024-12-08 16:41:26',
+                'updated_at' => '2024-12-08 16:45:41',
+                'deleted_at' => NULL,
+            ),
+            268 => 
+            array (
+                'id' => 310,
+                'attribute_id' => 75,
+                'alternames' => '{"cs": "Společnost", "en": "Company", "ru": "Компания"}',
+                'is_default' => 0,
+                'is_null' => 0,
+                'created_at' => '2024-12-08 16:41:26',
+                'updated_at' => '2024-12-08 16:45:41',
+                'deleted_at' => NULL,
+            ),
+            269 => 
+            array (
+                'id' => 311,
+                'attribute_id' => 75,
+                'alternames' => '{"cs": "Nezáleží", "en": "No matter", "ru": "Неважно"}',
+                'is_default' => 1,
+                'is_null' => 1,
+                'created_at' => '2024-12-08 16:41:26',
+                'updated_at' => '2024-12-08 16:45:41',
+                'deleted_at' => NULL,
+            ),
         ));
         
         
