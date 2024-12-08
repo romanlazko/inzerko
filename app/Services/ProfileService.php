@@ -75,7 +75,7 @@ class ProfileService
             'telegram_chat_id' => $telegram_chat_id,
             'telegram_token' => $telegram_token,
             'locale' => $locale,
-            'communication_settings' => $communication_settings,
+            'communication_settings' => self::updateData($communication_settings, (array) $user->communication_settings),
             'notification_settings' => $notification_settings
         ], function ($value) {
             return !is_null($value) && $value !== '';
@@ -92,5 +92,18 @@ class ProfileService
         $user->save();
 
         return $user;
+    }
+
+    private static function updateData(array $newData, array $oldData): ?object
+    {
+        if (is_null($newData)) {
+            return null;
+        }
+
+        foreach ($newData as $key => $value) {
+            $oldData[$key] = $value;
+        }
+
+        return (object) $oldData;
     }
 }

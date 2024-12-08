@@ -10,9 +10,14 @@
     </x-slot>
     
     <div class="space-y-6 lg:py-12">
-        <div class="grid w-full grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 lg:gap-6 max-w-7xl m-auto px-0 lg:px-3">
+        <div class="grid w-full grid-cols-1 lg:grid-cols-6 lg:gap-6 max-w-7xl m-auto px-0 lg:px-3">
             @if ($announcement->media?->isNotEmpty())
-                <div class="order-1 col-span-3 lg:col-span-3 xl:col-span-3 lg:rounded-2xl overflow-hidden">
+                <div
+                    @class([
+                        'overflow-hidden h-min lg:rounded-2xl',
+                        'col-span-1 lg:col-span-3'
+                    ])
+                >
                     <x-ux.slider
                         :medias="$announcement->getMedia('announcements')"
                         :fallbackMedia="$announcement->getFirstMediaUrl('announcements', 'thumb')"
@@ -26,15 +31,14 @@
 
             <div 
                 @class([
-                    'w-full h-min space-y-6 xl:sticky py-6 lg:py-0 top-6 col-span-1 lg:col-span-2 xl:col-span-2 z-20',
+                    'w-full h-min space-y-6 xl:sticky py-6 lg:py-0 top-6 z-20',
+                    'col-span-1 lg:row-span-2 lg:col-span-2',
                     'order-2' => $announcement->media?->isNotEmpty(),
                     'order-1 lg:order-3' => $announcement->media?->isEmpty(),
                 ])
             >
                 <div class="space-y-6 w-full">
-                    <div class="space-y-4 px-3 ">
-                        
-        
+                    <div class="space-y-4 px-3">
                         <div class="w-full space-y-4">
                             <h1 class="font-bold text-2xl">
                                 {{ $announcement->title }}
@@ -71,8 +75,9 @@
 
             <div 
                 @class([
-                    'w-full overflow-hidden order-2 col-span-2 lg:col-span-3 xl:col-span-3 px-3',
-                    'order-3' => $announcement->media?->isNotEmpty(),
+                    'w-full overflow-hidden px-3',
+                    'col-span-1 lg:col-span-3',
+                    'order-4' => $announcement->media?->isNotEmpty(),
                     'order-2' => $announcement->media?->isEmpty(),
                 ])
             >
@@ -80,14 +85,14 @@
 
                 @if ($announcement->features->isNotEmpty())
                     <div class="space-y-12">
-                        @foreach ($announcement->features->where('attribute.is_feature')->sortBy('attribute.showSection.order_number')->groupBy('attribute.showSection.name') as $section_name => $feature_section)
+                        @foreach ($announcement->features->where('attribute.is_feature')->sortBy('attribute.showSection.order_number')->groupBy('attribute.showSection.name') as $section_name => $features_by_section)
                             <div class="space-y-2">
                                 <h2 class="font-bold text-2xl">
                                     {{ $section_name }}: 
                                 </h2>
                                 
                                 <ul class="w-full list-outside space-y-1">
-                                    @foreach ($feature_section->sortBy('attribute.show_layout.order_number') as $feature)
+                                    @foreach ($features_by_section->sortBy('attribute.show_layout.order_number') as $feature)
                                         @if ($feature->value)
                                             <li class="w-full text-base items-center">
                                                 @if ($feature->attribute?->show_layout['has_label'] ?? false)
@@ -107,17 +112,11 @@
                     </div>
                 @endif
             </div>
-        </div>
 
-        @if ($similar_announcements)
-            <x-announcement.list class="bg-white" :announcements="$similar_announcements" :cols="5">
-                <x-slot name="header">
-                    <h2 class="text-xl lg:text-3xl font-bold">
-                        {{ __('announcement.similar') }}
-                    </h2>
-                </x-slot>
-            </x-announcement.list>
-        @endif
+            {{-- <div class="col-span-1 order-3 h-full bg-red-300 row-span-2">
+
+            </div> --}}
+        </div>
     </div>
 </x-app-layout>
 

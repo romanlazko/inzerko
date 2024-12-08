@@ -26,6 +26,8 @@ class CommandsList extends DefaultCommandsList
             UserCommands\Profile\Phone::class,
             UserCommands\Profile\AwaitPhone::class,
 
+            UserCommands\Profile\Languages::class,
+            UserCommands\Profile\AwaitLanguages::class,
 
             UserCommands\SendTelegramEmailVerificationNotification::class,
             UserCommands\SendVerifyTelegramConnection::class,

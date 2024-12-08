@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Admin\Settings;
 
 use App\Jobs\CreateSeedersJob;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute\AttributeSection;
 use App\Models\Report;
@@ -36,7 +36,7 @@ class ReportOptions extends AdminTableLayout implements HasForms, HasTable
         return $table
             ->query(ReportOption::query())
             ->headerActions([
-                SeedAction::make('report_options')
+                CreateSeederAction::make('report_options')
                     ->seedTables([
                         'report_options',
                     ]),

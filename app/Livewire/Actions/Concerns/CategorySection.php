@@ -16,7 +16,7 @@ trait CategorySection
                 Grid::make(2)
                     ->schema([
                         Select::make('categories')
-                            ->helperText("Категории к которым принадлежит атрибут. (можно выбрать несколько)")
+                            ->helperText("КАТЕГОРИИ к которым принадлежит атрибут. (можно выбрать несколько)")
                             ->relationship('categories')
                             ->multiple()
                             ->options(Category::all()->groupBy('parent.name')->map->pluck('name', 'id'))

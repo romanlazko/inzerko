@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Admin\Settings;
 
 use App\Jobs\CreateSeedersJob;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute\AttributeSection;
 use App\Models\HtmlLayout;
@@ -36,7 +36,7 @@ class HtmlLayouts extends AdminTableLayout implements HasForms, HasTable
         return $table
             ->query(HtmlLayout::query())
             ->headerActions([
-                SeedAction::make('html_layouts')
+                CreateSeederAction::make('html_layouts')
                     ->seedTables([
                         'html_layouts',
                     ]),

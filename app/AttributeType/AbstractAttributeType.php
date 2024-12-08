@@ -8,6 +8,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 abstract class AbstractAttributeType
 {
@@ -29,7 +30,7 @@ abstract class AbstractAttributeType
             ?->hiddenLabel(! isset($this->attribute->create_layout['has_label']) OR $this->attribute->create_layout['has_label'] == false);
     }
 
-    public function getCreateSchema(): ?array
+    public function getCreateSchema(): null|Collection|array
     {
         if ($this->isVisible() AND !$this->isHidden() AND isset($this->data[$this->attribute->name]) ) {
             return $this->getSchema();
@@ -38,7 +39,7 @@ abstract class AbstractAttributeType
         return null;
     }
 
-    public function getFakeData()
+    public function getFakeData(): null|Collection|array
     {
         return $this->getFakeSchema();
     }
@@ -128,8 +129,8 @@ abstract class AbstractAttributeType
     }
 
     protected abstract function getFilamentCreateComponent(): ?ViewComponent;
-    protected abstract function getSchema(): ?array;
-    protected abstract function getFakeSchema(): ?array;
+    protected abstract function getSchema(): null|Collection|array;
+    protected abstract function getFakeSchema(): null|Collection|array;
 
     protected abstract function getFilamentFilterComponent(): ?ViewComponent;
     protected abstract function getFilterQuery(Builder $query) : Builder;

@@ -5,7 +5,7 @@ namespace App\Livewire\Pages\Admin\Settings;
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\CreateAttributeAction;
 use App\Livewire\Actions\EditAttributeAction;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute\Attribute;
 use App\Models\Category;
@@ -88,6 +88,7 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                             ->toArray()
                     )
                     ->badge()
+                    ->listWithLineBreaks()
                     ->color('warning'),
 
                 TextColumn::make('group.slug')
@@ -118,7 +119,7 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                     ->grow(false),
             ])
             ->headerActions([
-                SeedAction::make('attributes')
+                CreateSeederAction::make('attributes')
                     ->seedTables([
                         'attributes',
                         'attribute_groups',
@@ -131,6 +132,7 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
             ->actions([
                 EditAttributeAction::make()
                     ->visible($this->roleOrPermission(['update', 'manage'], 'attribute')),
+                    
                 DeleteAction::make('delete')
                     ->hiddenLabel()
                     ->button()

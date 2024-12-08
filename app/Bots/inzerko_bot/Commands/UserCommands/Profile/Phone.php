@@ -23,7 +23,7 @@ class Phone extends Command
 
         $buttons = Inzerko::inlineKeyboard([
             [
-                array("👈 Назад", Email::$command, ''),
+                array("👈 Назад", Profile::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
             ]
         ]);

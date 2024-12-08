@@ -21,7 +21,7 @@ trait NameSection
                     ->schema([
                         KeyValue::make('alterlabels')
                             ->label(__('Label'))
-                            ->helperText("Лейбел атрибута. Будет виден пользователю в виде названия поля.")
+                            ->helperText("ЛЕЙБЕЛ атрибута. Будет виден пользователю в виде названия поля.")
                             ->keyLabel(__('Language'))
                             ->valueLabel(__('Value'))
                             ->columnSpan(2)

@@ -63,6 +63,16 @@ class Attribute extends Model
         return $this->cacheRelation('attribute_options');
     }
 
+    public function attribute_options_by_features(): HasMany
+    {
+        return $this->hasMany(AttributeOption::class)->whereHas('features');
+    }
+
+    public function getAttributeOptionsByFeaturesAttribute(): Collection
+    {
+        return $this->cacheRelation('attribute_options_by_features');
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);

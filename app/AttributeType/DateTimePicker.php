@@ -5,10 +5,9 @@ namespace App\AttributeType;
 use App\Models\Feature;
 use Carbon\Carbon;
 use Filament\Forms\Components\DateTimePicker as ComponentsDateTimePicker;
-use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class DateTimePicker extends BaseAttributeType
 {   
@@ -17,7 +16,7 @@ class DateTimePicker extends BaseAttributeType
         return Carbon::parse($feature?->translated_value['original'])->format('Y-m-d H:i:s');
     }
 
-    protected function getSchema(): array
+    protected function getSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -27,7 +26,7 @@ class DateTimePicker extends BaseAttributeType
         ];
     }
 
-    protected function getFakeSchema(): array
+    protected function getFakeSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,

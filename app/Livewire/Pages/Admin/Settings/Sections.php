@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Admin\Settings;
 
 use App\Jobs\CreateSeedersJob;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute\AttributeSection;
 use App\Models\Seeder;
@@ -25,6 +25,7 @@ use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Columns\TextInputColumn;
 
 class Sections extends AdminTableLayout implements HasForms, HasTable
 {
@@ -41,7 +42,7 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
             ->defaultSort('order_number')
             ->defaultGroup('type')
             ->headerActions([
-                SeedAction::make('attribute_sections')
+                CreateSeederAction::make('attribute_sections')
                     ->seedTables([
                         'attribute_sections',
                     ]),
@@ -84,7 +85,7 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                     ->slideOver(),
             ])
             ->columns([
-                TextColumn::make('order_number')
+                TextInputColumn::make('order_number')
                     ->label('#Order'),
                 TextColumn::make('name')
                     ->description(fn (AttributeSection $attribute_section): string =>  $attribute_section?->slug)

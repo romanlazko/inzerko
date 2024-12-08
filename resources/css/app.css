@@ -38,6 +38,14 @@
     border-radius: 1rem;
 }
 
+.fi-fo-field-wrp-label span{
+    font-weight: 600;
+}
+
+.fi-fo-checkbox-list-option-label, .fi-btn-label{
+    font-weight: 300;
+}
+
 .parent:focus * {
     text-decoration: none;
 }

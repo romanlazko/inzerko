@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Admin\User;
 
 use App\Jobs\CreateSeedersJob;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Seeder;
 use Filament\Forms\Components\Select;
@@ -53,7 +53,7 @@ class Permissions extends AdminTableLayout implements HasForms, HasTable
                     ->dateTime(),
             ])
             ->headerActions([
-                SeedAction::make('permissions')
+                CreateSeederAction::make('permissions')
                     ->seedTables([
                         'permissions',
                         'roles',

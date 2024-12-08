@@ -5,7 +5,7 @@ use Carbon\Carbon;
 use Filament\Tables\Actions\Action;
 use Orangehill\Iseed\Facades\Iseed;
 
-class SeedAction extends Action
+class CreateSeederAction extends Action
 {
     protected array $seedTables = [];
 
@@ -14,7 +14,7 @@ class SeedAction extends Action
         parent::setUp();
 
         $this
-            ->label("Seed {$this->name}: ". $this->getFileCTime($this->name))
+            ->label("Create Seeder ({$this->name}): ". $this->getFileCTime($this->name))
             ->action(function () {
                 foreach ($this->seedTables as $table_name) {
                     Iseed::generateSeed($table_name);
@@ -23,6 +23,7 @@ class SeedAction extends Action
                 $this->label("Seed {$this->name}: ". $this->getFileCTime($this->name));
             })
             ->icon('heroicon-o-circle-stack')
+            ->color('gray')
             ->hidden(app()->environment('production'));
     }
     
