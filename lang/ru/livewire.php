@@ -62,6 +62,11 @@ return [
         'mark_as_sold' => 'Отметить как проданное',
         'mark_as_available' => 'Отметить как доступное',
         'report_reason' => 'Причина жалобы',
-        
+        'images' => 'Фотографии',
+        'description' => 'Описание',
+        'price' => 'Цена',
+        'title' => 'Название',
+        'is_active' => 'Активно',
+        'status' => 'Статус',
     ],
 ];
