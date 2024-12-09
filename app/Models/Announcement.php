@@ -66,6 +66,7 @@ class Announcement extends Model implements HasMedia, Auditable
             $announcement->features()->delete();
             $announcement->channels()->delete();
             $announcement->statuses()->delete();
+            $announcement->reports()->delete();
         });
 
         static::forceDeleted(function (Announcement $announcement) {
@@ -73,6 +74,7 @@ class Announcement extends Model implements HasMedia, Auditable
             $announcement->features()->forceDelete();
             $announcement->channels()->forceDelete();
             $announcement->statuses()->forceDelete();
+            $announcement->reports()->forceDelete();
         });
 
         static::restored(function (Announcement $announcement) {
@@ -83,6 +85,7 @@ class Announcement extends Model implements HasMedia, Auditable
             $announcement->category()->restore();
             $announcement->channels()->restore();
             $announcement->statuses()->restore();
+            $announcement->reports()->restore();
         });
     }
 
