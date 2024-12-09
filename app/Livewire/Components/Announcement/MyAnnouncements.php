@@ -39,12 +39,14 @@ class MyAnnouncements extends Component implements HasForms, HasTable
             ->query(auth()->user()->announcements()->with('features.attribute', 'features.attribute_option', 'media')->getQuery())
             ->columns([
                 SpatieMediaLibraryImageColumn::make('media')
+                    ->label(__('livewire.labels.images'))
                     ->collection('announcements', 'thumb')
                     ->circular()
                     ->stacked()
                     ->limit(2)
                     ->limitedRemainingText(),
                 TextColumn::make('title')
+                    ->label(__('livewire.labels.title'))
                     ->state(fn (Announcement $announcement) => str($announcement->title)->stripTags()->limit(50))
                     ->description(fn (Announcement $announcement) => $announcement->description->stripTags()->limit(100))
                     ->weight(FontWeight::Bold)
@@ -53,13 +55,15 @@ class MyAnnouncements extends Component implements HasForms, HasTable
                     ->extraAttributes(['class' => 'py-2']),
 
                 TextColumn::make('price')
+                    ->label(__('livewire.labels.price'))
                     ->state(fn (Announcement $announcement) => $announcement->price),
 
                 ToggleColumn::make('is_active')
+                    ->label(__('livewire.labels.is_active'))
                     ->disabled(auth()->user()->isBanned()),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('livewire.labels.status'))
                     ->getStateUsing(fn ($record) => $record->status)
                     ->color(fn ($record) => $record->status->filamentColor())
                     ->extraAttributes(['class' => 'py-1'])

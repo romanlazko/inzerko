@@ -59,11 +59,10 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                         ->schema([
                             Textarea::make('info')
                                 ->label(__("Reason"))
-                                ->required()
                                 ->rows(6),
                         ])
                 ])
-                ->action(fn (array $data, Announcement $announcement) => $announcement->reject($data))
+                ->action(fn (array $data, Announcement $announcement) => $announcement->reject($data ?? []))
                 ->color('danger')
                 ->button()
                 ->icon('heroicon-c-no-symbol')
