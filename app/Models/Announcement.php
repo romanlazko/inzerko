@@ -27,8 +27,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use Stringable;
-use Illuminate\Support\Facades\Cache;
-use App\Models\Attribute\AttributeGroup;
 
 class Announcement extends Model implements HasMedia, Auditable
 {
