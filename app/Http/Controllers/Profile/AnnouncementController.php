@@ -25,7 +25,6 @@ use Laravolt\Avatar\Facade as Avatar;
 
 class AnnouncementController extends Controller
 {
-
     public function index(): Response
     {
         return response()
@@ -35,17 +34,6 @@ class AnnouncementController extends Controller
 
     public function create(): Response
     {
-        $chat = auth()->user()->chat;
-
-        try {
-            Inzerko::editMessageReplyMarkup([
-                'chat_id'       => $chat->chat_id,
-                'message_id'    => $chat->latestMessage->message_id,
-            ]);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-
         return response()
             ->view('profile.announcement.create')
             ->header('Cache-Control', 'private, max-age=0, must-revalidate');

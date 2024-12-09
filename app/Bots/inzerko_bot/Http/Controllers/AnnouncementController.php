@@ -2,22 +2,26 @@
 
 namespace App\Bots\inzerko_bot\Http\Controllers;
 
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SearchRequest;
-use App\Models\Announcement;
-use App\Models\Attribute\Attribute;
-use App\Models\Category;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 
 class AnnouncementController extends Controller
 {
     public function create()
     {
-        return view('inzerko_bot::announcement.create');
+        $chat = auth()->user()->chat;
+
+        try {
+            Inzerko::editMessageReplyMarkup([
+                'chat_id'       => $chat->chat_id,
+                'message_id'    => $chat->latestMessage->message_id,
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        return response()
+            ->view('profile.announcement.create')
+            ->header('Cache-Control', 'private, max-age=0, must-revalidate');
     }
 }
