@@ -2,6 +2,7 @@
 
 namespace App\Bots\inzerko_bot\Http\Controllers\Auth;
 
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -19,6 +20,8 @@ class AuthenticatedSessionController extends Controller
             abort(403, 'Invalid credentials. User not found.');
         }
 
+        $this->deleteLastMessageReplyMarkup($user);
+
         Auth::login($user);
         
         return redirect()->route('profile.announcement.create');
@@ -33,5 +36,17 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    private function deleteLastMessageReplyMarkup($user)
+    {
+        try {
+            Inzerko::editMessageReplyMarkup([
+                'chat_id'       => $user->chat->chat_id,
+                'message_id'    => $user->chat->latestMessage->message_id,
+            ]);
+        } catch (\Throwable $th) {
+            abort(403, 'Invalid credentials. User not found.');
+        }
     }
 }
