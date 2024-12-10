@@ -14,15 +14,13 @@ class RichEditor extends BaseAttributeType
             ->label($this->attribute->label)
             ->toolbarButtons([
                 'bold',
-                'bulletList',
                 'italic',
-                'orderedList',
                 'redo',
                 'undo',
             ])
             ->maxLength(1000)
             ->live()
             ->required($this->attribute->is_required)
-            ->dehydrateStateUsing(fn (string $state) => Purifier::purify($state));
+            ->dehydrateStateUsing(fn ($state) => Purifier::purify($state));
     }
 }
