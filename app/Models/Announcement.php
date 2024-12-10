@@ -236,7 +236,7 @@ class Announcement extends Model implements HasMedia, Auditable
     {
         return new SEOData(
             title: $this->title,
-            description: $this->description,
+            description: $this->description->stripTags()->limit(100),
             author: $this->user?->name,
             image: url($this->getFirstMediaUrl('announcements')),
             url: url()->current(),
