@@ -38,15 +38,18 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                 'announcements as published_count' => fn ($query) => $query->status(Status::published),
                 'announcements as await_moderation_count' => fn ($query) => $query->status(Status::await_moderation),
             ]))
+            ->defaultSort('created_at', 'desc')
             ->columns([
-                TextColumn::make('id'),
+                TextColumn::make('id')
+                    ->sortable(),
                 SpatieMediaLibraryImageColumn::make('image')
                     ->collection('avatar')
                     ->conversion('thumb')
                     ->rounded(),
                 TextColumn::make('name')
                     ->description(fn (User $record) => $record?->email)
-                    ->searchable(['name', 'email']),
+                    ->searchable(['name', 'email'])
+                    ->sortable(),
                 TextColumn::make('chat')
                     ->state(fn (User $user) => "{$user?->chat?->first_name} {$user?->chat?->last_name}")
                     ->description(fn (User $record) => "{$record?->chat?->username} ({$record?->chat?->chat_id})"),
@@ -84,7 +87,8 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->state(fn (User $record) => $record?->latestBan ? __('profile.penalty.reasons.' . $record?->latestBan?->comment) : '')
                     ->description(fn (User $record) => $record?->latestBan?->expired_at?->format('d M y')),
                 TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->headerActions([
                 ActionsAction::make('Archive')
@@ -117,15 +121,6 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                             ])->pluck('username', 'id')) 
                             ->searchable()
                             ->unique(ignoreRecord: true),
-
-                        TextInput::make('telegram_token')
-                            ->hidden(fn (Get $get) => is_null($get('telegram_chat_id')))
-                            ->suffixAction(
-                                Action::make('generate')
-                                    ->action(fn (Set $set) => $set('telegram_token', Str::random(8)))
-                                    ->icon('heroicon-o-arrow-path')
-                            )
-                            ->required(),
                     ])
                     ->button()
                     ->hiddenLabel()
