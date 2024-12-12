@@ -24,5 +24,10 @@ use Illuminate\Support\Str;
 
 class Dashboard extends AdminLayout
 {
-    
+    public function render()
+    {
+        abort_if(! $this->roleOrPermission(['admin', 'moderator', 'super-duper-admin']), 403);
+        
+        return view('livewire.pages.dashboard');
+    }
 }
