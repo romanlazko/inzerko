@@ -64,6 +64,7 @@
     <x-filament::badge
         :color="$getColor($state)"
     >
+    {{-- @dump($isDisabled) --}}
         <select 
             x-model="state"
             x-on:change="
@@ -84,6 +85,7 @@
                 isLoading = false
             "
             class="border-none shodow-none py-0 pl-0 bg-transparent text-xs"
+            @disabled($isDisabled)
         >
             @foreach ($getOptions() as $value => $label)
                 <option
