@@ -44,7 +44,8 @@ class Moderation extends AdminAnnouncementTableLayout implements HasForms, HasTa
                 Stack::make([
                     StatusSwitcher::make('current_status')
                         ->options(Status::class)
-                        ->color(fn (Announcement $announcement) => $announcement->current_status?->filamentColor()),
+                        ->color(fn (Announcement $announcement) => $announcement->current_status?->filamentColor())
+                        ->disabled(! $this->roleOrPermission(['super-duper-admin'], 'announcement')),
 
                     TextColumn::make('categories')
                         ->getStateUsing(fn (Announcement $announcement) => $announcement->categories?->pluck('name'))

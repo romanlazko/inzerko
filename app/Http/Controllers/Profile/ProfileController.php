@@ -85,7 +85,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'communication_settings' => ['required', 'array', new AtLeastOneSelected('visible')],
-            'communication_settings.*.phone' => ['required_if_accepted:communication_settings.*.visible', 'nullable', 'phone:CZ'],
+            'communication_settings.*.phone' => ['required_if_accepted:communication_settings.*.visible', 'nullable', 'phone:AUTO'],
             'communication_settings.languages' => ['required', 'array'],
             'communication_settings.languages.*' => ['string', 'in:en,ru,cz'],
         ]);
