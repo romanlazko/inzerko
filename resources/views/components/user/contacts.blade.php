@@ -27,7 +27,7 @@
             <label class="text-gray-500 flex text-sm items-center space-x-1">
                 <x-fab-telegram class="size-5 text-blue-500"/>
                 <a href="https://t.me/{{ str($user?->communication_settings?->telegram?->phone)->replace(' ', '') }}" target="_blank" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
-                    Telegram
+                    {{ str($user?->communication_settings?->telegram?->phone)->replace(' ', '') }}
                 </a>
             </label>
         @endif
@@ -35,8 +35,8 @@
         @if ($user?->communication_settings?->whatsapp?->visible ?? false)
             <label class="text-gray-500 flex text-sm items-center space-x-1">
                 <x-fab-whatsapp-square class="size-5 text-green-500"/>
-                <a href="https://api.whatsapp.com/send?phone={{ str($user?->communication_settings?->whatsapp?->phone)->replace(' ', '') }}" target="_blank" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
-                    WhatsApp
+                <a href="https://wa.me/{{ str($user?->communication_settings?->whatsapp?->phone)->replace(' ', '') }}" target="_blank" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
+                    {{ str($user?->communication_settings?->whatsapp?->phone)->replace(' ', '') }}
                 </a>
             </label>
         @endif
