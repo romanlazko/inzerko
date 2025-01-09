@@ -20,6 +20,7 @@ class CheckboxList extends BaseAttributeType
             ->view('livewire.components.forms.fields.checkbox-list')
             ->label($this->attribute->label)
             ->columns(2)
+            ->gridDirection('row')
             ->options($this->attribute->attribute_options?->sortBy('name')->pluck('name', 'id'));
     }
 }
