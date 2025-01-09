@@ -19,7 +19,6 @@ class CheckboxList extends BaseAttributeType
         return ComponentsCheckboxList::make('attributes.'.$this->attribute->name)
             ->view('livewire.components.forms.fields.checkbox-list')
             ->label($this->attribute->label)
-            ->searchable($this->attribute->attribute_options->count() > 5)
             ->options($this->attribute->attribute_options?->sortBy('name')->pluck('name', 'id'));
     }
 }
