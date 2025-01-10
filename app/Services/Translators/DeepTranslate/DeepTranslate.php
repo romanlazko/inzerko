@@ -47,6 +47,7 @@ class DeepTranslate extends RapidApiTranslator implements RapidApiTranslatorCont
         return Http::withHeaders([
             'x-rapidapi-host' => self::HOST,
             'x-rapidapi-key' => $authKey,
-        ])->asMultipart();
+            'Content-Type' => 'application/json',
+        ]);
     }
 }
