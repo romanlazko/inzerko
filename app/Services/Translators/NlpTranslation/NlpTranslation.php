@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Services\Translators;
+namespace App\Services\Translators\NlpTranslation;
 
 use App\Services\Translators\Contracts\RapidApiTranslatorContract;
+use App\Services\Translators\Contracts\RapidApiTranslatorResponseContract;
+use App\Services\Translators\RapidApiTranslator;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
@@ -33,13 +35,11 @@ class NlpTranslation extends RapidApiTranslator implements RapidApiTranslatorCon
         return $this;
     }
 
-    public function translate(): string
+    public function translate(): RapidApiTranslatorResponseContract
     {
         $response = $this->send();
 
-        $lang = $this->options['to'];
-
-        return $response->translated_text->$lang;
+        return NlpResponse::fromResponse($response);
     }
 
     protected function getClient($authKey): PendingRequest
