@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Admin\Settings;
 
+use App\Filament\Exports\Attribute\AttributeExporter;
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\CreateAttributeAction;
 use App\Livewire\Actions\EditAttributeAction;
@@ -20,6 +21,7 @@ use Filament\Tables\Filters\SelectFilter;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Columns\ToggleColumn;
@@ -141,7 +143,9 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
             ->recordAction('edit')
             ->bulkActions([
                 ForceDeleteBulkAction::make()
-                    ->visible($this->roleOrPermission(['forceDelete', 'manage'], 'attribute'))
+                    ->visible($this->roleOrPermission(['forceDelete', 'manage'], 'attribute')),
+                ExportBulkAction::make()
+                    ->exporter(AttributeExporter::class),
             ])
             ->paginated(false)
             ->persistFiltersInSession()

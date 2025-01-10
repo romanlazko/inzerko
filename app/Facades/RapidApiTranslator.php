@@ -16,7 +16,7 @@ class RapidApiTranslator extends Facade
         $instance = static::getFacadeRoot();
 
         foreach (config('translate.languages') as $key => $locale) {
-            $translated[$key] = $instance->text($text)->to($key)->translate();
+            $translated[$key] = $instance->text($text)->to($key)->translate()->getTranslatedText();
         }
         
         return $translated;
