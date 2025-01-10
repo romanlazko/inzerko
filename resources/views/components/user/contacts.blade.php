@@ -28,6 +28,15 @@
             </label>
         @endif
 
+        @if ($user?->chat?->username ?? false)
+            <label class="text-gray-500 flex text-sm items-center space-x-1">
+                <x-fab-telegram class="size-5 text-blue-500"/>
+                <a href="https://t.me/{{ $user?->chat?->username }}" target="_blank" class="inline-block w-full h-full text-blue-600 hover:underline cursor-pointer">
+                    {{ $user?->chat?->username }}
+                </a>
+            </label>
+        @endif
+
         @if ($user?->communication_settings?->whatsapp?->visible ?? false)
             <label class="text-gray-500 flex text-sm items-center space-x-1">
                 <x-fab-whatsapp-square class="size-5 text-green-500"/>
