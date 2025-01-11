@@ -119,6 +119,16 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                     ->badge()
                     ->color('success')
                     ->grow(false),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->badge()
+                    ->color('gray'),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->badge()
+                    ->color('gray')
             ])
             ->headerActions([
                 CreateSeederAction::make('attributes')

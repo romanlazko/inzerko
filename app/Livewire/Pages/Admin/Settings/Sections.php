@@ -98,7 +98,8 @@ class Sections extends AdminTableLayout implements HasForms, HasTable
                     ]),
                 ToggleColumn::make('is_active'),
                 TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->recordAction('edit')
             ->paginated(false)

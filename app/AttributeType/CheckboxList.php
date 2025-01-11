@@ -17,10 +17,9 @@ class CheckboxList extends BaseAttributeType
     protected function getFilamentFilterComponent(): ?ViewComponent
     {
         return ComponentsCheckboxList::make('attributes.'.$this->attribute->name)
-            ->view('livewire.components.forms.fields.checkbox-list')
+            // ->view('livewire.components.forms.fields.checkbox-list')
             ->label($this->attribute->label)
             ->columns(2)
-            ->gridDirection('row')
             ->options($this->attribute->attribute_options?->sortBy('name')->pluck('name', 'id'));
     }
 }
