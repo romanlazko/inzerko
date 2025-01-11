@@ -30,7 +30,7 @@ return [
 
     'new_message' => [
         'subject' => 'Nová zpráva',
-        'line_1' => '🆕 Máte novou zprávu k oznámení 🆕',
+        'line_1' => '🆕 Máte novou zprávu k inzerátu 🆕',
         'line_2' => 'Děkujeme, že používáte naši aplikaci!',
         'action' => 'Zobrazit zprávu',
     ],

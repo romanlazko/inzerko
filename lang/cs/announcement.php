@@ -1,9 +1,10 @@
 <?php
 
 return [
-    'create' => 'Vytvořit oznámení',
-    'all' => 'Všechna oznámení:',
-    'similar' => 'Podobná oznámení:',
+    'create' => 'Vytvořit inzerát',
+    'all' => 'Všechny inzeráty:',
+    'similar' => 'Podobné inzeráty:',
     'category' => 'Kategorie:',
     'sort_by' => 'Seřadit podle:',
+    'by_search' => 'Inzeráty podle «:search»',
 ];
