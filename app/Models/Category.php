@@ -143,11 +143,6 @@ class Category extends Model implements HasMedia
         ]);
     }
 
-    public function getCacheKey($name): string
-    {
-        return sprintf(strtolower(get_class($this)) . '-%d-' . $name, $this?->id ?? 'default');
-    }
-
     //SCOPES
 
     public function scopeIsActive($query)
