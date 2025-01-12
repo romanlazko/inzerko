@@ -46,6 +46,15 @@ class PriceFromTo extends FromTo
         ];
     }
 
+    protected function getOriginalValue(Feature $feature): mixed
+    {
+        return [
+            'currency' => $feature->attribute_option_id,
+            'from' => $feature->translated_value['original']['from'],
+            'to' => $feature->translated_value['original']['to']
+        ];
+    }
+
     protected function getFilamentCreateComponent(): ?ViewComponent
     {   
         return Grid::make()
