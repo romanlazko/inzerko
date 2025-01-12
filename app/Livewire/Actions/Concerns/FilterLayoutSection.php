@@ -57,6 +57,11 @@ trait FilterLayoutSection
                         TextInput::make('filter_layout.order_number')
                             ->helperText(__("ПОРЯДКОВЫЙ НОМЕР этого атрибута внутри секции"))
                             ->required(),
+
+                        TextInput::make('filter_layout.columns')
+                            ->helperText(__("На какое количество столбиков по горизонтали будет разбиваться атрибут"))
+                            ->required()
+                            ->hidden(fn (Get $get) => $get('filter_layout.type') == 'checkbox_list'),
                     ])
                     ->hidden(fn (Get $get) => $get('filter_layout.type') == 'hidden')
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),
