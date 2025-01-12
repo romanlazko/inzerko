@@ -40,17 +40,23 @@ class ProfileService
 
     public static function addMedia(User $user, $avatar)
     {
-        if (filter_var($avatar, FILTER_VALIDATE_URL)) {
-            return tap($user, function (User $user) use ($avatar) {
-                $user->addMediaFromUrl($avatar)->toMediaCollection('avatar');
-            });
+        try {
+            if (filter_var($avatar, FILTER_VALIDATE_URL)) {
+                return tap($user, function (User $user) use ($avatar) {
+                    $user->addMediaFromUrl($avatar)->toMediaCollection('avatar');
+                });
+            }
+    
+            if ($avatar instanceof \Illuminate\Http\UploadedFile) {
+                return tap($user, function (User $user) use ($avatar) {
+                    $user->addMedia($avatar)->toMediaCollection('avatar');
+                });
+            }
         }
+        catch (\Throwable $th) {
 
-        if ($avatar instanceof \Illuminate\Http\UploadedFile) {
-            return tap($user, function (User $user) use ($avatar) {
-                $user->addMedia($avatar)->toMediaCollection('avatar');
-            });
         }
+        
 
         return tap($user, function (User $user) {
             $user->addMediaFromBase64(Avatar::create($user->name))->toMediaCollection('avatar');
