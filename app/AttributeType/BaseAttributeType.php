@@ -71,7 +71,7 @@ class BaseAttributeType extends AbstractAttributeType
         return $feature->attribute_option?->name ?? $feature->translated_value[app()->getLocale()] ?? $feature->translated_value['original'] ?? null;
     }
 
-    public function getOriginalValue(Feature $feature): mixed
+    protected function getOriginalValue(Feature $feature): mixed
     {
         if ($this->attribute->attribute_options->isNotEmpty()) {
             return $feature->attribute_option_id;
