@@ -41,7 +41,7 @@ class AttributesByCategoryService
             ?->pluck('id')
             ?->toArray();
 
-        $cacheKey = $category->getCacheKey('attributes');
+        $cacheKey = ($category?->slug ?? 'default') . '_category_attributes';
 
         return Cache::remember($cacheKey, config('cache.ttl'), function () use ($categories) {
             return Attribute::when(!$categories, fn ($query) => $query->where('is_always_required', true))
