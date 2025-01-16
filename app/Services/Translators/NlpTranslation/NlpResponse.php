@@ -17,6 +17,8 @@ class NlpResponse implements RapidApiTranslatorResponseContract
 
     public function getTranslatedText(): ?string
     {
-        return data_get($this->response, 'translated_text.to');
+        $to = data_get($this->response, 'to');
+        
+        return data_get($this->response, 'translated_text.'.$to);
     }
 }
