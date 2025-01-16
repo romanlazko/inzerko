@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('rapid-api-translator', function () {
-            return new DeepTranslate(env('RAPID_API_KEY'));
+            return new NlpTranslation(env('RAPID_API_KEY'));
         });
 
         $this->app->bind('bot', function () {
