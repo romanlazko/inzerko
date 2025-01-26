@@ -24,7 +24,7 @@ class AnnouncementController extends Controller
                 "Я помогу тебе создать объявление в каналах *Pozor*."."\n",
             ]);
 
-            return Inzerko::returnInline([
+            Inzerko::returnInline([
                 'text'          => $text,
                 'chat_id'       => $chat->chat_id,
                 'reply_markup'  => $buttons,
