@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
     private function deleteLastMessageReplyMarkup($user)
     {
         try {
-            $buttons = Inzerko::editMessage([
+            $buttons = Inzerko::inlineKeyboard([
                 [array(CreateAnnouncement::getTitle('ru'), CreateAnnouncement::$command, '')],
                 [array(Profile::getTitle('ru'), Profile::$command, '')],
             ]);
@@ -53,7 +53,7 @@ class AuthenticatedSessionController extends Controller
                 "Я помогу тебе создать объявление в каналах *Pozor*."."\n",
             ]);
 
-            Inzerko::returnInline([
+            Inzerko::editMessage([
                 'text'          => $text,
                 'chat_id'       => $user->chat->chat_id,
                 'reply_markup'  => $buttons,
