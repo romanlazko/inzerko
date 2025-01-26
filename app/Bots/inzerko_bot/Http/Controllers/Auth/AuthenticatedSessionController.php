@@ -53,12 +53,11 @@ class AuthenticatedSessionController extends Controller
                 "Я помогу тебе создать объявление в каналах *Pozor*."."\n",
             ]);
 
-            Inzerko::editMessage([
+            Inzerko::sendMessage([
                 'text'          => $text,
                 'chat_id'       => $user->chat->chat_id,
                 'reply_markup'  => $buttons,
                 'parse_mode'    => 'Markdown',
-                'message_id'    => $user->chat->latestMessage->message_id,
             ]);
         } catch (\Throwable $th) {
             abort(403, 'Invalid credentials. User not found.');
