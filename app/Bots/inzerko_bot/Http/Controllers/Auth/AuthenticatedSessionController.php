@@ -2,6 +2,8 @@
 
 namespace App\Bots\inzerko_bot\Http\Controllers\Auth;
 
+use App\Bots\inzerko_bot\Commands\UserCommands\CreateAnnouncement;
+use App\Bots\inzerko_bot\Commands\UserCommands\Profile\Profile;
 use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -41,8 +43,21 @@ class AuthenticatedSessionController extends Controller
     private function deleteLastMessageReplyMarkup($user)
     {
         try {
-            Inzerko::editMessageReplyMarkup([
+            $buttons = Inzerko::inlineKeyboard([
+                [array(CreateAnnouncement::getTitle('ru'), CreateAnnouncement::$command, '')],
+                [array(Profile::getTitle('ru'), Profile::$command, '')],
+            ]);
+
+            $text = implode("\n", [
+                "Привет 👋" ."\n", 
+                "Я помогу тебе создать объявление в каналах *Pozor*."."\n",
+            ]);
+
+            Inzerko::returnInline([
+                'text'          => $text,
                 'chat_id'       => $user->chat->chat_id,
+                'reply_markup'  => $buttons,
+                'parse_mode'    => 'Markdown',
                 'message_id'    => $user->chat->latestMessage->message_id,
             ]);
         } catch (\Throwable $th) {
