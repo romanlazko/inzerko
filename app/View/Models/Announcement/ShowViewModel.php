@@ -24,8 +24,12 @@ class ShowViewModel
 
     private function announcement($announcement)
     {
-        if ((!$announcement->status->isPublished() || !$announcement->is_active) AND $announcement->user?->id != auth()->id()) {
-            abort(404, __('Announcement not found'));
+        if ($announcement->status->isSold() OR !$announcement->is_active) {
+            abort(404, __('This announcement is not current'));
+        }
+
+        if (! $announcement->status->isPublished()) {
+            abort(404, __('This announcement is not published'));
         }
 
         return $announcement->load([
