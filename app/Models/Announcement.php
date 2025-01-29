@@ -203,24 +203,24 @@ class Announcement extends Model implements HasMedia, Auditable
             ?->sortBy('attribute.group_layout.order_number');
     }
 
-    public function getTitleAttribute(): Stringable
+    public function getTitleAttribute(): string
     {
         $features = $this->getFeaturesByGroupName('title');
         
-        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
+        return html_entity_decode($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
-    public function getPriceAttribute(): Stringable
+    public function getPriceAttribute(): string
     {
         $features = $this->getFeaturesByGroupName('price');
 
-        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '))->sanitizeHtml();
+        return html_entity_decode($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
 
-    public function getDescriptionAttribute(): Stringable
+    public function getDescriptionAttribute(): string
     {
         $features = $this->getFeaturesByGroupName('description');
 
-        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '))->sanitizeHtml();
+        return html_entity_decode($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
     
     //SCOPES
