@@ -52,7 +52,7 @@ class Feature extends Model
 
     public function getValueAttribute(): ?string
     {
-        return AttributeFactory::getValueByFeature($this->attribute, $this);
+        return htmlspecialchars_decode(AttributeFactory::getValueByFeature($this->attribute, $this));
     }
 
     public function getOriginalAttribute(): mixed
