@@ -207,20 +207,20 @@ class Announcement extends Model implements HasMedia, Auditable
     {
         $features = $this->getFeaturesByGroupName('title');
         
-        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '))->sanitizeHtml();
+        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
     public function getPriceAttribute(): Stringable
     {
         $features = $this->getFeaturesByGroupName('price');
 
-        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '))->sanitizeHtml();
+        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
 
     public function getDescriptionAttribute(): Stringable
     {
         $features = $this->getFeaturesByGroupName('description');
 
-        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '))->sanitizeHtml();
+        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
     
     //SCOPES
