@@ -1,5 +1,5 @@
 @extends('errors::minimal')
 
-@section('title', __('Announcement is no longer available'))
+@section('title', __('error.410'))
 @section('code', '410')
-@section('message', __('Announcement is no longer available'))
+@section('message', __('error.410'))
