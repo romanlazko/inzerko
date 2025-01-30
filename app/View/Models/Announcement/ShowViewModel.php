@@ -25,11 +25,11 @@ class ShowViewModel
     private function announcement($announcement)
     {
         if ($announcement->status->isSold() OR !$announcement->is_active) {
-            throw new \Exception("Announcement is not active", 404);
+            abort(410);
         }
 
         if (! $announcement->status->isPublished()) {
-            throw new \Exception("Announcement is not published", 410);
+            abort(410);
         }
 
         return $announcement->load([
