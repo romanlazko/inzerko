@@ -25,11 +25,11 @@ class ShowViewModel
     private function announcement($announcement)
     {
         if ($announcement->status->isSold() OR !$announcement->is_active) {
-            abort(400, 'This announcement is not current');
+            abort(410, 'This announcement is not current');
         }
 
         if (! $announcement->status->isPublished()) {
-            abort(400, 'This announcement is not published');
+            abort(410, 'This announcement is not published');
         }
 
         return $announcement->load([
