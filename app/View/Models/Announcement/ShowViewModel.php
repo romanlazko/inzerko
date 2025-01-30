@@ -25,11 +25,11 @@ class ShowViewModel
     private function announcement($announcement)
     {
         if ($announcement->status->isSold() OR !$announcement->is_active) {
-            abort(404, 'Announcement is no longer relevant');
+            abort(404, 'error.410');
         }
 
         if (! $announcement->status->isPublished()) {
-            abort(404, 'Announcement is no longer relevant');
+            abort(404, 'error.410');
         }
 
         return $announcement->load([
