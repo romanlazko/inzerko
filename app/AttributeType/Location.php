@@ -18,12 +18,23 @@ class Location extends BaseAttributeType
         return ComponentsSelect::make('geo_id')
                     ->label(__('livewire.labels.city'))
                     ->placeholder(__('livewire.labels.city'))
-                    ->options(Geo::orderBy('level')->where('country', 'CZ')->limit(10)->get()?->pluck('name', 'id'))
+                    ->options(
+                        Geo::orderBy('population', 'desc')
+                            ->where('country', 'CZ')
+                            ->where(
+                                fn ($query) => $query->where('level', 'PPLA')->orWhere('level', 'PPLC')
+                            )
+                            ->limit(20)
+                            ->get()
+                            ?->pluck('name', 'id')
+                    )
                     ->searchable()
                     ->getSearchResultsUsing(function (string $search) {
-                        return Geo::whereRaw('LOWER(alternames) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                        return Geo::orderBy('population', 'desc')
+                            ->when($search, fn ($query) => $query->search($search))
+                            ->when(! $search, fn ($query) => $query->where('level', 'PPLA')->orWhere('level', 'PPLC'))
                             ->where('country', 'CZ')
-                            ->limit(10)
+                            ->limit(20)
                             ->get()
                             ->pluck('name', 'id');
                     })
