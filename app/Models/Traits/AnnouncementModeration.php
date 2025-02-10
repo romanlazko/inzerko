@@ -3,6 +3,7 @@
 namespace App\Models\Traits;
 
 use App\Enums\Status;
+use App\Jobs\MaskAnnouncementContacts;
 use App\Jobs\PublishAnnouncementJob;
 use App\Jobs\TranslateAnnouncement;
 
@@ -16,6 +17,8 @@ trait AnnouncementModeration
     public function moderate(array|\Throwable|\Error $info = [])
     {
         $result = $this->updateStatus(Status::await_moderation, $info);
+
+        MaskAnnouncementContacts::dispatch($this->id);
 
         return $result;
     }
