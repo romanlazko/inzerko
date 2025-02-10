@@ -26,7 +26,7 @@ class MaskAnnouncementContacts implements ShouldQueue
 
     public function handle(): void
     {
-        // if ($this->announcement->status->isAwaitMaskingContacts()) {
+        if ($this->announcement->status->isAwaitMaskingContacts()) {
             foreach ($this->announcement->features as $feature) {
                 if (is_string($feature->original)) {
                     $text = Pipeline::send($feature->original)
@@ -138,11 +138,15 @@ class MaskAnnouncementContacts implements ShouldQueue
                     ]);
                 }
             }
-        // }
+
+            $this->announcement->maskedContacts([
+                'message' => 'Contacts masked'
+            ]);
+        }
     }
 
-    // public function failed(Throwable $exception): void
-    // {
-    //     $this->announcement->masFailed(['info' => $exception->getMessage()]);
-    // }
+    public function failed(Throwable $exception): void
+    {
+        $this->announcement->maskingContactsFailed(['info' => $exception->getMessage()]);
+    }
 }

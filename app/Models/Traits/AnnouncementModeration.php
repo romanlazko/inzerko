@@ -14,11 +14,38 @@ trait AnnouncementModeration
         return $this->updateStatus(Status::created, $info);
     }
 
+    public function maskContacts(array|\Throwable|\Error $info = [])
+    {
+        $result = $this->updateStatus(Status::await_masking_contacts, $info);
+
+        if ($result) {
+            MaskAnnouncementContacts::dispatch($this->id);
+        }
+
+        return $result;
+    }
+
+    public function maskingContactsFailed(array|\Throwable|\Error $info = [])
+    {
+        $result = $this->updateStatus(Status::masking_contacts_failed, $info);
+
+        return $result;
+    }
+
+    public function maskedContacts(array|\Throwable|\Error $info = [])
+    {
+        $result = $this->updateStatus(Status::masked_contacts, $info);
+
+        if ($result) {
+            $this->moderate($info);
+        }
+
+        return $result;
+    }
+
     public function moderate(array|\Throwable|\Error $info = [])
     {
         $result = $this->updateStatus(Status::await_moderation, $info);
-
-        MaskAnnouncementContacts::dispatch($this->id);
 
         return $result;
     }
