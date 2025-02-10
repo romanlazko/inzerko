@@ -30,7 +30,7 @@ Route::middleware(['guest'])->group(function () {
                 ->name('auth');
 
     Route::post('auth', [AuthenticatedSessionController::class, 'store'])
-                ->middleware(['honey-recaptcha'])
+                // ->middleware(['honey-recaptcha'])
                 ->name('auth.store');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
