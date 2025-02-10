@@ -116,7 +116,18 @@ class MaskAnnouncementContacts implements ShouldQueue
 
                                 return $next($text);
                             },
-                            
+                            function ($text, $next) {
+                                preg_match_all('/@\b[a-zA-Z0-9_]{5,32}\b/u', $text, $matches);
+
+                                foreach ($matches[0] as $username) {
+                                    $username = trim($username);
+
+                                    $maskedUsername = str_repeat('*', strlen($username));
+                                    $text = str_replace($username, $maskedUsername, $text);
+                                }
+
+                                return $next($text);
+                            },
                         ])
                         ->then(fn ($text) => $text);
 
