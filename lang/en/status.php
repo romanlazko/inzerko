@@ -16,4 +16,7 @@ return [
     'sold' => 'Sold',
     'await_telegram_publication' => 'Await telegram publication',
     'published_on_telegram' => 'Published on telegram',
+    'await_masking_contacts' => 'Await masking contacts',
+    'masking_contacts_failed' => 'Masking contacts failed',
+    'masked_contacts' => 'Contacts masked',
 ];

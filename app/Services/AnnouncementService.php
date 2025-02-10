@@ -23,7 +23,7 @@ class AnnouncementService
                 $announcement->features()->createMany(self::getFeatures($announcement->category, $data->attributes));
                 $announcement->channels()->createMany(self::getChannels($announcement));
     
-                $announcement->moderate();
+                $announcement->maskContacts();
             }
 
             return $announcement;
@@ -45,7 +45,7 @@ class AnnouncementService
                 $announcement->features()->createMany(self::getFeatures($announcement->category, $data->attributes));
                 $announcement->channels()->createMany(self::getChannels($announcement));
     
-                $announcement->moderate();
+                $announcement->maskContacts();
             }
 
             return $announcement;

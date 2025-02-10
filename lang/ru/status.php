@@ -16,4 +16,7 @@ return [
     'sold' => 'Продано',
     'await_telegram_publication' => 'Ожидает публикации в Telegram',
     'published_on_telegram' => 'Опубликовано в Telegram',
+    'await_masking_contacts' => 'Ожидает маскировки контактов',
+    'masking_contacts_failed' => 'Маскировка контактов не удалась',
+    'masked_contacts' => 'Контакты замаскированы',
 ];

@@ -5,6 +5,7 @@ return [
     'category' => 'Kategorie',
     'photos' => 'Fotografie',
     'create' => 'Vytvořit',
+    'update' => 'Aktualizovat',
     'features' => 'Vlastnosti',
     'information' => 'Informace',
     'location' => 'Poloha',
