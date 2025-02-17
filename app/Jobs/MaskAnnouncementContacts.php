@@ -38,7 +38,7 @@ class MaskAnnouncementContacts implements ShouldQueue
                                     $email = trim($email);
 
                                     $maskedEmail = preg_replace('/[^@.]/', '*', $email);
-                                    $text = str_replace($email, $maskedEmail, $text);
+                                    $text = str_replace($email, "[HIDDEN EMAIL]", $text);
                                 }
 
                                 return $next($text);
@@ -51,14 +51,14 @@ class MaskAnnouncementContacts implements ShouldQueue
 
                                     if (filter_var($word, FILTER_VALIDATE_EMAIL)) {
                                         $maskedEmail = preg_replace('/[^@.]/', '*', $word);
-                                        $text = str_replace($word, $maskedEmail, $text);
+                                        $text = str_replace($word, "[HIDDEN EMAIL]", $text);
                                     }
                                 }
 
                                 return $next($text);
                             },
                             function ($text, $next) {
-                                $phonePattern = '/(?:(?:\+?\d{1,3})?[\s\-.]?)?(?:\(?\d{2,4}\)?[\s\-.]?)?\d{2,4}[\s\-.]?\d{2,4}[\s\-.]?\d{2,4}/u';
+                                $phonePattern = '/(?:(?:\+?\d{1,4})?(?:\+?\(?\+?\d{1,4})?[\s\-.]?)?(?:\(?\d{2,4}\)?[\s\-.]?)?\d{2,4}[\s\-.]?\d{2,4}[\s\-.]?\d{2,4}/u';
                                 $datePattern = '/\b(?:\d{1,2}[-.\/]\d{1,2}[-.\/]\d{2,4}|\d{4}[-.\/]\d{1,2}[-.\/]\d{1,2})\b/u';
 
                                 preg_match_all($datePattern, $text, $dateMatches);
@@ -69,7 +69,7 @@ class MaskAnnouncementContacts implements ShouldQueue
 
                                     if (!in_array($phone, $dateMatches[0], true)) {
                                         $maskedPhone = str_repeat('*', strlen($phone));
-                                        $text = str_replace($phone, $maskedPhone, $text);
+                                        $text = str_replace($phone, "[HIDDEN PHONE]", $text);
                                     }
                                 }
 
@@ -83,7 +83,7 @@ class MaskAnnouncementContacts implements ShouldQueue
 
                                     if (filter_var($word, FILTER_VALIDATE_URL)) {
                                         $maskedUrl = str_repeat('*', strlen($word));
-                                        $text = str_replace($word, $maskedUrl, $text);
+                                        $text = str_replace($word, "[HIDDEN URL]", $text);
                                     }
                                 }
 
@@ -98,7 +98,7 @@ class MaskAnnouncementContacts implements ShouldQueue
                                     $parsedUrl = parse_url($word);
                                     if (isset($parsedUrl['scheme']) && isset($parsedUrl['host'])) {
                                         $maskedUrl = str_repeat('*', strlen($word));
-                                        $text = str_replace($word, $maskedUrl, $text);
+                                        $text = str_replace($word, "[HIDDEN URL]", $text);
                                     }
                                 }
 
@@ -111,7 +111,7 @@ class MaskAnnouncementContacts implements ShouldQueue
                                     $link = trim($link);
 
                                     $maskedLink = str_repeat('*', strlen($link));
-                                    $text = str_replace($link, $maskedLink, $text);
+                                    $text = str_replace($link, "[HIDDEN LINK]", $text);
                                 }
 
                                 return $next($text);
@@ -123,7 +123,7 @@ class MaskAnnouncementContacts implements ShouldQueue
                                     $username = trim($username);
 
                                     $maskedUsername = str_repeat('*', strlen($username));
-                                    $text = str_replace($username, $maskedUsername, $text);
+                                    $text = str_replace($username, "[HIDDEN USERNAME]", $text);
                                 }
 
                                 return $next($text);
