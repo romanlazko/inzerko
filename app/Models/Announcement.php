@@ -222,6 +222,11 @@ class Announcement extends Model implements HasMedia, Auditable
 
         return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
+
+    public function getRouteAttribute()
+    {
+        return route('announcement.show', $this);
+    }
     
     //SCOPES
 
