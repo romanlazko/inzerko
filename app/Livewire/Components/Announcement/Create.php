@@ -95,6 +95,7 @@ class Create extends Component implements HasForms
                                         ->multiple()
                                         ->reorderable()
                                         ->maxFiles(9)
+                                        ->appendFiles()
                                         ->image()
                                         ->imagePreviewHeight('120')
                                         ->required(),
