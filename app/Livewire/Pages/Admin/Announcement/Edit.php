@@ -82,6 +82,7 @@ class Edit extends AdminEditFormLayout
                                         ->hiddenLabel()
                                         ->reorderable()
                                         ->maxFiles(9)
+                                        ->appendFiles()
                                         ->multiple()
                                         ->image()
                                         ->imagePreviewHeight('120')
