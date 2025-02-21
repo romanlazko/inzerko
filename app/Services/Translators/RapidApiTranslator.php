@@ -49,8 +49,10 @@ abstract class RapidApiTranslator implements RapidApiTranslatorContract
     protected function validateResponse(Response $response): void
     {
         if ($response->failed()) {
-            throw new \Exception('Translation failed');
+            $response->throw();
+            // throw new \Exception('Translation failed');
         }
+
     }
 
     protected abstract function getClient($authKey): PendingRequest;
