@@ -93,6 +93,8 @@ class Create extends Component implements HasForms
                                         ->collection('announcements')
                                         ->hiddenLabel()
                                         ->multiple()
+                                        ->reorderable()
+                                        ->maxFiles(9)
                                         ->image()
                                         ->imagePreviewHeight('120')
                                         ->required(),
