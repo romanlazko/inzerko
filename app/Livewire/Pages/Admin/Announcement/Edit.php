@@ -80,6 +80,8 @@ class Edit extends AdminEditFormLayout
                                     SpatieMediaLibraryFileUpload::make('attachments')
                                         ->collection('announcements')
                                         ->hiddenLabel()
+                                        ->reorderable()
+                                        ->maxFiles(9)
                                         ->multiple()
                                         ->image()
                                         ->imagePreviewHeight('120')
