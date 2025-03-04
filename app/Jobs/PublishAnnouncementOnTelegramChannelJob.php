@@ -57,7 +57,10 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
         app()->setLocale($this->lang);
 
         $buttons = Inzerko::inlineKeyboardWithLink(
-            array('text' => "Посмотреть объявление", 'url' => route('announcement.show', $announcement)),
+            array('text' => "Посмотреть объявление", 'url' => route('announcement.show', [
+                'announcement' => $announcement, 
+                'locale' => 'ru'
+            ])),
         );
 
         $text = $chat->layout->renderBlade(compact('announcement'));
