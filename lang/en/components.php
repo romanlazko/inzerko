@@ -15,7 +15,6 @@ return [
         'messages' => 'Messages',
         'profile' => 'Profile',
         'store' => 'Store',
-        'messages' => 'Messages',
         'admin' => 'Admin',
         'announcements' => 'Announcements',
         'moderation' => 'Moderation',
@@ -43,11 +42,16 @@ return [
         'reports' => 'Reports',
     ],
 
+    'livewire' => [
+        'apply_filters' => 'Apply filters',
+    ],
+
     'user' => [
         'registered' => 'Registered:',
         'languages' => 'Languages:',
         'phone' => 'Phone:',
         'email' => 'Email:',
         'telegram' => 'Telegram:',
+        'contacts' => 'Contacts'
     ],
 ];

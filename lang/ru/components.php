@@ -52,5 +52,6 @@ return [
         'phone' => 'Телефон:',
         'email' => 'Почта:',
         'telegram' => 'Telegram:',
+        'contacts' => 'Контакты',
     ],
 ];

@@ -101,7 +101,7 @@
                                                     </span>
                                                 @endif
                                                 <span class="space-y-3 html">
-                                                    {!! str_replace("******", "<a href='".route('profile.show', $announcement?->user)."'>Контакты тут</a>", $feature->value) !!}
+                                                    {!! str_replace("******", "<a class='text-blue-500 underline' href='".route('profile.show', $announcement?->user)."'>".__('components.user.contacts')."</a>", $feature->value) !!}
                                                 </span>
                                             </li>
                                         @endif
