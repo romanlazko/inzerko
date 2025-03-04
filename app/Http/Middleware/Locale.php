@@ -20,7 +20,19 @@ class Locale {
      */
     public function handle(Request $request, Closure $next)
     {
-        $locale = Auth::user()?->locale ?? session('locale', config('app.locale'));
+        if ($user = auth()->user()) {
+            $locale = $user->locale;
+        } else if ($request->has('locale')) {
+            $validated = $request->validate([
+                'locale' => ['string', 'in:'.implode(',', array_keys(config('translate.languages')))],
+            ]);
+
+            $locale = $validated['locale'];
+
+            session(['locale' => $locale]);
+        } else {
+            $locale = session('locale', config('app.locale'));
+        }
 
         $this->app->setLocale($locale);
 
