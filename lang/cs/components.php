@@ -42,11 +42,16 @@ return [
         'reports' => 'Reports',
     ],
 
+    'livewire' => [
+        'apply_filters' => 'Použít filtry',
+    ],
+
     'user' => [
         'registered' => 'Registrován:',
         'languages' => 'Jazyky:',
         'phone' => 'Telefon:',
         'email' => 'Email:',
         'telegram' => 'Telegram:',
+        'contacts' => 'Kontakty',
     ],
 ];
