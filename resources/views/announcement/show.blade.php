@@ -1,4 +1,4 @@
-{{ header("Cache-Control: private, max-age=0, must-revalidate"); }}
+{{ header("Cache-Control: private, max-age=0, must-revalidate") }}
 
 <x-app-layout :meta="$announcement->getDynamicSEOData()">
     <x-slot name="header">
@@ -101,7 +101,7 @@
                                                     </span>
                                                 @endif
                                                 <span class="space-y-3 html">
-                                                    {!! $feature->value !!}
+                                                    {!! str_replace("******", "<a href='".route('profile.show', $announcement?->user)."'>Контакты тут</a>", $feature->value) !!}
                                                 </span>
                                             </li>
                                         @endif
@@ -112,10 +112,6 @@
                     </div>
                 @endif
             </div>
-
-            {{-- <div class="col-span-1 order-3 h-full bg-red-300 row-span-2">
-
-            </div> --}}
         </div>
     </div>
 </x-app-layout>
