@@ -26,13 +26,6 @@ return new class extends Migration
         });
 
         User::all()->each(function ($user) {
-            $contacts = [
-                [
-                    'type'=> ContactTypeEnum::EMAIL,
-                    'link'=> $user->email,
-                ],
-            ];
-
             foreach ($user->communication_settings ?? [] as $contact => $value) {
                 if ($contact === 'contact_phone' AND !is_null($value->phone)) {
                     $contacts[] = [
@@ -43,7 +36,7 @@ return new class extends Migration
                 
                 if ($contact === 'telegram' AND !is_null($value->phone)) {
                     $contacts[] = [
-                        'type'=> ContactTypeEnum::TELEGRAM,
+                        'type'=> ContactTypeEnum::PHONE,
                         'link'=> $value->phone,
                     ];
                 }
@@ -54,13 +47,6 @@ return new class extends Migration
                         'link'=> $value->phone,
                     ];
                 }
-            }
-
-            if ($user?->chat?->username) {
-                $contacts[] = [
-                    'type'=> ContactTypeEnum::TELEGRAM,
-                    'link'=> $user?->chat?->username,
-                ];
             }
 
             $user->contacts()->createMany($contacts);
