@@ -21,9 +21,13 @@
                 @csrf
     
                 <div>
-                    <x-buttons.primary>
+                    <x-filament::button 
+                        type="submit"
+                        class="w-full"
+                        color="dark"
+                    >
                         {{ __('Resend Verification Email') }}
-                    </x-buttons.primary>
+                    </x-filament::button>
                 </div>
             </form>
     

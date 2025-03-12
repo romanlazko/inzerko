@@ -15,9 +15,14 @@
                 @csrf
     
                 <div>
-                    <x-buttons.primary>
+                    <x-filament::button 
+                        type="submit"
+                        class="w-full"
+                        color="dark"
+                        icon="heroicon-c-arrow-path"
+                    >
                         {{ __('profile.verify_email.resend') }}
-                    </x-buttons.primary>
+                    </x-filament::button>
                 </div>
             </form>
         </div>

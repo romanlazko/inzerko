@@ -48,10 +48,7 @@ class UpdateProfile extends Command
         $validated = $validator->validated();
 
         $user->update([
-            'name' => $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
             'email' => $validated['email'],
-            'locale' => $updates->getFrom()->getLanguageCode(),
-            'telegram_chat_id' => $telegram_chat->id,
             'languages' => $validated['languages'],
         ]);
 
@@ -62,8 +59,6 @@ class UpdateProfile extends Command
                 'link' => $validated['phone']
             ]);
         }
-
-        ProfileService::addMedia($user, Inzerko::getPhoto(['file_id' => $telegram_chat->photo]));
         
         return $this->bot->executeCommand(CreateAnnouncement::$command);
     }

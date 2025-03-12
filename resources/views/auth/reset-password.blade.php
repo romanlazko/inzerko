@@ -31,9 +31,13 @@
         </div>
 
         <div class="text-center space-y-4">
-            <x-buttons.primary class="w-full text-center justify-center">
+            <x-filament::button 
+                type="submit"
+                class="w-full"
+                color="dark"
+            >
                 {{ __('auth.reset_password') }}
-            </x-buttons.primary>
+            </x-filament::button>
         </div>
 
         <hr>

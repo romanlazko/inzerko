@@ -70,6 +70,9 @@ class ContactForm extends Component implements HasForms, HasTable
                             'link' => $data['link'],
                         ]);
                     })
+                    ->modalSubmitAction(fn ($action) => 
+                        $action->icon('heroicon-c-plus-circle')
+                    )
                     ->modalWidth('xl')
                     ->createAnother(false)
             ])

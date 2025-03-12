@@ -42,6 +42,9 @@ class UpdateProfileInformationForm extends Component implements HasForms, HasAct
                     ]),
             ])
             ->modalHeading(__('profile.profile'))
+            ->modalSubmitAction(fn ($action) => 
+                $action->icon('heroicon-s-cloud-arrow-down')
+            )
             ->modalDescription(__('profile.update_profile_information_form.description'))
             ->icon('heroicon-c-pencil-square')
             ->record(auth()->user())

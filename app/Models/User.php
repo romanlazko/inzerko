@@ -200,7 +200,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
 
     public function isProfileFilled(): bool
     {
-        return ! is_null($this->languages) AND $this->contacts->isNotEmpty() AND ! is_null($this->name); 
+        return ! is_null($this->languages) AND ! is_null($this->name); 
     }
 
     public function isSuperAdmin(): bool
