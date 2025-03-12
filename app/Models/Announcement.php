@@ -66,6 +66,7 @@ class Announcement extends Model implements HasMedia, Auditable
             $announcement->features()->delete();
             $announcement->channels()->delete();
             $announcement->statuses()->delete();
+            $announcement->reports()->delete();
         });
 
         static::forceDeleted(function (Announcement $announcement) {
@@ -73,6 +74,7 @@ class Announcement extends Model implements HasMedia, Auditable
             $announcement->features()->forceDelete();
             $announcement->channels()->forceDelete();
             $announcement->statuses()->forceDelete();
+            $announcement->reports()->forceDelete();
         });
 
         static::restored(function (Announcement $announcement) {
@@ -83,6 +85,7 @@ class Announcement extends Model implements HasMedia, Auditable
             $announcement->category()->restore();
             $announcement->channels()->restore();
             $announcement->statuses()->restore();
+            $announcement->reports()->restore();
         });
     }
 
@@ -186,41 +189,43 @@ class Announcement extends Model implements HasMedia, Auditable
         return $this->category?->parentsAndSelf;
     }
 
-    public function getSectionByName(string $name): ?Collection
+    public function getFeaturesBySectionName(string $name): ?Collection
     {
         return $this->features->groupBy('attribute.showSection.slug')
             ?->get($name)
             ?->sortBy('attribute.show_layout.order_number');
     }
 
-
-    public function getGroupByName(string $name): ?Collection
+    public function getFeaturesByGroupName(string $name): ?Collection
     {
         return $this->features->groupBy('attribute.group.slug')
             ?->get($name)
             ?->sortBy('attribute.group_layout.order_number');
-
-        return $group;
     }
 
     public function getTitleAttribute(): Stringable
     {
-        $group = $this->getGroupByName('title');
+        $features = $this->getFeaturesByGroupName('title');
         
-        return str($group?->pluck('value')->implode(' '));
+        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
     public function getPriceAttribute(): Stringable
     {
-        $group = $this->getGroupByName('price');
+        $features = $this->getFeaturesByGroupName('price');
 
-        return str($group?->pluck('value')->implode(' '));
+        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
     }
 
     public function getDescriptionAttribute(): Stringable
     {
-        $group = $this->getGroupByName('description');
+        $features = $this->getFeaturesByGroupName('description');
 
-        return str($group?->pluck('value')->implode(' '))->sanitizeHtml();
+        return str($features?->pluck('value')->implode($features->first()->attribute->group?->separator . ' '));
+    }
+
+    public function getRouteAttribute()
+    {
+        return route('announcement.show', $this);
     }
     
     //SCOPES
@@ -236,7 +241,7 @@ class Announcement extends Model implements HasMedia, Auditable
     {
         return new SEOData(
             title: $this->title,
-            description: $this->description,
+            description: $this->description->stripTags()->limit(100),
             author: $this->user?->name,
             image: url($this->getFirstMediaUrl('announcements')),
             url: url()->current(),

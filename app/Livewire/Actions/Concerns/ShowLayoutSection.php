@@ -36,7 +36,7 @@ trait ShowLayoutSection
                     ->schema([
                         Select::make('show_layout.section_id')
                             ->label('Section')
-                            ->helperText(__('Секция в которой будет находится этот атрибут'))
+                            ->helperText(__('СЕКЦИЯ в которой будет находится этот атрибут'))
                             ->relationship(name: 'showSection', modifyQueryUsing: fn (Builder $query) => $query->where('type', 'show')->orderBy('order_number'))
                             ->getOptionLabelFromRecordUsing(fn (AttributeSection $record) => "#{$record->order_number} - {$record->name} ({$record->slug})")
                             ->columnSpanFull()
@@ -49,15 +49,18 @@ trait ShowLayoutSection
                             ]),
 
                         TextInput::make('show_layout.order_number')
-                            ->helperText(__("Порядковый номер этого атрибута внутри секции"))
+                            ->helperText(__("ПОРЯДКОВЫЙ НОМЕР этого атрибута внутри секции"))
                             ->required(),
                     ])
                     ->hidden(fn (Get $get) => $get('show_layout.type') == 'hidden')
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),
                 Grid::make(3)
                     ->schema([
+                        Toggle::make('is_feature')
+                            ->helperText(__("Является ли этот атрибут ХАРАКТЕРИСТИКОЙ")),
+
                         Toggle::make('show_layout.has_label')
-                            ->helperText(__("Будет ли отображаться имя этого атрибута внутри секции")),
+                            ->helperText(__("Будет ли отображаться ЛЕЙБЕЛ этого атрибута внутри секции")),
                     ])
                     ->hidden(fn (Get $get) => $get('show_layout.type') == 'hidden')
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),

@@ -24,8 +24,12 @@ class ShowViewModel
 
     private function announcement($announcement)
     {
-        if ((!$announcement->status->isPublished() || !$announcement->is_active) AND $announcement->user?->id != auth()->id()) {
-            abort(404, __('Announcement not found'));
+        if ($announcement->status->isSold() OR !$announcement->is_active) {
+            abort(404, 'error.410');
+        }
+
+        if (! $announcement->status->isPublished()) {
+            abort(404, 'error.410');
         }
 
         return $announcement->load([
@@ -36,8 +40,6 @@ class ShowViewModel
             'features:announcement_id,attribute_id,attribute_option_id,translated_value', 
             'features.attribute:id,name,alterlabels,is_feature,altersuffixes,alterprefixes,show_layout,group_layout,is_active',
             'features.attribute_option:id,alternames',
-            'features.attribute.showSection:id,alternames,order_number,slug',
-            'features.attribute.group:id,slug,separator',
             'category:id,slug,alternames,parent_id',
         ]);
     }

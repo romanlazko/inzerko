@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
@@ -24,7 +25,6 @@ use Laravolt\Avatar\Facade as Avatar;
 
 class AnnouncementController extends Controller
 {
-
     public function index(): Response
     {
         return response()

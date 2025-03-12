@@ -62,5 +62,11 @@ return [
         'mark_as_sold' => 'Mark as sold',
         'mark_as_available' => 'Mark as available',
         'report_reason' => 'Report reason',
+        'images' => 'Images',
+        'description' => 'Description',
+        'price' => 'Price',
+        'title' => 'Title',
+        'is_active' => 'Active',
+        'status' => 'Status',
     ],
 ];

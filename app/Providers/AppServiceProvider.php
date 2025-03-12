@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\Translators\NlpTranslation;
-use DeepL\Translator;
-use Filament\Support\Assets\AlpineComponent;
+use App\Services\Translators\DeepTranslate\DeepTranslate;
+use App\Services\Translators\NlpTranslation\NlpTranslation;
 use Filament\Support\Assets\Css;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentAsset;
@@ -12,8 +11,6 @@ use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Assets\Js;
 use HTMLPurifier;
 use HTMLPurifier_Config;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Opcodes\LogViewer\Facades\LogViewer;
 use Romanlazko\Telegram\App\Bot;
@@ -58,6 +55,11 @@ class AppServiceProvider extends ServiceProvider
             'warning' => Color::Amber,
             'neutral' => Color::Neutral,
             'white' => Color::hex('#ffffff'),
+            'pink' => Color::Pink,
+            'orange' => Color::Orange,
+            'dark' => Color::hex('#1f2937'),
+            'slate' => Color::Slate,
+            'stone' => Color::Stone,
         ]);
 
         FilamentAsset::register([

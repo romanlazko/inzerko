@@ -25,7 +25,7 @@ trait FilterLayoutSection
                         Select::make('filter_layout.type')
                             ->options($this->type_options)
                             ->required()
-                            ->helperText("Тип атрибута при поиске.")
+                            ->helperText("ТИП атрибута при поиске.")
                             ->columnSpanFull()
                             ->live(),
                     ])
@@ -35,7 +35,7 @@ trait FilterLayoutSection
                     ->schema([
                         Select::make('filter_layout.section_id')
                             ->label('Section')
-                            ->helperText(__('Секция в которой будет находится этот атрибут'))
+                            ->helperText(__('СЕКЦИЯ в которой будет находится этот атрибут'))
                             ->relationship(name: 'filterSection', modifyQueryUsing: fn (Builder $query) => $query->orderBy('order_number')->where('type', 'filter'))
                             ->getOptionLabelFromRecordUsing(fn (AttributeSection $record) => "#{$record->order_number} - {$record->name} ({$record->slug})")
                             ->columnSpanFull()
@@ -47,16 +47,21 @@ trait FilterLayoutSection
                                 $this->getAttributeSectionFormSection()
                             ]),
                         TextInput::make('filter_layout.column_span')
-                            ->helperText(__("Сколько места по ширине, внутри секции, будет занимать этот атрибут (от 1 до 4)"))
+                            ->helperText(__("СКОЛЬКО МЕСТА ПО ШИРИНЕ, внутри секции, будет занимать этот атрибут (от 1 до 4)"))
                             ->required(),
 
                         TextInput::make('filter_layout.column_start')
-                            ->helperText(__("В каком месте (слева или справа) будет находиться этот атрибут в секции (от 1 до 4)"))
+                            ->helperText(__("В КАКОМ МЕСТЕ (слева или справа) будет находиться этот атрибут в секции (от 1 до 4)"))
                             ->required(),
 
                         TextInput::make('filter_layout.order_number')
-                            ->helperText(__("Порядковый номер этого атрибута внутри секции"))
+                            ->helperText(__("ПОРЯДКОВЫЙ НОМЕР этого атрибута внутри секции"))
                             ->required(),
+
+                        TextInput::make('filter_layout.columns')
+                            ->helperText(__("На какое количество столбиков по горизонтали будет разбиваться атрибут"))
+                            ->required()
+                            ->visible(fn (Get $get) => $get('filter_layout.type') == 'checkbox_list'),
                     ])
                     ->hidden(fn (Get $get) => $get('filter_layout.type') == 'hidden')
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),
@@ -64,9 +69,9 @@ trait FilterLayoutSection
                 Grid::make(3)
                     ->schema([
                         Toggle::make('is_always_required')
-                            ->helperText(__("Является ли этот атрибут характеристикой")),
+                            ->helperText(__("ВСЕГДА ПОКАЗЫВАТЬ вне зависимости от категории")),
                         Toggle::make('filter_layout.has_label')
-                            ->helperText(__("Будет ли отображаться имя этого атрибута внутри секции"))
+                            ->helperText(__("Будет ли отображаться ЛЕЙБЕЛ этого атрибута внутри секции"))
                     ])
                     ->hidden(fn (Get $get) => $get('filter_layout.type') == 'hidden')
                     ->extraAttributes(['class' => 'bg-gray-100 p-4 rounded-lg border border-gray-200']),

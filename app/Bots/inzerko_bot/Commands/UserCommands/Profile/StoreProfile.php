@@ -4,6 +4,7 @@ namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\CreateAnnouncement;
 use App\Bots\inzerko_bot\Facades\Inzerko;
+use App\Enums\ContactTypeEnum;
 use App\Models\User;
 use App\Services\ProfileService;
 use Illuminate\Support\Facades\Validator;
@@ -20,9 +21,9 @@ class StoreProfile extends Command
     public static $command = 'store_profile';
 
     public static $title = [
-        'en' => 'Store profile',
-        'ru' => 'Создать профиль',
-        'cs' => 'Ulozit profil',
+        'en' => '💾 Save profile',
+        'ru' => '💾 Сохранить профиль',
+        'cs' => '💾 Ulozit profil',
     ];
 
     public static $usage = ['store_profile'];
@@ -47,18 +48,21 @@ class StoreProfile extends Command
 
         $validated = $validator->validated();
 
-        $user = ProfileService::create(
-            name: $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
-            email: $validated['email'],
-            locale: $updates->getFrom()->getLanguageCode(),
-            telegram_chat_id: $telegram_chat->id,
-            communication_settings: [
-                'telegram' => [
-                    'phone' => $notes['phone'],
-                    'visible' => true,
-                ]
-            ]
-        );
+        $user = User::create([
+            'name' => $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
+            'email' => $validated['email'],
+            'locale' => $updates->getFrom()->getLanguageCode(),
+            'telegram_chat_id' => $telegram_chat->id,
+            'languages' => $validated['languages'],
+        ]);
+
+        if ($validated['phone']) {
+            $user->contacts()->updateOrCreate([
+                'type' => ContactTypeEnum::PHONE
+            ], [
+                'link' => $validated['phone']
+            ]);
+        }
 
         ProfileService::addMedia($user, Inzerko::getPhoto(['file_id' => $telegram_chat->photo]));
 
@@ -71,11 +75,13 @@ class StoreProfile extends Command
             $data, 
             [
                 'email' => 'required|email|unique:users,email',
-                'phone' => 'required|phone:AUTO',
+                'phone' => 'nullable|phone:AUTO',
+                'languages' => ['required', 'array'],
+                'languages.*' => ['string', 'in:en,ru,cz'],
             ],
             [
                 'email.required' => 'Поле e-mail обязательно к заполнению',
-                'phone.required' => 'Поле телефона обязательно к заполнению',
+                'languages.required' => 'Поле языков обязательно к заполнению',
             ]
         );
     }

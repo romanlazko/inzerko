@@ -39,6 +39,7 @@ return [
         'archive' => 'Архив',
         'report_options' => 'Опции жалобы',
         'html_layouts' => 'Html шаблоны',
+        'reports' => 'Reports',
     ],
 
     'livewire' => [
@@ -51,5 +52,6 @@ return [
         'phone' => 'Телефон:',
         'email' => 'Почта:',
         'telegram' => 'Telegram:',
+        'contacts' => 'Контакты',
     ],
 ];

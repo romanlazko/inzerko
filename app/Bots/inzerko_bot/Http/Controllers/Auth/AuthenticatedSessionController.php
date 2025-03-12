@@ -2,6 +2,9 @@
 
 namespace App\Bots\inzerko_bot\Http\Controllers\Auth;
 
+use App\Bots\inzerko_bot\Commands\UserCommands\CreateAnnouncement;
+use App\Bots\inzerko_bot\Commands\UserCommands\Profile\Profile;
+use App\Bots\inzerko_bot\Facades\Inzerko;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -19,6 +22,8 @@ class AuthenticatedSessionController extends Controller
             abort(403, 'Invalid credentials. User not found.');
         }
 
+        $this->deleteLastMessageReplyMarkup($user);
+
         Auth::login($user);
         
         return redirect()->route('profile.announcement.create');
@@ -33,5 +38,29 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    private function deleteLastMessageReplyMarkup($user)
+    {
+        try {
+            $buttons = Inzerko::inlineKeyboard([
+                [array(CreateAnnouncement::getTitle('ru'), CreateAnnouncement::$command, '')],
+                [array(Profile::getTitle('ru'), Profile::$command, '')],
+            ]);
+
+            $text = implode("\n", [
+                "Привет 👋" ."\n", 
+                "Я помогу тебе создать объявление в каналах *Pozor*."."\n",
+            ]);
+
+            Inzerko::sendMessage([
+                'text'          => $text,
+                'chat_id'       => $user->chat->chat_id,
+                'reply_markup'  => $buttons,
+                'parse_mode'    => 'Markdown',
+            ]);
+        } catch (\Throwable $th) {
+            abort(403, 'Invalid credentials. User not found.');
+        }
     }
 }

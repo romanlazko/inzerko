@@ -11,6 +11,8 @@ class Config
         return [
             'inline_data'       => [
                 'languages'    => null,
+                'contact_type' => null,
+                'temp'         => null,
             ],
             'lang'              => 'ru',
             'admin_ids'         => [

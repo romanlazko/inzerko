@@ -11,7 +11,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Romanlazko\Telegram\Models\TelegramChat;
 
-class VerificationSuccessNotification extends Notification implements ShouldQueue
+class VerificationSuccessNotification extends Notification
 {
     use Queueable;
 

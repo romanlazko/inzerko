@@ -25,21 +25,18 @@ return [
     ],
 
     'update_communication_information_form' => [
-        'title' => 'Update Communication Information',
-        'description' => 'Update your account\'s communication information.',
-        'languages' => 'Select languages you speak',
+        'title' => 'Communication information',
+        'description' => 'Other users will be able to contact you using these contacts.',
+        'add_contact' => 'Add contact',
+        'empty_state_heading' => 'No contact has been added',
+    ],
+
+    'update_languages_information_form' => [
+        'title' => 'Select languages you speak',
+        'description' => 'Other users will know in which language to address you',
         'english' => 'English',
         'russian' => 'Russian',
         'czech' => 'Czech',
-        'contact_information' => 'Contact Information',
-        'contact_phone' => 'Phone number to call',
-        'contact_phone_hint' => 'Users will be able to call you by this phone number',
-        'telegram' => 'Telegram',
-        'telegram_phone' => 'Phone number in Telegram',
-        'telegram_phone_hint' => 'Users will be able to find you in Telegram by this phone number',
-        'whatsapp' => 'WhatsApp',
-        'whatsapp_phone' => 'Phone number in WhatsApp',
-        'whatsapp_phone_hint' => 'Users will be able to find you in WhatsApp by this phone number',
     ],
 
     'update_telegram_information_form' => [

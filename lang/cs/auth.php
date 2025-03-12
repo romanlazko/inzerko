@@ -29,7 +29,8 @@ return [
     'forgot_password_title' => 'Zapomněli jste heslo? Žádný problém. Stačí nám sdělit vaši e-mailovou adresu a pošleme vám odkaz na obnovení hesla, který vám umožní vybrat si nové.',
 
     'telegram' => [
-        'verified' => 'Telegram účet ověřen'
+        'verified' => 'Telegram účet ověřen',
+        'disconnected' => 'Telegram účet odpojěn',
     ],
 
     'verify_email_link_sent' => 'Na vaši e-mailovou adresu byl odeslán nový ověřovací odkaz.',

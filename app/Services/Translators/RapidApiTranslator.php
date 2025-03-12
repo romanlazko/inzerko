@@ -3,7 +3,9 @@
 namespace App\Services\Translators;
 
 use App\Services\Translators\Contracts\RapidApiTranslatorContract;
+use App\Services\Translators\Contracts\RapidApiTranslatorResponseContract;
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\Response;
 
 abstract class RapidApiTranslator implements RapidApiTranslatorContract
 {
@@ -24,10 +26,12 @@ abstract class RapidApiTranslator implements RapidApiTranslatorContract
 
         $response = $this->client->post($this->url, $this->options);
 
-        return $this->executeResponse($response);
+        $this->validateResponse($response);
+
+        return $response;
     }
 
-    protected function validate()
+    protected function validate(): void
     {
         if (!$this->client) {
             throw new \Exception('Client not set');
@@ -42,22 +46,14 @@ abstract class RapidApiTranslator implements RapidApiTranslatorContract
         }
     }
 
-    protected function executeResponse($response): Response
+    protected function validateResponse(Response $response): void
     {
         if ($response->failed()) {
-            throw new \Exception($response->body());
+            $response->throw();
+            // throw new \Exception('Translation failed');
         }
 
-        return Response::fromResponse($response->json());
     }
-
-    public abstract function text($sourceText): self;
-
-    public abstract function from($sourceLang): self;
-
-    public abstract function to($targetLang): self;
-
-    public abstract function translate(): string;
 
     protected abstract function getClient($authKey): PendingRequest;
 }

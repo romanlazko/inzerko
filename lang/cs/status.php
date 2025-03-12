@@ -16,4 +16,7 @@ return [
     'sold' => 'Prodáno',
     'await_telegram_publication' => 'Čeká na publikaci na Telegramu',
     'published_on_telegram' => 'Publikováno na Telegramu',
+    'await_masking_contacts' => 'Čeká na zmasování kontaktů',
+    'masking_contacts_failed' => 'Zmasování kontaktů selhalo',
+    'masked_contacts' => 'Kontakty zmasovány',
 ];

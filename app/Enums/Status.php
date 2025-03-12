@@ -22,6 +22,9 @@ enum Status: int implements HasLabel
     case sold = 13;
     case await_telegram_publication = 14;
     case published_on_telegram = 15;
+    case await_masking_contacts = 16;
+    case masking_contacts_failed = 17;
+    case masked_contacts = 18;
 
     public function isCreated(): bool
     {
@@ -108,6 +111,21 @@ enum Status: int implements HasLabel
         return $this === static::sold;
     }
 
+    public function isAwaitMaskingContacts(): bool
+    {
+        return $this === static::await_masking_contacts;
+    }
+
+    public function isMaskingContactsFailed(): bool
+    {
+        return $this === static::masking_contacts_failed;
+    }
+
+    public function isMaskedContacts(): bool
+    {
+        return $this === static::masked_contacts;
+    }
+
     public function color()
     {
         $status = $this->publicStatus();
@@ -128,6 +146,9 @@ enum Status: int implements HasLabel
             self::publishing_failed => 'red',
             self::published => 'green',
             self::sold => 'green',
+            self::await_masking_contacts => 'orange',
+            self::masking_contacts_failed => 'red',
+            self::masked_contacts => 'green',
             default => 'gray',
         };
     }
@@ -152,6 +173,9 @@ enum Status: int implements HasLabel
             self::publishing_failed => 'danger',
             self::published => 'success',
             self::sold => 'info',
+            self::await_masking_contacts => 'warning',
+            self::masking_contacts_failed => 'danger',
+            self::masked_contacts => 'success',
             default => 'gray',
         };
     }

@@ -9,6 +9,7 @@ use Filament\Support\Components\ViewComponent;
 use Filament\Forms\Components\Select as ComponentsSelect;
 use Illuminate\Support\Number;
 use Guava\FilamentClusters\Forms\Cluster;
+use Illuminate\Support\Collection;
 
 class PriceFromTo extends FromTo
 {
@@ -17,7 +18,7 @@ class PriceFromTo extends FromTo
         return Number::format($feature->translated_value['original']['from'], locale: 'cs') . ' - ' . Number::format($feature->translated_value['original']['to'], locale: 'cs')  . ' ' . $feature->attribute_option?->name;
     }
 
-    protected function getSchema(): array
+    protected function getSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -31,7 +32,7 @@ class PriceFromTo extends FromTo
         ];
     }
 
-    protected function getFakeSchema(): array
+    protected function getFakeSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -42,6 +43,15 @@ class PriceFromTo extends FromTo
                     'to' => fake()->numberBetween(1000, 2000),
                 ],
             ],
+        ];
+    }
+
+    protected function getOriginalValue(Feature $feature): mixed
+    {
+        return [
+            'currency' => $feature->attribute_option_id,
+            'from' => $feature->translated_value['original']['from'],
+            'to' => $feature->translated_value['original']['to']
         ];
     }
 

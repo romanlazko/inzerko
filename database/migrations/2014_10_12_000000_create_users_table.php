@@ -31,6 +31,7 @@ return new class extends Migration
 
             $table->rememberToken();
 
+            $table->timestamp('banned_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

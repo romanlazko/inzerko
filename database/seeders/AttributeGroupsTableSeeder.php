@@ -25,7 +25,7 @@ class AttributeGroupsTableSeeder extends Seeder
                 'slug' => 'price',
                 'separator' => NULL,
                 'created_at' => '2024-10-07 21:50:41',
-                'updated_at' => '2024-10-07 21:50:41',
+                'updated_at' => '2024-12-07 13:21:36',
                 'deleted_at' => NULL,
             ),
             1 => 

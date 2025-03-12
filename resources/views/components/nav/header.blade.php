@@ -29,20 +29,18 @@
 					<x-heroicon-s-user class="size-5"/>
 				</x-nav.link>
 			@else
-				{{-- <a href="{{ route('register') }}" class="hover:text-indigo-700">
-					{{ __("components.navigation.register") }}
-				</a>
-				<a href="{{ route('login') }}" class="hover:text-indigo-700">
-					{{ __("components.navigation.login") }}
-				</a> --}}
 				<x-nav.link href="{{ route('login') }}" aria-label="Profile">
 					<x-heroicon-m-arrow-right-end-on-rectangle class="size-7"/>
 				</x-nav.link>
 			@endauth
-			
-			<x-a-buttons.create href="{{ route('profile.announcement.create') }}" class="">
+
+			<x-filament::button
+				icon="heroicon-c-plus-circle"
+				tag="a"
+				href="{{ route('profile.announcement.create') }}"
+			>
 				{{ __("components.navigation.create_new") }}
-			</x-a-buttons.create>
+			</x-filament::button>
 		</div>
 	</div>
 

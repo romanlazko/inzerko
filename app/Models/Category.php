@@ -129,26 +129,18 @@ class Category extends Model implements HasMedia
 
     public function getParentsAndSelfAttribute(): Collection
     {
-        $cacheKey = $this?->slug.'_category_parents_and_self';
-        
-        return Cache::remember($cacheKey, config('cache.ttl'), function () {
-            return collect([
-                $this,
-                ...$this->parent?->parentsAndSelf ?? []
-            ]);
-        });
+        return collect([
+            $this,
+            ...$this->parent?->parentsAndSelf ?? []
+        ]);
     }
 
     public function getChildrenAndSelfAttribute(): Collection
     {
-        $cacheKey = $this?->slug.'_category_children_and_self';
-
-        return Cache::remember($cacheKey, config('cache.ttl'), function () {
-            return collect([
-                $this,
-                ...$this->children->map(fn ($child) => $child->childrenAndSelf)->flatten()
-            ]);
-        });
+        return collect([
+            $this,
+            ...$this->children->map(fn ($child) => $child->childrenAndSelf)->flatten()
+        ]);
     }
 
     //SCOPES

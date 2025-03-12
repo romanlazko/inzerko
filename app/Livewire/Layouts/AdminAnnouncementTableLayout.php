@@ -59,11 +59,10 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                         ->schema([
                             Textarea::make('info')
                                 ->label(__("Reason"))
-                                ->required()
                                 ->rows(6),
                         ])
                 ])
-                ->action(fn (array $data, Announcement $announcement) => $announcement->reject($data))
+                ->action(fn (array $data, Announcement $announcement) => $announcement->reject($data ?? []))
                 ->color('danger')
                 ->button()
                 ->icon('heroicon-c-no-symbol')
@@ -270,11 +269,13 @@ abstract class AdminAnnouncementTableLayout extends AdminTableLayout
                         ),
                 ])
                 ->query(function ($query, array $data) {
-                    return $query->when($data['current_status'], fn ($query) => $query->where('current_status', $data['current_status']));
+                    return $query
+                        ->when($data['current_status'], fn ($query) => $query->where('current_status', $data['current_status']))
+                        ->when(! $data['current_status'], fn ($query) => $query->where('current_status', Status::await_moderation));
                 })
                 ->indicateUsing(function (array $data): ?string {
                     if (! $data['current_status']) {
-                        return null;
+                        return 'Status: ' . Status::await_moderation->getLabel();
                     }
              
                     return 'Status: ' . Status::from($data['current_status'])->getLabel();

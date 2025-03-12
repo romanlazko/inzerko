@@ -24,9 +24,12 @@ class MenuCommand extends Command
 
     public function execute(Update $updates): Response
     {
+        $this->getConversation()->clear();
+
         $buttons = Inzerko::inlineKeyboard([
             [array(CreateAnnouncement::getTitle('ru'), CreateAnnouncement::$command, '')],
             [array(Profile::getTitle('ru'), Profile::$command, '')],
+            [array(DefaultCommand::getTitle('ru'), DefaultCommand::$command, '')],
         ]);
 
         $text = implode("\n", [

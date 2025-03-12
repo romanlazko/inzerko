@@ -72,11 +72,11 @@ class NewMessage extends Notification implements ShouldQueue
     public function shouldSend(object $notifiable, string $channel): bool
     {
         if ($channel === InzerkoChannel::class) {
-            return ($notifiable->notification_settings?->telegram ?? false) AND $this->unreadMessagesCount($notifiable);
+            return ($notifiable->notification_settings['telegram'] ?? false) AND $this->unreadMessagesCount($notifiable);
         }
 
         if ($channel === 'mail') {
-            return ($notifiable->notification_settings?->email ?? false) AND $this->unreadMessagesCount($notifiable);
+            return ($notifiable->notification_settings['email'] ?? false) AND $this->unreadMessagesCount($notifiable);
         }
 
         return false;

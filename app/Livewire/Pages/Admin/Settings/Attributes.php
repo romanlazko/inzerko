@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Pages\Admin\Settings;
 
+use App\Filament\Exports\Attribute\AttributeExporter;
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\CreateAttributeAction;
 use App\Livewire\Actions\EditAttributeAction;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute\Attribute;
 use App\Models\Category;
@@ -20,6 +21,7 @@ use Filament\Tables\Filters\SelectFilter;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Columns\ToggleColumn;
@@ -88,6 +90,7 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                             ->toArray()
                     )
                     ->badge()
+                    ->listWithLineBreaks()
                     ->color('warning'),
 
                 TextColumn::make('group.slug')
@@ -116,9 +119,19 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
                     ->badge()
                     ->color('success')
                     ->grow(false),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->badge()
+                    ->color('gray'),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->badge()
+                    ->color('gray')
             ])
             ->headerActions([
-                SeedAction::make('attributes')
+                CreateSeederAction::make('attributes')
                     ->seedTables([
                         'attributes',
                         'attribute_groups',
@@ -131,6 +144,7 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
             ->actions([
                 EditAttributeAction::make()
                     ->visible($this->roleOrPermission(['update', 'manage'], 'attribute')),
+                    
                 DeleteAction::make('delete')
                     ->hiddenLabel()
                     ->button()
@@ -139,7 +153,9 @@ class Attributes extends AdminTableLayout implements HasForms, HasTable
             ->recordAction('edit')
             ->bulkActions([
                 ForceDeleteBulkAction::make()
-                    ->visible($this->roleOrPermission(['forceDelete', 'manage'], 'attribute'))
+                    ->visible($this->roleOrPermission(['forceDelete', 'manage'], 'attribute')),
+                ExportBulkAction::make()
+                    ->exporter(AttributeExporter::class),
             ])
             ->paginated(false)
             ->persistFiltersInSession()

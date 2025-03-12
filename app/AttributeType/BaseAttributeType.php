@@ -3,10 +3,9 @@
 namespace App\AttributeType;
 
 use App\Models\Feature;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class BaseAttributeType extends AbstractAttributeType
 {
@@ -30,7 +29,7 @@ class BaseAttributeType extends AbstractAttributeType
             );
     }
 
-    protected function getSchema(): array
+    protected function getSchema(): null|Collection|array
     {
         if ($this->attribute->attribute_options->isNotEmpty()) {
             return [
@@ -47,7 +46,7 @@ class BaseAttributeType extends AbstractAttributeType
         ];
     }
 
-    protected function getFakeSchema(): array
+    protected function getFakeSchema(): null|Collection|array
     {
         if ($this->attribute->attribute_options->isNotEmpty()) {
             return [
@@ -72,7 +71,7 @@ class BaseAttributeType extends AbstractAttributeType
         return $feature->attribute_option?->name ?? $feature->translated_value[app()->getLocale()] ?? $feature->translated_value['original'] ?? null;
     }
 
-    public function getOriginalValue(Feature $feature): mixed
+    protected function getOriginalValue(Feature $feature): mixed
     {
         if ($this->attribute->attribute_options->isNotEmpty()) {
             return $feature->attribute_option_id;

@@ -24,7 +24,10 @@ class Email extends Command
         $updates->getFrom()->setExpectation(AwaitEmail::$expectation);
         
         $buttons = Inzerko::inlineKeyboard([
-            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
+            [
+                array("👈 Назад", Profile::$command, ''),
+                array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
+            ]
         ]);
 
         $data = [

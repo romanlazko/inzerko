@@ -25,21 +25,18 @@ return [
     ],
 
     'update_communication_information_form' => [
-        'title' => 'Aktualizace komunikačních informací',
-        'description' => 'Aktualizujte komunikační informace vašeho účtu.',
-        'languages' => 'Vyberte jazyky, kterými mluvíte',
+        'title' => 'Komunikační informace',
+        'description' => 'Ostatní uživatelé vás budou moci kontaktovat pomocí těchto kontaktů.',
+        'add_contact' => 'Přidat kontakt',
+        'empty_state_heading' => 'Nebyl přidán žádný kontakt',
+    ],
+
+    'update_languages_information_form' => [
+        'title' => 'Vyberte jazyky, kterými mluvíte',
+        'description' => 'Ostatní uživatelé budou vědět, v jakém jazyce vás mají oslovit.',
         'english' => 'Angličtina',
         'russian' => 'Ruština',
         'czech' => 'Čeština',
-        'contact_information' => 'Kontaktní informace',
-        'contact_phone' => 'Telefonní číslo pro volání',
-        'contact_phone_hint' => 'Uživatelé vás budou moci kontaktovat na tomto telefonním čísle',
-        'telegram' => 'Telegram',
-        'telegram_phone' => 'Telefonní číslo na Telegramu',
-        'telegram_phone_hint' => 'Uživatelé vás budou moci najít na Telegramu pomocí tohoto čísla',
-        'whatsapp' => 'WhatsApp',
-        'whatsapp_phone' => 'Telefonní číslo na WhatsApp',
-        'whatsapp_phone_hint' => 'Uživatelé vás budou moci najít na WhatsApp pomocí tohoto čísla',
     ],
 
     'update_telegram_information_form' => [

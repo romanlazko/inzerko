@@ -22,12 +22,12 @@
         <span>{{ __("components.navigation.messages") }}</span>
     </x-nav.responsive-link>
 
-    <x-nav.responsive-link :href="route('profile.notification.edit')" :active="request()->routeIs('profile.notification.edit')">
+    <x-nav.responsive-link :href="route('profile.notification')" :active="request()->routeIs('profile.notification.edit')">
         <x-heroicon-m-bell-alert class="size-5"/>
         <span>{{ __("components.navigation.notifications") }}</span>
     </x-nav.responsive-link>
 
-    <x-nav.responsive-link :href="route('profile.security.edit')" :active="request()->routeIs('profile.security.edit')">
+    <x-nav.responsive-link :href="route('profile.security')" :active="request()->routeIs('profile.security.edit')">
         <x-heroicon-c-shield-check class="size-5"/>
         <span>{{ __("components.navigation.security") }}</span>
     </x-nav.responsive-link>

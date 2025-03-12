@@ -42,7 +42,7 @@ class SendMessage extends Component implements HasForms, HasActions
         return Action::make('showContact')
             ->label(__('livewire.show_contact'))
             ->modalHeading(fn () => new HtmlString(view('components.user.card', ['user' => $user])))
-            ->icon('heroicon-s-phone')
+            ->icon('heroicon-s-eye')
             ->extraAttributes(['class' => 'w-full'])
             ->button()
             ->color('primary')

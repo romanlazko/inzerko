@@ -24,6 +24,7 @@ use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\HtmlString;
 
 class Create extends Component implements HasForms
@@ -92,6 +93,9 @@ class Create extends Component implements HasForms
                                         ->collection('announcements')
                                         ->hiddenLabel()
                                         ->multiple()
+                                        ->reorderable()
+                                        ->maxFiles(9)
+                                        ->appendFiles()
                                         ->image()
                                         ->imagePreviewHeight('120')
                                         ->required(),
@@ -115,11 +119,19 @@ class Create extends Component implements HasForms
     {
         $this->validate();
 
-        $announcement = AnnouncementService::store((object) $this->form->getState());
+        $data = $this->form->getState();
 
-        $this->form->model($announcement)->saveRelationships();
-
-        session()->forget('create_data');
+        try {
+            $announcement = AnnouncementService::store((object) $data);
+            $this->form->model($announcement)->saveRelationships();
+        }
+        catch (\Throwable $th) {
+            Log::debug($th->getMessage(), $data);
+            abort(500, 'Server error');
+        }
+        finally {
+            session()->forget('create_data');
+        }
 
         $this->afterCreating();
     }

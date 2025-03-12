@@ -26,21 +26,17 @@ return [
 
     'update_communication_information_form' => [
         'title' => 'Коммуникация с пользователями',
-        'description' => 'Обновите информацию о том как другие пользователи могут связаться с вами.',
-        'languages' => 'Языки на которых вы говорите',
+        'description' => 'Другие пользователи смогут связаться с вами используя эти контакты.',
+        'add_contact' => 'Добавить контакт',
+        'empty_state_heading' => 'Ни один из контактов не был добавлен',
+    ],
+
+    'update_languages_information_form' => [
+        'title' => 'Выберите языки на которых вы говорите',
+        'description' => 'Другие пользователи будут знать на каком языке к вам обращаться.',
         'english' => 'Английский',
         'russian' => 'Русский',
         'czech' => 'Чешский',
-        'success' => 'Информация о коммуникации была успешно обновлена!',
-        'contact_information' => 'Контактная информация',
-        'contact_phone' => 'Номер телефона для звонков',
-        'contact_phone_hint' => 'Пользователи смогут Вам позвонить по этому телефону',
-        'telegram' => 'Telegram',
-        'telegram_phone' => 'Номер телефона в Telegram',
-        'telegram_phone_hint' => 'Пользователи смогут найти Вас в Telegram по этому телефону',
-        'whatsapp' => 'WhatsApp',
-        'whatsapp_phone' => 'Номер телефона в WhatsApp',
-        'whatsapp_phone_hint' => 'Пользователи смогут найти Вас в WhatsApp по этому телефону',
     ],
 
     'update_telegram_information_form' => [

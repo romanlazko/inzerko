@@ -8,9 +8,9 @@ class CommandsList extends DefaultCommandsList
     static protected $commands = [
         'admin'     => [
             AdminCommands\StartCommand::class,
-            AdminCommands\HelpCommand::class,
         ],
         'user'      => [
+            UserCommands\DefaultCommand::class,
             UserCommands\GetContact::class,
             UserCommands\ConnectCommand::class,
 
@@ -26,6 +26,8 @@ class CommandsList extends DefaultCommandsList
             UserCommands\Profile\Phone::class,
             UserCommands\Profile\AwaitPhone::class,
 
+            UserCommands\Profile\Languages::class,
+            UserCommands\Profile\AwaitLanguages::class,
 
             UserCommands\SendTelegramEmailVerificationNotification::class,
             UserCommands\SendVerifyTelegramConnection::class,

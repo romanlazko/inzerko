@@ -40,17 +40,23 @@ class ProfileService
 
     public static function addMedia(User $user, $avatar)
     {
-        if (filter_var($avatar, FILTER_VALIDATE_URL)) {
-            return tap($user, function (User $user) use ($avatar) {
-                $user->addMediaFromUrl($avatar)->toMediaCollection('avatar');
-            });
+        try {
+            if (filter_var($avatar, FILTER_VALIDATE_URL)) {
+                return tap($user, function (User $user) use ($avatar) {
+                    $user->addMediaFromUrl($avatar)->toMediaCollection('avatar');
+                });
+            }
+    
+            if ($avatar instanceof \Illuminate\Http\UploadedFile) {
+                return tap($user, function (User $user) use ($avatar) {
+                    $user->addMedia($avatar)->toMediaCollection('avatar');
+                });
+            }
         }
+        catch (\Throwable $th) {
 
-        if ($avatar instanceof \Illuminate\Http\UploadedFile) {
-            return tap($user, function (User $user) use ($avatar) {
-                $user->addMedia($avatar)->toMediaCollection('avatar');
-            });
         }
+        
 
         return tap($user, function (User $user) {
             $user->addMediaFromBase64(Avatar::create($user->name))->toMediaCollection('avatar');
@@ -75,7 +81,7 @@ class ProfileService
             'telegram_chat_id' => $telegram_chat_id,
             'telegram_token' => $telegram_token,
             'locale' => $locale,
-            'communication_settings' => $communication_settings,
+            'communication_settings' => $communication_settings ? self::updateData($communication_settings, (array) $user->communication_settings) : null,
             'notification_settings' => $notification_settings
         ], function ($value) {
             return !is_null($value) && $value !== '';
@@ -92,5 +98,18 @@ class ProfileService
         $user->save();
 
         return $user;
+    }
+
+    private static function updateData(array $newData, array $oldData): ?object
+    {
+        if (is_null($newData)) {
+            return null;
+        }
+
+        foreach ($newData as $key => $value) {
+            $oldData[$key] = $value;
+        }
+
+        return (object) $oldData;
     }
 }

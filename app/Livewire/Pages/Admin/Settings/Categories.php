@@ -4,7 +4,7 @@ namespace App\Livewire\Pages\Admin\Settings;
 
 use App\Enums\CardLayout;
 use App\Jobs\CreateSeedersJob;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute\Attribute;
 use App\Models\Category;
@@ -69,7 +69,8 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
                     ->description(fn (Category $category): string => $category->slug)
                     ->url(fn (Category $category): string => route('admin.setting.categories', $category)),
                 ToggleColumn::make('is_active'),
-                ToggleColumn::make('has_attachments'),
+                ToggleColumn::make('has_attachments')
+                    ->disabled(fn (Category $category): bool => $category->children->isNotEmpty()),
                 TextColumn::make('children')
                     ->state(function (Category $record) {
                         return $record->children?->pluck('name');
@@ -89,11 +90,11 @@ class Categories extends AdminTableLayout implements HasForms, HasTable
                     ->badge(),
             ])
             ->headerActions([
-                SeedAction::make('categories')
+                CreateSeederAction::make('categories')
                     ->seedTables([
                         'categories',
                     ]),
-                SeedAction::make('media')
+                CreateSeederAction::make('media')
                     ->seedTables([
                         'media',
                     ]),

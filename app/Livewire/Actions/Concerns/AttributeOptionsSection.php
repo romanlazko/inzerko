@@ -36,14 +36,14 @@ trait AttributeOptionsSection
                         Toggle::make('is_default')
                             ->fixIndistinctState()
                             ->helperText(__('Опция будет выбрана по умолчанию при создании объявления и при фильтрации.'))
-                            ->visible(fn (Get $get) => in_array($get('../../create_layout.type'), [
+                            ->visible(fn (Get $get) => in_array($get('../../filter_layout.type'), [
                                 'toggle_buttons',
                             ])),
 
                         Toggle::make('is_null')
                             ->helperText(__('Опция не будет отображаться при создании объявления и не будет учавствовать в фильтрации объявлений.'))
                             ->live()
-                            ->visible(fn (Get $get) => in_array($get('../../create_layout.type'), [
+                            ->visible(fn (Get $get) => in_array($get('../../filter_layout.type'), [
                                 'toggle_buttons',
                             ])),
                     ])

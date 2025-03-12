@@ -5,7 +5,6 @@ namespace App\Models;
 use App\AttributeType\AttributeFactory;
 use App\Models\Attribute\Attribute;
 use App\Models\Attribute\AttributeOption;
-use App\Services\Actions\AttributesByCategoryService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,7 +51,7 @@ class Feature extends Model
 
     public function getValueAttribute(): ?string
     {
-        return str(AttributeFactory::getValueByFeature($this->attribute, $this))->sanitizeHtml();
+        return html_entity_decode(str(AttributeFactory::getValueByFeature($this->attribute, $this))->sanitizeHtml());
     }
 
     public function getOriginalAttribute(): mixed
@@ -63,6 +62,11 @@ class Feature extends Model
     public function getLabelAttribute(): ?string
     {
         return $this->attribute?->label;
+    }
+
+    public function getAttributeOptionsAttribute(): array
+    {
+        return $this->translated_value['attribute_option_ids'] ?? [];
     }
 
     //SCOPES

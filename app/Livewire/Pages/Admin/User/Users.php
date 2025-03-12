@@ -4,9 +4,10 @@ namespace App\Livewire\Pages\Admin\User;
 
 use App\Enums\Status;
 use App\Livewire\Layouts\AdminTableLayout;
+use App\Models\Contact;
 use App\Models\TelegramChat;
 use App\Models\User;
-use Filament\Forms\Components\Actions\Action;
+// use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
@@ -21,7 +22,7 @@ use Illuminate\Support\Str;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Tables\Actions\Action as ActionsAction;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Forms\Components\ToggleButtons;
@@ -38,27 +39,28 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                 'announcements as published_count' => fn ($query) => $query->status(Status::published),
                 'announcements as await_moderation_count' => fn ($query) => $query->status(Status::await_moderation),
             ]))
+            ->defaultSort('created_at', 'desc')
             ->columns([
-                TextColumn::make('id'),
+                TextColumn::make('id')
+                    ->sortable(),
                 SpatieMediaLibraryImageColumn::make('image')
                     ->collection('avatar')
                     ->conversion('thumb')
                     ->rounded(),
                 TextColumn::make('name')
                     ->description(fn (User $record) => $record?->email)
-                    ->searchable(['name', 'email']),
+                    ->searchable(['name', 'email'])
+                    ->sortable(),
                 TextColumn::make('chat')
                     ->state(fn (User $user) => "{$user?->chat?->first_name} {$user?->chat?->last_name}")
                     ->description(fn (User $record) => "{$record?->chat?->username} ({$record?->chat?->chat_id})"),
                 TextColumn::make('roles.name')
                     ->badge()
                     ->color('warning'),
-                TextColumn::make('phones')
-                    ->state(fn (User $user) => collect((array) $user->communication_settings)
-                        ->filter(fn ($communication_setting) => !is_array($communication_setting) AND $communication_setting?->phone)
-                        ->map(fn ($value, $communication_setting) => str($communication_setting)->ucfirst()->replace('_', ' ')->append(": {$value?->phone}"))
-                    )
+                TextColumn::make('contacts.link')
+                    ->state(fn (User $user) => $user?->contacts->pluck('url')->toArray())
                     ->badge()
+                    ->copyable()
                     ->color('gray'),
                 TextColumn::make('languages')
                     ->state(fn (User $user) => $user->languages)
@@ -84,10 +86,11 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->state(fn (User $record) => $record?->latestBan ? __('profile.penalty.reasons.' . $record?->latestBan?->comment) : '')
                     ->description(fn (User $record) => $record?->latestBan?->expired_at?->format('d M y')),
                 TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->headerActions([
-                ActionsAction::make('Archive')
+                Action::make('Archive')
                     ->icon('heroicon-o-archive-box-x-mark')
                     ->color('warning')
                     ->url(route('admin.users.archive')),
@@ -117,22 +120,13 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                             ])->pluck('username', 'id')) 
                             ->searchable()
                             ->unique(ignoreRecord: true),
-
-                        TextInput::make('telegram_token')
-                            ->hidden(fn (Get $get) => is_null($get('telegram_chat_id')))
-                            ->suffixAction(
-                                Action::make('generate')
-                                    ->action(fn (Set $set) => $set('telegram_token', Str::random(8)))
-                                    ->icon('heroicon-o-arrow-path')
-                            )
-                            ->required(),
                     ])
                     ->button()
                     ->hiddenLabel()
                     ->visible($this->roleOrPermission(['update', 'manage'], 'user'))
                     ->slideOver(),
 
-                ActionsAction::make('ban')
+                Action::make('ban')
                     ->color('warning')
                     ->form([
                         ToggleButtons::make('comment')
@@ -163,7 +157,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->hiddenLabel()
                     ->visible(fn (User $user) => $this->roleOrPermission(['manage'], 'user') AND $user->isNotBanned()),
 
-                ActionsAction::make('unban')
+                Action::make('unban')
                     ->color('success')
                     ->action(function (User $user, array $data) {
                         $user->unban();

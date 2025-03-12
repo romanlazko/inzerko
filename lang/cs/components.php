@@ -11,14 +11,14 @@ return [
         'logout' => 'Odhlásit se',
         'create_new' => 'Vytvořit nové',
         'wishlist' => 'Seznam přání',
-        'my_announcements' => 'Moje oznámení',
+        'my_announcements' => 'Moje inzeráty',
         'messages' => 'Zprávy',
         'profile' => 'Profil',
         'store' => 'Obchod',
         'admin' => 'Admin',
-        'announcements' => 'Oznámení',
+        'announcements' => 'Inzeráty',
         'moderation' => 'Moderace',
-        'all_announcements' => 'Všechna oznámení',
+        'all_announcements' => 'Všechny inzeráty',
         'telegram' => 'Telegram',
         'bots' => 'Boti',
         'settings' => 'Nastavení',
@@ -34,11 +34,16 @@ return [
         'chats' => 'Chaty',
         'channels' => 'Kanály',
         'pages' => 'Stránky',
-        'notifications' => 'Oznámení',
+        'notifications' => 'Inzeráty',
         'security' => 'Bezpečnost',
         'archive' => 'Archiv',
         'report_options' => 'Možnosti hlášení',
         'html_layouts' => 'Html layouty',
+        'reports' => 'Reports',
+    ],
+
+    'livewire' => [
+        'apply_filters' => 'Použít filtry',
     ],
 
     'user' => [
@@ -47,5 +52,6 @@ return [
         'phone' => 'Telefon:',
         'email' => 'Email:',
         'telegram' => 'Telegram:',
+        'contacts' => 'Kontakty',
     ],
 ];

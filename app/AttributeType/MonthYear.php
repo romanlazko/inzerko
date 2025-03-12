@@ -5,11 +5,10 @@ namespace App\AttributeType;
 use App\Models\Feature;
 use Carbon\Carbon;
 use Guava\FilamentClusters\Forms\Cluster;
-use Filament\Forms\Get;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Database\Eloquent\Builder;
-
 use Filament\Forms\Components\Select as ComponentsSelect;
+use Illuminate\Support\Collection;
 
 class MonthYear extends BaseAttributeType
 {
@@ -23,7 +22,7 @@ class MonthYear extends BaseAttributeType
         return Carbon::parse($feature->translated_value['original'])->format('M Y');
     }
 
-    protected function getSchema(): array
+    protected function getSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,
@@ -33,7 +32,7 @@ class MonthYear extends BaseAttributeType
         ];
     }
 
-    protected function getFakeSchema(): array
+    protected function getFakeSchema(): null|Collection|array
     {
         return [
             'attribute_id' => $this->attribute->id,

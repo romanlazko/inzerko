@@ -23,13 +23,13 @@ class Phone extends Command
 
         $buttons = Inzerko::inlineKeyboard([
             [
-                array("👈 Назад", Email::$command, ''),
+                array("👈 Назад", Profile::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
             ]
         ]);
 
         $text = implode("\n", [
-            "*Напишите свой чешский номер телефона:*"."\n",
+            "*Напишите свой номер телефона:*"."\n",
 		    "*Пример*: +420 777 123 487",
         ]);
 

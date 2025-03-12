@@ -4,7 +4,7 @@ namespace App\Livewire\Pages\Admin\CMS;
 
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\Concerns\CategorySection;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Page;
 use App\Models\Seeder;
@@ -40,7 +40,7 @@ class Pages extends AdminTableLayout implements HasForms, HasTable
         return $table
             ->query(Page::query())
             ->headerActions([
-                SeedAction::make('pages')
+                CreateSeederAction::make('pages')
                     ->seedTables([
                         'pages',
                         'blocks',

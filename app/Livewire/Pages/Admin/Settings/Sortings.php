@@ -4,7 +4,7 @@ namespace App\Livewire\Pages\Admin\Settings;
 
 use App\Jobs\CreateSeedersJob;
 use App\Livewire\Actions\Concerns\CategorySection;
-use App\Livewire\Actions\SeedAction;
+use App\Livewire\Actions\CreateSeederAction;
 use App\Livewire\Layouts\AdminTableLayout;
 use App\Models\Attribute\Attribute;
 use App\Models\Category;
@@ -42,7 +42,7 @@ class Sortings extends AdminTableLayout implements HasForms, HasTable
         return $table
             ->query(Sorting::query())
             ->headerActions([
-                SeedAction::make('sortings')
+                CreateSeederAction::make('sortings')
                     ->seedTables([
                         'sortings',
                     ]),

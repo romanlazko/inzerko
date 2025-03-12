@@ -28,7 +28,7 @@ class CategoriesTableSeeder extends Seeder
                 'is_active' => 0,
                 'has_attachments' => 1,
                 'created_at' => '2024-05-21 16:56:35',
-                'updated_at' => '2024-12-01 18:46:18',
+                'updated_at' => '2024-12-04 09:31:00',
                 'deleted_at' => NULL,
             ),
             1 => 
@@ -50,9 +50,9 @@ class CategoriesTableSeeder extends Seeder
                 'alternames' => '{"cs": "Práce ", "en": "Job", "ru": "Работа"}',
                 'slug' => 'job',
                 'is_active' => 1,
-                'has_attachments' => 0,
+                'has_attachments' => 1,
                 'created_at' => '2024-05-22 17:30:46',
-                'updated_at' => '2024-11-25 18:25:03',
+                'updated_at' => '2024-12-04 09:31:02',
                 'deleted_at' => NULL,
             ),
             3 => 
@@ -64,7 +64,7 @@ class CategoriesTableSeeder extends Seeder
                 'is_active' => 0,
                 'has_attachments' => 1,
                 'created_at' => '2024-05-23 18:32:31',
-                'updated_at' => '2024-12-01 18:46:19',
+                'updated_at' => '2024-12-03 12:46:32',
                 'deleted_at' => NULL,
             ),
             4 => 
@@ -136,7 +136,7 @@ class CategoriesTableSeeder extends Seeder
                 'is_active' => 0,
                 'has_attachments' => 1,
                 'created_at' => '2024-07-14 11:47:49',
-                'updated_at' => '2024-12-01 18:46:20',
+                'updated_at' => '2024-12-04 09:31:01',
                 'deleted_at' => NULL,
             ),
             10 => 
@@ -782,9 +782,9 @@ class CategoriesTableSeeder extends Seeder
                 'alternames' => '{"cs": "Životopis", "en": "Resume", "ru": "Резюме"}',
                 'slug' => 'resume',
                 'is_active' => 1,
-                'has_attachments' => 0,
+                'has_attachments' => 1,
                 'created_at' => '2024-11-25 18:23:14',
-                'updated_at' => '2024-11-25 18:23:18',
+                'updated_at' => '2024-12-07 18:57:33',
                 'deleted_at' => NULL,
             ),
         ));
