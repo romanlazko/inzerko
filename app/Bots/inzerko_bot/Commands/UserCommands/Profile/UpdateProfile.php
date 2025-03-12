@@ -4,6 +4,7 @@ namespace App\Bots\inzerko_bot\Commands\UserCommands\Profile;
 
 use App\Bots\inzerko_bot\Commands\UserCommands\CreateAnnouncement;
 use App\Bots\inzerko_bot\Facades\Inzerko;
+use App\Enums\ContactTypeEnum;
 use App\Models\User;
 use App\Services\ProfileService;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -17,8 +18,9 @@ class UpdateProfile extends Command
     public static $command = 'save_profile';
 
     public static $title = [
-        'en' => 'Save profile',
-        'ru' => 'Сохранить профиль',
+        'en' => '💾 Save profile',
+        'ru' => '💾 Сохранить профиль',
+        'cs' => '💾 Ulozit profil',
     ];
 
     public static $usage = ['save_profile'];
@@ -45,19 +47,21 @@ class UpdateProfile extends Command
 
         $validated = $validator->validated();
 
-        $user = ProfileService::update(
-            user: $user,
-            name: $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
-            email: $validated['email'],
-            locale: $updates->getFrom()->getLanguageCode(),
-            communication_settings: [
-                'telegram' => [
-                    'phone' => $validated['phone'],
-                    'visible' => true,
-                ],
-                'languages' => $validated['languages']
-            ]
-        );
+        $user->update([
+            'name' => $updates->getFrom()->getFirstName() . ' ' . $updates->getFrom()->getLastName(),
+            'email' => $validated['email'],
+            'locale' => $updates->getFrom()->getLanguageCode(),
+            'telegram_chat_id' => $telegram_chat->id,
+            'languages' => $validated['languages'],
+        ]);
+
+        if ($validated['phone']) {
+            $user->contacts()->updateOrCreate([
+                'type' => ContactTypeEnum::PHONE
+            ], [
+                'link' => $validated['phone']
+            ]);
+        }
 
         ProfileService::addMedia($user, Inzerko::getPhoto(['file_id' => $telegram_chat->photo]));
         
@@ -70,7 +74,7 @@ class UpdateProfile extends Command
             $data, 
             [
                 'email' => 'required|email',
-                'phone' => 'required|phone:AUTO',
+                'phone' => 'nullable|phone:AUTO',
                 'languages' => ['required', 'array'],
                 'languages.*' => ['string', 'in:en,ru,cz'],
             ],

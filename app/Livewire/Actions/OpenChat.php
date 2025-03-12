@@ -12,7 +12,7 @@ use App\Models\Messanger\Message;
 use App\Notifications\NewMessage;
 use Filament\Forms\Components\Textarea;
 use Filament\Support\Enums\FontWeight;
-use Filament\Tables\Actions\Action as ActionsAction;
+use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -70,41 +70,33 @@ class OpenChat extends Component implements HasForms, HasActions, HasTable
             ->emptyStateHeading(__('pagination.nothing'))
             ->paginated(false)
             ->columns([
-                Split::make([
-                    SpatieMediaLibraryImageColumn::make('announcement.media')
-                        ->collection('announcements', 'thumb')
-                        ->label(false)
-                        ->grow(false)
-                        ->circular()
-                        ->limit(1)
-                        ->extraAttributes(['class' => 'border rounded-full']),
-                    TextColumn::make('user')
-                        ->state(fn ($record) => "{$record->recipient?->name} - {$record->announcement?->title}")
-                        ->description(fn ($record) => Str::limit($record->latestMessage?->message, 30))
-                        ->label(false)
-                        ->lineClamp(2)
-                        ->searchable(query: function ($query, string $search) {
-                            return $query->whereHas('users', fn ($query) =>
-                                $query->where(fn ($query) => 
-                                    $query->whereRaw('LOWER(name) LIKE ?', ['%' . mb_strtolower($search) . '%'])
-                                        ->orWhereRaw('LOWER(email) LIKE ?', ['%' . mb_strtolower($search) . '%'])
-                                )
-                            );
-                        })
-                        ->grow()
-                        ->weight(fn ($record) => $record->uread_messages_count > 0 ? FontWeight::Bold : FontWeight::Medium)
-                        ->extraAttributes(['class' => 'text-xs w-full']),
-                    TextColumn::make('unread_messages_count')
-                        ->badge()
-                        ->grow(false)
-                        ->color('danger')
-                        ->hidden(fn ($record) => $record?->uread_messages_count === 0)
-                        ->state(fn ($record) => $record?->uread_messages_count)
-                ])
+                SpatieMediaLibraryImageColumn::make('announcement.media')
+                    ->collection('announcements')
+                    ->label(false)
+                    ->grow(false)
+                    ->circular()
+                    ->limit(1)
+                    ->circular(),
+                TextColumn::make('user')
+                    ->state(fn ($record) => "{$record->recipient?->name} - {$record->announcement?->title}")
+                    ->description(fn ($record) => Str::limit($record->latestMessage?->message, 30))
+                    ->label(false)
+                    ->lineClamp(2)
+                    ->searchable(query: function ($query, string $search) {
+                        return $query->whereHas('users', fn ($query) =>
+                            $query->where(fn ($query) => 
+                                $query->whereRaw('LOWER(name) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                                    ->orWhereRaw('LOWER(email) LIKE ?', ['%' . mb_strtolower($search) . '%'])
+                            )
+                        );
+                    })
+                    ->grow()
+                    ->weight(fn ($record) => $record->uread_messages_count > 0 ? FontWeight::Bold : FontWeight::Medium)
+                    ->extraAttributes(['class' => 'text-xs w-full']),
             ])
             ->recordAction('messages')
             ->actions([
-                ActionsAction::make('messages')
+                TableAction::make('messages')
                     ->modalHeading(fn ($record) => new HtmlString(view('components.chat.miniature', ['user' => $record->recipient, 'announcement' => $record->announcement])))
                     ->modalContent(function ($record) {
                         $record->messages()->where('user_id', '!=', auth()->id())->update(['read_at' => now()]);

@@ -42,28 +42,11 @@ Route::name('profile.')
         Route::middleware(['auth'])
             ->group(function () {
                 Route::get('/', [ProfileController::class, 'edit'])->name('edit');
-                Route::patch('update', [ProfileController::class, 'update'])->name('update');
-                Route::patch('update-avatar', [ProfileController::class, 'updateAvatar'])->name('update-avatar');
-                Route::patch('update-communication', [ProfileController::class, 'updateCommunication'])->name('update-communication');
-                Route::view('banned', 'profile.penalty.banned')->middleware(['banned'])->name('banned');
-
-                Route::name('security.')
-                    ->prefix('security')
-                    ->group(function () {
-                        Route::get('/', [SecurityController::class, 'edit'])->name('edit');
-                        Route::patch('update', [SecurityController::class, 'update'])->name('update');
-                        Route::delete('destroy', [SecurityController::class, 'destroy'])->name('destroy');
-                    });
-
-                Route::name('notification.')
-                    ->prefix('notification')
-                    ->group(function () {
-                        Route::get('/', [NotificationController::class, 'edit'])->name('edit');
-                        Route::patch('update', [NotificationController::class, 'update'])->name('update');
-                    });
+                Route::view('banned', 'profile.banned')->middleware(['banned'])->name('banned');
+                Route::view('security', 'profile.security')->name('security');
+                Route::view('notification', 'profile.notification')->name('notification');
 
                 Route::name('announcement.')
-                    ->prefix('announcement')
                     ->group(function () {
                         Route::get('index', [ProfileAnnouncementController::class, 'index'])->name('index');
                         Route::get('create', [ProfileAnnouncementController::class, 'create'])->middleware(['profile_filled', 'banned', 'verified'])->name('create');

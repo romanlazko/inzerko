@@ -4,9 +4,10 @@ namespace App\Livewire\Pages\Admin\User;
 
 use App\Enums\Status;
 use App\Livewire\Layouts\AdminTableLayout;
+use App\Models\Contact;
 use App\Models\TelegramChat;
 use App\Models\User;
-use Filament\Forms\Components\Actions\Action;
+// use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
@@ -21,7 +22,7 @@ use Illuminate\Support\Str;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Tables\Actions\Action as ActionsAction;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Forms\Components\ToggleButtons;
@@ -56,12 +57,10 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                 TextColumn::make('roles.name')
                     ->badge()
                     ->color('warning'),
-                TextColumn::make('phones')
-                    ->state(fn (User $user) => collect($user->communication_settings)
-                        ->filter(fn ($communication_setting) => $communication_setting?->phone ?? false)
-                        ->map(fn ($value, $communication_setting) => str($communication_setting)->ucfirst()->replace('_', ' ')->append(": {$value?->phone}"))
-                    )
+                TextColumn::make('contacts.link')
+                    ->state(fn (User $user) => $user?->contacts->pluck('url')->toArray())
                     ->badge()
+                    ->copyable()
                     ->color('gray'),
                 TextColumn::make('languages')
                     ->state(fn (User $user) => $user->languages)
@@ -91,7 +90,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->sortable(),
             ])
             ->headerActions([
-                ActionsAction::make('Archive')
+                Action::make('Archive')
                     ->icon('heroicon-o-archive-box-x-mark')
                     ->color('warning')
                     ->url(route('admin.users.archive')),
@@ -127,7 +126,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->visible($this->roleOrPermission(['update', 'manage'], 'user'))
                     ->slideOver(),
 
-                ActionsAction::make('ban')
+                Action::make('ban')
                     ->color('warning')
                     ->form([
                         ToggleButtons::make('comment')
@@ -158,7 +157,7 @@ class Users extends AdminTableLayout implements HasForms, HasTable
                     ->hiddenLabel()
                     ->visible(fn (User $user) => $this->roleOrPermission(['manage'], 'user') AND $user->isNotBanned()),
 
-                ActionsAction::make('unban')
+                Action::make('unban')
                     ->color('success')
                     ->action(function (User $user, array $data) {
                         $user->unban();

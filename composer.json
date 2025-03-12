@@ -30,6 +30,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^3.5",
         "lukeraymonddowning/honey": "^1.0",
+        "marvinosswald/filament-input-select-affix": "^0.2.0",
         "novadaemon/filament-pretty-json": "^2.3",
         "opcodesio/log-viewer": "^3.11",
         "orangehill/iseed": "^3.0",

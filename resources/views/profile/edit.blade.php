@@ -9,21 +9,19 @@
         <x-nav.profile/>
     </x-slot>
 
-    <div class="px-3 py-5 space-y-4">
+    <div class="px-3 py-5 space-y-4 profile">
         @include('profile.partials.verify-email')
 
-        <x-ux.white-block>
-            @include('profile.partials.update-profile-information-form')
-        </x-ux.white-block>
+        <livewire:components.profile.update-profile-information-form />
+
+        @include('profile.partials.update-telegram-information-form')
 
         @include('profile.partials.fill-profile')
-        <x-ux.white-block>
-            @include('profile.partials.update-communication-information-form')
-        </x-ux.white-block>
-        
-        <x-ux.white-block>
-            @include('profile.partials.logout-form')
-        </x-ux.white-block>
+
+        <livewire:components.profile.contact-form />
+        <livewire:components.profile.update-languages-information-form />
+
+        @include('profile.partials.logout-form')
     </div>
     
 </x-app-layout>

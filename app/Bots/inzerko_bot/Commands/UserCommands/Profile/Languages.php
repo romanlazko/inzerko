@@ -25,10 +25,9 @@ class Languages extends Command
             [array('Русский', Languages::$command, 'ru')],
             [array('Английский', Languages::$command, 'en')],
             [array('Чешский', Languages::$command, 'cz')],
-            [array('Продолжить', AwaitLanguages::$command, '')],
             [
                 array("👈 Назад", Profile::$command, ''),
-                array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
+                array('Продолжить 👉', AwaitLanguages::$command, ''),
             ]
         ], 'languages');
 

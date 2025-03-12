@@ -8,7 +8,6 @@ class CommandsList extends DefaultCommandsList
     static protected $commands = [
         'admin'     => [
             AdminCommands\StartCommand::class,
-            AdminCommands\HelpCommand::class,
         ],
         'user'      => [
             UserCommands\DefaultCommand::class,

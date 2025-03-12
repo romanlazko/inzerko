@@ -19,9 +19,8 @@ class AwaitPhone extends Command
     {
         $validator = Validator::make(
             ['phone' => $updates->getMessage()?->getText()], 
-            ['phone' => 'required|phone:AUTO'], 
+            ['phone' => 'phone:AUTO'], 
             [
-                'phone.required' => 'Поле телефона обязательно к заполнению',
                 'phone.max' => 'Слишком длинный номер телефона',
                 'phone.regex' => 'Не верный формат номера телефона',
             ]
