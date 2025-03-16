@@ -55,4 +55,11 @@
             </div>
         @endif
     </div>
+    @if (! auth()->user()->chat->username)
+        <div class="p-4 bg-red-600 text-white rounded-2xl max-w-xl">
+            <div class="text-sm">
+                {{ __('profile.update_telegram_information_form.username_required') }}
+            </div>
+        </div>
+    @endif
 </x-filament::section>
