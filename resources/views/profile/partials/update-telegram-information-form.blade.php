@@ -55,9 +55,9 @@
         </div>
         @if (! auth()->user()->chat->username)
             <div class="p-4 bg-red-600 text-white rounded-2xl max-w-xl mt-6">
-                <div class="text-sm">
+                <a class="text-sm text-blue-500 hover:underline" href="https://telegra.ph/Kak-ustanovit-nik-v-Telegrame-03-16">
                     {{ __('profile.update_telegram_information_form.username_required') }}
-                </div>
+                </a>
             </div>
         @endif
     @endif
