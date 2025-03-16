@@ -18,9 +18,9 @@ class UpdateProfile extends Command
     public static $command = 'save_profile';
 
     public static $title = [
-        'en' => '💾 Save profile',
-        'ru' => '💾 Сохранить профиль',
-        'cs' => '💾 Ulozit profil',
+        'en' => '💾 Save',
+        'ru' => '💾 Сохранить',
+        'cs' => '💾 Ulozit',
     ];
 
     public static $usage = ['save_profile'];

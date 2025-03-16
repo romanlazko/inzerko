@@ -36,7 +36,9 @@
     @apply p-4 md:py-4 md:px-6
 }
 
-
+.empty-section-with-header .fi-section-content, .empty-section-with-header .fi-section-content-ctn {
+    @apply p-0 border-none
+}
 /* .fi-modal {
     height: minvh;
 } */

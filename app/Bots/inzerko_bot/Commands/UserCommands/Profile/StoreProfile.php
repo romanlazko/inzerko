@@ -21,9 +21,9 @@ class StoreProfile extends Command
     public static $command = 'store_profile';
 
     public static $title = [
-        'en' => '💾 Save profile',
-        'ru' => '💾 Сохранить профиль',
-        'cs' => '💾 Ulozit profil',
+        'en' => '💾 Save',
+        'ru' => '💾 Сохранить',
+        'cs' => '💾 Ulozit',
     ];
 
     public static $usage = ['store_profile'];

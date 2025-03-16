@@ -21,7 +21,7 @@ abstract class Command extends CommandsCommand
             $text = implode("\n", [
                 "*Ой ой*"."\n",
                 "Ваш аккаунт Telegram должен иметь имя пользователя, что бы другие пользователи могли связаться с Вами."."\n",
-                "Сделай все как указанно в [инструкции](https://telegra.ph/Kak-razreshit-peresylku-soobshchenij-12-27) что бы исправить это."."\n",
+                "Сделай все как указанно в [инструкции](https://telegra.ph/Kak-ustanovit-nik-v-Telegrame-03-16) что бы исправить это."."\n",
                 "*После этого нажми на кнопку «Продолжить»*"
             ]);
 

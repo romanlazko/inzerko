@@ -9,7 +9,7 @@
         <x-nav.profile/>
     </x-slot>
 
-    <div class="px-3 py-5 space-y-4 profile">
+    <div class="px-3 py-5 space-y-6 profile">
         @include('profile.partials.verify-email')
 
         <livewire:components.profile.update-profile-information-form />
