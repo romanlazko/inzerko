@@ -44,7 +44,7 @@ return [
         'description' => 'Подключите Telegram для получения уведомлений о новых сообщениях.',
         'connect_telegram' => 'Подключить Telegram',
         'disconnect_telegram' => 'Отключить Telegram',
-        'username_required' => 'Вы должны указать имя Telegram',
+        'username_required' => 'Вы должны указать имя @пользователя в Telegram',
     ],
 
     'new_message_notifications_form' => [

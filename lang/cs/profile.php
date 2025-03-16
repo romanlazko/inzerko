@@ -44,7 +44,7 @@ return [
         'description' => 'Připojte svůj Telegram účet, abyste byli upozorněni na nové zprávy.',
         'connect_telegram' => 'Připojit Telegram',
         'disconnect_telegram' => 'Odpojit Telegram',
-        'username_required' => 'Musíte zadat username Telegramu.',
+        'username_required' => 'Musíte zadat @username Telegramu.',
     ],
 
     'verify_email' => [
