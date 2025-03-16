@@ -36,7 +36,7 @@
         @endif
     </x-slot>
     @if (auth()->user()->chat)
-        <div class="space-y-6 md:space-y-0 md:flex justify-between items-center">
+        <div class="space-y-6">
             <div class="flex items-center">
                 <div class="flex-col items-center my-auto">
                     <img src="{{ auth()->user()->chat?->avatar }}" alt="Avatar" class="mr-4 w-12 h-12 min-w-[48px] rounded-full">
@@ -52,15 +52,16 @@
                     </div>
                 </div>
             </div>
+            @if (! auth()->user()->chat->username)
+                <x-filament::button
+                    icon="heroicon-c-exclamation-triangle"
+                    href="https://telegra.ph/Kak-ustanovit-nik-v-Telegrame-03-16"
+                    color="warning"
+                    tag="a"
+                >
+                    {{ __('profile.update_telegram_information_form.username_required') }}
+                </x-filament::button>
+            @endif
         </div>
-        @if (! auth()->user()->chat->username)
-            <x-filament::button
-                icon="heroicon-c-exclamation-triangle"
-                href="https://telegra.ph/Kak-ustanovit-nik-v-Telegrame-03-16"
-                color="warning"
-            >
-                {{ __('profile.update_telegram_information_form.username_required') }}
-            </x-filament::button>
-        @endif
     @endif
 </x-filament::section>
