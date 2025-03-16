@@ -17,8 +17,8 @@ class SendTelegramEmailVerificationNotification extends Command
     public static $command = 'stevn';
 
     public static $title = [
-        'ru' => 'Отправить письмо снова',
-        'en' => 'Send email again',
+        'ru' => '🔄 Отправить письмо снова',
+        'en' => '🔄 Send email again',
     ];
 
     public static $usage = ['stevn'];

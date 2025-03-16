@@ -20,8 +20,6 @@ class TelegramChat extends Model implements HasMedia
     use InteractsWithMedia; 
     use Geoly;
 
-    // protected $guarded = ['layouts'];
-
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')

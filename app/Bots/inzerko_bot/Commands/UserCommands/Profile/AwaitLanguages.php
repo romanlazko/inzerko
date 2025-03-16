@@ -21,7 +21,7 @@ class AwaitLanguages extends Command
     public function execute(Update $updates): Response
     {
         $validator = Validator::make(
-            ['languages' => array_filter(explode(':', $updates->getInlineData()->getLanguages()))], 
+            ['languages' => array_values(array_filter(explode(':', $updates->getInlineData()->getLanguages())))], 
             [
                 'languages' => ['required', 'array'],
                 'languages.*' => ['string', 'in:en,ru,cz'],
@@ -42,7 +42,7 @@ class AwaitLanguages extends Command
         $validated = $validator->validated();
 
         $this->getConversation()->update([
-            'languages' => $validated['languages'],
+            'languages' => array_values($validated['languages']),
         ]);
         
         return $this->bot->executeCommand(Profile::$command);

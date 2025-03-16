@@ -36,6 +36,8 @@
                 </div>
             </div>
         </div>
+
+
     </main>
 
     @livewire('actions.open-chat')

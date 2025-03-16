@@ -55,6 +55,11 @@ class AppServiceProvider extends ServiceProvider
             'warning' => Color::Amber,
             'neutral' => Color::Neutral,
             'white' => Color::hex('#ffffff'),
+            'pink' => Color::Pink,
+            'orange' => Color::Orange,
+            'dark' => Color::hex('#1f2937'),
+            'slate' => Color::Slate,
+            'stone' => Color::Stone,
         ]);
 
         FilamentAsset::register([

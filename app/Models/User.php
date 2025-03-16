@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ContactTypeEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Messanger\Thread;
@@ -59,6 +60,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
         'notification_settings',
         'communication_settings',
         'locale',
+        'languages',
     ];
 
     /**
@@ -79,12 +81,19 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'notification_settings' => 'object',
+        'notification_settings' => 'array',
         'communication_settings' => 'object',
+        'languages' => 'array',
     ];
 
     protected static function booted(): void
     {
+        static::updating(function (User $user) {
+            if ($user->isDirty('email')) {
+                $user->email_verified_at = null;
+            }
+        });
+
         static::deleted(function (User $user) {
             $user->announcements()->delete();
             $user->threads()->delete();
@@ -95,6 +104,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
             $user->announcements()->forceDelete();
             $user->threads()->forceDelete();
             $user->votes()->forceDelete();
+            $user->contacts()->forceDelete();
         });
 
         static::restored(function (User $user) {
@@ -166,6 +176,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
         return $this->morphOne(Ban::class, 'bannable')->latestOfMany();
     }
 
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(Contact::class);
+    }
+
     //ATTRIBUTES
 
     public function getUnreadMessagesCountAttribute(): int
@@ -183,14 +198,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
         return $unreadMessagesCount;
     }
 
-    public function getLanguagesAttribute(): array
-    {
-        return (array) $this->communication_settings?->languages ?? [];
-    }
-
     public function isProfileFilled(): bool
     {
-        return ! is_null($this->communication_settings) AND ! empty($this->languages) AND ! is_null($this->name); 
+        return ! is_null($this->languages) AND ! is_null($this->name); 
     }
 
     public function isSuperAdmin(): bool

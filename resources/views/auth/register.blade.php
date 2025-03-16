@@ -41,11 +41,13 @@
         </div>
 
         <div class="space-y-4 text-center">
-            
-
-            <x-buttons.primary class="w-full text-center justify-center">
+            <x-filament::button 
+                type="submit"
+                class="w-full"
+                color="dark"
+            >
                 {{ __('auth.register') }}
-            </x-buttons.primary>
+            </x-filament::button>
             <a class="block underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('auth.login') }}
             </a>

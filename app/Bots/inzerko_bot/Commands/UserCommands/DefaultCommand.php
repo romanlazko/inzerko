@@ -14,6 +14,11 @@ class DefaultCommand extends Command
 
     public static $usage = ['default', '/default'];
 
+    public static $title = [
+        'ru' => '❓ Помощь',
+        'en' => '❓ Help'
+    ];
+
     protected $enabled = true;
 
     public function execute(Update $updates): Response
