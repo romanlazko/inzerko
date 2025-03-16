@@ -44,6 +44,7 @@ return [
         'description' => 'Connect your Telegram account to get notified when you receive new messages.',
         'connect_telegram' => 'Connect Telegram',
         'disconnect_telegram' => 'Disconnect Telegram',
+        'username_required' => 'You must set a Telegram username.',
     ],
 
     'verify_email' => [
