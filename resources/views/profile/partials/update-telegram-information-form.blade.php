@@ -58,6 +58,7 @@
                     href="https://telegra.ph/Kak-ustanovit-nik-v-Telegrame-03-16"
                     color="warning"
                     tag="a"
+                    target="_blank"
                 >
                     {{ __('profile.update_telegram_information_form.username_required') }}
                 </x-filament::button>

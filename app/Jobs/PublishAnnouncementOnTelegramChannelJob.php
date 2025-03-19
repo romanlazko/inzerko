@@ -69,7 +69,7 @@ class PublishAnnouncementOnTelegramChannelJob implements ShouldQueue
             return Inzerko::sendPhoto([
                 'caption'                   => $text,
                 'chat_id'                   => $chat->chat_id,
-                'photo'                     => $announcement->getFirstMediaUrl('announcements', 'responsive-images'),
+                'photo'                     => $announcement->getFirstMediaUrl('announcements', 'telegram'),
                 'parse_mode'                => 'HTML',
                 'disable_web_page_preview'  => 'true',
                 'reply_markup'              => $buttons,
