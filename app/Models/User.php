@@ -198,9 +198,20 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail, Bannabl
         return $unreadMessagesCount;
     }
 
+    public function getLanguagesAttribute(): array
+    {
+        $languages = json_decode($this->attributes['languages'], true);
+
+        if (is_array($languages) && ! empty($languages)) {
+            return $languages;
+        }
+
+        return [];
+    }
+
     public function isProfileFilled(): bool
     {
-        return ! is_null($this->languages) AND ! is_null($this->name); 
+        return ! is_null($this->languages) AND is_array($this->languages) AND ! empty($this->languages) AND ! is_null($this->name); 
     }
 
     public function isSuperAdmin(): bool

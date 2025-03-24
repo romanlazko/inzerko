@@ -13,13 +13,6 @@ class AnnouncementController extends Controller
     {
         $viewModel = new IndexViewModel($request);
 
-        // if ($viewModel->getCategory()?->parent_id == null AND $viewModel->getCategory()?->children->isNotEmpty() AND $viewModel->getCategory()?->children->first()->children->isEmpty()) {
-        //     return redirect()->route('announcement.index', [
-        //         'category' => $viewModel->getCategory()->children->first()->slug,
-        //         'data'   => $request->serializedData(),
-        //     ]);
-        // }
-
         return response()
             ->view('announcement.index', [
                 'announcements' => $viewModel->getAnnouncements(),
