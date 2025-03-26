@@ -24,6 +24,8 @@ class ProfileController extends Controller
                 'geo',
                 'votes',
             ])
+            ->isPublished()
+            ->isActive()
             ->orderBy('category_id')
             ->paginate(10);
 
