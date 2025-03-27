@@ -97,6 +97,7 @@ class Create extends Component implements HasForms
                                         ->maxFiles(9)
                                         ->appendFiles()
                                         ->image()
+                                        ->maxSize(5000)
                                         ->imagePreviewHeight('120')
                                         ->required(),
                                 ]),
