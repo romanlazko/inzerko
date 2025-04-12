@@ -68,6 +68,7 @@ class Moderation extends AdminAnnouncementTableLayout implements HasForms, HasTa
                     SpatieMediaLibraryImageColumn::make('image')
                         ->view('livewire.components.tables.columns.image-grid-column')
                         ->collection('announcements')
+                        ->conversion('telegram')
                         ->height(200)
                         ->extraAttributes(['class' => 'w-full']),
                     

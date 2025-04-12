@@ -73,7 +73,8 @@ class Announcements extends AdminAnnouncementTableLayout implements HasForms, Ha
                 TextColumn::make('id'),
 
                 SpatieMediaLibraryImageColumn::make('media')
-                    ->collection('announcements', 'thumb')
+                    ->collection('announcements')
+                    ->conversion('telegram')
                     ->limit(3)
                     ->wrap(),
 
